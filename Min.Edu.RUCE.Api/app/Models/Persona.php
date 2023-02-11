@@ -17,7 +17,5 @@ class Persona extends Model
         'apellido',
         'telefono',
         'email',
-        'fecha_creacion',
-        'fecha_actualizacion'
     ];
 }

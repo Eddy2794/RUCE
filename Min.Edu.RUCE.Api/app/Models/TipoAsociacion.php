@@ -12,7 +12,5 @@ class TipoAsociacion extends Model
     protected $primary_key = 'id';
     protected $fillable = [
         'descripcion',
-        'fecha_creacion',
-        'fecha_actualizacion',
     ];
 }

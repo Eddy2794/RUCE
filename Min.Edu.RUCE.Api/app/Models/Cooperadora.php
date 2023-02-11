@@ -21,6 +21,5 @@ class Cooperadora extends Model
         'legajo',
         'decreto',
         'fecha_creacion',
-        'fecha_actualizacion'
     ];
 }

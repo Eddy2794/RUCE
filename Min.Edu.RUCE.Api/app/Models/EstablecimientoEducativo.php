@@ -19,7 +19,5 @@ class EstablecimientoEducativo extends Model
         'email',
         'matricula',
         'domicilio',
-        'fecha_creacion',
-        'fecha_actualizacion'
     ];
 }
