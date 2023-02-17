@@ -13,15 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('lib_fondos_cooperar', function (Blueprint $table) {
+        Schema::create('lib_establecimiento_educativo', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('cue');
+            $table->string('region',20);
+            $table->string('nivel',20);
+            $table->string('localidad',100);
+            $table->string('departamento',100);
+            $table->string('email',100);
+            $table->string('domicilio',100);
 
-            $table->boolean('fondos_recibidos');
-            $table->boolean('fondos_rendidos');
-
-            $table->date('fecha_rendicion');
-
-            $table->integer('anio_otorgado');
+            $table->integer('telefono');
+            $table->integer('matricula');
 
             $table->unsignedInteger('fk_cooperadora');
             $table->foreign('fk_cooperadora')->references('id')->on('lib_cooperadora')->onDelete('cascade');
@@ -37,6 +40,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lib_fondos_cooperar');
+        Schema::dropIfExists('lib_establecimiento_educativo');
     }
 };

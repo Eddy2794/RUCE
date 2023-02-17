@@ -16,7 +16,8 @@ return new class extends Migration
         Schema::create('lib_balances', function (Blueprint $table) {
             $table->increments('id');
             $table->boolean('estado_balances')->default(true);
-            $table->date('fecha')->default(new DateTime().now());
+            //Investigar para que cargue la fecha actual automaticamente
+            $table->dateTime('fecha');
             $table->timestamps();
         });
     }
