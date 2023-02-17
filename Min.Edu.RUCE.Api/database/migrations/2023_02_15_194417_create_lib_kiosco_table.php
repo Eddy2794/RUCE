@@ -23,8 +23,6 @@ return new class extends Migration
 
             $table->date('periodo_inicio');
             $table->date('periodo_fin');
-
-            $table->timestamps();
         });
     }
 

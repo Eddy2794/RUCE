@@ -18,7 +18,7 @@ return new class extends Migration
             $table->boolean('estado_balances')->default(true);
             //Investigar para que cargue la fecha actual automaticamente
             $table->dateTime('fecha');
-            $table->timestamps();
+            
         });
     }
 

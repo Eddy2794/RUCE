@@ -9,8 +9,9 @@ class EstablecimientoEducativo extends Model
 {
     use HasFactory;
     protected $table = 'lib_establecimiento_educativo';
-    protected $primary_key = 'cue';
+    protected $primary_key = 'id';
     protected $fillable = [
+        'cue',
         'region',
         'nivel',
         'localidad',

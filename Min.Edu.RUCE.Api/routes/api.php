@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PersonaController;
+use App\Http\Controllers\AutoridadesEstablecimientoEducativoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,3 +17,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::apiResource('personas', PersonaController::class);
+Route::apiResource('autoridades_establecimiento_educativo', AutoridadesEstablecimientoEducativoController::class);

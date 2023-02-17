@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('lib_tipo_asociacion', function (Blueprint $table) {
             $table->increments('id');
             $table->string('descripcion');
-            $table->timestamps();
         });
     }
 

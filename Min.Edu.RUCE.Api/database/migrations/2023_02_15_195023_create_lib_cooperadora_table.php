@@ -34,7 +34,10 @@ return new class extends Migration
             $table->unsignedInteger('fk_kiosco');
             $table->foreign('fk_kiosco')->references('id')->on('lib_kiosco')->onDelete('cascade');
 
-            $table->timestamps();
+            $table->unsignedInteger('fk_establecimiento_educativo');
+            $table->foreign('fk_establecimiento_educativo')->references('id')->on('lib_establecimiento_educativo')->onDelete('cascade');
+
+            
         });
     }
 

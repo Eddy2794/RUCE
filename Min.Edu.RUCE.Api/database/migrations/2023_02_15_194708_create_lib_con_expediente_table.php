@@ -25,9 +25,7 @@ return new class extends Migration
             $table->dateTime('fecha');
 
             $table->unsignedInteger('fk_asociacion_civil');
-            $table->foreign('fk_asociacion_civil')->references('id')->on('lib_asociacion_civil')->onDelete('cascade');
-
-            $table->timestamps();
+            $table->foreign('fk_asociacion_civil')->references('id')->on('lib_asociacion_civil')->onDelete('cascade'); 
         });
     }
 

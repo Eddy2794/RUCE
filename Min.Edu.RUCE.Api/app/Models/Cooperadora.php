@@ -13,6 +13,8 @@ class Cooperadora extends Model
     protected $fillable = [
         'denominacion',
         'fk_tipo_asociacion',
+        'fk_kiosco',
+        'fk_establecimiento_educativo',
         'estado',
         'convenio_sc_economicas',
         'inscripcion_afip',

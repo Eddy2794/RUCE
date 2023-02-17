@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AutoridadesEstablecimientoEducativo;
+use ArrayObject;
 use Illuminate\Http\Request;
 
 class AutoridadesEstablecimientoEducativoController extends Controller
@@ -14,7 +15,7 @@ class AutoridadesEstablecimientoEducativoController extends Controller
      */
     public function index()
     {
-        //
+        return response(AutoridadesEstablecimientoEducativo::all());
     }
 
     /**
@@ -36,7 +37,7 @@ class AutoridadesEstablecimientoEducativoController extends Controller
      */
     public function show(AutoridadesEstablecimientoEducativo $autoridadesEstablecimientoEducativo)
     {
-        //
+        return response($autoridadesEstablecimientoEducativo);
     }
 
     /**
@@ -59,6 +60,7 @@ class AutoridadesEstablecimientoEducativoController extends Controller
      */
     public function destroy(AutoridadesEstablecimientoEducativo $autoridadesEstablecimientoEducativo)
     {
-        //
+        $autoridadesEstablecimientoEducativo->delete();
+        return response()->noContent();
     }
 }

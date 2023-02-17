@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('lib_establecimiento_educativo', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('cue');
+            $table->unique('cue');
             $table->string('region',20);
             $table->string('nivel',20);
             $table->string('localidad',100);
@@ -26,10 +27,7 @@ return new class extends Migration
             $table->integer('telefono');
             $table->integer('matricula');
 
-            $table->unsignedInteger('fk_cooperadora');
-            $table->foreign('fk_cooperadora')->references('id')->on('lib_cooperadora')->onDelete('cascade');
-
-            $table->timestamps();
+            
         });
     }
 

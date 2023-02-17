@@ -15,9 +15,7 @@ class PersonaController extends Controller
      */
     public function index()
     {
-        $personas = new ArrayObject();
-        $personas = Persona::all();
-        return response($personas);
+        return response(Persona::all());
     }
 
     /**
