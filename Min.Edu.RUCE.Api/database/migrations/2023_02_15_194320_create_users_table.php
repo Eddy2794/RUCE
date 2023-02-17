@@ -17,10 +17,8 @@ return new class extends Migration
             $table->increments('id');
             $table->string('nombre_usuario');
 
-            //$table->unsignedInteger(['fk_cuil','fk_email']);
-            $table->string('fk_email');
-            $table->unsignedInteger('fk_cuil');
-            $table->foreign(['fk_cuil','fk_email'])->references(['cuil','email'])->on('lib_persona')->onDelete('cascade');
+            $table->unsignedInteger('fk_persona');
+            $table->foreign(['fk_persona'])->references('id')->on('lib_persona')->onDelete('cascade');
 
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

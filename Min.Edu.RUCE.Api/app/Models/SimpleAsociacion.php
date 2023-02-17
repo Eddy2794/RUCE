@@ -14,4 +14,5 @@ class SimpleAsociacion extends Model
         'fk_tipo_asociacion',
         'descripcion',
     ];
+    public $timestamps = false;
 }

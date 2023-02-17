@@ -19,4 +19,5 @@ class SeguimientoAtencion extends Model
         'atencion_territorial',
         'fecha',
     ];
+    public $timestamps = false;
 }

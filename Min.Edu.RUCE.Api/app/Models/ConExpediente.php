@@ -19,4 +19,5 @@ class ConExpediente extends Model
         'fiscalia_estado',
         'fecha'
     ];
+    public $timestamps = false;
 }

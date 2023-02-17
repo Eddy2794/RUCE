@@ -19,12 +19,9 @@ return new class extends Migration
             $table->date('inicio_cargo');
             $table->date('fin_cargo')->nullable(true);
             $table->string('tipo_comision',30);
-
-            //$table->unsignedInteger('fk_persona');
-            //$table->foreign('fk_persona')->references('cuil')->on('lib_persona')->onDelete('cascade');
-            $table->string('fk_email');
-            $table->unsignedInteger('fk_cuil');
-            $table->foreign(['fk_cuil','fk_email'])->references(['cuil','email'])->on('lib_persona')->onDelete('cascade');
+            
+            $table->unsignedInteger('fk_persona');
+            $table->foreign('fk_persona')->references('id')->on('lib_persona')->onDelete('cascade');
 
             $table->unsignedInteger('fk_cooperadora');
             $table->foreign('fk_cooperadora')->references('id')->on('lib_cooperadora')->onDelete('cascade');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Persona;
+use ArrayObject;
 use Illuminate\Http\Request;
 
 class PersonaController extends Controller
@@ -14,7 +15,9 @@ class PersonaController extends Controller
      */
     public function index()
     {
-        //
+        $personas = new ArrayObject();
+        $personas = Persona::all();
+        return response($personas);
     }
 
     /**
@@ -25,7 +28,34 @@ class PersonaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //visualiza los datos que se estan mandando en el requiest de la peticion
+        // dd($request->all());
+
+        //validacion de la peticion de los datos del modelo
+        $request->validate([
+            'cuil' => 'required',
+            'email' =>'required',
+            'nombre' =>'required',
+            'apellido' =>'required',
+            'telefono' =>'required',
+        ]);
+
+        //instancia de una persona del model
+        $persona = new Persona();
+
+        //* TODO Agregar validaciones para el ingreso de cuil o email que ya se encuentren registrados
+
+        //asignacion de los datos provenientes del request hacia la instancia de persona
+        $persona->cuil = $request->cuil;
+        $persona->email = $request->email;
+        $persona->nombre = $request->nombre;
+        $persona->apellido = $request->apellido;
+        $persona->telefono = $request->telefono;
+
+        //generacion de registro en la base de datos
+        $persona->save();
+        
+        return response($persona);
     }
 
     /**
@@ -36,7 +66,8 @@ class PersonaController extends Controller
      */
     public function show(Persona $persona)
     {
-        //
+        //Visualiza los datos del objeto con el id obtenido como metodo
+        return response($persona);
     }
 
     /**
@@ -48,7 +79,27 @@ class PersonaController extends Controller
      */
     public function update(Request $request, Persona $persona)
     {
-        //
+        //visualiza los datos que se estan mandando en el requiest de la peticion
+        // dd($request->all());
+
+        //validacion de la peticion de los datos del modelo
+        $request->validate([
+            'cuil' => 'required',
+            'email' =>'required',
+            'nombre' =>'required',
+            'apellido' =>'required',
+            'telefono' =>'required',
+        ]);
+
+        //obtengo una persona desde la base de datos y los guardo en una varuable
+        $persona->update([
+                'nombre' => $request->nombre,
+                'apellido' => $request->apellido,
+                'telefono' => $request->telefono,
+                'email' => $request->email,
+            ]);
+
+        return response($persona);
     }
 
     /**
@@ -59,6 +110,8 @@ class PersonaController extends Controller
      */
     public function destroy(Persona $persona)
     {
-        //
+        //Elimina la persona con el id que viene como parametro
+        $persona->delete();
+        return response()->noContent();
     }
 }

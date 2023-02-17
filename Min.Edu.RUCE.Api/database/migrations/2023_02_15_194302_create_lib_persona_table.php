@@ -14,18 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('lib_persona', function (Blueprint $table) {
-            $table->integer('cuil');
+            $table->increments('id');
+            $table->bigInteger('cuil')->unique();
             $table->string('email');
-
-            // clave primaria compuesta
-            $table->primary(['cuil','email']);
-            
+            $table->unique('email');
             $table->string('nombre',30);
-            $table->string('apellido',30);
-            
-            $table->integer('telefono');
-
-            $table->timestamps();
+            $table->string('apellido',30);            
+            $table->bigInteger('telefono');
         });
     }
 

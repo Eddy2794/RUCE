@@ -18,4 +18,5 @@ class AutoridadesCooperadora extends Model
         'fin_cargo',
         'tipo_comision',
     ];
+    public $timestamps = false;
 }

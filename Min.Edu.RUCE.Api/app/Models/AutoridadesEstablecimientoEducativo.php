@@ -15,4 +15,5 @@ class AutoridadesEstablecimientoEducativo extends Model
         'fk_establecimiento_educativo',
         'cargo',
     ];
+    public $timestamps = false;
 }

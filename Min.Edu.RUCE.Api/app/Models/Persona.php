@@ -11,11 +11,13 @@ class Persona extends Model
     
 
     protected $table = 'lib_persona';
-    protected $primary_key = 'cuil';
+    protected $primary_key = 'id';
     protected $fillable = [
+        'cuil',
         'nombre',
         'apellido',
         'telefono',
         'email',
     ];
+    public $timestamps = false;
 }

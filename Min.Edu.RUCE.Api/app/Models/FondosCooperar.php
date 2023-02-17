@@ -18,4 +18,5 @@ class FondosCooperar extends Model
         'fecha_rendicion',
         'anio_otorgado'
     ];
+    public $timestamps = false;
 }

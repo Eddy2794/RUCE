@@ -20,4 +20,5 @@ class EstablecimientoEducativo extends Model
         'matricula',
         'domicilio',
     ];
+    public $timestamps = false;
 }

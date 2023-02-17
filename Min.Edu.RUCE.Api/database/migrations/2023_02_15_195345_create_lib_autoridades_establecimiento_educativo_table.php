@@ -17,11 +17,8 @@ return new class extends Migration
             $table->increments('id');
             $table->string('cargo',30);
 
-            //$table->unsignedInteger('fk_persona');
-            //$table->foreign('fk_persona')->references('cuil')->on('lib_persona')->onDelete('cascade');
-            $table->string('fk_email');
-            $table->unsignedInteger('fk_cuil');
-            $table->foreign(['fk_cuil','fk_email'])->references(['cuil','email'])->on('lib_persona')->onDelete('cascade');
+            $table->unsignedInteger('fk_persona');
+            $table->foreign('fk_persona')->references('id')->on('lib_persona')->onDelete('cascade');
 
             $table->unsignedInteger('fk_establecimiento_educativo');
             $table->foreign('fk_establecimiento_educativo')->references('id')->on('lib_establecimiento_educativo')->onDelete('cascade');
