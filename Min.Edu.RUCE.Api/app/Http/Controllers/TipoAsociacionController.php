@@ -14,7 +14,7 @@ class TipoAsociacionController extends Controller
      */
     public function index()
     {
-        //
+        return response(TipoAsociacion::all());
     }
 
     /**
@@ -25,7 +25,17 @@ class TipoAsociacionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'description' => 'required',
+        ]);
+    
+        $tipoAsociacion = new TipoAsociacion();
+        
+        $tipoAsociacion->description = $request->descripcion;
+
+        $tipoAsociacion->save();
+
+        return response($tipoAsociacion);
     }
 
     /**
@@ -36,7 +46,7 @@ class TipoAsociacionController extends Controller
      */
     public function show(TipoAsociacion $tipoAsociacion)
     {
-        //
+        return response($tipoAsociacion);
     }
 
     /**
@@ -48,7 +58,15 @@ class TipoAsociacionController extends Controller
      */
     public function update(Request $request, TipoAsociacion $tipoAsociacion)
     {
-        //
+        $request->validate([
+            'description' => 'required',
+        ]);
+        
+        $tipoAsociacion->update([
+            'description' => $request->description
+        ]);
+
+        return response($tipoAsociacion);
     }
 
     /**
@@ -59,6 +77,7 @@ class TipoAsociacionController extends Controller
      */
     public function destroy(TipoAsociacion $tipoAsociacion)
     {
-        //
+        $tipoAsociacion->delete();
+        return response()->noContent();
     }
 }

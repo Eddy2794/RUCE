@@ -31,11 +31,11 @@ class PersonaController extends Controller
 
         //validacion de la peticion de los datos del modelo
         $request->validate([
-            'cuil' => 'required',
+            'cuil' => 'required|min:8|max:8',
             'email' =>'required',
             'nombre' =>'required',
             'apellido' =>'required',
-            'telefono' =>'required',
+            'telefono' =>'required|min:10|max:13',
         ]);
 
         //instancia de una persona del model
@@ -89,7 +89,7 @@ class PersonaController extends Controller
             'telefono' =>'required',
         ]);
 
-        //obtengo una persona desde la base de datos y los guardo en una varuable
+        //obtengo una persona desde la base de datos y los guardo en una variable
         $persona->update([
                 'nombre' => $request->nombre,
                 'apellido' => $request->apellido,

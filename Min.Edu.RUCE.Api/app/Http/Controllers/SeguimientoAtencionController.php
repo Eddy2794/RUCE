@@ -14,7 +14,7 @@ class SeguimientoAtencionController extends Controller
      */
     public function index()
     {
-        //
+        return response(SeguimientoAtencion::all());
     }
 
     /**
@@ -25,7 +25,27 @@ class SeguimientoAtencionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'fk_cooperadora' => 'required',
+            'llamadas' => 'required',
+            'mensajes' => 'required',
+            'email_enviados' => 'required',
+            'atencion_oficina' => 'required',
+            'atencion_territorial' => 'required',
+            'fecha' => 'required',
+        ]);
+
+        $seguimientoAtencion = new SeguimientoAtencion();
+
+        $seguimientoAtencion->fk_cooperadora = $request->fk_cooperadora;
+        $seguimientoAtencion->llamadas = $request->llamadas;
+        $seguimientoAtencion->mensajes = $request->mensajes;
+        $seguimientoAtencion->email_enviados = $request->email_enviados;
+        $seguimientoAtencion->atencion_oficina = $request->atencion_oficina;
+        $seguimientoAtencion->atencion_territorial = $request->atencion_territorial;
+        $seguimientoAtencion->fecha = $request->fecha;
+
+        return response($seguimientoAtencion);
     }
 
     /**
@@ -36,7 +56,7 @@ class SeguimientoAtencionController extends Controller
      */
     public function show(SeguimientoAtencion $seguimientoAtencion)
     {
-        //
+        return response($seguimientoAtencion);
     }
 
     /**
@@ -48,7 +68,23 @@ class SeguimientoAtencionController extends Controller
      */
     public function update(Request $request, SeguimientoAtencion $seguimientoAtencion)
     {
-        //
+        $request->validate([
+            'llamadas' => 'required',
+            'mensajes' => 'required',
+            'email_enviados' => 'required',
+            'atencion_oficina' => 'required',
+            'atencion_territorial' => 'required',
+        ]);
+
+        $seguimientoAtencion->update([
+            'llamadas' => $request->llamadas,
+            'mensajes' => $request->mensajes,
+            'email_enviados' => $request->email_enviados,
+            'atencion_oficina' => $request->atencion_oficina,
+            'atencion_territorial' => $request->atencion_territorial,
+        ]);
+
+        return response($seguimientoAtencion);
     }
 
     /**
@@ -59,6 +95,7 @@ class SeguimientoAtencionController extends Controller
      */
     public function destroy(SeguimientoAtencion $seguimientoAtencion)
     {
-        //
+        $seguimientoAtencion->delete();
+        return response($seguimientoAtencion);
     }
 }

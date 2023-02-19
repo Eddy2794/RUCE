@@ -14,7 +14,7 @@ class AsociacionCivilController extends Controller
      */
     public function index()
     {
-        //
+        return response(AsociacionCivil::all());
     }
 
     /**
@@ -25,7 +25,19 @@ class AsociacionCivilController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'fk_tipo_asociacion' => 'required',
+            'descipcion' => 'required',
+        ]);
+
+        $asociacionCivil = new AsociacionCivil();
+
+        $asociacionCivil->fk_tipo_asociacion = $request->fk_asociacion_civil;
+        $asociacionCivil->descipcion = $request->descipcion;
+
+        $asociacionCivil->save();
+
+        return response($asociacionCivil);
     }
 
     /**
@@ -36,7 +48,7 @@ class AsociacionCivilController extends Controller
      */
     public function show(AsociacionCivil $asociacionCivil)
     {
-        //
+        return response($asociacionCivil);
     }
 
     /**
@@ -48,7 +60,17 @@ class AsociacionCivilController extends Controller
      */
     public function update(Request $request, AsociacionCivil $asociacionCivil)
     {
-        //
+        $request->validate([
+            'fk_tipo_asociacion' => 'required',
+            'descipcion' => 'required',
+        ]);
+
+        $asociacionCivil->update([
+            'fk_tipo_asociacion' => $request->fk_tipo_asociacion,
+            'descipcion' => $request->descipcion,
+        ]);
+
+        return response($asociacionCivil);
     }
 
     /**
@@ -59,6 +81,7 @@ class AsociacionCivilController extends Controller
      */
     public function destroy(AsociacionCivil $asociacionCivil)
     {
-        //
+        $asociacionCivil->delete();
+        return response()->noContent();
     }
 }

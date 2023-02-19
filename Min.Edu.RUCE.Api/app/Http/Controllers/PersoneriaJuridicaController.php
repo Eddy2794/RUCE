@@ -14,7 +14,7 @@ class PersoneriaJuridicaController extends Controller
      */
     public function index()
     {
-        //
+        return response(PersoneriaJuridica::all());
     }
 
     /**
@@ -25,7 +25,21 @@ class PersoneriaJuridicaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'fk_asociacion_civil',
+            'estado_comision_directiva',
+            'estado_resolucion',
+        ]);
+
+        $personeriaJuridica = new PersoneriaJuridica();
+
+        $personeriaJuridica->fk_asociacion_civil = $request->fk_asociacion_civil;
+        $personeriaJuridica->estado_comision_directiva = $request->estado_comision_directiva;
+        $personeriaJuridica->estado_resolucion = $request->estado->resolucion;
+
+        $personeriaJuridica->save();
+
+        return response($personeriaJuridica);
     }
 
     /**
@@ -36,7 +50,7 @@ class PersoneriaJuridicaController extends Controller
      */
     public function show(PersoneriaJuridica $personeriaJuridica)
     {
-        //
+        return response($personeriaJuridica);
     }
 
     /**
@@ -48,7 +62,17 @@ class PersoneriaJuridicaController extends Controller
      */
     public function update(Request $request, PersoneriaJuridica $personeriaJuridica)
     {
-        //
+        $request->validate([
+            'estado_comision_directiva',
+            'estado_resolucion',
+        ]);
+
+        $personeriaJuridica->update([
+            'estado_comision_directiva' => $request->estado_comision_directiva,
+            'estado_resolucion' => $request->estado->resolucion,
+        ]);
+
+        return response($personeriaJuridica);
     }
 
     /**
@@ -59,6 +83,7 @@ class PersoneriaJuridicaController extends Controller
      */
     public function destroy(PersoneriaJuridica $personeriaJuridica)
     {
-        //
+        $personeriaJuridica->delete();
+        return response()->noContent();
     }
 }

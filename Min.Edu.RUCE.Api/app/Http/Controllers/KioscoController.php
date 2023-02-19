@@ -14,7 +14,7 @@ class KioscoController extends Controller
      */
     public function index()
     {
-        //
+        return response(Kiosco::all());
     }
 
     /**
@@ -25,7 +25,25 @@ class KioscoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'responsable' => 'required',
+            'acceso_licitacion' => 'required',
+            'documentacion_presentada' => 'required',
+            'periodo_inicio' => 'required',
+            'periodo_fin' => 'required',
+        ]);
+
+        $kiosco = new Kiosco();
+
+        $kiosco->responsable = $request->responsable;
+        $kiosco->acceso_licitacion = $request->acceso_licitacion;
+        $kiosco->documentacion_presentada = $request->documentacion_presentada;
+        $kiosco->periodo_inicio = $request->periodo_inicio;
+        $kiosco->periodo_fin = $request->periodo_fin;
+
+        $kiosco->save();
+
+        return response($kiosco);
     }
 
     /**
@@ -36,7 +54,7 @@ class KioscoController extends Controller
      */
     public function show(Kiosco $kiosco)
     {
-        //
+        return response($kiosco);
     }
 
     /**
@@ -48,7 +66,23 @@ class KioscoController extends Controller
      */
     public function update(Request $request, Kiosco $kiosco)
     {
-        //
+        $request->validate([
+            'responsable' => 'required',
+            'acceso_licitacion' => 'required',
+            'documentacion_presentada' => 'required',
+            'periodo_inicio' => 'required',
+            'periodo_fin' => 'required',
+        ]);
+
+        $kiosco->update([
+            'responsable' => $request->responsable,
+            'acceso_licitacion' => $request->acceso_licitacion,
+            'documentacion_presentada' => $request->documentacion_presentada,
+            'periodo_inicio' => $request->periodo_inicio,
+            'periodo_fin' => $request->periodo_fin,
+        ]);
+
+        return response($kiosco);
     }
 
     /**
@@ -59,6 +93,7 @@ class KioscoController extends Controller
      */
     public function destroy(Kiosco $kiosco)
     {
-        //
+        $kiosco->delete();
+        return response()->noContent();
     }
 }

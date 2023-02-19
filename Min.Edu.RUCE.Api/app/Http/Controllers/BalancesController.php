@@ -14,7 +14,7 @@ class BalancesController extends Controller
      */
     public function index()
     {
-        //
+        return response(Balances::all());
     }
 
     /**
@@ -25,7 +25,21 @@ class BalancesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'fk_personeria_juridica' => 'required',
+            'estado_balances' => 'required',
+            'fecha' => 'required',
+        ]);
+
+        $balances = new Balances();
+
+        $balances->fk_personeria_juridica = $request->fk_personeria_juridica;
+        $balances->estado_balances = $request->estado_balances;
+        $balances->fecha = $request->fecha;
+
+        $balances->save();
+
+        return response($balances);
     }
 
     /**
@@ -36,7 +50,7 @@ class BalancesController extends Controller
      */
     public function show(Balances $balances)
     {
-        //
+        return response($balances);
     }
 
     /**
@@ -48,7 +62,17 @@ class BalancesController extends Controller
      */
     public function update(Request $request, Balances $balances)
     {
-        //
+        $request->validate([
+            'estado_balances' => 'required',
+            'fecha' => 'required',
+        ]);
+
+        $balances->update([
+            'estado_balances' => $request->estado_balances,
+            'fecha' => $request->fecha,
+        ]);
+
+        return response($balances);
     }
 
     /**
@@ -59,6 +83,7 @@ class BalancesController extends Controller
      */
     public function destroy(Balances $balances)
     {
-        //
+        $balances->delete();
+        return response()->noContent();
     }
 }

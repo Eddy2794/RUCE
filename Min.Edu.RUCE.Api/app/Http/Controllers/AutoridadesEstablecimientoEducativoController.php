@@ -26,7 +26,25 @@ class AutoridadesEstablecimientoEducativoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //validacion de la preticion de los datos
+        $request->validate([
+            'fk_persona' =>'required',
+            'fk_establecimiento_educativo' =>'required',
+            'cargo' =>'required',
+        ]);
+
+        //instancia de una autoridad del model
+        $autoridadeEE = new AutoridadesEstablecimientoEducativo();
+
+        //asigmacion de los datos profvenientes del requies hacia la instancia de autoridad
+        $autoridadeEE->cargo = $request->cargo;
+        $autoridadeEE->fk_persona = $request->fk_persona;
+        $autoridadeEE->fk_establecimiento_educativo = $request->fk_establecimiento_educativo;
+
+        //generacion de registro en la base de datos
+        $autoridadeEE->save();
+
+        return response($autoridadeEE);
     }
 
     /**
@@ -47,9 +65,23 @@ class AutoridadesEstablecimientoEducativoController extends Controller
      * @param  \App\Models\AutoridadesEstablecimientoEducativo  $autoridadesEstablecimientoEducativo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, AutoridadesEstablecimientoEducativo $autoridadesEstablecimientoEducativo)
+    public function update(Request $request, AutoridadesEstablecimientoEducativo $autoridadeEE)
     {
-        //
+        //validacion de la preticion de los datos
+        $request->validate([
+            'fk_persona' =>'required',
+            'fk_establecimiento_educativo' =>'required',
+            'cargo' =>'required',
+        ]);
+
+        //obtengo una autoridad establecimiento educativo desde la base de datos y actualizo sus datos
+        $autoridadeEE->update([
+            'cargo' => $request->cargo,
+            'fk_persona' => $request->fk_persona,
+            'fk_establecimiento_educativo' => $request->fk_establecimiento_educativo,
+        ]);
+
+        return response($autoridadeEE);
     }
 
     /**

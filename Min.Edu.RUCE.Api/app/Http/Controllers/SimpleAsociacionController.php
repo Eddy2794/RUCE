@@ -14,7 +14,7 @@ class SimpleAsociacionController extends Controller
      */
     public function index()
     {
-        //
+        return response(SimpleAsociacion::all());
     }
 
     /**
@@ -25,7 +25,17 @@ class SimpleAsociacionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'fk_tipo_asociacion' => 'required',
+            'descripcion' => 'required',
+        ]);
+
+        $simpleAsociacion = new SimpleAsociacion();
+
+        $simpleAsociacion->fk_tipo_asociacion = $request->fk_tipo_asociacion;
+        $simpleAsociacion->descripcion = $request->descripcion;
+
+        return response($simpleAsociacion);
     }
 
     /**
@@ -36,7 +46,7 @@ class SimpleAsociacionController extends Controller
      */
     public function show(SimpleAsociacion $simpleAsociacion)
     {
-        //
+        return response($simpleAsociacion);
     }
 
     /**
@@ -48,7 +58,13 @@ class SimpleAsociacionController extends Controller
      */
     public function update(Request $request, SimpleAsociacion $simpleAsociacion)
     {
-        //
+        $request->validate([
+            'descripcion' => 'required',
+        ]);
+
+        $simpleAsociacion->update($request->only(['descripcion']));
+
+        return response($simpleAsociacion);
     }
 
     /**
@@ -59,6 +75,7 @@ class SimpleAsociacionController extends Controller
      */
     public function destroy(SimpleAsociacion $simpleAsociacion)
     {
-        //
+        $simpleAsociacion->delete();
+        return response()->noContent();
     }
 }

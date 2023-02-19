@@ -14,7 +14,7 @@ class ConExpedienteController extends Controller
      */
     public function index()
     {
-        //
+        return response(ConExpediente::all());
     }
 
     /**
@@ -25,7 +25,29 @@ class ConExpedienteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'fk_asociacion_civil' => 'required',
+            'nro_expediente' => 'required',
+            'observaciones' => 'required',
+            'observaciones_respondidas' => 'required',
+            'instrumento_publico' => 'required',
+            'fiscalida_estado' => 'required',
+            'fecha' => 'required',
+        ]);
+
+        $conExpediente = new ConExpediente();
+
+        $conExpediente->fk_asociacion_civil = $request->fk_asociacion_civil;
+        $conExpediente->nro_expediente = $request->nro_expediente;
+        $conExpediente->observaciones = $request->observaciones;
+        $conExpediente->observaciones_respondidas = $request->observaciones_respondidas;
+        $conExpediente->instrumento_publico = $request->instrumento_publico;
+        $conExpediente->fiscalida_estado = $request->fiscalias_estado;
+        $conExpediente->fecha = $request->fecha;
+
+        $conExpediente->save();
+
+        return response($conExpediente);
     }
 
     /**
@@ -36,7 +58,7 @@ class ConExpedienteController extends Controller
      */
     public function show(ConExpediente $conExpediente)
     {
-        //
+        return response($conExpediente);
     }
 
     /**
@@ -48,7 +70,27 @@ class ConExpedienteController extends Controller
      */
     public function update(Request $request, ConExpediente $conExpediente)
     {
-        //
+        $request->validate([
+            'fk_asociacion_civil' => 'required',
+            'nro_expediente' => 'required',
+            'observaciones' => 'required',
+            'observaciones_respondidas' => 'required',
+            'instrumento_publico' => 'required',
+            'fiscalida_estado' => 'required',
+            'fecha' => 'required',
+        ]);
+
+        $conExpediente->update([
+            'fk_asociacion_civil' => $request->fk_asociacion_civil,
+            'nro_expediente' => $request->nro_expediente,
+            'observaciones' => $request->observaciones,
+            'observaciones_respondidas' => $request->observaciones_respondidas,
+            'instrumento_publico' => $request->instrumento_publico,
+            'fiscalida_estado' => $request->fiscalida_estado,
+            'fecha' => $request->fecha,
+        ]);
+
+        return response($conExpediente);
     }
 
     /**
@@ -59,6 +101,7 @@ class ConExpedienteController extends Controller
      */
     public function destroy(ConExpediente $conExpediente)
     {
-        //
+        $conExpediente->delete();
+        return response()->noContent();
     }
 }
