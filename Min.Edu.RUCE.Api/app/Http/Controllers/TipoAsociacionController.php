@@ -26,12 +26,12 @@ class TipoAsociacionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'description' => 'required',
+            'descripcion' => 'required',
         ]);
     
         $tipoAsociacion = new TipoAsociacion();
         
-        $tipoAsociacion->description = $request->descripcion;
+        $tipoAsociacion->descripcion = $request->descripcion;
 
         $tipoAsociacion->save();
 
@@ -59,11 +59,11 @@ class TipoAsociacionController extends Controller
     public function update(Request $request, TipoAsociacion $tipoAsociacion)
     {
         $request->validate([
-            'description' => 'required',
+            'descripcion' => 'required',
         ]);
         
         $tipoAsociacion->update([
-            'description' => $request->description
+            'descripcion' => $request->descripion
         ]);
 
         return response($tipoAsociacion);

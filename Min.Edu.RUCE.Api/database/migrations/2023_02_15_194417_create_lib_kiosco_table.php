@@ -18,8 +18,8 @@ return new class extends Migration
             
             $table->string('responsable',100);
             
-            $table->boolean('acceso_licitacion');
-            $table->boolean('documentacion_presentada');
+            $table->boolean('acceso_licitacion')->default(false);
+            $table->boolean('documentacion_presentada')->default(false);
 
             $table->date('periodo_inicio');
             $table->date('periodo_fin');

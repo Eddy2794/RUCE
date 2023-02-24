@@ -27,23 +27,23 @@ class ConExpedienteController extends Controller
     {
         $request->validate([
             'fk_asociacion_civil' => 'required',
-            'nro_expediente' => 'required',
-            'observaciones' => 'required',
-            'observaciones_respondidas' => 'required',
-            'instrumento_publico' => 'required',
-            'fiscalida_estado' => 'required',
-            'fecha' => 'required',
+            'nro_expediente' => 'required'
         ]);
 
         $conExpediente = new ConExpediente();
 
         $conExpediente->fk_asociacion_civil = $request->fk_asociacion_civil;
         $conExpediente->nro_expediente = $request->nro_expediente;
-        $conExpediente->observaciones = $request->observaciones;
-        $conExpediente->observaciones_respondidas = $request->observaciones_respondidas;
-        $conExpediente->instrumento_publico = $request->instrumento_publico;
-        $conExpediente->fiscalida_estado = $request->fiscalias_estado;
-        $conExpediente->fecha = $request->fecha;
+        if($request->observaciones)
+            $conExpediente->observaciones = $request->observaciones;
+        if($request->observaciones_respondidas)
+            $conExpediente->observaciones_respondidas = $request->observaciones_respondidas;
+        if($request->instrumento_publico)
+            $conExpediente->instrumento_publico = $request->instrumento_publico;
+        if($request->fiscalia_estado)
+            $conExpediente->fiscalia_estado = $request->fiscalia_estado;
+        if($request->fecha)
+            $conExpediente->fecha = $request->fecha;
 
         $conExpediente->save();
 

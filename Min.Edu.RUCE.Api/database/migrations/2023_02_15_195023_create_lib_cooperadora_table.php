@@ -18,26 +18,37 @@ return new class extends Migration
 
             $table->string('denominacion',100);
             $table->string('estado',30);
-            $table->string('legajo',30);
-            $table->string('decreto',30);
-            
-            $table->boolean('convenio_sc_economicas');
-            $table->boolean('inscripcion_afip');
-            $table->boolean('inscripcion_rentas');
-            $table->boolean('inscripcion_renacopes');
-            
-            $table->date('fecha_creacion');
-            
+            $table->string('legajo',30)->nullable();
+            $table->string('decreto',30)->nullable();
+
+            $table->boolean('convenio_sc_economicas')->default(false);
+            $table->boolean('inscripcion_afip')->default(false);
+            $table->boolean('inscripcion_rentas')->default(false);
+            $table->boolean('inscripcion_renacopes')->default(false);
+
+            $table->date('fecha_creacion')->nullable();
+
             $table->unsignedInteger('fk_tipo_asociacion');
-            $table->foreign('fk_tipo_asociacion')->references('id')->on('lib_tipo_asociacion')->onDelete('cascade');
+            $table->foreign('fk_tipo_asociacion')
+                  ->references('id')
+                  ->nullable()
+                  ->on('lib_tipo_asociacion')
+                  ->onDelete('cascade');
 
             $table->unsignedInteger('fk_kiosco');
-            $table->foreign('fk_kiosco')->references('id')->on('lib_kiosco')->onDelete('cascade');
+            $table->foreign('fk_kiosco')
+                  ->references('id')
+                  ->nullable()
+                  ->on('lib_kiosco')
+                  ->onDelete('cascade');
 
             $table->unsignedInteger('fk_establecimiento_educativo');
-            $table->foreign('fk_establecimiento_educativo')->references('id')->on('lib_establecimiento_educativo')->onDelete('cascade');
+            $table->foreign('fk_establecimiento_educativo')
+                  ->references('id')
+                  ->nullable()
+                  ->on('lib_establecimiento_educativo')
+                  ->onDelete('cascade');
 
-            
         });
     }
 

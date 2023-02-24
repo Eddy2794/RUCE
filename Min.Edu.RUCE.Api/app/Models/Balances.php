@@ -15,5 +15,6 @@ class Balances extends Model
         'estado_balances',
         'fecha',
     ];
-    public $timestamps = false;
+    protected $dateformat = 'Y-m-d'; // yyyy-mm-dd
+    // public $timestamps = false;
 }

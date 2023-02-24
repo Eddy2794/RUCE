@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -16,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('lib_con_expediente', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nro_expediente',100);
+            $table->string('nro_expediente',100)->nullable();
             $table->boolean('observaciones')->default(false);
             $table->boolean('observaciones_respondidas')->default(false);
             $table->boolean('instrumento_publico')->default(false);
@@ -25,7 +24,12 @@ return new class extends Migration
             $table->dateTime('fecha');
 
             $table->unsignedInteger('fk_asociacion_civil');
-            $table->foreign('fk_asociacion_civil')->references('id')->on('lib_asociacion_civil')->onDelete('cascade'); 
+            $table->foreign('fk_asociacion_civil')
+                  ->references('id')
+                  ->on('lib_asociacion_civil')
+                  ->onDelete('cascade'); 
+
+            // $table->timestamp('created')->useCurrent();
         });
     }
 

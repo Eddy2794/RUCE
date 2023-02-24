@@ -25,15 +25,15 @@ class AsociacionCivilController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'fk_tipo_asociacion' => 'required',
-            'descipcion' => 'required',
-        ]);
+        // $request->validate([
+        //     'fk_tipo_asociacion' => 'required',
+        //     'descipcion' => 'required',
+        // ]);
 
         $asociacionCivil = new AsociacionCivil();
 
-        $asociacionCivil->fk_tipo_asociacion = $request->fk_asociacion_civil;
-        $asociacionCivil->descipcion = $request->descipcion;
+        $asociacionCivil->fk_tipo_asociacion = $request->fk_tipo_asociacion;
+        $asociacionCivil->descripcion = $request->descripcion;
 
         $asociacionCivil->save();
 

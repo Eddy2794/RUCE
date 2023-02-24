@@ -25,20 +25,22 @@ class CooperadoraController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'fk_tipo_asociacion' => 'required',
-            'fk_kiosco' => 'required',
-            'fk_establecimiento_educativo' => 'required',
-            'denominacion' => 'required',
-            'estado' => 'required',
-            'convenio_sc_economicas' => 'required',
-            'iscripcion_afip' => 'required',
-            'inscipcion_rentas' => 'required',
-            'inscripcion_renacopes' => 'required',
-            'legajo' => 'required',
-            'decreto' => 'required',
-            'fecha_creacion' => 'required',
-        ]);
+        //visualiza los datos que se estan mandando en el requiest de la peticion
+        // dd($request->all());
+        // $request->validate([
+        //     'fk_tipo_asociacion' => 'required',
+        //     'fk_kiosco' => 'required',
+        //     'fk_establecimiento_educativo' => 'required',
+        //     'denominacion' => 'required',
+        //     'estado' => 'required',
+        //     'convenio_sc_economicas' => 'required',
+        //     'inscripcion_afip' => 'required',
+        //     'inscripcion_rentas' => 'required',
+        //     'inscripcion_renacopes' => 'required',
+        //     'legajo' => 'required',
+        //     'decreto' => 'required',
+        //     'fecha_creacion' => 'required',
+        // ]);
 
         $cooperadora = new Cooperadora();
 
@@ -48,9 +50,9 @@ class CooperadoraController extends Controller
         $cooperadora->denominacion = $request->denominacion;
         $cooperadora->estado = $request->estado;
         $cooperadora->convenio_sc_economicas = $request->convenio_sc_economicas;
-        $cooperadora->iscripcion_afip = $request->iscripcion_afip;
-        $cooperadora->inscipcion_rentas = $request->inscripcion_rentas;
-        $cooperadora->inscipcion_renacopes = $request->inscripcion_renacopes;
+        $cooperadora->inscripcion_afip = $request->inscripcion_afip;
+        $cooperadora->inscripcion_rentas = $request->inscripcion_rentas;
+        $cooperadora->inscripcion_renacopes = $request->inscripcion_renacopes;
         $cooperadora->legajo = $request->legajo;
         $cooperadora->decreto = $request->decreto;
         $cooperadora->fecha_creacion = $request->fecha_creacion;
@@ -87,8 +89,8 @@ class CooperadoraController extends Controller
             'denominacion' => 'required',
             'estado' => 'required',
             'convenio_sc_economicas' => 'required',
-            'iscripcion_afip' => 'required',
-            'inscipcion_rentas' => 'required',
+            'inscripcion_afip' => 'required',
+            'inscripcion_rentas' => 'required',
             'inscripcion_renacopes' => 'required',
             'legajo' => 'required',
             'decreto' => 'required',
@@ -102,8 +104,8 @@ class CooperadoraController extends Controller
             'denominacion' => $request->denominacion,
             'estado' => $request->estado,
             'convenio_sc_economicas' => $request->convenio_sc_economicas,
-            'iscripcion_afip' => $request->iscripcion_afip,
-            'inscipcion_rentas' => $request->inscripcion_rentas,
+            'inscripcion_afip' => $request->iscripcion_afip,
+            'inscripcion_rentas' => $request->inscripcion_rentas,
             'inscripcion_renacopes' => $request->inscripcion_renacopes,
             'legajo' => $request->legajo,
             'decreto' => $request->decreto,
