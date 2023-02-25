@@ -4,6 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+use \Carbon\Carbon;
 return new class extends Migration
 {
     /**
@@ -21,7 +22,8 @@ return new class extends Migration
             $table->boolean('instrumento_publico')->default(false);
             $table->boolean('fiscalia_estado')->default(false);
             //Investigar para que cargue la fecha actual automaticamente
-            $table->dateTime('fecha');
+            $table->dateTime('fecha')->default(Carbon::createFromFormat('Y-m-d H:i:s',Carbon::now())
+                                     ->format('d-m-Y'));
 
             $table->unsignedInteger('fk_asociacion_civil');
             $table->foreign('fk_asociacion_civil')

@@ -26,16 +26,16 @@ class PersoneriaJuridicaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'fk_asociacion_civil',
-            'estado_comision_directiva',
-            'estado_resolucion',
+            'fk_asociacion_civil'
         ]);
 
         $personeriaJuridica = new PersoneriaJuridica();
 
         $personeriaJuridica->fk_asociacion_civil = $request->fk_asociacion_civil;
-        $personeriaJuridica->estado_comision_directiva = $request->estado_comision_directiva;
-        $personeriaJuridica->estado_resolucion = $request->estado->resolucion;
+        if($request->estado_comision_directiva)
+            $personeriaJuridica->estado_comision_directiva = $request->estado_comision_directiva;
+        if($request->estado_resolucion)
+            $personeriaJuridica->estado_resolucion = $request->estado_resolucion;
 
         $personeriaJuridica->save();
 
@@ -69,7 +69,7 @@ class PersoneriaJuridicaController extends Controller
 
         $personeriaJuridica->update([
             'estado_comision_directiva' => $request->estado_comision_directiva,
-            'estado_resolucion' => $request->estado->resolucion,
+            'estado_resolucion' => $request->estado_resolucion,
         ]);
 
         return response($personeriaJuridica);

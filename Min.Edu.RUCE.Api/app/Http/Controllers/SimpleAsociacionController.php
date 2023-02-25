@@ -35,6 +35,8 @@ class SimpleAsociacionController extends Controller
         $simpleAsociacion->fk_tipo_asociacion = $request->fk_tipo_asociacion;
         $simpleAsociacion->descripcion = $request->descripcion;
 
+        $simpleAsociacion->save();
+
         return response($simpleAsociacion);
     }
 

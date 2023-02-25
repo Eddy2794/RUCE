@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Balances;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class BalancesController extends Controller
@@ -27,15 +28,18 @@ class BalancesController extends Controller
     {
         $request->validate([
             'fk_personeria_juridica' => 'required',
-            'estado_balances' => 'required',
-            'fecha' => 'required',
         ]);
+        
+        //visualiza los datos que se estan mandando en el requiest de la peticion
+        // dd($request->all());
 
         $balances = new Balances();
 
         $balances->fk_personeria_juridica = $request->fk_personeria_juridica;
-        $balances->estado_balances = $request->estado_balances;
-        $balances->fecha = $request->fecha;
+        if($request->estado_balances)
+            $balances->estado_balances = $request->estado_balances;
+        if($request->fecha)
+            $balances->fecha = $request->fecha;
 
         $balances->save();
 
