@@ -31,7 +31,7 @@ class PersonaController extends Controller
 
         //validacion de la peticion de los datos del modelo
         $request->validate([
-            'cuil' => 'required|min:8|max:8',
+            'cuil' => 'required|min:8|max:11',
             'email' =>'required',
             'nombre' =>'required',
             'apellido' =>'required',

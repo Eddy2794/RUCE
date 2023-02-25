@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('lib_establecimiento_educativo', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('cue');
+            $table->biginteger('cue');
             $table->unique('cue');
             $table->string('region',20);
             $table->string('nivel',20);
@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('email',100);
             $table->string('domicilio',100);
 
-            $table->integer('telefono');
+            $table->biginteger('telefono');
             $table->integer('matricula');
 
             

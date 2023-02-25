@@ -21,8 +21,8 @@ return new class extends Migration
             $table->boolean('acceso_licitacion')->default(false);
             $table->boolean('documentacion_presentada')->default(false);
 
-            $table->date('periodo_inicio');
-            $table->date('periodo_fin');
+            $table->date('periodo_inicio')->nullable();
+            $table->date('periodo_fin')->nullable();
         });
     }
 

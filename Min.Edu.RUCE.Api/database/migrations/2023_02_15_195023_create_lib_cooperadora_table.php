@@ -17,7 +17,7 @@ return new class extends Migration
             $table->increments('id');
 
             $table->string('denominacion',100);
-            $table->string('estado',30);
+            $table->string('estado',30)->nullable();
             $table->string('legajo',30)->nullable();
             $table->string('decreto',30)->nullable();
 
@@ -31,21 +31,18 @@ return new class extends Migration
             $table->unsignedInteger('fk_tipo_asociacion');
             $table->foreign('fk_tipo_asociacion')
                   ->references('id')
-                  ->nullable()
                   ->on('lib_tipo_asociacion')
                   ->onDelete('cascade');
 
             $table->unsignedInteger('fk_kiosco');
             $table->foreign('fk_kiosco')
                   ->references('id')
-                  ->nullable()
                   ->on('lib_kiosco')
                   ->onDelete('cascade');
 
             $table->unsignedInteger('fk_establecimiento_educativo');
             $table->foreign('fk_establecimiento_educativo')
                   ->references('id')
-                  ->nullable()
                   ->on('lib_establecimiento_educativo')
                   ->onDelete('cascade');
 

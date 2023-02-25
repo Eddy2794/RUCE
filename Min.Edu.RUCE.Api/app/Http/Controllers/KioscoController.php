@@ -27,19 +27,19 @@ class KioscoController extends Controller
     {
         $request->validate([
             'responsable' => 'required',
-            'acceso_licitacion' => 'required',
-            'documentacion_presentada' => 'required',
-            'periodo_inicio' => 'required',
-            'periodo_fin' => 'required',
         ]);
 
         $kiosco = new Kiosco();
 
         $kiosco->responsable = $request->responsable;
-        $kiosco->acceso_licitacion = $request->acceso_licitacion;
-        $kiosco->documentacion_presentada = $request->documentacion_presentada;
-        $kiosco->periodo_inicio = $request->periodo_inicio;
-        $kiosco->periodo_fin = $request->periodo_fin;
+        if($request->acceso_licitacion)
+            $kiosco->acceso_licitacion = $request->acceso_licitacion;
+        if($request->documentacion_presentada)
+            $kiosco->documentacion_presentada = $request->documentacion_presentada;
+        if($request->periodo_inicio)
+            $kiosco->periodo_inicio = $request->periodo_inicio;
+        if($request->periodo_fin)
+            $kiosco->periodo_fin = $request->periodo_fin;
 
         $kiosco->save();
 

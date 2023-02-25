@@ -27,20 +27,20 @@ class CooperadoraController extends Controller
     {
         //visualiza los datos que se estan mandando en el requiest de la peticion
         // dd($request->all());
-        // $request->validate([
-        //     'fk_tipo_asociacion' => 'required',
-        //     'fk_kiosco' => 'required',
-        //     'fk_establecimiento_educativo' => 'required',
-        //     'denominacion' => 'required',
-        //     'estado' => 'required',
-        //     'convenio_sc_economicas' => 'required',
-        //     'inscripcion_afip' => 'required',
-        //     'inscripcion_rentas' => 'required',
-        //     'inscripcion_renacopes' => 'required',
-        //     'legajo' => 'required',
-        //     'decreto' => 'required',
-        //     'fecha_creacion' => 'required',
-        // ]);
+        $request->validate([
+            'fk_tipo_asociacion' => 'required',
+            'fk_kiosco' => 'required',
+            'fk_establecimiento_educativo' => 'required',
+            'denominacion' => 'required',
+            // 'estado' => 'required',
+            // 'convenio_sc_economicas' => 'required',
+            // 'inscripcion_afip' => 'required',
+            // 'inscripcion_rentas' => 'required',
+            // 'inscripcion_renacopes' => 'required',
+            // 'legajo' => 'required',
+            // 'decreto' => 'required',
+            // 'fecha_creacion' => 'required',
+        ]);
 
         $cooperadora = new Cooperadora();
 
@@ -48,14 +48,22 @@ class CooperadoraController extends Controller
         $cooperadora->fk_kiosco = $request->fk_kiosco;
         $cooperadora->fk_establecimiento_educativo = $request->fk_establecimiento_educativo;
         $cooperadora->denominacion = $request->denominacion;
-        $cooperadora->estado = $request->estado;
-        $cooperadora->convenio_sc_economicas = $request->convenio_sc_economicas;
-        $cooperadora->inscripcion_afip = $request->inscripcion_afip;
-        $cooperadora->inscripcion_rentas = $request->inscripcion_rentas;
-        $cooperadora->inscripcion_renacopes = $request->inscripcion_renacopes;
-        $cooperadora->legajo = $request->legajo;
-        $cooperadora->decreto = $request->decreto;
-        $cooperadora->fecha_creacion = $request->fecha_creacion;
+        if($request->estado)
+            $cooperadora->estado = $request->estado;
+        if($request->convenio_sc_economicas)
+            $cooperadora->convenio_sc_economicas = $request->convenio_sc_economicas;
+        if($request->inscripcion_afip)
+            $cooperadora->inscripcion_afip = $request->inscripcion_afip;
+        if($request->inscripcion_rentas)
+            $cooperadora->inscripcion_rentas = $request->inscripcion_rentas;
+        if($request->inscripcion_renacopes)
+            $cooperadora->inscripcion_renacopes = $request->inscripcion_renacopes;
+        if($request->legajo)
+            $cooperadora->legajo = $request->legajo;
+        if($request->decreto)
+            $cooperadora->decreto = $request->decreto;
+        if($request->fecha_creacion)
+            $cooperadora->fecha_creacion = $request->fecha_creacion;
 
         $cooperadora->save();
 
