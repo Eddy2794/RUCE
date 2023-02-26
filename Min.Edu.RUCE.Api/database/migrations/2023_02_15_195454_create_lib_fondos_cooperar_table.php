@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('lib_fondos_cooperar', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->boolean('fondos_recibidos');
-            $table->boolean('fondos_rendidos');
-            $table->boolean('estado_rendicion');
+            $table->boolean('fondos_recibidos')->default(false);
+            $table->boolean('fondos_rendidos')->default(false);
+            $table->boolean('estado_rendicion')->default(false);
 
-            $table->date('fecha_rendicion');
+            $table->date('fecha_rendicion')->nullable();
 
             $table->integer('anio_otorgado');
 

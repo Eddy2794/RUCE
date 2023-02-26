@@ -17,7 +17,7 @@ return new class extends Migration
             $table->increments('id');
             $table->string('cargo',30);
             $table->date('inicio_cargo');
-            $table->date('fin_cargo')->nullable(true);
+            $table->date('fin_cargo');
             $table->string('tipo_comision',30);
             
             $table->unsignedInteger('fk_persona');
