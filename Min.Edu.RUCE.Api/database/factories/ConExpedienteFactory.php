@@ -22,7 +22,7 @@ class ConExpedienteFactory extends Factory
 
             'fk_asociacion_civil' => $this->faker->randomElement(AsociacionCivil::all()->getQueueableIds()),
             
-            'fecha' => $this->faker->date("d-m-Y"),
+            'fecha' => $this->faker->date("Y-m-d"),
 
             'observaciones' => $this->faker->randomElement([true,false]),
             'observaciones_respondidas' => $this->faker->randomElement([false,true]),
