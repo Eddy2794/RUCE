@@ -16,5 +16,5 @@ class Balances extends Model
         'fecha',
     ];
     //protected $dateformat = 'Y-m-d';  yyyy-mm-dd
-    public $timestamps = false;
+    //public $timestamps = false;
 }

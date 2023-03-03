@@ -20,7 +20,7 @@ class BalancesFactory extends Factory
         return [
             'fk_personeria_juridica' => $this->faker->randomElement(PersoneriaJuridica::all()->getQueueableIds()),
             'estado_balances' => $this->faker->randomElement([true,false]),
-            'fecha' => $this->faker->date("Y-m-d")
+            'fecha' => $this->faker->date("d-m-Y")
         ];
     }
 }

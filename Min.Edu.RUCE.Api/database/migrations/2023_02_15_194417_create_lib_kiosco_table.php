@@ -23,6 +23,7 @@ return new class extends Migration
 
             $table->date('periodo_inicio')->nullable();
             $table->date('periodo_fin')->nullable();
+            $table->timestamps();
         });
     }
 

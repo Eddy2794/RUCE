@@ -14,5 +14,5 @@ class AsociacionCivil extends Model
         'fk_tipo_asociacion',
         'descripcion',
     ];
-    public $timestamps = false;
+    //public $timestamps = false;
 }

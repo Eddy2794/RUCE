@@ -15,5 +15,5 @@ class PersoneriaJuridica extends Model
         'estado_comision_directiva',
         'estado_resolucion'
     ];
-    public $timestamps = false;
+    //public $timestamps = false;
 }

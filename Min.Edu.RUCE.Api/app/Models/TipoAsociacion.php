@@ -13,5 +13,5 @@ class TipoAsociacion extends Model
     protected $fillable = [
         'descripcion',
     ];
-    public $timestamps = false;
+    // //public $timestamps = false;
 }

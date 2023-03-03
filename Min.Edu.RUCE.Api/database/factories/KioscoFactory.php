@@ -20,8 +20,8 @@ class KioscoFactory extends Factory
             'responsable' => $this->faker->lastName().', '.$this->faker->name(),
             'acceso_licitacion' => $this->faker->randomElement([true,false]),
             'documentacion_presentada' => $this->faker->randomElement([true,false]),
-            'periodo_inicio' => $this->faker->date("Y-m-d"),
-            'periodo_fin' => $this->faker->date("Y-m-d"),
+            'periodo_inicio' => $this->faker->date("d-m-Y"),
+            'periodo_fin' => $this->faker->date("d-m-Y"),
 
         ];
     }

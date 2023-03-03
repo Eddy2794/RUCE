@@ -21,6 +21,7 @@ return new class extends Migration
 
             $table->unsignedInteger('fk_asociacion_civil');
             $table->foreign('fk_asociacion_civil')->references('id')->on('lib_asociacion_civil')->onDelete('cascade'); 
+            $table->timestamps();
         });
     }
 

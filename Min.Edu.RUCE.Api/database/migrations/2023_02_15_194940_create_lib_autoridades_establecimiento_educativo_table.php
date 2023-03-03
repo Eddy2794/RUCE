@@ -22,6 +22,7 @@ return new class extends Migration
 
             $table->unsignedInteger('fk_establecimiento_educativo');
             $table->foreign('fk_establecimiento_educativo')->references('id')->on('lib_establecimiento_educativo')->onDelete('cascade');
+            $table->timestamps();
 
             
         });

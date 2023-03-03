@@ -17,5 +17,5 @@ class Kiosco extends Model
         'periodo_inicio',
         'periodo_fin'
     ];
-    public $timestamps = false;
+    //public $timestamps = false;
 }

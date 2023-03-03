@@ -40,32 +40,34 @@ class DatabaseSeeder extends Seeder
         //     TipoAsociacionSeeder::class,
         // ]);
 
-        TipoAsociacion::factory(10)->create();
+        $cant_registros = 10;
 
-        SimpleAsociacion::factory(10)->create();
+        TipoAsociacion::factory($cant_registros)->create();
 
-        AsociacionCivil::factory(10)->create();
+        SimpleAsociacion::factory($cant_registros)->create();
 
-        PersoneriaJuridica::factory(10)->create();
+        AsociacionCivil::factory($cant_registros)->create();
 
-        Balances::factory(10)->create();
+        PersoneriaJuridica::factory($cant_registros)->create();
 
-        ConExpediente::factory(10)->create();
+        Balances::factory($cant_registros)->create();
 
-        Persona::factory(10)->create();
+        ConExpediente::factory($cant_registros)->create();
 
-        Kiosco::factory(10)->create();
+        Persona::factory($cant_registros)->create();
 
-        EstablecimientoEducativo::factory(10)->create();
+        Kiosco::factory($cant_registros)->create();
 
-        AutoridadesEstablecimientoEducativo::factory(10)->create();
+        EstablecimientoEducativo::factory($cant_registros)->create();
 
-        Cooperadora::factory(10)->create();
+        AutoridadesEstablecimientoEducativo::factory($cant_registros)->create();
 
-        AutoridadesCooperadora::factory(10)->create();
+        Cooperadora::factory($cant_registros)->create();
 
-        SeguimientoAtencion::factory(10)->create();
+        AutoridadesCooperadora::factory($cant_registros)->create();
 
-        FondosCooperar::factory(10)->create();
+        SeguimientoAtencion::factory($cant_registros)->create();
+
+        FondosCooperar::factory($cant_registros)->create();
     }
 }

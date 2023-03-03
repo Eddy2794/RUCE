@@ -31,7 +31,7 @@ return new class extends Migration
                   ->on('lib_asociacion_civil')
                   ->onDelete('cascade'); 
 
-            // $table->timestamp('created')->useCurrent();
+            $table->timestamps();
         });
     }
 

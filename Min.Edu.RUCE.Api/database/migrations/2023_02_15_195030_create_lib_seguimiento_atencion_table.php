@@ -26,6 +26,7 @@ return new class extends Migration
 
             $table->unsignedInteger('fk_cooperadora');
             $table->foreign('fk_cooperadora')->references('id')->on('lib_cooperadora')->onDelete('cascade');
+            $table->timestamps();
 
             
         });

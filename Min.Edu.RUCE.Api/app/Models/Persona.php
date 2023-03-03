@@ -19,5 +19,5 @@ class Persona extends Model
         'telefono',
         'email',
     ];
-    public $timestamps = false;
+    //public $timestamps = false;
 }

@@ -45,6 +45,7 @@ return new class extends Migration
                   ->references('id')
                   ->on('lib_establecimiento_educativo')
                   ->onDelete('cascade');
+            $table->timestamps();
 
         });
     }

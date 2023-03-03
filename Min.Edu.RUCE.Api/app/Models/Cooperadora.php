@@ -24,5 +24,5 @@ class Cooperadora extends Model
         'decreto',
         'fecha_creacion',
     ];
-    public $timestamps = false;
+    //public $timestamps = false;
 }
