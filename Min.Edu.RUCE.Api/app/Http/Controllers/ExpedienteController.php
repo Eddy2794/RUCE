@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ConExpediente;
+use App\Models\Expediente;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class ConExpedienteController extends Controller
+class ExpedienteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,7 @@ class ConExpedienteController extends Controller
      */
     public function index()
     {
-        return response(ConExpediente::all());
+        return response(Expediente::all());
     }
 
     /**
@@ -26,82 +27,82 @@ class ConExpedienteController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'fk_asociacion_civil' => 'required',
-            'nro_expediente' => 'required'
+            'nro_expediente' => 'required',
+            'observaciones' => 'required',
+            'observaciones_respondidas' => 'required',
+            'instrumento_publico' => 'required',
         ]);
 
-        $conExpediente = new ConExpediente();
+        $expediente = new Expediente();
 
-        $conExpediente->fk_asociacion_civil = $request->fk_asociacion_civil;
-        $conExpediente->nro_expediente = $request->nro_expediente;
+        $expediente->nro_expediente = $request->nro_expediente;
         if($request->observaciones)
-            $conExpediente->observaciones = $request->observaciones;
+            $expediente->observaciones = $request->observaciones;
         if($request->observaciones_respondidas)
-            $conExpediente->observaciones_respondidas = $request->observaciones_respondidas;
+            $expediente->observaciones_respondidas = $request->observaciones_respondidas;
         if($request->instrumento_publico)
-            $conExpediente->instrumento_publico = $request->instrumento_publico;
+            $expediente->instrumento_publico = $request->instrumento_publico;
         if($request->fiscalia_estado)
-            $conExpediente->fiscalia_estado = $request->fiscalia_estado;
+            $expediente->fiscalia_estado = $request->fiscalia_estado;
+        if($request->nro_resolucion)
+            $expediente->nro_resolucion = $request->nro_resolucion;
         if($request->fecha)
-            $conExpediente->fecha = $request->fecha;
+            $expediente->fecha = $request->fecha;
 
-        $conExpediente->save();
+        $expediente->save();
 
-        return response($conExpediente);
+        return response($expediente);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\ConExpediente  $conExpediente
+     * @param  \App\Models\Expediente  $expediente
      * @return \Illuminate\Http\Response
      */
-    public function show(ConExpediente $conExpediente)
+    public function show(Expediente $expediente)
     {
-        return response($conExpediente);
+        return response($expediente);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ConExpediente  $conExpediente
+     * @param  \App\Models\Expediente  $expediente
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ConExpediente $conExpediente)
+    public function update(Request $request, Expediente $expediente)
     {
         $request->validate([
-            'fk_asociacion_civil' => 'required',
             'nro_expediente' => 'required',
             'observaciones' => 'required',
             'observaciones_respondidas' => 'required',
             'instrumento_publico' => 'required',
-            'fiscalida_estado' => 'required',
-            'fecha' => 'required',
         ]);
 
-        $conExpediente->update([
-            'fk_asociacion_civil' => $request->fk_asociacion_civil,
+        $expediente->update([
             'nro_expediente' => $request->nro_expediente,
             'observaciones' => $request->observaciones,
             'observaciones_respondidas' => $request->observaciones_respondidas,
             'instrumento_publico' => $request->instrumento_publico,
             'fiscalida_estado' => $request->fiscalida_estado,
-            'fecha' => $request->fecha,
+            'nro_resolucion' => $request->fiscalida_estado,
+            'fecha' => Carbon::createFromFormat('Y-m-d H:i:s',Carbon::now())->format('d-m-Y'),
         ]);
 
-        return response($conExpediente);
+        return response($expediente);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\ConExpediente  $conExpediente
+     * @param  \App\Models\Expediente  $expediente
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ConExpediente $conExpediente)
+    public function destroy(Expediente $expediente)
     {
-        $conExpediente->delete();
+        $expediente->delete();
         return response()->noContent();
     }
 }

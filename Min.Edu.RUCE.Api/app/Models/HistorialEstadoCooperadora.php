@@ -5,14 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AsociacionCivil extends Model
+class HistorialEstadoCooperadora extends Model
 {
     use HasFactory;
-    protected $table = 'lib_asociacion_civil';
+    protected $table = 'lib_historial_estado_cooperadora';
     protected $primary_key = 'id';
     protected $fillable = [
-        'fk_tipo_asociacion',
-        'descripcion',
+        'fk_cooperadora_tipo_asociacion',
+        'fk_expediente',
     ];
-    //public $timestamps = false;
 }

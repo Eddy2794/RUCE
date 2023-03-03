@@ -11,10 +11,9 @@ class Cooperadora extends Model
     protected $table = 'lib_cooperadora';
     protected $primary_key = 'id';
     protected $fillable = [
-        'denominacion',
-        'fk_tipo_asociacion',
         'fk_kiosco',
         'fk_establecimiento_educativo',
+        'denominacion',
         'estado',
         'convenio_sc_economicas',
         'inscripcion_afip',

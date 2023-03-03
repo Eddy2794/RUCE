@@ -29,7 +29,6 @@ class CooperadoraFactory extends Factory
             'inscripcion_rentas' => $this->faker->randomElement([true,false]),
             'inscripcion_renacopes' => $this->faker->randomElement([true,false]),
             'fecha_creacion' => $this->faker->date(),
-            'fk_tipo_asociacion' => $this->faker->randomElement(TipoAsociacion::all()->getQueueableIds()),
             'fk_kiosco' => $this->faker->unique()->randomElement(Kiosco::all()->getQueueableIds()),
             'fk_establecimiento_educativo' => $this->faker->randomElement(EstablecimientoEducativo::all()->getQueueableIds()),
         ];

@@ -2,13 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\AsociacionCivil;
+use App\Models\TipoAsociacion;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ConExpediente>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Expediente>
  */
-class ConExpedienteFactory extends Factory
+class ExpedienteFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,17 +17,17 @@ class ConExpedienteFactory extends Factory
      */
     public function definition()
     {
+        $valor=$this->faker->randomElement([false,true]);
         return [
             'nro_expediente' => 'exp. nro 0'.strval($this->faker->unique()->numerify("###")),
-
-            'fk_asociacion_civil' => $this->faker->randomElement(AsociacionCivil::all()->getQueueableIds()),
             
             'fecha' => $this->faker->date("d-m-Y"),
 
             'observaciones' => $this->faker->randomElement([true,false]),
             'observaciones_respondidas' => $this->faker->randomElement([false,true]),
             'instrumento_publico' => $this->faker->randomElement([true,false]),
-            'fiscalia_estado' => $this->faker->randomElement([false,true])
+            'fiscalia_estado' => $valor? $this->faker->randomElement([false,true]):null,
+            'nro_resolucion' => !$valor? strval($this->faker->numerify('###')).$this->faker->randomAscii():null
         ];
     }
 }

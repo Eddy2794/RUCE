@@ -28,23 +28,16 @@ class CooperadoraController extends Controller
         //visualiza los datos que se estan mandando en el requiest de la peticion
         // dd($request->all());
         $request->validate([
-            'fk_tipo_asociacion' => 'required',
             'fk_kiosco' => 'required',
             'fk_establecimiento_educativo' => 'required',
             'denominacion' => 'required',
-            // 'estado' => 'required',
-            // 'convenio_sc_economicas' => 'required',
-            // 'inscripcion_afip' => 'required',
-            // 'inscripcion_rentas' => 'required',
-            // 'inscripcion_renacopes' => 'required',
-            // 'legajo' => 'required',
-            // 'decreto' => 'required',
-            // 'fecha_creacion' => 'required',
+            'decreto' => 'required',
+            'estado' => 'required',
+            'legajo' => 'required',
         ]);
 
         $cooperadora = new Cooperadora();
 
-        $cooperadora->fk_tipo_asociacion = $request->fk_tipo_asociacion;
         $cooperadora->fk_kiosco = $request->fk_kiosco;
         $cooperadora->fk_establecimiento_educativo = $request->fk_establecimiento_educativo;
         $cooperadora->denominacion = $request->denominacion;
@@ -91,7 +84,6 @@ class CooperadoraController extends Controller
     public function update(Request $request, Cooperadora $cooperadora)
     {
         $request->validate([
-            'fk_tipo_asociacion' => 'required',
             'fk_kiosco' => 'required',
             'fk_establecimiento_educativo' => 'required',
             'denominacion' => 'required',
@@ -102,11 +94,9 @@ class CooperadoraController extends Controller
             'inscripcion_renacopes' => 'required',
             'legajo' => 'required',
             'decreto' => 'required',
-            'fecha_creacion' => 'required',
         ]);
 
         $cooperadora->update([
-            'fk_tipo_asociacion' => $request->fk_tipo_asociacion,
             'fk_kiosco' => $request->fk_kiosco,
             'fk_establecimiento_educativo' => $request->fk_establecimiento_educativo,
             'denominacion' => $request->denominacion,
@@ -117,7 +107,6 @@ class CooperadoraController extends Controller
             'inscripcion_renacopes' => $request->inscripcion_renacopes,
             'legajo' => $request->legajo,
             'decreto' => $request->decreto,
-            'fecha_creacion' => $request->fecha_creacion,
         ]);
 
         return response($cooperadora);

@@ -4,20 +4,18 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\AsociacionCivil;
 use App\Models\AutoridadesCooperadora;
 use App\Models\AutoridadesEstablecimientoEducativo;
-use App\Models\Balances;
-use App\Models\ConExpediente;
+use App\Models\Expediente;
 use App\Models\Cooperadora;
+use App\Models\CooperadoraTipoAsociacion;
 use App\Models\EstablecimientoEducativo;
 use App\Models\FondosCooperar;
+use App\Models\HistorialEstadoCooperadora;
 use App\Models\Kiosco;
 use App\Models\Persona;
-use App\Models\PersoneriaJuridica;
+use App\Models\Personeria;
 use App\Models\SeguimientoAtencion;
-use App\Models\TipoAsociacion;
-use App\Models\SimpleAsociacion;
 use App\Models\Usuario;
 use Illuminate\Database\Seeder;
 
@@ -40,19 +38,15 @@ class DatabaseSeeder extends Seeder
         //     TipoAsociacionSeeder::class,
         // ]);
 
+        //Ejecucion de Seeders
+
+        $this->call([
+            TipoAsociacionTableSeeder::class,
+        ]);
+
+        //Ejecucion de Factories
+
         $cant_registros = 10;
-
-        TipoAsociacion::factory($cant_registros)->create();
-
-        SimpleAsociacion::factory($cant_registros)->create();
-
-        AsociacionCivil::factory($cant_registros)->create();
-
-        PersoneriaJuridica::factory($cant_registros)->create();
-
-        Balances::factory($cant_registros)->create();
-
-        ConExpediente::factory($cant_registros)->create();
 
         Persona::factory($cant_registros)->create();
 
@@ -69,5 +63,13 @@ class DatabaseSeeder extends Seeder
         SeguimientoAtencion::factory($cant_registros)->create();
 
         FondosCooperar::factory($cant_registros)->create();
+
+        CooperadoraTipoAsociacion::factory($cant_registros)->create();
+
+        Expediente::factory($cant_registros)->create();
+
+        Personeria::factory($cant_registros)->create();
+
+        HistorialEstadoCooperadora::factory($cant_registros)->create();
     }
 }

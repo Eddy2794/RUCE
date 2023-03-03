@@ -28,12 +28,6 @@ return new class extends Migration
 
             $table->date('fecha_creacion')->nullable();
 
-            $table->unsignedInteger('fk_tipo_asociacion');
-            $table->foreign('fk_tipo_asociacion')
-                  ->references('id')
-                  ->on('lib_tipo_asociacion')
-                  ->onDelete('cascade');
-
             $table->unsignedInteger('fk_kiosco');
             $table->foreign('fk_kiosco')
                   ->references('id')
