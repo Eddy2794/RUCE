@@ -41,6 +41,8 @@ class DatabaseSeeder extends Seeder
         //Ejecucion de Seeders
 
         $this->call([
+            PersonaSeeder::class,
+            UsuarioAdministradorSeeder::class,
             TipoAsociacionTableSeeder::class,
         ]);
 
@@ -49,6 +51,8 @@ class DatabaseSeeder extends Seeder
         $cant_registros = 10;
 
         Persona::factory($cant_registros)->create();
+        
+        Usuario::factory($cant_registros)->create();
 
         Kiosco::factory($cant_registros)->create();
 

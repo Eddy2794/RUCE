@@ -1,3 +1,12 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Usuario;
+use Illuminate\Http\Request;
+
+
+class UsuarioController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,8 +28,7 @@
     {
         $request->validate([
             'fk_persona' => 'required',
-            'nombre_usuario' => 'required',
-            'email' => 'required',
+            'username' => 'required',
             'password' => 'required'
         ]);
 
@@ -28,8 +36,9 @@
 
         $usuario->fk_persona = $request->fk_persona;
         $usuario->nombre_usuario = $request->nombre_usuario;
-        $usuario->email = $request->email;
         $usuario->password = $request->password;
+        if($request->administrador)
+            $usuario->administrador = $request->administrador;
 
         $usuario->save();
 
@@ -57,18 +66,23 @@
     public function update(Request $request, Usuario $usuario)
     {
         $request->validate([
-            'fk_persona' => 'required',
-            'nombre_usuario' => 'required',
-            'email' => 'required',
+            'username' => 'required',
             'password' => 'required'
         ]);
 
-        $usuario->update([
-            'fk_persona' =>  $request->fk_persona,
-            'nombre_usuario' => $request->nombre_usuario,
-            'email' => $request->email,
-            'password' => $request->password,
-        ]);
+        if($usuario->username == $request->username)
+            $usuario->update([
+                'password' => $request->password,
+            ]);
+        elseif($usuario->password == $request->password)
+            $usuario->update([
+                'username' => $request->username,
+            ]);
+        else
+            $usuario->update([
+                'password' => $request->password,
+                'username' => $usuario->username,
+            ]);
 
         return response($usuario);
     }
