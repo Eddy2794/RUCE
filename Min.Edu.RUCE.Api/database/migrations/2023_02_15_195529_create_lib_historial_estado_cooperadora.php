@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('lib_historial_estado_cooperadora', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
 
             $table->unsignedInteger('fk_cooperadora_tipo_asociacion');
             $table->foreign('fk_cooperadora_tipo_asociacion')
