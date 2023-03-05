@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TipoAsociacionModel } from 'src/app/models/TipoAsociacion/tipo-asociacion-model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TipoAsociacionService {
 
-  baseUrl = 'http://127.0.0.1:8000/api/tipo_asociacion';
+  baseUrl = environment.apiUrl+'tipo_asociacion';
 
   constructor(private http: HttpClient) { }
 

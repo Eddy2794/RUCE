@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CooperadoraTipoAsociacionModel } from 'src/app/models/CooperadoraTipoAsociacion/cooperadora-tipo-asociacion-model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CooperadoraTipoAsociacionService {
 
-  baseUrl = 'http://127.0.0.1:8000/api/coop_tipo_asociacion';
+  baseUrl = environment.apiUrl+'coop_tipo_asociacion';
 
   constructor(private http: HttpClient) { }
 

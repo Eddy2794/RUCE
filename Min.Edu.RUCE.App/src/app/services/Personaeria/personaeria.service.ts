@@ -8,7 +8,7 @@ import { PersoneriaModel } from 'src/app/models/Personeria/personeria-model';
 })
 export class PersonaeriaService {
 
-  baseUrl = 'http://127.0.0.1:8000/api/personerias';
+  baseUrl = environment.apiUrl+'personerias';
 
   constructor(private http: HttpClient) { }
 

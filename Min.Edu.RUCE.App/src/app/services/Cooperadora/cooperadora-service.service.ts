@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CooperadoraModel } from 'src/app/models/Cooperadora/cooperadora-model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CooperadoraServiceService {
 
-  baseUrl = 'http://127.0.0.1:8000/api/cooperadora';
+  baseUrl = environment.apiUrl+'cooperadora';
 
   constructor(private http: HttpClient) { }
 

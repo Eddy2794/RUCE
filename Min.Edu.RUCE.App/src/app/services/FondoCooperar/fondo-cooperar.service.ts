@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { FondosCooperarModel } from 'src/app/models/FondosCooperar/fondos-cooperar-model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FondoCooperarService {
 
-  baseUrl = 'http://127.0.0.1:8000/api/fondos_cooperar';
+  baseUrl = environment.apiUrl+'fondos_cooperar';
 
   constructor(private http: HttpClient) { }
 

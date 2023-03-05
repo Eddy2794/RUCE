@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { HistorialEstadoCooperadoraModel } from 'src/app/models/HistorialEstadoCooperadora/historial-estado-cooperadora-model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HistorialEstadoCooperadoraService {
 
-  baseUrl = 'http://127.0.0.1:8000/api/historial_estado_coop';
+  baseUrl = environment.apiUrl+'historial_estado_coop';
 
   constructor(private http: HttpClient) { }
 

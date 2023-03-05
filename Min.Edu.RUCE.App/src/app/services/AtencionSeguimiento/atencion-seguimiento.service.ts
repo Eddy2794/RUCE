@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { SeguimientoAtencionModel } from 'src/app/models/SeguimientoAtencion/seguimiento-atencion-model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AtencionSeguimientoService {
 
-  baseUrl = 'http://127.0.0.1:8000/api/seguimiento_atencion';
+  baseUrl = environment.apiUrl+'seguimiento_atencion';
 
   constructor(private http: HttpClient) { }
 

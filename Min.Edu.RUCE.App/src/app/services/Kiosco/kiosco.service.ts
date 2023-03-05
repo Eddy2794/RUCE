@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { KioscoModel } from 'src/app/models/Kiosco/kiosco-model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class KioscoService {
 
-  baseUrl = 'http://127.0.0.1:8000/api/kiosco';
+  baseUrl = environment.apiUrl+'kiosco';
 
   constructor(private http: HttpClient) { }
 

@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AutoridadCooperadoraModel } from 'src/app/models/AutoridadCooperadora/autoridad-cooperadora-model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AutoridadCooperadoraService {
 
-  baseUrl = 'http://127.0.0.1:8000/api/autoridades_cooperadora';
+  baseUrl = environment.apiUrl+'autoridades_cooperadora';
 
   constructor(private http: HttpClient) { }
 

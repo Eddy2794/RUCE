@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ExpedienteModel } from 'src/app/models/Expediente/expediente-model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ExpedienteService {
 
-  baseUrl = 'http://127.0.0.1:8000/api/expedientes';
+  baseUrl = environment.apiUrl+'expedientes';
 
   constructor(private http: HttpClient) { }
 
