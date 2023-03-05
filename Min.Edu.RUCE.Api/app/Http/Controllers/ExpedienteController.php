@@ -36,16 +36,19 @@ class ExpedienteController extends Controller
         $expediente = new Expediente();
 
         $expediente->nro_expediente = $request->nro_expediente;
+        
         if($request->observaciones)
             $expediente->observaciones = $request->observaciones;
         if($request->observaciones_respondidas)
             $expediente->observaciones_respondidas = $request->observaciones_respondidas;
         if($request->instrumento_publico)
             $expediente->instrumento_publico = $request->instrumento_publico;
+
         if($request->fiscalia_estado)
             $expediente->fiscalia_estado = $request->fiscalia_estado;
         if($request->nro_resolucion)
             $expediente->nro_resolucion = $request->nro_resolucion;
+            
         if($request->fecha)
             $expediente->fecha = $request->fecha;
 
