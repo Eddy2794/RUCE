@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+// import { AngularFaviconService } from 'angular-favicon';
 
 @Component({
   selector: 'app-establecimiento',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EstablecimientoComponent implements OnInit {
 
-  constructor() { }
+  // constructor(private ngxFavicon: AngularFaviconService) {}
+   constructor(){}
 
   ngOnInit(): void {
+    // this.ngxFavicon.setFavicon(favicon_url);
   }
 
 }
