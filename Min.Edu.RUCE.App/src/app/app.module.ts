@@ -1,22 +1,32 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { EstablecimientoComponent } from './components/establecimiento/establecimiento.component';
-import { PersonasComponent } from './components/personas/personas.component';
-import { AutoridadesEstablecimientoComponent } from './components/autoridades-establecimiento/autoridades-establecimiento.component';
+
+//* Rutas Sub-Modulos
+import { AppRoutingModule } from './app-routing.module';
+import { RuceRoutingModule } from './ruce/ruce-routing.module';
+import { EstablecimientosRoutingModule } from './establecimientos/establecimientos-routing.module';
+
+//* Sub-Modulos
+import { RUCEModule } from './ruce/ruce.module';
+import { EstablecimientosModule } from './establecimientos/establecimientos.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    EstablecimientoComponent,
-    PersonasComponent,
-    AutoridadesEstablecimientoComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+
+    //* Rutas Sub-Modulos
+    AppRoutingModule,
+    RuceRoutingModule,
+    EstablecimientosRoutingModule,
+
+    //* Sub-Modulos
+    EstablecimientosModule,
+    RUCEModule
   ],
   providers: [],
   bootstrap: [AppComponent]
