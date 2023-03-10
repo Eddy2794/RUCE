@@ -1,4 +1,4 @@
-import { EstablecimientoModel } from '../../../establecimientos/models/Establecimiento/establecimiento-model';
+import { EstablecimientoModel } from '../Establecimiento/establecimiento-model';
 import { KioscoModel } from './../Kiosco/kiosco-model';
 export class CooperadoraModel {
     _id!: number;

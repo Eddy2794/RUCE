@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CooperadoraTipoAsociacion;
-use Carbon\Carbon;
+use App\Models\HistorialCooperadora;
 use Illuminate\Http\Request;
 
-class CooperadoraTipoAsociacionController extends Controller
+class HistorialCooperadoraController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +14,7 @@ class CooperadoraTipoAsociacionController extends Controller
      */
     public function index()
     {
-        return response(CooperadoraTipoAsociacion::all());
+        return response(HistorialCooperadora::all());
     }
 
     /**
@@ -31,61 +30,66 @@ class CooperadoraTipoAsociacionController extends Controller
         $request->validate([
             'fk_tipo_asociacion' => 'required',
             'fk_cooperadora' => 'required',
+            'fk_expediente' => 'required',
         ]);
 
-        $cooperadoraTipoAsociacion = new CooperadoraTipoAsociacion();
+        $HistorialCooperadora = new HistorialCooperadora();
 
-        $cooperadoraTipoAsociacion->fk_tipo_asociacion = $request->fk_tipo_asociacion;
-        $cooperadoraTipoAsociacion->fk_cooperadora = $request->fk_cooperadora;
+        $HistorialCooperadora->fk_tipo_asociacion = $request->fk_tipo_asociacion;
+        $HistorialCooperadora->fk_cooperadora = $request->fk_cooperadora;
+        $HistorialCooperadora->fk_expediente = $request->fk_expediente;
+        if($request->fecha)
+            $HistorialCooperadora->fecha = $request->fecha;
 
-        $cooperadoraTipoAsociacion->save();
+        $HistorialCooperadora->save();
 
-        return response($cooperadoraTipoAsociacion);
+        return response($HistorialCooperadora);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\CooperadoraTipoAsociacion  $cooperadoraTipoAsociacion
+     * @param  \App\Models\HistorialCooperadora  $HistorialCooperadora
      * @return \Illuminate\Http\Response
      */
-    public function show(CooperadoraTipoAsociacion $cooperadoraTipoAsociacion)
+    public function show(HistorialCooperadora $HistorialCooperadora)
     {
-        return response($cooperadoraTipoAsociacion);
+        return response($HistorialCooperadora);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\CooperadoraTipoAsociacion  $cooperadoraTipoAsociacion
+     * @param  \App\Models\HistorialCooperadora  $HistorialCooperadora
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CooperadoraTipoAsociacion $cooperadoraTipoAsociacion)
+    public function update(Request $request, HistorialCooperadora $HistorialCooperadora)
     {
         $request->validate([
             'fk_tipo_asociacion' => 'required',
             'fk_cooperadora' => 'required',
+            'fk_expediente' => 'required',
         ]);
 
-        $cooperadoraTipoAsociacion->update([
+        $HistorialCooperadora->update([
             'fk_tipo_asociacion' => $request->fk_tipo_asociacion,
             'fk_cooperadora' => $request->fk_kiosco,
-            'fecha' => Carbon::createFromFormat('Y-m-d H:i:s',Carbon::now())->format('d-m-Y'),
+            'fk_expediente' => $request->fk_expediente,
         ]);
 
-        return response($cooperadoraTipoAsociacion);
+        return response($HistorialCooperadora);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\CooperadoraTipoAsociacion  $cooperadoraTipoAsociacion
+     * @param  \App\Models\HistorialCooperadora  $HistorialCooperadora
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CooperadoraTipoAsociacion $cooperadoraTipoAsociacion)
+    public function destroy(HistorialCooperadora $HistorialCooperadora)
     {
-        $cooperadoraTipoAsociacion->delete();
+        $HistorialCooperadora->delete();
         return response()->noContent();
     }
 }

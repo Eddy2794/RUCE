@@ -49,8 +49,8 @@ class ExpedienteController extends Controller
         if($request->nro_resolucion)
             $expediente->nro_resolucion = $request->nro_resolucion;
             
-        if($request->fecha)
-            $expediente->fecha = $request->fecha;
+        if ($request->decreto)
+            $expediente->decreto = $request->decreto;
 
         $expediente->save();
 
@@ -82,6 +82,7 @@ class ExpedienteController extends Controller
             'observaciones' => 'required',
             'observaciones_respondidas' => 'required',
             'instrumento_publico' => 'required',
+            'decreto' => 'required',
         ]);
 
         $expediente->update([
@@ -89,8 +90,11 @@ class ExpedienteController extends Controller
             'observaciones' => $request->observaciones,
             'observaciones_respondidas' => $request->observaciones_respondidas,
             'instrumento_publico' => $request->instrumento_publico,
+
             'fiscalida_estado' => $request->fiscalida_estado,
             'nro_resolucion' => $request->fiscalida_estado,
+
+            'decreto' => $request->decreto,
             'fecha' => Carbon::createFromFormat('Y-m-d H:i:s',Carbon::now())->format('d-m-Y'),
         ]);
 

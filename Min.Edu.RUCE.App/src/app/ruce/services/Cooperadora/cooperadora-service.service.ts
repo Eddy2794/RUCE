@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class CooperadoraServiceService {
 
-  baseUrl = environment.apiUrl+'cooperadora';
+  baseUrl = environment.apiUrl+'cooperadoras';
 
   constructor(private http: HttpClient) { }
 

@@ -17,7 +17,7 @@ class Expediente extends Model
         'instrumento_publico',
         'fiscalia_estado',
         'nro_resolucion',
-        'fecha'
+        'decreto',
     ];
     //public $timestamps = false;
 }

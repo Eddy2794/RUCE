@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class AtencionSeguimientoService {
 
-  baseUrl = environment.apiUrl+'seguimiento_atencion';
+  baseUrl = environment.apiUrl+'atencion_seguimiento';
 
   constructor(private http: HttpClient) { }
 

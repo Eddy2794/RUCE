@@ -22,9 +22,7 @@ return new class extends Migration
             $table->boolean('instrumento_publico')->default(false);
             $table->boolean('fiscalia_estado')->default(false)->nullable();
             $table->string('nro_resolucion',50)->nullable();
-            //Investigar para que cargue la fecha actual automaticamente
-            $table->dateTime('fecha')->default(Carbon::createFromFormat('Y-m-d H:i:s',Carbon::now())
-                                     ->format('d-m-Y'));
+            $table->string('decreto',50)->nullable();
 
             $table->timestamps();
         });

@@ -14,7 +14,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('lib_cooperadora_tipo_asociacion', function (Blueprint $table) {
+        Schema::create('lib_historial_cooperadora', function (Blueprint $table) {
             $table->increments('id');
 
             $table->unsignedInteger('fk_tipo_asociacion');
@@ -29,8 +29,15 @@ return new class extends Migration
                   ->on('lib_cooperadora')
                   ->onDelete('cascade');
             
+            $table->unsignedInteger('fk_expediente');
+            $table->foreign('fk_expediente')
+                ->references('id')
+                ->on('lib_expediente')
+                ->onDelete('cascade');
+                
+            //Investigar para que cargue la fecha actual automaticamente
             $table->dateTime('fecha')->default(Carbon::createFromFormat('Y-m-d H:i:s',Carbon::now())
-            ->format('d-m-Y'));
+                                        ->format('d-m-Y'));
 
             $table->timestamps();
         });
@@ -45,6 +52,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lib_cooperadora_tipo_asociacion');
+        Schema::dropIfExists('lib_historial_cooperadora');
     }
 };

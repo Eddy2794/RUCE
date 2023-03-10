@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class AutoridadCooperadoraService {
 
-  baseUrl = environment.apiUrl+'autoridades_cooperadora';
+  baseUrl = environment.apiUrl+'autoridades_cooperadoras';
 
   constructor(private http: HttpClient) { }
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { EstablecimientoModel } from 'src/app/establecimientos/models/Establecimiento/establecimiento-model';
+import { EstablecimientoModel } from 'src/app/ruce/models/Establecimiento/establecimiento-model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class EstablecimientoServiceService {
 
-  baseUrl = environment.apiUrl+'establecimiento_educativo';
+  baseUrl = environment.apiUrl+'establecimientos_educativos';
 
   constructor(private http: HttpClient) { }
 

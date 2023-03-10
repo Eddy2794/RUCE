@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class HistorialEstadoCooperadoraService {
 
-  baseUrl = environment.apiUrl+'historial_estado_coop';
+  baseUrl = environment.apiUrl+'historial_estados_coop';
 
   constructor(private http: HttpClient) { }
 

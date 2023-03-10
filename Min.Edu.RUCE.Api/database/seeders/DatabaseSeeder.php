@@ -8,7 +8,7 @@ use App\Models\AutoridadesCooperadora;
 use App\Models\AutoridadesEstablecimientoEducativo;
 use App\Models\Expediente;
 use App\Models\Cooperadora;
-use App\Models\CooperadoraTipoAsociacion;
+use App\Models\HistorialCooperadora;
 use App\Models\EstablecimientoEducativo;
 use App\Models\FondosCooperar;
 use App\Models\HistorialEstadoCooperadora;
@@ -68,12 +68,11 @@ class DatabaseSeeder extends Seeder
 
         FondosCooperar::factory($cant_registros)->create();
 
-        CooperadoraTipoAsociacion::factory($cant_registros)->create();
-
         Expediente::factory($cant_registros)->create();
+
+        HistorialCooperadora::factory($cant_registros)->create();
 
         Personeria::factory($cant_registros)->create();
 
-        HistorialEstadoCooperadora::factory($cant_registros)->create();
     }
 }

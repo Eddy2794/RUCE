@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class KioscoService {
 
-  baseUrl = environment.apiUrl+'kiosco';
+  baseUrl = environment.apiUrl+'kioscos';
 
   constructor(private http: HttpClient) { }
 

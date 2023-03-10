@@ -2,15 +2,14 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+import { RouterModule } from '@angular/router';
 
 //* Rutas Sub-Modulos
-import { AppRoutingModule } from './app-routing.module';
 import { RuceRoutingModule } from './ruce/ruce-routing.module';
-import { EstablecimientosRoutingModule } from './establecimientos/establecimientos-routing.module';
 
 //* Sub-Modulos
 import { RUCEModule } from './ruce/ruce.module';
-import { EstablecimientosModule } from './establecimientos/establecimientos.module';
 
 @NgModule({
   declarations: [
@@ -18,14 +17,13 @@ import { EstablecimientosModule } from './establecimientos/establecimientos.modu
   ],
   imports: [
     BrowserModule,
+    RouterModule,
+    AppRoutingModule,
 
     //* Rutas Sub-Modulos
-    AppRoutingModule,
     RuceRoutingModule,
-    EstablecimientosRoutingModule,
 
     //* Sub-Modulos
-    EstablecimientosModule,
     RUCEModule
   ],
   providers: [],
