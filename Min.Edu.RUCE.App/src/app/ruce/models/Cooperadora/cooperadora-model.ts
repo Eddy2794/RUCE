@@ -1,7 +1,7 @@
 import { EstablecimientoModel } from '../Establecimiento/establecimiento-model';
 import { KioscoModel } from './../Kiosco/kiosco-model';
 export class CooperadoraModel {
-    _id!: number;
+    id!: number;
     denominacion!: string;
     estado!: string;
     legajo!: string;

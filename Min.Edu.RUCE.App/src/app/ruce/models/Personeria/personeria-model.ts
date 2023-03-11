@@ -1,6 +1,6 @@
 import { ExpedienteModel } from './../Expediente/expediente-model';
 export class PersoneriaModel {
-    _id!: number;
+    id!: number;
     estado_comision_directiva!: boolean;
     estado_resolucion!: boolean;
     estado_balance!: boolean;

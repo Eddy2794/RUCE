@@ -9,9 +9,11 @@ import { environment } from 'src/environments/environment';
 })
 export class CooperadoraServiceService {
 
-  baseUrl = environment.apiUrl+'cooperadoras';
+  private baseUrl: string = environment.apiUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    this.baseUrl +='cooperadoras';
+  }
 
   public all(): Observable<any> {
     const httpOptions = {

@@ -1,5 +1,5 @@
 export class PersonaModel {
-    _id!: number;
+    id!: number;
     cuil!: BigInt;
     email!: string;
     nombre!: string;

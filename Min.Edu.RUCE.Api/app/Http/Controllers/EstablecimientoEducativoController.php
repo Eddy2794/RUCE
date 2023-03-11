@@ -57,12 +57,11 @@ class EstablecimientoEducativoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\EstablecimientoEducativo  $establecimientoEducativo
      * @return \Illuminate\Http\Response
      */
-    public function show(EstablecimientoEducativo $establecimientoEducativo)
+    public function show(int $id)
     {
-        return response($establecimientoEducativo);
+        return response(EstablecimientoEducativo::where('id', $id)->get()[0]);
     }
 
     /**
@@ -72,7 +71,7 @@ class EstablecimientoEducativoController extends Controller
      * @param  \App\Models\EstablecimientoEducativo  $establecimientoEducativo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, EstablecimientoEducativo $establecimientoEducativo)
+    public function update(Request $request, int $id)
     {
         $request->validate([
             'region' => 'required',
@@ -85,7 +84,7 @@ class EstablecimientoEducativoController extends Controller
             'domicilio' => 'required',
         ]);
 
-        $establecimientoEducativo->update([
+        EstablecimientoEducativo::where('id',$id)->update([
             'region' => $request->region,
             'nivel' => $request->nivel,
             'localidad' => $request->localidad,
@@ -96,7 +95,7 @@ class EstablecimientoEducativoController extends Controller
             'domicilio' => $request->domicilio,
         ]);
 
-        return response($establecimientoEducativo);
+        return response(EstablecimientoEducativo::where('id',$id)->get()[0]);
     }
 
     /**
@@ -105,9 +104,9 @@ class EstablecimientoEducativoController extends Controller
      * @param  \App\Models\EstablecimientoEducativo  $establecimientoEducativo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(EstablecimientoEducativo $establecimientoEducativo)
+    public function destroy(int $id)
     {
-        $establecimientoEducativo->delete();
+        EstablecimientoEducativo::where('id',$id)->delete();
         return response()->noContent();
     }
 }

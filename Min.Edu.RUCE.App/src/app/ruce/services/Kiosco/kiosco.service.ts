@@ -9,9 +9,11 @@ import { environment } from 'src/environments/environment';
 })
 export class KioscoService {
 
-  baseUrl = environment.apiUrl+'kioscos';
+  private baseUrl: string = environment.apiUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    this.baseUrl +='kioscos';
+  }
 
   public all(): Observable<any> {
     const httpOptions = {

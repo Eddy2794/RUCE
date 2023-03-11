@@ -9,9 +9,11 @@ import { environment } from 'src/environments/environment';
 })
 export class UsuarioServiceService {
 
-  baseUrl = environment.apiUrl+'usuarios';
+  private baseUrl: string = environment.apiUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    this.baseUrl +='usuarios';
+  }
 
   public all(): Observable<any> {
     const httpOptions = {

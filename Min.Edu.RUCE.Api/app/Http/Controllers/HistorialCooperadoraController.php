@@ -52,9 +52,9 @@ class HistorialCooperadoraController extends Controller
      * @param  \App\Models\HistorialCooperadora  $HistorialCooperadora
      * @return \Illuminate\Http\Response
      */
-    public function show(HistorialCooperadora $HistorialCooperadora)
+    public function show(int $id)
     {
-        return response($HistorialCooperadora);
+        return response(HistorialCooperadora::where('id',$id)->get()[0]);
     }
 
     /**
@@ -64,7 +64,7 @@ class HistorialCooperadoraController extends Controller
      * @param  \App\Models\HistorialCooperadora  $HistorialCooperadora
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, HistorialCooperadora $HistorialCooperadora)
+    public function update(Request $request, int $id)
     {
         $request->validate([
             'fk_tipo_asociacion' => 'required',
@@ -72,13 +72,13 @@ class HistorialCooperadoraController extends Controller
             'fk_expediente' => 'required',
         ]);
 
-        $HistorialCooperadora->update([
+        HistorialCooperadora::where('id',$id)->update([
             'fk_tipo_asociacion' => $request->fk_tipo_asociacion,
             'fk_cooperadora' => $request->fk_kiosco,
             'fk_expediente' => $request->fk_expediente,
         ]);
 
-        return response($HistorialCooperadora);
+        return response(HistorialCooperadora::where('id',$id)->get()[0]);
     }
 
     /**
@@ -87,9 +87,9 @@ class HistorialCooperadoraController extends Controller
      * @param  \App\Models\HistorialCooperadora  $HistorialCooperadora
      * @return \Illuminate\Http\Response
      */
-    public function destroy(HistorialCooperadora $HistorialCooperadora)
+    public function destroy(int $id)
     {
-        $HistorialCooperadora->delete();
+        HistorialCooperadora::where('id',$id)->delete();
         return response()->noContent();
     }
 }

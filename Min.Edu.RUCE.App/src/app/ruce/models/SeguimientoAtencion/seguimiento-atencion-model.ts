@@ -1,6 +1,6 @@
 import { CooperadoraModel } from './../Cooperadora/cooperadora-model';
 export class SeguimientoAtencionModel {
-    _id!: number;
+    id!: number;
     llamadas!: number;
     mensajes!: number;
     email_enviados!: number;

@@ -1,5 +1,5 @@
 export class EstablecimientoModel {
-    _id!: number;
+    id!: number;
     cue!: BigInt;
     region!: string;
     nivel!: string;

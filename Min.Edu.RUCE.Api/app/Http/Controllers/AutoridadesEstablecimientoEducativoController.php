@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\AutoridadesEstablecimientoEducativo;
-use ArrayObject;
 use Illuminate\Http\Request;
 
 class AutoridadesEstablecimientoEducativoController extends Controller
@@ -53,9 +52,9 @@ class AutoridadesEstablecimientoEducativoController extends Controller
      * @param  \App\Models\AutoridadesEstablecimientoEducativo  $autoridadesEstablecimientoEducativo
      * @return \Illuminate\Http\Response
      */
-    public function show(AutoridadesEstablecimientoEducativo $autoridadesEstablecimientoEducativo)
+    public function show(int $id)
     {
-        return response($autoridadesEstablecimientoEducativo);
+        return response(AutoridadesEstablecimientoEducativo::where('id',$id)->get()[0]);
     }
 
     /**
@@ -65,9 +64,8 @@ class AutoridadesEstablecimientoEducativoController extends Controller
      * @param  \App\Models\AutoridadesEstablecimientoEducativo  $autoridadesEstablecimientoEducativo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, AutoridadesEstablecimientoEducativo $autoridadeEE)
+    public function update(Request $request, int $id)
     {
-        //validacion de la preticion de los datos
         $request->validate([
             'fk_persona' =>'required',
             'fk_establecimiento_educativo' =>'required',
@@ -75,13 +73,13 @@ class AutoridadesEstablecimientoEducativoController extends Controller
         ]);
 
         //obtengo una autoridad establecimiento educativo desde la base de datos y actualizo sus datos
-        $autoridadeEE->update([
+        AutoridadesEstablecimientoEducativo::where('id',$id)->update([
             'cargo' => $request->cargo,
             'fk_persona' => $request->fk_persona,
             'fk_establecimiento_educativo' => $request->fk_establecimiento_educativo,
         ]);
 
-        return response($autoridadeEE);
+        return response(AutoridadesEstablecimientoEducativo::where('id',$id)->get()[0]);
     }
 
     /**
@@ -90,9 +88,9 @@ class AutoridadesEstablecimientoEducativoController extends Controller
      * @param  \App\Models\AutoridadesEstablecimientoEducativo  $autoridadesEstablecimientoEducativo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AutoridadesEstablecimientoEducativo $autoridadesEstablecimientoEducativo)
+    public function destroy(int $id)
     {
-        $autoridadesEstablecimientoEducativo->delete();
+        AutoridadesEstablecimientoEducativo::where('id',$id)->delete();
         return response()->noContent();
     }
 }

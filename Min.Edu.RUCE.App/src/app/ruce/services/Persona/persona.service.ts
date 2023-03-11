@@ -9,9 +9,11 @@ import { environment } from 'src/environments/environment';
 })
 export class PersonaService {
 
-  baseUrl = environment.apiUrl+'personas';
+  private baseUrl: string = environment.apiUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    this.baseUrl +='personas';
+  }
 
   public all(): Observable<any> {
     const httpOptions = {

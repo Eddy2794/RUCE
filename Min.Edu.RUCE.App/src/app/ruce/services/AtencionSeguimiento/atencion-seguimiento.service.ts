@@ -9,9 +9,11 @@ import { environment } from 'src/environments/environment';
 })
 export class AtencionSeguimientoService {
 
-  baseUrl = environment.apiUrl+'atencion_seguimiento';
+  private baseUrl: string = environment.apiUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    this.baseUrl +='atencion_seguimiento';
+  }
 
   public all(): Observable<any> {
     const httpOptions = {

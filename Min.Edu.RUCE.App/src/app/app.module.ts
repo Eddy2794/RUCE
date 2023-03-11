@@ -9,7 +9,7 @@ import { RouterModule } from '@angular/router';
 import { RuceRoutingModule } from './ruce/ruce-routing.module';
 
 //* Sub-Modulos
-import { RUCEModule } from './ruce/ruce.module';
+import { RuceModule } from './ruce/ruce.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +24,7 @@ import { RUCEModule } from './ruce/ruce.module';
     RuceRoutingModule,
 
     //* Sub-Modulos
-    RUCEModule
+    RuceModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -9,9 +9,11 @@ import { environment } from 'src/environments/environment';
 })
 export class HistorialEstadoCooperadoraService {
 
-  baseUrl = environment.apiUrl+'historial_estados_coop';
+  private baseUrl: string = environment.apiUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    this.baseUrl +='historial_estados_coop';
+  }
 
   public all(): Observable<any> {
     const httpOptions = {

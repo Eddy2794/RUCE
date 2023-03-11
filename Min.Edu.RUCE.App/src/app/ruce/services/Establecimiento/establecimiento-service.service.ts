@@ -7,11 +7,13 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class EstablecimientoServiceService {
+export class EstablecimientoService {
 
-  baseUrl = environment.apiUrl+'establecimientos_educativos';
+  private baseUrl: string = environment.apiUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    this.baseUrl +='establecimientos_educativos/';
+  }
 
   public all(): Observable<any> {
     const httpOptions = {

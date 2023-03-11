@@ -54,9 +54,9 @@ class SeguimientoAtencionController extends Controller
      * @param  \App\Models\SeguimientoAtencion  $seguimientoAtencion
      * @return \Illuminate\Http\Response
      */
-    public function show(SeguimientoAtencion $seguimientoAtencion)
+    public function show(int $id)
     {
-        return response($seguimientoAtencion);
+        return response(SeguimientoAtencion::where('id', $id)->get()[0]);
     }
 
     /**
@@ -66,7 +66,7 @@ class SeguimientoAtencionController extends Controller
      * @param  \App\Models\SeguimientoAtencion  $seguimientoAtencion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SeguimientoAtencion $seguimientoAtencion)
+    public function update(Request $request, int $id)
     {
         $request->validate([
             'llamadas' => 'required',
@@ -76,7 +76,7 @@ class SeguimientoAtencionController extends Controller
             'atencion_territorial' => 'required',
         ]);
 
-        $seguimientoAtencion->update([
+        SeguimientoAtencion::where('id',$id)->update([
             'llamadas' => $request->llamadas,
             'mensajes' => $request->mensajes,
             'email_enviados' => $request->email_enviados,
@@ -84,7 +84,7 @@ class SeguimientoAtencionController extends Controller
             'atencion_territorial' => $request->atencion_territorial,
         ]);
 
-        return response($seguimientoAtencion);
+        return response(SeguimientoAtencion::where('id',$id)->get()[0]);
     }
 
     /**
@@ -93,9 +93,9 @@ class SeguimientoAtencionController extends Controller
      * @param  \App\Models\SeguimientoAtencion  $seguimientoAtencion
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SeguimientoAtencion $seguimientoAtencion)
+    public function destroy(int $id)
     {
-        $seguimientoAtencion->delete();
-        return response($seguimientoAtencion);
+        SeguimientoAtencion::where('id',$id)->delete();
+        return response()->noContent();
     }
 }

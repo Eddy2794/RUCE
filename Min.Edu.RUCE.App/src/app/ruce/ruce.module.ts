@@ -1,17 +1,27 @@
+import { EstablecimientoService } from './services/Establecimiento/establecimiento-service.service';
+import { EstablecimientoComponent } from './components/establecimiento/establecimiento.component';
 import { PersonasComponent } from './components/personas/personas.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AppRoutingModule } from '../app-routing.module';
+import { RuceRoutingModule } from './ruce-routing.module';
+import { HttpClientModule } from '@angular/common/http';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 
 @NgModule({
   declarations: [
-    PersonasComponent
+    PersonasComponent,
+    EstablecimientoComponent
   ],
   imports: [
     CommonModule,
-    AppRoutingModule,
+    RuceRoutingModule,
+    HttpClientModule,
+    FontAwesomeModule
+  ],
+  providers: [
+    EstablecimientoService
   ]
 })
-export class RUCEModule { }
+export class RuceModule { }

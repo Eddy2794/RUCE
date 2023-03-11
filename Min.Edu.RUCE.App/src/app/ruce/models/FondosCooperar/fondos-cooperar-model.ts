@@ -1,6 +1,6 @@
 import { CooperadoraModel } from './../Cooperadora/cooperadora-model';
 export class FondosCooperarModel {
-    _id!: number;
+    id!: number;
     fondos_recibidos!: boolean;
     fondos_rendidos!: boolean;
     estado_rendicion!: boolean;

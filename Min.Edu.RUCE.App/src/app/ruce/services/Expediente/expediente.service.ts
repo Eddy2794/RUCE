@@ -9,9 +9,11 @@ import { environment } from 'src/environments/environment';
 })
 export class ExpedienteService {
 
-  baseUrl = environment.apiUrl+'expedientes';
+  private baseUrl: string = environment.apiUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    this.baseUrl +='expedientes';
+  }
 
   public all(): Observable<any> {
     const httpOptions = {

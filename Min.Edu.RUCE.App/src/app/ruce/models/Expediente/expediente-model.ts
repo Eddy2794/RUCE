@@ -1,5 +1,5 @@
 export class ExpedienteModel {
-    _id!: number;
+    id!: number;
     nro_expediente!: string;
     nro_resolucion!: string;
     observaciones!: boolean;

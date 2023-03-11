@@ -9,9 +9,11 @@ import { environment } from 'src/environments/environment';
 })
 export class PersonaeriaService {
 
-  baseUrl = environment.apiUrl+'personerias';
+  private baseUrl: string = environment.apiUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    this.baseUrl +='personerias';
+  }
 
   public all(): Observable<any> {
     const httpOptions = {

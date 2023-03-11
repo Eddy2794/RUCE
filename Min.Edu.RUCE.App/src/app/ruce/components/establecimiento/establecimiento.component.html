@@ -1,2 +1,36 @@
-<p>establecimiento works!</p>
+<div class="table-responsive">
+    <table class="table table-dark table-striped">
+        <thead>
+            <tr class="text-center">
+                <th scope="col">CUE</th>
+                <th scope="col">Region</th>
+                <th scope="col">Nivel</th>
+                <th scope="col">Localidad</th>
+                <th scope="col">Departamento</th>
+                <th scope="col">Email</th>
+                <th scope="col">Domicilio</th>
+                <th scope="col">Telefono</th>
+                <th scope="col">Matricula</th>
+                <th scope="col">mostrar</th>
+                <th scope="col">editar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let est of establecimientos;">
+                <th scope="row">{{est.cue}}</th>
+                <td>{{est.region}}</td>
+                <td>{{est.nivel}}</td>
+                <td>{{est.localidad}}</td>
+                <td>{{est.departamento}}</td>
+                <td>{{est.email}}</td>
+                <td>{{est.domicilio}}</td>
+                <td>{{est.telefono}}</td>
+                <td>{{est.matricula}}</td>
+                <td class="text-center text-primary"><fa-icon [icon]="editar"></fa-icon></td>
+                <td class="text-center text-danger" (click)="elimiarEstablecimiento(est.id)" ><fa-icon [icon]="eliminar"></fa-icon></td>
+            </tr> 
+        </tbody>
+    </table>
+    <h1>{{establecimiento}}</h1>
+</div>
 <router-outlet></router-outlet>

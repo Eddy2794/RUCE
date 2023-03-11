@@ -9,9 +9,11 @@ import { environment } from 'src/environments/environment';
 })
 export class TipoAsociacionService {
 
-  baseUrl = environment.apiUrl+'tipo_asociacion';
+  private baseUrl: string = environment.apiUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    this.baseUrl +='tipo_asociacion';
+  }
 
   public all(): Observable<any> {
     const httpOptions = {

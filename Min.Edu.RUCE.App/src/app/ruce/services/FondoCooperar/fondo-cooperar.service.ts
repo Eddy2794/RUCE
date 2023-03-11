@@ -9,9 +9,11 @@ import { environment } from 'src/environments/environment';
 })
 export class FondoCooperarService {
 
-  baseUrl = environment.apiUrl+'fondos_cooperar';
+  private baseUrl: string = environment.apiUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    this.baseUrl +='fondos_cooperar';
+  }
 
   public all(): Observable<any> {
     const httpOptions = {

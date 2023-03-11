@@ -9,9 +9,11 @@ import { environment } from 'src/environments/environment';
 })
 export class AutoridadEstablecimientoService {
 
-  baseUrl = environment.apiUrl+'autoridades_est_edu';
+  private baseUrl: string = environment.apiUrl;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    this.baseUrl +='autoridades_est_edu';
+  }
 
   public all(): Observable<any> {
     const httpOptions = {

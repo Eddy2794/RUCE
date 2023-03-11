@@ -1,5 +1,5 @@
 export class KioscoModel {
-    _id!: number;
+    id!: number;
     responsable!: string;
     acceso_licitacion!: boolean;
     documentacion_presentada!: boolean;
