@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -19,5 +20,9 @@ class Expediente extends Model
         'nro_resolucion',
         'decreto',
     ];
+    public function fromDateTime($value){
+        return Carbon::parse(parent::fromDateTime($value))->format('Y-d-m H:i:s');
+    }
+
     //public $timestamps = false;
 }

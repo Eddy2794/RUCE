@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+use Carbon\Carbon;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,5 +14,9 @@ class TipoAsociacion extends Model
     protected $fillable = [
         'descripcion',
     ];
-    // //public $timestamps = false;
+    public function fromDateTime($value){
+        return Carbon::parse(parent::fromDateTime($value))->format('Y-d-m H:i:s');
+    }
+
+    //public $timestamps = false;
 }
