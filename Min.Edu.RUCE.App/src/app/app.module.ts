@@ -1,30 +1,24 @@
-import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { RouterModule } from '@angular/router';
-
-//* Rutas Sub-Modulos
-import { RuceRoutingModule } from './ruce/ruce-routing.module';
-
-//* Sub-Modulos
-import { RuceModule } from './ruce/ruce.module';
+import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { VexModule } from '../@vex/vex.module';
+import { HttpClientModule } from '@angular/common/http';
+import { CustomLayoutModule } from './custom-layout/custom-layout.module';
+import { NgModule } from '@angular/core';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
-    RouterModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
 
-    //* Rutas Sub-Modulos
-    RuceRoutingModule,
-
-    //* Sub-Modulos
-    RuceModule
+    // Vex
+    VexModule,
+    CustomLayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]

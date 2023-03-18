@@ -1,0 +1,21 @@
+<div *ngIf="control && control.errors && (control.dirty || control.touched)">
+    <div *ngIf="control.errors.required">Debe ingresar/seleccionar un valor.<br></div>
+    <div *ngIf="control.errors.unique">{{control.errors.unique}}</div>
+    <div *ngIf="control.errors.lessThen">{{control.errors.lessThen}}></div>
+    <div *ngIf="control.errors.minlength">Debe tener, al menos, {{control.errors.minlength.requiredLength}} caracteres.
+    </div>
+    <div *ngIf="control.errors.maxlength">No debe superar los {{control.errors.maxlength.requiredLength}} caracteres.</div>
+    <div *ngIf="control.errors.greaterThan">{{control.errors.greaterThan}}</div>
+    <div *ngIf="control.errors.min"> El valor es menor que el mínimo requerido ({{control.errors.min.min}}).</div>
+    <div *ngIf="control.errors.max"> El valor excede el máximo requerido ({{control.errors.max.max}}).</div>
+    <div *ngIf="control.errors.email">Ingrese un E-mail válido</div>
+    <div *ngIf="control.errors.errorPasswords">Las contraseñas deben coincidir</div>
+    <div *ngIf="control.errors.passwordDif">No coincide con la contraseña ingresada</div>
+    <div *ngIf="control.errors.errorFechas">La fecha de inicio debe ser menor a la fecha de fin</div>
+    <div *ngIf="control.errors.errorCaracteres"> Caracteres no válidos.</div>
+    <div *ngIf="control.errors.errorCaracteresSoloL"> Solo ingresar Letras.</div>
+    <div *ngIf="control.errors.errorCaracteresAlfaN"> Solo ingresar caracteres alfanumericos.</div>
+    <div *ngIf="control.errors.errorEspacios"> No debe contener espacios al inicio o al final</div>
+    <div *ngIf="control.errors.nemotec"> Nemotecnico no valido</div>
+
+</div>

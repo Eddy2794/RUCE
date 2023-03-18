@@ -21,7 +21,7 @@ return new class extends Migration
             $table->boolean('estado_resolucion')->default(false);
             $table->boolean('estado_balance')->default(false);
             $table->dateTime('fecha')->default(Carbon::createFromFormat('Y-m-d H:i:s',Carbon::now())
-            ->format('d-m-Y'));
+            ->format('Y-m-d'));
 
             $table->unsignedInteger('fk_expediente');
             $table->foreign('fk_expediente')

@@ -1,0 +1,11 @@
+.contenedorCampos {
+    width: 100%;
+}
+
+.botones {
+    justify-content: flex-end;
+}
+
+.mat-radio-button {
+    margin-left: 20px;
+}

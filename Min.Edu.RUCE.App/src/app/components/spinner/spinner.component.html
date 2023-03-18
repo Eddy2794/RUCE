@@ -1,0 +1,16 @@
+<ng-container *ngIf="isLoading$ | async">
+    <div class="overlay">
+        <div class="center">
+            <ng-template [ngTemplateOutlet]="progressSpinner"></ng-template>
+        </div>
+    </div>
+</ng-container>
+
+    <ng-template #progressSpinner>
+    <mat-progress-spinner 
+            diameter="100"
+            mode="indeterminate" 
+            color="primary"
+            strokeWidth="10">
+        </mat-progress-spinner>        
+    </ng-template>
