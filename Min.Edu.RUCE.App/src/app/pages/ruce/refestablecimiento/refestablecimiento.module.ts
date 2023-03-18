@@ -1,12 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { AutoridadEstablecimientoComponent } from './Components/autoridad-establecimiento/autoridad-establecimiento.component';
+import { EstablecimientoComponent } from './Components/establecimiento/establecimiento.component';
+
+import { EstablecimientoService } from './Services/Establecimiento/establecimiento-service.service';
+import { AutoridadEstablecimientoService } from './Services/AutoridadEstablecimiento/autoridad-establecimiento.service';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    EstablecimientoComponent,
+    AutoridadEstablecimientoComponent
+  ],
   imports: [
     CommonModule
+  ],
+  providers: [
+    EstablecimientoService,
+    AutoridadEstablecimientoService,
   ]
 })
-export class RefestablecimientoModule { }
+export class RefRUCEModule { }

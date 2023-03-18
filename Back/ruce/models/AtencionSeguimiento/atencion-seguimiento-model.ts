@@ -1,5 +1,5 @@
-import { CooperadoraModel } from './../Cooperadora/cooperadora-model';
-export class SeguimientoAtencionModel {
+import { CooperadoraModel } from '../Cooperadora/cooperadora-model';
+export class AtencionSeguimientoModel {
     id!: number;
     llamadas!: number;
     mensajes!: number;

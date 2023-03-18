@@ -1,5 +1,5 @@
-import { EstablecimientoService } from './../../services/Establecimiento/establecimiento-service.service';
-import { EstablecimientoModel } from './../../models/Establecimiento/establecimiento-model';
+import { EstablecimientoService } from '../../Services/Establecimiento/establecimiento-service.service';
+import { EstablecimientoModel } from '../../Models/Establecimiento/establecimiento-model';
 import { Component, OnInit } from '@angular/core';
 
 import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
