@@ -41,24 +41,24 @@ export class RefgruponivelListComponent implements OnInit {
       ]
   }
 
-private setSearchOptions() {
-  this.searchOptions = [
-    new SearchOptionsGeneric({ 
-      typeControl: TypeControl.INPUT, 
-      typeData: TypeData.NUMBER, 
-      name: 'id',  
-      label: 'Código', 
-      readonly: false
-    }),
-    new SearchOptionsGeneric({ 
-      typeControl: TypeControl.INPUT, 
-      typeData: TypeData.TEXT, 
-      name: 'grupoDesc', 
-      label: 'Grupo Nivel', 
-      readonly: false
-    }),
-    
-  ]
-}
+  private setSearchOptions() {
+    this.searchOptions = [
+      new SearchOptionsGeneric({ 
+        typeControl: TypeControl.INPUT, 
+        typeData: TypeData.NUMBER, 
+        name: 'id',  
+        label: 'Código', 
+        readonly: false
+      }),
+      new SearchOptionsGeneric({ 
+        typeControl: TypeControl.INPUT, 
+        typeData: TypeData.TEXT, 
+        name: 'grupoDesc', 
+        label: 'Grupo Nivel', 
+        readonly: false
+      }),
+      
+    ]
+  }
 
 }

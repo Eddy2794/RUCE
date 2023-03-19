@@ -1,4 +1,4 @@
-<div class="table-responsive">
+<!-- <div class="table-responsive">
     <table class="table table-dark table-striped">
         <thead>
             <tr class="text-center">
@@ -26,11 +26,20 @@
                 <td>{{est.domicilio}}</td>
                 <td>{{est.telefono}}</td>
                 <td>{{est.matricula}}</td>
-                <!-- <td class="text-center text-primary"><fa-icon [icon]="editar"></fa-icon></td>
-                <td class="text-center text-danger" (click)="elimiarEstablecimiento(est.id)" ><fa-icon [icon]="eliminar"></fa-icon></td> -->
+                <td class="text-center text-primary"><fa-icon [icon]="editar"></fa-icon></td>
+                <td class="text-center text-danger" (click)="elimiarEstablecimiento(est.id)" ><fa-icon [icon]="eliminar"></fa-icon></td>
             </tr> 
         </tbody>
     </table>
     <h1>{{establecimiento}}</h1>
-</div>
+</div> -->
 <!-- <router-outlet></router-outlet> -->
+
+
+
+<vex-aio-table [columns]="columnasVex" [sourceService]="establecimientoService" [filter]="filtro" [ruta]="'refestablecimiento'" [nombreTabla]="'Establecimientos Educativos'">      
+    <app-input-search espacio1></app-input-search>
+        <app-search-button-generic espacio2 [searchOptions]="searchOptions">
+        </app-search-button-generic>       
+    <app-button-nuevo bordederecho [routerLink]="'refestablecimiento'" [addRowText]="'Agregar Establecimiento'"></app-button-nuevo>
+</vex-aio-table>

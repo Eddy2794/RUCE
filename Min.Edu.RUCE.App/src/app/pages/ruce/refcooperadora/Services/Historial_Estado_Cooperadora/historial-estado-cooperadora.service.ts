@@ -3,15 +3,17 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { HistorialEstadoCooperadoraModel } from '../../Models/HistorialEstadoCooperadora/historial-estado-cooperadora-model';
 
+import { environment } from '@environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
 export class HistorialEstadoCooperadoraService {
 
-  private baseUrl: string = "http://127.0.0.1:8000/api/";
+  private baseUrl: string = environment.apiRuceUrl;
 
   constructor(private http: HttpClient) { 
-    this.baseUrl +='historial_estados_coop';
+    this.baseUrl +='/historial_estados_coop/';
   }
 
   public all(): Observable<any> {

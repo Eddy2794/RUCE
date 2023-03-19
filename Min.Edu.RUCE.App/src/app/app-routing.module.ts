@@ -27,6 +27,13 @@ const routes: VexRoutes = [
               toolbarShadowEnabled: true,       
             }
           }, 
+          {
+            path: 'refestablecimiento',
+            loadChildren: () => import('./pages/ruce/refestablecimiento/refestablecimiento.module').then(m=> m.RefEstablecimientoModule),
+            data:{
+              toolbarShadowEnabled: true,       
+            }
+          }, 
             {
             path: 'wizard-ejemplo',
             loadChildren: () => import('./pages/wizard-ejemplo/wizard-ejemplo.module').then(m=> m.WizardEjemploModule)

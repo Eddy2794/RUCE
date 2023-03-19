@@ -3,15 +3,17 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AutoridadEstablecimeintoModel } from '../../Models/AutoridadEstablecimiento/autoridad-establecimeinto-model';
 
+import { environment } from '@environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
 export class AutoridadEstablecimientoService {
 
-  private baseUrl: string = "http://127.0.0.1:8000/api/";
+  private baseUrl: string = environment.apiRuceUrl;
 
   constructor(private http: HttpClient) { 
-    this.baseUrl +='autoridades_est_edu';
+    this.baseUrl +='/autoridades_est_edu/';
   }
 
   public all(): Observable<any> {
