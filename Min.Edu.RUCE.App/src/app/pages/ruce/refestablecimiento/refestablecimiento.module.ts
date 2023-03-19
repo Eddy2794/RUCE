@@ -7,6 +7,12 @@ import { EstablecimientoComponent } from './Components/establecimiento/estableci
 import { EstablecimientoService } from './Services/Establecimiento/establecimiento-service.service';
 import { AutoridadEstablecimientoService } from './Services/AutoridadEstablecimiento/autoridad-establecimiento.service';
 
+import { RefEstablecimientoRoutingModule } from './refestablecimiento-routing.module';
+
+import { SharedModule } from '@app/shared/shared.module';
+import { PageLayoutModule } from 'src/@vex/components/page-layout/page-layout.module';
+import { BreadcrumbsModule } from 'src/@vex/components/breadcrumbs/breadcrumbs.module';
+import { SecondaryToolbarModule } from 'src/@vex/components/secondary-toolbar/secondary-toolbar.module';
 
 @NgModule({
   declarations: [
@@ -14,11 +20,16 @@ import { AutoridadEstablecimientoService } from './Services/AutoridadEstablecimi
     AutoridadEstablecimientoComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RefEstablecimientoRoutingModule,
   ],
   providers: [
     EstablecimientoService,
     AutoridadEstablecimientoService,
+    SharedModule,
+    PageLayoutModule,
+    BreadcrumbsModule,
+    SecondaryToolbarModule
   ]
 })
-export class RefRUCEModule { }
+export class RefEstablecimientoModule { }

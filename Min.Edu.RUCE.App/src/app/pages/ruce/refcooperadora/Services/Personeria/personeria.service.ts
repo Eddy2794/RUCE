@@ -3,15 +3,17 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PersoneriaModel } from '../../Models/Personeria/personeria-model';
 
+import { environment } from '@environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
 export class PersoneriaService {
 
-  private baseUrl: string = "http://127.0.0.1:8000/api/";
+  private baseUrl: string = environment.apiRuceUrl;
 
   constructor(private http: HttpClient) { 
-    this.baseUrl +='personerias';
+    this.baseUrl +='/personerias/';
   }
 
   public all(): Observable<any> {

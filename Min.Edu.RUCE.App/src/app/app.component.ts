@@ -165,6 +165,26 @@ export class AppComponent {
             routerLinkActiveOptions: { exact: true }
           },
         ]
+      },
+      {
+        type: 'subheading',
+        label: 'RUCE',
+        children: [
+          {
+            type: 'link',
+            label: 'Establecimientos',
+            route:'/pages/refestablecimiento',
+            icon: 'mat:touch_app',
+            routerLinkActiveOptions: { exact: true }
+          },
+          // {
+          //   type: 'link',
+          //   label: 'Grupo Nivel',
+          //   route:'/pages/refgruponivel',
+          //   icon: 'mat:touch_app',
+          //   routerLinkActiveOptions: { exact: true }
+          // },
+        ]
       }
     ];
   }
