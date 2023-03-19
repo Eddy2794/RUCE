@@ -1,11 +1,16 @@
+import { BaseModel } from '@app/_models/base.model';
 import { ExpedienteModel } from './../Expediente/expediente-model';
-export class PersoneriaModel {
-    id!: number;
-    estado_comision_directiva!: boolean;
-    estado_resolucion!: boolean;
-    estado_balance!: boolean;
-    fecha!: Date;
-    fk_expediente!: ExpedienteModel;
-    fecha_creacion!: Date;
-    fecha_modificacion!: Date;
+
+export class PersoneriaModel extends BaseModel {
+    static className: string = 'personerias';
+    constructor(
+        public estado_comision_directiva?: boolean,
+        public estado_resolucion?: boolean,
+        public estado_balance?: boolean,
+        public fecha?: Date,
+        public fk_expediente?: ExpedienteModel,
+
+    ) {
+        super();
+    }
 }
