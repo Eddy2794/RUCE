@@ -17,7 +17,7 @@ return new class extends Migration
             $table->increments('id');
             $table->biginteger('cue');
             $table->unique('cue');
-            $table->string('region',20);
+            $table->string('region',3);
             $table->string('nivel',20);
             $table->string('localidad',100);
             $table->string('departamento',100);

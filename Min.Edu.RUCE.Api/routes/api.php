@@ -27,10 +27,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+// Route::group(['prefix' => '/establecimientos_educativos/Filter'],function () {
+//     Route::get('/', [EstablecimientoEducativoController::class, 'filtro'])->name('establecimientos_educativos.filter');
+// });
+Route::get('/establecimientos_educativos/Filter', [EstablecimientoEducativoController::class, 'filtro']);
+Route::apiResource('establecimientos_educativos', EstablecimientoEducativoController::class);
+// Route::group(['prefix' => '/establecimientos_educativos'],function () {
+//     Route::get('/', [EstablecimientoEducativoController::class, 'index'])->name('establecimientos_educativos.index');
+//     Route::post('/', [EstablecimientoEducativoController::class, 'store'])->name('establecimientos_educativos.store');
+//     Route::get('/{id}', [EstablecimientoEducativoController::class, 'show'])->name('establecimientos_educativos.show');
+//     Route::put('/{id}',[EstablecimientoEducativoController::class,'update'])->name('establecimientos_educativos.update');
+// });
+
 Route::apiResource('personas', PersonaController::class);
 Route::apiResource('usuarios', UsuarioController::class);
 Route::apiResource('kioscos',KioscoController::class);
-Route::apiResource('establecimientos_educativos',EstablecimientoEducativoController::class);
 Route::apiResource('autoridades_est_edu', AutoridadesEstablecimientoEducativoController::class);
 Route::apiResource('cooperadoras',CooperadoraController::class);
 Route::apiResource('atencion_seguimiento',SeguimientoAtencionController::class);

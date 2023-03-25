@@ -18,14 +18,14 @@ class EstablecimientoEducativoFactory extends Factory
     {
         return [
             'cue' => intval("380".$this->faker->unique()->numerify("######")),
-            'region' => $this->faker->randomElement([1,2,3,4,5]),
-            'nivel' => $this->faker->randomElement(["primario","secundario","terciario","superior","universitario"]),
-            'localidad' => $this->faker->streetName(),
-            'departamento' => $this->faker->city(),
+            'region' => $this->faker->randomElement(['I','II','III','IV','V','VI','VII']),
+            'nivel' => $this->faker->randomElement(["INICIAL","PRIMARIO","SECUNDARIO","SUPERIOR"]),
+            'localidad' => strtoupper($this->faker->streetName()),
+            'departamento' => strtoupper($this->faker->city()),
             'telefono' => intval("0388".strval($this->faker->numerify("#######"))),
-            'email' => $this->faker->safeEmailDomain()."@gmail.com",
+            'email' => strtoupper($this->faker->safeEmailDomain()."@gmail.com"),
             'matricula' => $this->faker->numerify("####"),
-            "domicilio" => $this->faker->address()
+            "domicilio" => strtoupper($this->faker->address())
         ];
     }
 }
