@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\SeguimientoAtencion;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class SeguimientoAtencionController extends Controller
 {
@@ -12,9 +13,35 @@ class SeguimientoAtencionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): JsonResponse
     {
-        return response(SeguimientoAtencion::all());
+        $data = SeguimientoAtencion::all();
+        $resuesta = [
+            'entities' => $data,
+            'paged' => [
+                'entitiyCount' => count($data)
+            ]
+        ];
+        return response()->json($resuesta,200);
+    }
+
+    public function filtro(Request $request): JsonResponse  
+    {
+        $estaActivo = $request->query->get('EstaActivo');
+        $pageNumber = $request->query->get('PageNumber');
+        $pageSize = $request->query->get('PageSize');
+
+
+        $data = SeguimientoAtencion::all();
+        $cantidad = count($data);
+
+        $resuesta = [
+            'entities' => $data,
+            'paged' => [
+                'entitiyCount' => $cantidad
+            ]
+        ];
+        return response()->json($resuesta,200);
     }
 
     /**
@@ -54,9 +81,18 @@ class SeguimientoAtencionController extends Controller
      * @param  \App\Models\SeguimientoAtencion  $seguimientoAtencion
      * @return \Illuminate\Http\Response
      */
-    public function show(int $id)
+    public function show(int $id): JsonResponse 
     {
-        return response(SeguimientoAtencion::where('id', $id)->get()[0]);
+        $data = SeguimientoAtencion::where('id', $id)->get();
+        $cantidad = count($data);
+
+        $resuesta = [
+            'entities' => $data,
+            'paged' => [
+                'entitiyCount' => $cantidad
+            ]
+        ];
+        return response()->json($resuesta,200);
     }
 
     /**

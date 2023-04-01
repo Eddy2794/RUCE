@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\TipoAsociacion;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class TipoAsociacionController extends Controller
 {
@@ -12,9 +13,35 @@ class TipoAsociacionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): JsonResponse
     {
-        return response(TipoAsociacion::all());
+        $data = TipoAsociacion::all();
+        $resuesta = [
+            'entities' => $data,
+            'paged' => [
+                'entitiyCount' => count($data)
+            ]
+        ];
+        return response()->json($resuesta,200);
+    }
+
+    public function filtro(Request $request): JsonResponse  
+    {
+        $estaActivo = $request->query->get('EstaActivo');
+        $pageNumber = $request->query->get('PageNumber');
+        $pageSize = $request->query->get('PageSize');
+
+
+        $data = TipoAsociacion::all();
+        $cantidad = count($data);
+
+        $resuesta = [
+            'entities' => $data,
+            'paged' => [
+                'entitiyCount' => $cantidad
+            ]
+        ];
+        return response()->json($resuesta,200);
     }
 
     /**
@@ -44,9 +71,18 @@ class TipoAsociacionController extends Controller
      * @param  \App\Models\TipoAsociacion  $tipoAsociacion
      * @return \Illuminate\Http\Response
      */
-    public function show(TipoAsociacion $tipoAsociacion)
+    public function show(TipoAsociacion $tipoAsociacion): JsonResponse 
     {
-        return response($tipoAsociacion);
+        $data = [$tipoAsociacion];
+        $cantidad = count($data);
+
+        $resuesta = [
+            'entities' => $data,
+            'paged' => [
+                'entitiyCount' => $cantidad
+            ]
+        ];
+        return response()->json($resuesta,200);
     }
 
     /**

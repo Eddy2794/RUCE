@@ -13,7 +13,6 @@ use App\Http\Controllers\TipoAsociacionController;
 use App\Http\Controllers\HistorialCooperadoraController;
 use App\Http\Controllers\ExpedienteController;
 use App\Http\Controllers\PersoneriaController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,12 +26,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 // Route::group(['prefix' => '/establecimientos_educativos/Filter'],function () {
 //     Route::get('/', [EstablecimientoEducativoController::class, 'filtro'])->name('establecimientos_educativos.filter');
 // });
-Route::get('/establecimientos_educativos/Filter', [EstablecimientoEducativoController::class, 'filtro']);
-Route::apiResource('establecimientos_educativos', EstablecimientoEducativoController::class);
+
 // Route::group(['prefix' => '/establecimientos_educativos'],function () {
 //     Route::get('/', [EstablecimientoEducativoController::class, 'index'])->name('establecimientos_educativos.index');
 //     Route::post('/', [EstablecimientoEducativoController::class, 'store'])->name('establecimientos_educativos.store');
@@ -40,15 +37,41 @@ Route::apiResource('establecimientos_educativos', EstablecimientoEducativoContro
 //     Route::put('/{id}',[EstablecimientoEducativoController::class,'update'])->name('establecimientos_educativos.update');
 // });
 
+Route::get('/establecimientos_educativos/Filter', [EstablecimientoEducativoController::class, 'filtro']);
+Route::apiResource('establecimientos_educativos', EstablecimientoEducativoController::class);
+
+Route::get('/personas/Filter', [PersonaController::class, 'filtro']);
 Route::apiResource('personas', PersonaController::class);
+
+Route::get('/usuarios/Filter', [UsuarioController::class, 'filtro']);
 Route::apiResource('usuarios', UsuarioController::class);
-Route::apiResource('kioscos',KioscoController::class);
+
+Route::get('/kioscos/Filter', [KioscoController::class, 'filtro']);
+Route::apiResource('kioscos', KioscoController::class);
+
+Route::get('/autoridades_est_edu/Filter', [AutoridadesEstablecimientoEducativoController::class, 'filtro']);
 Route::apiResource('autoridades_est_edu', AutoridadesEstablecimientoEducativoController::class);
-Route::apiResource('cooperadoras',CooperadoraController::class);
-Route::apiResource('atencion_seguimiento',SeguimientoAtencionController::class);
-Route::apiResource('autoridades_cooperadoras',AutoridadesCooperadoraController::class);
-Route::apiResource('fondos_cooperar',FondosCooperarController::class);
-Route::apiResource('tipo_asociacion',TipoAsociacionController::class);
-Route::apiResource('expedientes',ExpedienteController::class);
-Route::apiResource('personerias',PersoneriaController::class);
-Route::apiResource('historial_estados_coop',HistorialCooperadoraController::class);
+
+Route::get('/cooperadoras/Filter', [CooperadoraController::class, 'filtro']);
+Route::apiResource('cooperadoras', CooperadoraController::class);
+
+Route::get('/atencion_seguimiento/Filter', [SeguimientoAtencionController::class, 'filtro']);
+Route::apiResource('atencion_seguimiento', SeguimientoAtencionController::class);
+
+Route::get('/autoridades_cooperadoras/Filter', [AutoridadesCooperadoraController::class, 'filtro']);
+Route::apiResource('autoridades_cooperadoras', AutoridadesCooperadoraController::class);
+
+Route::get('/fondos_cooperar/Filter', [FondosCooperarController::class, 'filtro']);
+Route::apiResource('fondos_cooperar', FondosCooperarController::class);
+
+Route::get('/tipo_asociacion/Filter', [TipoAsociacionController::class, 'filtro']);
+Route::apiResource('tipo_asociacion', TipoAsociacionController::class);
+
+Route::get('/expedientes/Filter', [ExpedienteController::class, 'filtro']);
+Route::apiResource('expedientes', ExpedienteController::class);
+
+Route::get('/personerias/Filter', [PersoneriaController::class, 'filtro']);
+Route::apiResource('personerias', PersoneriaController::class);
+
+Route::get('/historial_estados_coop/Filter', [HistorialCooperadoraController::class, 'filtro']);
+Route::apiResource('historial_estados_coop', HistorialCooperadoraController::class);

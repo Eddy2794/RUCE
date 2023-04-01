@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Personeria;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class PersoneriaController extends Controller
 {
@@ -13,9 +14,35 @@ class PersoneriaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): JsonResponse
     {
-        return response(Personeria::all());
+        $data = Personeria::all();
+        $resuesta = [
+            'entities' => $data,
+            'paged' => [
+                'entitiyCount' => count($data)
+            ]
+        ];
+        return response()->json($resuesta,200);
+    }
+
+    public function filtro(Request $request): JsonResponse  
+    {
+        $estaActivo = $request->query->get('EstaActivo');
+        $pageNumber = $request->query->get('PageNumber');
+        $pageSize = $request->query->get('PageSize');
+
+
+        $data = Personeria::all();
+        $cantidad = count($data);
+
+        $resuesta = [
+            'entities' => $data,
+            'paged' => [
+                'entitiyCount' => $cantidad
+            ]
+        ];
+        return response()->json($resuesta,200);
     }
 
     /**
@@ -53,9 +80,18 @@ class PersoneriaController extends Controller
      * @param  \App\Models\Personeria  $personeria
      * @return \Illuminate\Http\Response
      */
-    public function show(Personeria $personeria)
+    public function show(Personeria $personeria): JsonResponse 
     {
-        return response($personeria);
+        $data = [$personeria];
+        $cantidad = count($data);
+
+        $resuesta = [
+            'entities' => $data,
+            'paged' => [
+                'entitiyCount' => $cantidad
+            ]
+        ];
+        return response()->json($resuesta,200);
     }
 
     /**

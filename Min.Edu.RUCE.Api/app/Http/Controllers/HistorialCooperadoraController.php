@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\HistorialCooperadora;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class HistorialCooperadoraController extends Controller
 {
@@ -12,9 +13,35 @@ class HistorialCooperadoraController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): JsonResponse
     {
-        return response(HistorialCooperadora::all());
+        $data = HistorialCooperadora::all();
+        $resuesta = [
+            'entities' => $data,
+            'paged' => [
+                'entitiyCount' => count($data)
+            ]
+        ];
+        return response()->json($resuesta,200);
+    }
+
+    public function filtro(Request $request): JsonResponse  
+    {
+        $estaActivo = $request->query->get('EstaActivo');
+        $pageNumber = $request->query->get('PageNumber');
+        $pageSize = $request->query->get('PageSize');
+
+
+        $data = HistorialCooperadora::all();
+        $cantidad = count($data);
+
+        $resuesta = [
+            'entities' => $data,
+            'paged' => [
+                'entitiyCount' => $cantidad
+            ]
+        ];
+        return response()->json($resuesta,200);
     }
 
     /**
@@ -52,9 +79,18 @@ class HistorialCooperadoraController extends Controller
      * @param  \App\Models\HistorialCooperadora  $HistorialCooperadora
      * @return \Illuminate\Http\Response
      */
-    public function show(int $id)
+    public function show(int $id): JsonResponse
     {
-        return response(HistorialCooperadora::where('id',$id)->get()[0]);
+        $data = HistorialCooperadora::where('id', $id)->get();
+        $cantidad = count($data);
+
+        $resuesta = [
+            'entities' => $data,
+            'paged' => [
+                'entitiyCount' => $cantidad
+            ]
+        ];
+        return response()->json($resuesta,200);
     }
 
     /**

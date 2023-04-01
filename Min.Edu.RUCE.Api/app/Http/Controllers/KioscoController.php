@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kiosco;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class KioscoController extends Controller
 {
@@ -12,9 +13,35 @@ class KioscoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): JsonResponse
     {
-        return response(Kiosco::all());
+        $data = Kiosco::all();
+        $resuesta = [
+            'entities' => $data,
+            'paged' => [
+                'entitiyCount' => count($data)
+            ]
+        ];
+        return response()->json($resuesta,200);
+    }
+
+    public function filtro(Request $request): JsonResponse  
+    {
+        $estaActivo = $request->query->get('EstaActivo');
+        $pageNumber = $request->query->get('PageNumber');
+        $pageSize = $request->query->get('PageSize');
+
+
+        $data = Kiosco::all();
+        $cantidad = count($data);
+
+        $resuesta = [
+            'entities' => $data,
+            'paged' => [
+                'entitiyCount' => $cantidad
+            ]
+        ];
+        return response()->json($resuesta,200);
     }
 
     /**
@@ -52,9 +79,18 @@ class KioscoController extends Controller
      * @param  \App\Models\Kiosco  $kiosco
      * @return \Illuminate\Http\Response
      */
-    public function show(Kiosco $kiosco)
+    public function show(Kiosco $kiosco): JsonResponse
     {
-        return response($kiosco);
+        $data = [$kiosco];
+        $cantidad = count($data);
+
+        $resuesta = [
+            'entities' => $data,
+            'paged' => [
+                'entitiyCount' => $cantidad
+            ]
+        ];
+        return response()->json($resuesta,200);
     }
 
     /**
