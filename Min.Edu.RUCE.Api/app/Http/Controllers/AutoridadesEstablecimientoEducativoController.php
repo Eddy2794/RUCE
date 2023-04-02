@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AutoridadesCooperadora;
 use App\Models\AutoridadesEstablecimientoEducativo;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class AutoridadesEstablecimientoEducativoController extends Controller
 {
@@ -12,9 +14,36 @@ class AutoridadesEstablecimientoEducativoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): JsonResponse
     {
-        return response(AutoridadesEstablecimientoEducativo::all());
+        $data = AutoridadesCooperadora::all();
+        $respuesta = [
+            'entities' => $data,
+            'paged' => [
+                'entitiyCount' => count($data)
+            ]
+            ];
+        
+        return response()->json($respuesta,200);
+    }
+
+    public function filtro(Request $request): JsonResponse  
+    {
+        $estaActivo = $request->query->get('EstaActivo');
+        $pageNumber = $request->query->get('PageNumber');
+        $pageSize = $request->query->get('PageSize');
+
+
+        $data = AutoridadesCooperadora::all();
+        $cantidad = count($data);
+
+        $resuesta = [
+            'entities' => $data,
+            'paged' => [
+                'entitiyCount' => $cantidad
+            ]
+        ];
+        return response()->json($resuesta,200);
     }
 
     /**
@@ -52,9 +81,18 @@ class AutoridadesEstablecimientoEducativoController extends Controller
      * @param  \App\Models\AutoridadesEstablecimientoEducativo  $autoridadesEstablecimientoEducativo
      * @return \Illuminate\Http\Response
      */
-    public function show(int $id)
+    public function show(int $id): JsonResponse
     {
-        return response(AutoridadesEstablecimientoEducativo::where('id',$id)->get()[0]);
+        $data = AutoridadesCooperadora::where('id', $id)->get();
+        $cantidad = count($data);
+        
+        $respuesta = [
+            'entities' => $data,
+            'peged' => [
+                'entitiesCount' => $cantidad
+            ]
+            ];
+        return response()->json($respuesta, 200);
     }
 
     /**

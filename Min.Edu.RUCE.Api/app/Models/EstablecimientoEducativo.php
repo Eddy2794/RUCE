@@ -24,7 +24,7 @@ class EstablecimientoEducativo extends Model
     ];
 
     public function fromDateTime($value){
-        return Carbon::parse(parent::fromDateTime($value))->format('d-m-Y H:i:s');
+        return Carbon::parse(parent::fromDateTime($value))->format('Y-m-d H:i:s');
     }
     
     public function toDateTime($value){

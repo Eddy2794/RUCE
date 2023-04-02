@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cooperadora;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class CooperadoraController extends Controller
 {
@@ -12,9 +13,35 @@ class CooperadoraController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): JsonResponse
     {
-        return response(Cooperadora::all());
+        $data = Cooperadora::all();
+        $respuesta = [
+            'entities' => $data,
+            'paged' => [
+                'entitiyCount' => count($data)
+            ]
+        ];
+        return response()->json($respuesta,200);
+    }
+
+    public function filtro(Request $request): JsonResponse  
+    {
+        $estaActivo = $request->query->get('EstaActivo');
+        $pageNumber = $request->query->get('PageNumber');
+        $pageSize = $request->query->get('PageSize');
+
+
+        $data = Cooperadora::all();
+        $cantidad = count($data);
+
+        $resuesta = [
+            'entities' => $data,
+            'paged' => [
+                'entitiyCount' => $cantidad
+            ]
+        ];
+        return response()->json($resuesta,200);
     }
 
     /**
@@ -69,9 +96,18 @@ class CooperadoraController extends Controller
      * @param  \App\Models\Cooperadora  $cooperadora
      * @return \Illuminate\Http\Response
      */
-    public function show(Cooperadora $cooperadora)
+    public function show(int $id): JsonResponse
     {
-        return response($cooperadora);
+        $data = Cooperadora::where('id', $id)->get();
+        $cantidad = count($data);
+
+        $resuesta = [
+            'entities' => $data,
+            'paged' => [
+                'entitiyCount' => $cantidad
+            ]
+        ];
+        return response()->json($resuesta,200);
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AutoridadesCooperadora;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class AutoridadesCooperadoraController extends Controller
 {
@@ -14,7 +15,33 @@ class AutoridadesCooperadoraController extends Controller
      */
     public function index()
     {
-        return response(AutoridadesCooperadora::all());
+        $data = AutoridadesCooperadora::all();
+        $respuesta = [
+            'entities' => $data,
+            'paged' => [
+                'entitiyCount' =>($data)
+            ]
+        ];
+        return response()->json($respuesta,200);
+    }
+
+    public function filtro(Request $request): JsonResponse  
+    {
+        $estaActivo = $request->query->get('EstaActivo');
+        $pageNumber = $request->query->get('PageNumber');
+        $pageSize = $request->query->get('PageSize');
+
+
+        $data = AutoridadesCooperadora::all();
+        $cantidad = count($data);
+
+        $resuesta = [
+            'entities' => $data,
+            'paged' => [
+                'entitiyCount' => $cantidad
+            ]
+        ];
+        return response()->json($resuesta,200);
     }
 
     /**
@@ -58,9 +85,18 @@ class AutoridadesCooperadoraController extends Controller
      * @param  \App\Models\AutoridadesCooperadora  $autoridadesCooperadora
      * @return \Illuminate\Http\Response
      */
-    public function show(AutoridadesCooperadora $autoridadesCooperadora)
+    public function show(int $id)
     {
-        return response($autoridadesCooperadora);
+        $data = AutoridadesCooperadora::where('id',$id)->get();
+        $cantidad = count($data);
+
+        $respuesta = [
+            'entities' => $data,
+            'paged' => [
+                'entitiyCount' => $cantidad
+            ]
+        ];
+        return response()->json($respuesta, 200);
     }
 
     /**

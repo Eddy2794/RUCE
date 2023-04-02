@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Expediente;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ExpedienteController extends Controller
 {
@@ -15,7 +16,33 @@ class ExpedienteController extends Controller
      */
     public function index()
     {
-        return response(Expediente::all());
+        $data = Expediente::all();
+        $respuesta = [
+            'entities' => $data,
+            'paged' => [
+                'entitiyCount' => count($data)
+            ]
+        ];
+        return response()->json($respuesta,200);
+    }
+
+    public function filtro(Request $request): JsonResponse  
+    {
+        $estaActivo = $request->query->get('EstaActivo');
+        $pageNumber = $request->query->get('PageNumber');
+        $pageSize = $request->query->get('PageSize');
+
+
+        $data = Expediente::all();
+        $cantidad = count($data);
+
+        $resuesta = [
+            'entities' => $data,
+            'paged' => [
+                'entitiyCount' => $cantidad
+            ]
+        ];
+        return response()->json($resuesta,200);
     }
 
     /**
@@ -63,9 +90,18 @@ class ExpedienteController extends Controller
      * @param  \App\Models\Expediente  $expediente
      * @return \Illuminate\Http\Response
      */
-    public function show(Expediente $expediente)
+    public function show(int $id): JsonResponse
     {
-        return response($expediente);
+        $data = Expediente::where('id', $id)->get();
+        $cantidad = count($data);
+
+        $resuesta = [
+            'entities' => $data,
+            'paged' => [
+                'entitiyCount' => $cantidad
+            ]
+        ];
+        return response()->json($resuesta,200);
     }
 
     /**

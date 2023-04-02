@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\FondosCooperar;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class FondosCooperarController extends Controller
 {
@@ -14,7 +15,33 @@ class FondosCooperarController extends Controller
      */
     public function index()
     {
-        return response(FondosCooperar::all());
+        $data = FondosCooperar::all();
+        $respuesta = [
+            'entities' => $data,
+            'paged' => [
+                'entitiyCount' => count($data)
+            ]
+        ];
+        return response()->json($respuesta,200);
+    }
+
+    public function filtro(Request $request): JsonResponse  
+    {
+        $estaActivo = $request->query->get('EstaActivo');
+        $pageNumber = $request->query->get('PageNumber');
+        $pageSize = $request->query->get('PageSize');
+
+
+        $data = FondosCooperar::all();
+        $cantidad = count($data);
+
+        $resuesta = [
+            'entities' => $data,
+            'paged' => [
+                'entitiyCount' => $cantidad
+            ]
+        ];
+        return response()->json($resuesta,200);
     }
 
     /**
@@ -52,9 +79,18 @@ class FondosCooperarController extends Controller
      * @param  \App\Models\FondosCooperar  $fondosCooperar
      * @return \Illuminate\Http\Response
      */
-    public function show(FondosCooperar $fondosCooperar)
+    public function show(int $id): JsonResponse
     {
-        return response($fondosCooperar);
+        $data = FondosCooperar::where('id', $id)->get();
+        $cantidad = count($data);
+
+        $resuesta = [
+            'entities' => $data,
+            'paged' => [
+                'entitiyCount' => $cantidad
+            ]
+        ];
+        return response()->json($resuesta,200);
     }
 
     /**

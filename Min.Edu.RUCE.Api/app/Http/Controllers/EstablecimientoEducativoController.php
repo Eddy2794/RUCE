@@ -16,13 +16,13 @@ class EstablecimientoEducativoController extends Controller
     public function index(): JsonResponse
     {
         $data = EstablecimientoEducativo::all();
-        $resuesta = [
+        $respuesta = [
             'entities' => $data,
             'paged' => [
                 'entitiyCount' => count($data)
             ]
         ];
-        return response()->json($resuesta,200);
+        return response()->json($respuesta,200);
     }
 
     public function filtro(Request $request): JsonResponse  
