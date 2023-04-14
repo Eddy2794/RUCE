@@ -13,7 +13,7 @@ class FondosCooperarController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): JsonResponse
     {
         $data = FondosCooperar::all();
         $respuesta = [
@@ -35,13 +35,13 @@ class FondosCooperarController extends Controller
         $data = FondosCooperar::all();
         $cantidad = count($data);
 
-        $resuesta = [
+        $respuesta = [
             'entities' => $data,
             'paged' => [
                 'entitiyCount' => $cantidad
             ]
         ];
-        return response()->json($resuesta,200);
+        return response()->json($respuesta,200);
     }
 
     /**
@@ -84,13 +84,13 @@ class FondosCooperarController extends Controller
         $data = FondosCooperar::where('id', $id)->get();
         $cantidad = count($data);
 
-        $resuesta = [
+        $respuesta = [
             'entities' => $data,
             'paged' => [
                 'entitiyCount' => $cantidad
             ]
         ];
-        return response()->json($resuesta,200);
+        return response()->json($respuesta,200);
     }
 
     /**

@@ -16,13 +16,13 @@ class HistorialCooperadoraController extends Controller
     public function index(): JsonResponse
     {
         $data = HistorialCooperadora::all();
-        $resuesta = [
+        $respuesta = [
             'entities' => $data,
             'paged' => [
                 'entitiyCount' => count($data)
             ]
         ];
-        return response()->json($resuesta,200);
+        return response()->json($respuesta,200);
     }
 
     public function filtro(Request $request): JsonResponse  
@@ -35,13 +35,13 @@ class HistorialCooperadoraController extends Controller
         $data = HistorialCooperadora::all();
         $cantidad = count($data);
 
-        $resuesta = [
+        $respuesta = [
             'entities' => $data,
             'paged' => [
                 'entitiyCount' => $cantidad
             ]
         ];
-        return response()->json($resuesta,200);
+        return response()->json($respuesta,200);
     }
 
     /**
@@ -84,13 +84,13 @@ class HistorialCooperadoraController extends Controller
         $data = HistorialCooperadora::where('id', $id)->get();
         $cantidad = count($data);
 
-        $resuesta = [
+        $respuesta = [
             'entities' => $data,
             'paged' => [
                 'entitiyCount' => $cantidad
             ]
         ];
-        return response()->json($resuesta,200);
+        return response()->json($respuesta,200);
     }
 
     /**

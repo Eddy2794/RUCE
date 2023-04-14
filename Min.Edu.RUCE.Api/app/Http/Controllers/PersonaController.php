@@ -17,13 +17,13 @@ class PersonaController extends Controller
     public function index(): JsonResponse
     {
         $data = Persona::all();
-        $resuesta = [
+        $respuesta = [
             'entities' => $data,
             'paged' => [
                 'entitiyCount' => count($data)
             ]
         ];
-        return response()->json($resuesta,200);
+        return response()->json($respuesta,200);
     }
 
     public function filtro(Request $request): JsonResponse  
@@ -36,13 +36,13 @@ class PersonaController extends Controller
         $data = Persona::all();
         $cantidad = count($data);
 
-        $resuesta = [
+        $respuesta = [
             'entities' => $data,
             'paged' => [
                 'entitiyCount' => $cantidad
             ]
         ];
-        return response()->json($resuesta,200);
+        return response()->json($respuesta,200);
     }
 
     /**
@@ -95,13 +95,13 @@ class PersonaController extends Controller
         $data = [$persona];
         $cantidad = count($data);
 
-        $resuesta = [
+        $respuesta = [
             'entities' => $data,
             'paged' => [
                 'entitiyCount' => $cantidad
             ]
         ];
-        return response()->json($resuesta,200);
+        return response()->json($respuesta,200);
     }
 
     /**

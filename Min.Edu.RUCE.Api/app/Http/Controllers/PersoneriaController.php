@@ -17,13 +17,13 @@ class PersoneriaController extends Controller
     public function index(): JsonResponse
     {
         $data = Personeria::all();
-        $resuesta = [
+        $respuesta = [
             'entities' => $data,
             'paged' => [
                 'entitiyCount' => count($data)
             ]
         ];
-        return response()->json($resuesta,200);
+        return response()->json($respuesta,200);
     }
 
     public function filtro(Request $request): JsonResponse  
@@ -36,13 +36,13 @@ class PersoneriaController extends Controller
         $data = Personeria::all();
         $cantidad = count($data);
 
-        $resuesta = [
+        $respuesta = [
             'entities' => $data,
             'paged' => [
                 'entitiyCount' => $cantidad
             ]
         ];
-        return response()->json($resuesta,200);
+        return response()->json($respuesta,200);
     }
 
     /**
@@ -85,13 +85,13 @@ class PersoneriaController extends Controller
         $data = [$personeria];
         $cantidad = count($data);
 
-        $resuesta = [
+        $respuesta = [
             'entities' => $data,
             'paged' => [
                 'entitiyCount' => $cantidad
             ]
         ];
-        return response()->json($resuesta,200);
+        return response()->json($respuesta,200);
     }
 
     /**

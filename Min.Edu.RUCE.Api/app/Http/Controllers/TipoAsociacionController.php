@@ -16,13 +16,13 @@ class TipoAsociacionController extends Controller
     public function index(): JsonResponse
     {
         $data = TipoAsociacion::all();
-        $resuesta = [
+        $respuesta = [
             'entities' => $data,
             'paged' => [
                 'entitiyCount' => count($data)
             ]
         ];
-        return response()->json($resuesta,200);
+        return response()->json($respuesta,200);
     }
 
     public function filtro(Request $request): JsonResponse  
@@ -35,13 +35,13 @@ class TipoAsociacionController extends Controller
         $data = TipoAsociacion::all();
         $cantidad = count($data);
 
-        $resuesta = [
+        $respuesta = [
             'entities' => $data,
             'paged' => [
                 'entitiyCount' => $cantidad
             ]
         ];
-        return response()->json($resuesta,200);
+        return response()->json($respuesta,200);
     }
 
     /**
@@ -76,13 +76,13 @@ class TipoAsociacionController extends Controller
         $data = [$tipoAsociacion];
         $cantidad = count($data);
 
-        $resuesta = [
+        $respuesta = [
             'entities' => $data,
             'paged' => [
                 'entitiyCount' => $cantidad
             ]
         ];
-        return response()->json($resuesta,200);
+        return response()->json($respuesta,200);
     }
 
     /**

@@ -16,13 +16,13 @@ class SeguimientoAtencionController extends Controller
     public function index(): JsonResponse
     {
         $data = SeguimientoAtencion::all();
-        $resuesta = [
+        $respuesta = [
             'entities' => $data,
             'paged' => [
                 'entitiyCount' => count($data)
             ]
         ];
-        return response()->json($resuesta,200);
+        return response()->json($respuesta,200);
     }
 
     public function filtro(Request $request): JsonResponse  
@@ -35,13 +35,13 @@ class SeguimientoAtencionController extends Controller
         $data = SeguimientoAtencion::all();
         $cantidad = count($data);
 
-        $resuesta = [
+        $respuesta = [
             'entities' => $data,
             'paged' => [
                 'entitiyCount' => $cantidad
             ]
         ];
-        return response()->json($resuesta,200);
+        return response()->json($respuesta,200);
     }
 
     /**
@@ -86,13 +86,13 @@ class SeguimientoAtencionController extends Controller
         $data = SeguimientoAtencion::where('id', $id)->get();
         $cantidad = count($data);
 
-        $resuesta = [
+        $respuesta = [
             'entities' => $data,
             'paged' => [
                 'entitiyCount' => $cantidad
             ]
         ];
-        return response()->json($resuesta,200);
+        return response()->json($respuesta,200);
     }
 
     /**

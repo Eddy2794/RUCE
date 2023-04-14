@@ -37,13 +37,13 @@ class AutoridadesEstablecimientoEducativoController extends Controller
         $data = AutoridadesCooperadora::all();
         $cantidad = count($data);
 
-        $resuesta = [
+        $respuesta = [
             'entities' => $data,
             'paged' => [
                 'entitiyCount' => $cantidad
             ]
         ];
-        return response()->json($resuesta,200);
+        return response()->json($respuesta,200);
     }
 
     /**

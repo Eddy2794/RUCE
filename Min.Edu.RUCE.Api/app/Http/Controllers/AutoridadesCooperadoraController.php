@@ -13,7 +13,7 @@ class AutoridadesCooperadoraController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): JsonResponse
     {
         $data = AutoridadesCooperadora::all();
         $respuesta = [
@@ -30,18 +30,18 @@ class AutoridadesCooperadoraController extends Controller
         $estaActivo = $request->query->get('EstaActivo');
         $pageNumber = $request->query->get('PageNumber');
         $pageSize = $request->query->get('PageSize');
-
+        
 
         $data = AutoridadesCooperadora::all();
         $cantidad = count($data);
 
-        $resuesta = [
+        $respuesta = [
             'entities' => $data,
             'paged' => [
                 'entitiyCount' => $cantidad
             ]
         ];
-        return response()->json($resuesta,200);
+        return response()->json($respuesta,200);
     }
 
     /**
@@ -85,7 +85,7 @@ class AutoridadesCooperadoraController extends Controller
      * @param  \App\Models\AutoridadesCooperadora  $autoridadesCooperadora
      * @return \Illuminate\Http\Response
      */
-    public function show(int $id)
+    public function show(int $id): JsonResponse
     {
         $data = AutoridadesCooperadora::where('id',$id)->get();
         $cantidad = count($data);
