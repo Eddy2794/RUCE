@@ -20,15 +20,13 @@ class ExpedienteFactory extends Factory
         $valor=$this->faker->randomElement([false,true]);
         return [
             'nro_expediente' => 'exp. nro 0'.strval($this->faker->unique()->numerify("###")),
-
             'observaciones' => $this->faker->randomElement([true,false]),
             'observaciones_respondidas' => $this->faker->randomElement([false,true]),
             'instrumento_publico' => $this->faker->randomElement([true,false]),
-
             'fiscalia_estado' => $valor? $this->faker->randomElement([false,true]):null,
             'nro_resolucion' => !$valor? strval($this->faker->numerify('###')).$this->faker->randomAscii():null,
-
             'decreto' => $this->faker->numerify('######'),
+            'estadoActivo' => true,
         ];
     }
 }

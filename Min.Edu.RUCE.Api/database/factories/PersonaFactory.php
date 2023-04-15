@@ -21,7 +21,8 @@ class PersonaFactory extends Factory
             'email' => $this->faker->unique()->safeEmail(),
             'nombre' => $this->faker->name(),
             'apellido' => $this->faker->lastName(),
-            'telefono' => intval("388". strval($this->faker->numerify("#######")))
+            'telefono' => intval("388". strval($this->faker->numerify("#######"))),
+            'estadoActivo' => true,
         ];
     }
 }

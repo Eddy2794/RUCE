@@ -21,7 +21,9 @@ class PersoneriaFactory extends Factory
             'fk_expediente' => $this->faker->randomElement(Expediente::all()->getQueueableIds()),
             'estado_comision_directiva' => $this->faker->randomElement([true,false]),
             'estado_resolucion' => $this->faker->randomElement([false,true]),
-            'estado_balance' => $this->faker->randomElement([false,true])
+            'estado_balance' => $this->faker->randomElement([false,true]),
+            'fecha' => $this->faker->date("d-m-Y"),
+            'estadoActivo' => true,
         ];
     }
 }

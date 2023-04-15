@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('nombre',30);
             $table->string('apellido',30);            
             $table->bigInteger('telefono');
+            $table->boolean('estadoActivo')->default(true);
             $table->timestamps();
         });
     }

@@ -19,14 +19,15 @@ class Expediente extends Model
         'fiscalia_estado',
         'nro_resolucion',
         'decreto',
+        'estadoActivo'
     ];
 
     public function fromDateTime($value){
-        return Carbon::parse(parent::fromDateTime($value))->format('Y-m-d H:i:s');
+        return Carbon::parse(parent::fromDateTime($value))->format('d-m-Y H:i:s');
     }
     
     public function toDateTime($value){
-        return parent::toDateTime(Carbon::createFromFormat('d/m/Y H:i:s', $value)->format('Y-m-d H:i:s'));
+        return parent::toDateTime(Carbon::createFromFormat('d/m/Y H:i:s', $value)->format('d-m-Y H:i:s'));
     }
 
     //public $timestamps = false;

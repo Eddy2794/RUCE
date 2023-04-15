@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('nro_resolucion',50)->nullable();
             $table->string('decreto',50)->nullable();
 
+            $table->boolean('estadoActivo')->default(true);
             $table->timestamps();
         });
     }

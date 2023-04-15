@@ -48,7 +48,7 @@ class DatabaseSeeder extends Seeder
 
         //Ejecucion de Factories
 
-        $cant_registros = 10;
+        $cant_registros = 20;
 
         Persona::factory($cant_registros)->create();
         

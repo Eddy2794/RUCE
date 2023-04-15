@@ -23,8 +23,8 @@ class HistorialCooperadoraFactory extends Factory
             'fk_tipo_asociacion' => $this->faker->randomElement(TipoAsociacion::all()->getQueueableIds()),
             'fk_cooperadora' => $this->faker->randomElement(Cooperadora::all()->getQueueableIds()),
             'fk_expediente' => $this->faker->randomElement(Expediente::all()->getQueueableIds()),
-            
-            'fecha' => $this->faker->date("Y-m-d"),
+            'fecha' => $this->faker->date("d-m-Y"),
+            'estadoActivo' => true,
         ];
     }
 }

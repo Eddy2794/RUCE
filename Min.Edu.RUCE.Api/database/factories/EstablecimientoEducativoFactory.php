@@ -25,7 +25,8 @@ class EstablecimientoEducativoFactory extends Factory
             'telefono' => intval("0388".strval($this->faker->numerify("#######"))),
             'email' => strtoupper($this->faker->safeEmailDomain()."@gmail.com"),
             'matricula' => $this->faker->numerify("####"),
-            "domicilio" => strtoupper($this->faker->address())
+            "domicilio" => strtoupper($this->faker->address()),
+            'estadoActivo' => true,
         ];
     }
 }

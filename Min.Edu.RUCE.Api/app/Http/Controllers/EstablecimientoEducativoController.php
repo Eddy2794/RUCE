@@ -31,17 +31,38 @@ class EstablecimientoEducativoController extends Controller
         $pageNumber = $request->query->get('PageNumber');
         $pageSize = $request->query->get('PageSize');
 
+        $data = EstablecimientoEducativo::where('estadoActivo',$estaActivo)->get()->toArray();
 
-        $data = EstablecimientoEducativo::all();
-        $cantidad = count($data);
+        $errores = array();
 
-        $resuesta = [
-            'entities' => $data,
+        // dd($data, $estaActivo, $pageNumber, $pageSize);
+
+        // determina a partir de que indice toma los registros
+        $offset = ($pageNumber - 1) * $pageSize;
+
+        // toma los registros a partir del offset teniendo en cuenta pageSize
+        $elementos_pagina = array_slice($data, $offset, $pageSize);
+
+        $total_paginas = intval(ceil(count($data) / $pageSize));
+
+        // dd($offset/5+1,$elementos_pagina,count($elementos_pagina),$total_paginas);
+
+        // cuenta la cantidad de elementos se enviar en elementos_pagina
+        $cantidad = count($elementos_pagina);
+
+        $respuesta = [
+            'entities' => $elementos_pagina,
+            'succeded' => true,
+            'message' => "",
+            'errors' => $errores,
             'paged' => [
-                'entitiyCount' => $cantidad
+                'entitiyCount' => $cantidad,
+                'pageSize' => count($data),
+                'pageIndex' => $total_paginas,
+                'pageNumber' =>  intval($pageNumber)
             ]
         ];
-        return response()->json($resuesta,200);
+        return response()->json($respuesta,200);
     }
 
     /**
@@ -50,35 +71,83 @@ class EstablecimientoEducativoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
-        $request->validate([
-            'cue' => 'required',
-            'region' => 'required',
-            'nivel' => 'required',
-            'localidad' => 'required',
-            'departamento' => 'required',
-            'telefono' => 'required',
-            'email' => 'required',
-            'matricula' => 'required',
-            'domicilio' => 'required',
-        ]);
+        $errores = array();
 
         $establecimientoEducativo = new EstablecimientoEducativo();
 
-        $establecimientoEducativo->cue = $request->cue;
-        $establecimientoEducativo->region = $request->region;
-        $establecimientoEducativo->nivel = $request->nivel;
-        $establecimientoEducativo->localidad = $request->localidad;
-        $establecimientoEducativo->departamento = $request->departamento;
-        $establecimientoEducativo->telefono = $request->telefono;
-        $establecimientoEducativo->email = $request->email;
-        $establecimientoEducativo->matricula = $request->matricula;
-        $establecimientoEducativo->domicilio = $request->domicilio;
+        if($request->cue)
+            $establecimientoEducativo->cue = $request->cue;
+        else
+            array_push($errores,'El campo CUE es obligatorio.');
 
-        $establecimientoEducativo->save();
+        if($request->region)
+            $establecimientoEducativo->region = $request->region;
+        else
+            array_push($errores,'El campo REGION es obligatorio.');
 
-        return response($establecimientoEducativo);
+        if($request->nivel)
+            $establecimientoEducativo->nivel = $request->nivel;
+        else
+            array_push($errores,'El campo NIVEL es obligatorio.');
+
+        if($request->localidad)
+            $establecimientoEducativo->localidad = $request->localidad;
+        else
+            array_push($errores,'El campo LOCALIDAD es obligatorio.');
+
+        if($request->departamento)
+            $establecimientoEducativo->departamento = $request->departamento;
+        else
+            array_push($errores,'El campo DEPARTAMENTO es obligatorio.');
+
+        if($request->telefono)
+            $establecimientoEducativo->telefono = $request->telefono;
+        else
+            array_push($errores,'El campo TELEFONO es obligatorio.');
+
+        if($request->email)
+            $establecimientoEducativo->email = $request->email;
+        else
+            array_push($errores,'El campo EMAIL es obligatorio.');
+
+        if($request->matricula)
+            $establecimientoEducativo->matricula = $request->matricula;
+        else
+            array_push($errores,'El campo MATRICULA es obligatorio.');
+
+        if($request->domicilio)
+            $establecimientoEducativo->domicilio = $request->domicilio;
+        else
+            array_push($errores,'El campo DOMICILIO es obligatorio.');
+
+        $success = true;
+        $mensaje = "";
+        $status = 201;
+
+        if($errores==[])
+            $establecimientoEducativo->save();
+        else{
+            $success = false;
+            $mensaje =  "Errores al procesar la solicitud.";
+            $status = 400;
+        }
+
+        $respuesta = [
+            'entities' => $success?$establecimientoEducativo:null,
+            'succeded' => $success,
+            'message' => $mensaje,
+            'errors' => $errores,
+            'paged' => [
+                'entitiyCount' => $success?1:0,
+                'pageSize' => $success?1:0,
+                'pageIndex' => $success?1:0,
+                'pageNumber' => $success?1:0
+            ]
+        ];
+
+        return response()->json($respuesta,$status);
     }
 
     /**
@@ -89,15 +158,40 @@ class EstablecimientoEducativoController extends Controller
     public function show(int $id): JsonResponse 
     {
         $data = EstablecimientoEducativo::where('id', $id)->get();
+
+        $data = $data->toArray();
+
         $cantidad = count($data);
 
-        $resuesta = [
+        $errores = [];
+        
+        $success=false;
+
+        $mensaje = "";
+
+        if($data != [])
+            if(!$data[0]['estadoActivo']){
+                
+                $mensaje = "Error al procesar la solicitud.";
+                array_push($errores, "El elemento no esta activo.");
+            }
+            else
+                $success = true;
+        else{
+            $mensaje = "Error al procesar la solicitud.";
+            array_push($errores, "Elemento no encontrado.");
+        }
+
+        $respuesta = [
             'entities' => $data,
+            'succeded' => $success,
+            'message' => $mensaje,
+            'errors' => $errores,
             'paged' => [
                 'entitiyCount' => $cantidad
             ]
         ];
-        return response()->json($resuesta,200);
+        return response()->json($respuesta,200);
     }
 
     /**
@@ -107,31 +201,75 @@ class EstablecimientoEducativoController extends Controller
      * @param  \App\Models\EstablecimientoEducativo  $establecimientoEducativo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, int $id)
+    public function update(Request $request, int $id): JsonResponse
     {
-        $request->validate([
-            'region' => 'required',
-            'nivel' => 'required',
-            'localidad' => 'required',
-            'departamento' => 'required',
-            'telefono' => 'required',
-            'email' => 'required',
-            'matricula' => 'required',
-            'domicilio' => 'required',
-        ]);
+        $errores = array();
+        $success = true;
+        $mensaje = "";
+        $status = 200;
+        $establecimientoEducativo = [];
 
-        EstablecimientoEducativo::where('id',$id)->update([
-            'region' => $request->region,
-            'nivel' => $request->nivel,
-            'localidad' => $request->localidad,
-            'departamento' => $request->departamento,
-            'telefono' => $request->telefono,
-            'email' => $request->email,
-            'matricula' => $request->matricula,
-            'domicilio' => $request->domicilio,
-        ]);
+        if(!EstablecimientoEducativo::where('id',$id)->get()->toArray()[0]['estadoActivo'])
+            array_push($errores,'El Establecimiento Educativo no esta activo.');
+        else{
+            if(!$request->region)
+                array_push($errores,'El campo REGION es obligatorio.');
 
-        return response(EstablecimientoEducativo::where('id',$id)->get()[0]);
+            if(!$request->nivel)
+                array_push($errores,'El campo NIVEL es obligatorio.');
+
+            if(!$request->localidad)
+                array_push($errores,'El campo LOCALIDAD es obligatorio.');
+
+            if(!$request->departamento)
+                array_push($errores,'El campo DEPARTAMENTO es obligatorio.');
+
+            if(!$request->telefono)
+                array_push($errores,'El campo TELEFONO es obligatorio.');
+
+            if(!$request->email)
+                array_push($errores,'El campo EMAIL es obligatorio.');
+
+            if(!$request->matricula)
+                array_push($errores,'El campo MATRICULA es obligatorio.');
+
+            if(!$request->domicilio)
+                array_push($errores,'El campo DOMICILIO es obligatorio.');
+        }
+
+        if($errores==[]){
+            EstablecimientoEducativo::where('id',$id)->update([
+                'region' => $request->region,
+                'nivel' => $request->nivel,
+                'localidad' => $request->localidad,
+                'departamento' => $request->departamento,
+                'telefono' => $request->telefono,
+                'email' => $request->email,
+                'matricula' => $request->matricula,
+                'domicilio' => $request->domicilio,
+            ]);
+            $establecimientoEducativo = EstablecimientoEducativo::where('id',$id)->get();
+        }
+        else{
+            $success = false;
+            $mensaje = "Errores al procesar la solicitud.";
+            $status = 400;
+        }
+
+        $respuesta = [
+            'entities' => $establecimientoEducativo,
+            'succeded' => $success,
+            'message' => $mensaje,
+            'errors' => $errores,
+            'paged' => [
+                'entitiyCount' => count($establecimientoEducativo),
+                'pageSize' => count($establecimientoEducativo),
+                'pageIndex' => count($establecimientoEducativo),
+                'pageNumber' => count($establecimientoEducativo)
+            ]
+        ];
+
+        return response()->json($respuesta,$status);
     }
 
     /**
@@ -140,9 +278,23 @@ class EstablecimientoEducativoController extends Controller
      * @param  \App\Models\EstablecimientoEducativo  $establecimientoEducativo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(int $id)
+    public function destroy(int $id): JsonResponse
     {
-        EstablecimientoEducativo::where('id',$id)->delete();
-        return response()->noContent();
+        EstablecimientoEducativo::where('id',$id)->update([
+            'estadoActivo' => false,
+        ]);
+        $respuesta = [
+            'entities' => [],
+            'succeded' => true,
+            'message' => "Elemento eliminado correctamente",
+            'errors' => [],
+            'paged' => [
+                'entitiyCount' => 0,
+                'pageSize' => 0,
+                'pageIndex' => 0,
+                'pageNumber' => 0
+            ]
+        ];
+        return response()->json($respuesta,200);
     }
 }

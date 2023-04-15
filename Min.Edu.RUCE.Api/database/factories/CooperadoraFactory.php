@@ -31,6 +31,7 @@ class CooperadoraFactory extends Factory
             'fecha_creacion' => $this->faker->date(),
             'fk_kiosco' => $this->faker->unique()->randomElement(Kiosco::all()->getQueueableIds()),
             'fk_establecimiento_educativo' => $this->faker->randomElement(EstablecimientoEducativo::all()->getQueueableIds()),
+            'estadoActivo' => true,
         ];
     }
 }

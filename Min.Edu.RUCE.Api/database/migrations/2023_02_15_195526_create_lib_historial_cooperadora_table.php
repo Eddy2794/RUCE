@@ -39,6 +39,7 @@ return new class extends Migration
             $table->dateTime('fecha')->default(Carbon::createFromFormat('Y-m-d H:i:s',Carbon::now())
                                         ->format('d-m-Y'));
 
+            $table->boolean('estadoActivo')->default(true);
             $table->timestamps();
         });
 

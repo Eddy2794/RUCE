@@ -23,6 +23,7 @@ return new class extends Migration
             $table->unsignedInteger('fk_persona');
             $table->foreign('fk_persona')->references('id')->on('lib_persona')->onDelete('cascade');
 
+            $table->boolean('estadoActivo')->default(true);
             $table->timestamps();
         });
     }

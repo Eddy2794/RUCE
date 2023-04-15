@@ -24,7 +24,8 @@ class SeguimientoAtencionFactory extends Factory
             'atencion_oficina' => $this->faker->numerify("###"),
             'atencion_territorial' => $this->faker->numerify("###"),
             'fecha' => $this->faker->date(),
-            'fk_cooperadora' => $this->faker->randomElement(Cooperadora::all()->getQueueableIds())
+            'fk_cooperadora' => $this->faker->randomElement(Cooperadora::all()->getQueueableIds()),
+            'estadoActivo' => true,
         ];
     }
 }

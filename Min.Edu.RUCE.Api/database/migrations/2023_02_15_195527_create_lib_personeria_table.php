@@ -29,6 +29,7 @@ return new class extends Migration
                   ->on('lib_expediente')
                   ->onDelete('cascade'); 
 
+            $table->boolean('estadoActivo')->default(true);
             $table->timestamps();
         });
     }

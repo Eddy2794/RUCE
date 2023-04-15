@@ -17,13 +17,13 @@ class PersonaController extends Controller
     public function index(): JsonResponse
     {
         $data = Persona::all();
-        $resuesta = [
+        $respuesta = [
             'entities' => $data,
             'paged' => [
                 'entitiyCount' => count($data)
             ]
         ];
-        return response()->json($resuesta,200);
+        return response()->json($respuesta,200);
     }
 
     public function filtro(Request $request): JsonResponse  
@@ -32,17 +32,38 @@ class PersonaController extends Controller
         $pageNumber = $request->query->get('PageNumber');
         $pageSize = $request->query->get('PageSize');
 
+        $data = Persona::where('estadoActivo',$estaActivo)->get()->toArray();
 
-        $data = Persona::all();
-        $cantidad = count($data);
+        $errores = [];
 
-        $resuesta = [
-            'entities' => $data,
+        // dd($data, $estaActivo, $pageNumber, $pageSize);
+
+        // determina a partir de que indice toma los registros
+        $offset = ($pageNumber - 1) * $pageSize;
+
+        // toma los registros a partir del offset teniendo en cuenta pageSize
+        $elementos_pagina = array_slice($data, $offset, $pageSize);
+
+        $total_paginas = intval(ceil(count($data) / $pageSize));
+
+        // dd($offset/5+1,$elementos_pagina,count($elementos_pagina),$total_paginas);
+
+        // cuenta la cantidad de elementos se enviar en elementos_pagina
+        $cantidad = count($elementos_pagina);
+
+        $respuesta = [
+            'entities' => $elementos_pagina,
+            'succeded' => true,
+            'message' => "",
+            'errors' => $errores,
             'paged' => [
-                'entitiyCount' => $cantidad
+                'entitiyCount' => $cantidad,
+                'pageSize' => count($data),
+                'pageIndex' => $total_paginas,
+                'pageNumber' =>  intval($pageNumber)
             ]
         ];
-        return response()->json($resuesta,200);
+        return response()->json($respuesta,200);
     }
 
     /**
@@ -95,13 +116,18 @@ class PersonaController extends Controller
         $data = [$persona];
         $cantidad = count($data);
 
-        $resuesta = [
+        $errores = [];
+
+        $respuesta = [
             'entities' => $data,
+            'succeded' => true,
+            'message' => "",
+            'errors' => $errores,
             'paged' => [
                 'entitiyCount' => $cantidad
             ]
         ];
-        return response()->json($resuesta,200);
+        return response()->json($respuesta,200);
     }
 
     /**
