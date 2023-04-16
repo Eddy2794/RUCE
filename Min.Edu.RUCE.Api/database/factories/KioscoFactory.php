@@ -22,7 +22,7 @@ class KioscoFactory extends Factory
             'documentacion_presentada' => $this->faker->randomElement([true,false]),
             'periodo_inicio' => $this->faker->date("Y-m-d"),
             'periodo_fin' => $this->faker->date("Y-m-d"),
-            'estadoActivo' => true,
+            'estaActivo' => true,
         ];
     }
 }

@@ -31,7 +31,7 @@ class TipoAsociacionController extends Controller
         $pageNumber = $request->query->get('PageNumber');
         $pageSize = $request->query->get('PageSize');
 
-        $data = TipoAsociacion::where('estadoActivo',$estaActivo)->get()->toArray();
+        $data = TipoAsociacion::where('estaActivo',$estaActivo)->get()->toArray();
 
         $errores = [];
 

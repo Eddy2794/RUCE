@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Expediente extends Model
 {
     use HasFactory;
-    protected $table = 'lib_expediente';
+    protected $table = 'Expediente';
     protected $primary_key = 'id';
     protected $fillable = [
         'nro_expediente',
@@ -19,7 +19,7 @@ class Expediente extends Model
         'fiscalia_estado',
         'nro_resolucion',
         'decreto',
-        'estadoActivo'
+        'estaActivo'
     ];
 
     public function fromDateTime($value){

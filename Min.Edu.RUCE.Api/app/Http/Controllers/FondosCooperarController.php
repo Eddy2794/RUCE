@@ -31,7 +31,7 @@ class FondosCooperarController extends Controller
         $pageNumber = $request->query->get('PageNumber');
         $pageSize = $request->query->get('PageSize');
 
-        $data = FondosCooperar::where('estadoActivo',$estaActivo)->get()->toArray();
+        $data = FondosCooperar::where('estaActivo',$estaActivo)->get()->toArray();
 
         $errores = [];
 

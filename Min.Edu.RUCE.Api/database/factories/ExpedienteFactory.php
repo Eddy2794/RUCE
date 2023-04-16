@@ -26,7 +26,7 @@ class ExpedienteFactory extends Factory
             'fiscalia_estado' => $valor? $this->faker->randomElement([false,true]):null,
             'nro_resolucion' => !$valor? strval($this->faker->numerify('###')).$this->faker->randomAscii():null,
             'decreto' => $this->faker->numerify('######'),
-            'estadoActivo' => true,
+            'estaActivo' => true,
         ];
     }
 }

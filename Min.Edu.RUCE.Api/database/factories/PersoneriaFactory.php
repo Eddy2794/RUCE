@@ -23,7 +23,7 @@ class PersoneriaFactory extends Factory
             'estado_resolucion' => $this->faker->randomElement([false,true]),
             'estado_balance' => $this->faker->randomElement([false,true]),
             'fecha' => $this->faker->date("d-m-Y"),
-            'estadoActivo' => true,
+            'estaActivo' => true,
         ];
     }
 }

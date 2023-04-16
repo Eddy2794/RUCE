@@ -31,7 +31,7 @@ class SeguimientoAtencionController extends Controller
         $pageNumber = $request->query->get('PageNumber');
         $pageSize = $request->query->get('PageSize');
 
-        $data = SeguimientoAtencion::where('estadoActivo',$estaActivo)->get()->toArray();
+        $data = SeguimientoAtencion::where('estaActivo',$estaActivo)->get()->toArray();
 
         $errores = [];
 

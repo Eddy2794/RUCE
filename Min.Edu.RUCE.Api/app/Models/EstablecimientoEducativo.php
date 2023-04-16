@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class EstablecimientoEducativo extends Model
 {
     use HasFactory;
-    protected $table = 'lib_establecimiento_educativo';
+    protected $table = 'OrganizacionRUCE';
     protected $primary_key = 'id';
     protected $fillable = [
         'cue',
@@ -21,7 +21,7 @@ class EstablecimientoEducativo extends Model
         'email',
         'matricula',
         'domicilio',
-        'estadoActivo'
+        'estaActivo'
     ];
 
     public function fromDateTime($value){

@@ -31,7 +31,7 @@ class HistorialCooperadoraController extends Controller
         $pageNumber = $request->query->get('PageNumber');
         $pageSize = $request->query->get('PageSize');
 
-        $data = HistorialCooperadora::where('estadoActivo',$estaActivo)->get()->toArray();
+        $data = HistorialCooperadora::where('estaActivo',$estaActivo)->get()->toArray();
 
         $errores = [];
 

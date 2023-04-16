@@ -9,11 +9,11 @@ use Illuminate\Database\Eloquent\Model;
 class TipoAsociacion extends Model
 {
     use HasFactory;
-    protected $table = 'lib_tipo_asociacion';
+    protected $table = 'RefTipoAsociacion';
     protected $primary_key = 'id';
     protected $fillable = [
         'descripcion',
-        'estadoActivo'
+        'estaActivo'
     ];
 
     public function fromDateTime($value){

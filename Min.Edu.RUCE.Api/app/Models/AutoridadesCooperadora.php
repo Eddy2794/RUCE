@@ -18,7 +18,7 @@ class AutoridadesCooperadora extends Model
         'inicio_cargo',
         'fin_cargo',
         'tipo_comision',
-        'estadoActivo'
+        'estaActivo'
     ];
 
     public function fromDateTime($value){

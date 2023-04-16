@@ -16,7 +16,7 @@ class HistorialCooperadora extends Model
         'fk_tipo_asociacion',
         'fk_expediente',
         'fecha',
-        'estadoActivo'
+        'estaActivo'
     ];
 
     public function fromDateTime($value){

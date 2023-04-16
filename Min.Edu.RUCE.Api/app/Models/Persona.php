@@ -11,7 +11,7 @@ class Persona extends Model
     use HasFactory;
     
 
-    protected $table = 'lib_persona';
+    protected $table = 'PersonaRuce';
     protected $primary_key = 'id';
     protected $fillable = [
         'cuil',
@@ -19,7 +19,7 @@ class Persona extends Model
         'apellido',
         'telefono',
         'email',
-        'estadoActivo'
+        'estaActivo'
     ];
 
     public function fromDateTime($value){

@@ -24,7 +24,7 @@ class HistorialCooperadoraFactory extends Factory
             'fk_cooperadora' => $this->faker->randomElement(Cooperadora::all()->getQueueableIds()),
             'fk_expediente' => $this->faker->randomElement(Expediente::all()->getQueueableIds()),
             'fecha' => $this->faker->date("d-m-Y"),
-            'estadoActivo' => true,
+            'estaActivo' => true,
         ];
     }
 }

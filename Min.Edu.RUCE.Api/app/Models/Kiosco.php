@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Kiosco extends Model
 {
     use HasFactory;
-    protected $table = 'lib_kiosco';
+    protected $table = 'Kiosco';
     protected $primary_key = 'id';
     protected $fillable = [
         'responsable',
@@ -17,7 +17,7 @@ class Kiosco extends Model
         'documentacion_presentada',
         'periodo_inicio',
         'periodo_fin',
-        'estadoActivo'
+        'estaActivo'
     ];
 
     public function fromDateTime($value){

@@ -13,17 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('lib_usuario', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('UsuarioRUCE', function (Blueprint $table) {
+            $table->increments('idUsaurioRUCE');
 
             $table->string('password');
             $table->string('username');
             $table->boolean('administrador')->default(false);
 
-            $table->unsignedInteger('fk_persona');
-            $table->foreign('fk_persona')->references('id')->on('lib_persona')->onDelete('cascade');
+            $table->unsignedInteger('idPersonaRUCE');
+            $table->foreign('idPersonaRUCE')->references('idPersonaRUCE')->on('PersonaRuce')->onDelete('cascade');
 
-            $table->boolean('estadoActivo')->default(true);
+            $table->boolean('estaActivo')->default(true)->nullable(false);
             $table->timestamps();
         });
     }
@@ -35,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lib_usuario');
+        Schema::dropIfExists('usuario_ruce');
     }
 };

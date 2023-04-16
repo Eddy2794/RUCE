@@ -9,21 +9,21 @@ use Illuminate\Database\Eloquent\Model;
 class Cooperadora extends Model
 {
     use HasFactory;
-    protected $table = 'lib_cooperadora';
+    protected $table = 'Cooperadora';
     protected $primary_key = 'id';
     protected $fillable = [
         'fk_kiosco',
-        'fk_establecimiento_educativo',
+        'idOrganizacionRUCE',
         'denominacion',
         'estado',
-        'convenio_sc_economicas',
+        'convenioScEconomicas',
         'inscripcion_afip',
         'inscripcion_rentas',
         'inscripcion_renacopes',
         'legajo',
         'decreto',
         'fecha_creacion',
-        'estadoActivo'
+        'estaActivo'
     ];
 
     public function fromDateTime($value){

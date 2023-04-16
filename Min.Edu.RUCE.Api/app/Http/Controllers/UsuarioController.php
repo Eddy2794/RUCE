@@ -32,7 +32,7 @@ class UsuarioController extends Controller
         $pageNumber = $request->query->get('PageNumber');
         $pageSize = $request->query->get('PageSize');
 
-        $data = Usuario::where('estadoActivo',$estaActivo)->get()->toArray();
+        $data = Usuario::where('estaActivo',$estaActivo)->get()->toArray();
 
         $errores = [];
 

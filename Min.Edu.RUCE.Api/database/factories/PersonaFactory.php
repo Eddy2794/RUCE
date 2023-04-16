@@ -22,7 +22,7 @@ class PersonaFactory extends Factory
             'nombre' => $this->faker->name(),
             'apellido' => $this->faker->lastName(),
             'telefono' => intval("388". strval($this->faker->numerify("#######"))),
-            'estadoActivo' => true,
+            'estaActivo' => true,
         ];
     }
 }

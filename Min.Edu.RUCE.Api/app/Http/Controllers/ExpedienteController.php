@@ -32,7 +32,7 @@ class ExpedienteController extends Controller
         $pageNumber = $request->query->get('PageNumber');
         $pageSize = $request->query->get('PageSize');
 
-        $data = Expediente::where('estadoActivo',$estaActivo)->get()->toArray();
+        $data = Expediente::where('estaActivo',$estaActivo)->get()->toArray();
 
         $errores = [];
 

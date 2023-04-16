@@ -32,7 +32,7 @@ class PersoneriaController extends Controller
         $pageNumber = $request->query->get('PageNumber');
         $pageSize = $request->query->get('PageSize');
 
-        $data = Personeria::where('estadoActivo',$estaActivo)->get()->toArray();
+        $data = Personeria::where('estaActivo',$estaActivo)->get()->toArray();
 
         $errores = [];
 

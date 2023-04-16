@@ -21,9 +21,9 @@ class AutoridadesEstablecimientoEducativoFactory extends Factory
     {
         return [
             'fk_persona' => $this->faker->randomElement(Persona::all()->getQueueableIds()),
-            'fk_establecimiento_educativo' => $this->faker->randomElement(EstablecimientoEducativo::all()->getQueueableIds()),
+            'idOrganizacionRUCE' => $this->faker->randomElement(EstablecimientoEducativo::all()->getQueueableIds()),
             'cargo' => $this->faker->randomElement(["director","secretario","vice-director"]),
-            'estadoActivo' => true,
+            'estaActivo' => true,
         ];
     }
 }

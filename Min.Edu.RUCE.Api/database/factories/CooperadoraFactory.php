@@ -24,14 +24,14 @@ class CooperadoraFactory extends Factory
             'estado' => $this->faker->randomElement(["verde","amarillo","rojo"]),
             'legajo' => "legajo ".$this->faker->unique()->numerify("###"),
             'decreto' => "decreto ".$this->faker->unique()->numerify("###"),
-            'convenio_sc_economicas' => $this->faker->randomElement([true,false]),
+            'convenioScEconomicas' => $this->faker->randomElement([true,false]),
             'inscripcion_afip' => $this->faker->randomElement([true,false]),
             'inscripcion_rentas' => $this->faker->randomElement([true,false]),
             'inscripcion_renacopes' => $this->faker->randomElement([true,false]),
             'fecha_creacion' => $this->faker->date(),
             'fk_kiosco' => $this->faker->unique()->randomElement(Kiosco::all()->getQueueableIds()),
-            'fk_establecimiento_educativo' => $this->faker->randomElement(EstablecimientoEducativo::all()->getQueueableIds()),
-            'estadoActivo' => true,
+            'idOrganizacionRUCE' => $this->faker->randomElement(EstablecimientoEducativo::all()->getQueueableIds()),
+            'estaActivo' => true,
         ];
     }
 }

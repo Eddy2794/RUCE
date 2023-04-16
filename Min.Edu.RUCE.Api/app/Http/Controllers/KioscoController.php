@@ -31,7 +31,7 @@ class KioscoController extends Controller
         $pageNumber = $request->query->get('PageNumber');
         $pageSize = $request->query->get('PageSize');
 
-        $data = Kiosco::where('estadoActivo',$estaActivo)->get()->toArray();
+        $data = Kiosco::where('estaActivo',$estaActivo)->get()->toArray();
 
         $errores = [];
 

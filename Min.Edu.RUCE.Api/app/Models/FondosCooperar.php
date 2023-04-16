@@ -10,7 +10,7 @@ class FondosCooperar extends Model
 {
     use HasFactory;
 
-    protected $table = 'lib_fondos_cooperar';
+    protected $table = 'Fondo';
     protected $primary_key = 'id';
     protected $fillable = [
         'fk_cooperadora',
@@ -18,7 +18,7 @@ class FondosCooperar extends Model
         'fondos_rendidos',
         'fecha_rendicion',
         'anio_otorgado',
-        'estadoActivo'
+        'estaActivo'
     ];
 
     public function fromDateTime($value){

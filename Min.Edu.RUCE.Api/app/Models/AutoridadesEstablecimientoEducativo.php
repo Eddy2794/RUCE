@@ -9,13 +9,13 @@ use Illuminate\Database\Eloquent\Model;
 class AutoridadesEstablecimientoEducativo extends Model
 {
     use HasFactory;
-    protected $table = 'lib_autoridades_establecimiento_educativo';
+    protected $table = 'AutoridadOrganizacionRUCE';
     protected $primary_key = 'id';
     protected $fillable = [
         'fk_persona',
-        'fk_establecimiento_educativo',
+        'idOrganizacionRUCE',
         'cargo',
-        'estadoActivo'
+        'estaActivo'
     ];
 
     public function fromDateTime($value){

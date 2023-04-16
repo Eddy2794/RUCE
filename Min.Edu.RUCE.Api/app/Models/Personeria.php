@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Personeria extends Model
 {
     use HasFactory;
-    protected $table = 'lib_personeria';
+    protected $table = 'Personaria';
     protected $primary_key = 'id';
     protected $fillable = [
         'fk_expediente',
@@ -17,7 +17,7 @@ class Personeria extends Model
         'estado_resolucion',
         'estado_balance',
         'fecha',
-        'estadoActivo'
+        'estaActivo'
     ];
 
     public function fromDateTime($value){

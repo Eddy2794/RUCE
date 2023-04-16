@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class SeguimientoAtencion extends Model
 {
     use HasFactory;
-    protected $table = 'lib_seguimiento_atencion';
+    protected $table = 'AtencionSeguimiento';
     protected $primary_key = 'id';
     protected $fillable = [
         'fk_cooperadora',
@@ -19,7 +19,7 @@ class SeguimientoAtencion extends Model
         'atencion_oficina',
         'atencion_territorial',
         'fecha',
-        'estadoActivo'
+        'estaActivo'
     ];
 
     public function fromDateTime($value){

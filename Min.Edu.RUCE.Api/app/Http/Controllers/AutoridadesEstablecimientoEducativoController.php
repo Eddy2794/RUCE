@@ -33,7 +33,7 @@ class AutoridadesEstablecimientoEducativoController extends Controller
         $pageNumber = $request->query->get('PageNumber');
         $pageSize = $request->query->get('PageSize');
 
-        $data = AutoridadesCooperadora::where('estadoActivo',$estaActivo)->get()->toArray();
+        $data = AutoridadesCooperadora::where('estaActivo',$estaActivo)->get()->toArray();
 
         $errores = [];
 
@@ -78,7 +78,7 @@ class AutoridadesEstablecimientoEducativoController extends Controller
         //validacion de la preticion de los datos
         $request->validate([
             'fk_persona' =>'required',
-            'fk_establecimiento_educativo' =>'required',
+            'idOrganizacionRUCE' =>'required',
             'cargo' =>'required',
         ]);
 
@@ -88,7 +88,7 @@ class AutoridadesEstablecimientoEducativoController extends Controller
         //asigmacion de los datos profvenientes del requies hacia la instancia de autoridad
         $autoridadeEE->cargo = $request->cargo;
         $autoridadeEE->fk_persona = $request->fk_persona;
-        $autoridadeEE->fk_establecimiento_educativo = $request->fk_establecimiento_educativo;
+        $autoridadeEE->idOrganizacionRUCE = $request->idOrganizacionRUCE;
 
         //generacion de registro en la base de datos
         $autoridadeEE->save();
@@ -132,7 +132,7 @@ class AutoridadesEstablecimientoEducativoController extends Controller
     {
         $request->validate([
             'fk_persona' =>'required',
-            'fk_establecimiento_educativo' =>'required',
+            'idOrganizacionRUCE' =>'required',
             'cargo' =>'required',
         ]);
 
@@ -140,7 +140,7 @@ class AutoridadesEstablecimientoEducativoController extends Controller
         AutoridadesEstablecimientoEducativo::where('id',$id)->update([
             'cargo' => $request->cargo,
             'fk_persona' => $request->fk_persona,
-            'fk_establecimiento_educativo' => $request->fk_establecimiento_educativo,
+            'idOrganizacionRUCE' => $request->idOrganizacionRUCE,
         ]);
 
         return response(AutoridadesEstablecimientoEducativo::where('id',$id)->get()[0]);

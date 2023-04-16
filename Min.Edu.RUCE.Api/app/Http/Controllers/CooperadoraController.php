@@ -31,7 +31,7 @@ class CooperadoraController extends Controller
         $pageNumber = $request->query->get('PageNumber');
         $pageSize = $request->query->get('PageSize');
 
-        $data = Cooperadora::where('estadoActivo',$estaActivo)->get()->toArray();
+        $data = Cooperadora::where('estaActivo',$estaActivo)->get()->toArray();
 
         $errores = [];
 
@@ -77,7 +77,7 @@ class CooperadoraController extends Controller
         // dd($request->all());
         $request->validate([
             'fk_kiosco' => 'required',
-            'fk_establecimiento_educativo' => 'required',
+            'idOrganizacionRUCE' => 'required',
             'denominacion' => 'required',
             'decreto' => 'required',
             'estado' => 'required',
@@ -87,12 +87,12 @@ class CooperadoraController extends Controller
         $cooperadora = new Cooperadora();
 
         $cooperadora->fk_kiosco = $request->fk_kiosco;
-        $cooperadora->fk_establecimiento_educativo = $request->fk_establecimiento_educativo;
+        $cooperadora->idOrganizacionRUCE = $request->idOrganizacionRUCE;
         $cooperadora->denominacion = $request->denominacion;
         if($request->estado)
             $cooperadora->estado = $request->estado;
-        if($request->convenio_sc_economicas)
-            $cooperadora->convenio_sc_economicas = $request->convenio_sc_economicas;
+        if($request->convenioScEconomicas)
+            $cooperadora->convenioScEconomicas = $request->convenioScEconomicas;
         if($request->inscripcion_afip)
             $cooperadora->inscripcion_afip = $request->inscripcion_afip;
         if($request->inscripcion_rentas)
@@ -147,10 +147,10 @@ class CooperadoraController extends Controller
     {
         $request->validate([
             'fk_kiosco' => 'required',
-            'fk_establecimiento_educativo' => 'required',
+            'idOrganizacionRUCE' => 'required',
             'denominacion' => 'required',
             'estado' => 'required',
-            'convenio_sc_economicas' => 'required',
+            'convenioScEconomicas' => 'required',
             'inscripcion_afip' => 'required',
             'inscripcion_rentas' => 'required',
             'inscripcion_renacopes' => 'required',
@@ -160,10 +160,10 @@ class CooperadoraController extends Controller
 
         $cooperadora->update([
             'fk_kiosco' => $request->fk_kiosco,
-            'fk_establecimiento_educativo' => $request->fk_establecimiento_educativo,
+            'idOrganizacionRUCE' => $request->idOrganizacionRUCE,
             'denominacion' => $request->denominacion,
             'estado' => $request->estado,
-            'convenio_sc_economicas' => $request->convenio_sc_economicas,
+            'convenioScEconomicas' => $request->convenioScEconomicas,
             'inscripcion_afip' => $request->iscripcion_afip,
             'inscripcion_rentas' => $request->inscripcion_rentas,
             'inscripcion_renacopes' => $request->inscripcion_renacopes,

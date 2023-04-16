@@ -31,7 +31,7 @@ class EstablecimientoEducativoController extends Controller
         $pageNumber = $request->query->get('PageNumber');
         $pageSize = $request->query->get('PageSize');
 
-        $data = EstablecimientoEducativo::where('estadoActivo',$estaActivo)->get()->toArray();
+        $data = EstablecimientoEducativo::where('estaActivo',$estaActivo)->get()->toArray();
 
         $errores = array();
 
@@ -170,7 +170,7 @@ class EstablecimientoEducativoController extends Controller
         $mensaje = "";
 
         if($data != [])
-            if(!$data[0]['estadoActivo']){
+            if(!$data[0]['estaActivo']){
                 
                 $mensaje = "Error al procesar la solicitud.";
                 array_push($errores, "El elemento no esta activo.");
@@ -209,7 +209,7 @@ class EstablecimientoEducativoController extends Controller
         $status = 200;
         $establecimientoEducativo = [];
 
-        if(!EstablecimientoEducativo::where('id',$id)->get()->toArray()[0]['estadoActivo'])
+        if(!EstablecimientoEducativo::where('id',$id)->get()->toArray()[0]['estaActivo'])
             array_push($errores,'El Establecimiento Educativo no esta activo.');
         else{
             if(!$request->region)
@@ -281,7 +281,7 @@ class EstablecimientoEducativoController extends Controller
     public function destroy(int $id): JsonResponse
     {
         EstablecimientoEducativo::where('id',$id)->update([
-            'estadoActivo' => false,
+            'estaActivo' => false,
         ]);
         $respuesta = [
             'entities' => [],

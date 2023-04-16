@@ -24,7 +24,7 @@ class FondosCooperarFactory extends Factory
             'fecha_rendicion' => $this->faker->date(),
             'anio_otorgado' => $this->faker->numerify("####"),
             'fk_cooperadora' => $this->faker->randomElement(Cooperadora::all()->getQueueableIds()),
-            'estadoActivo' => true,
+            'estaActivo' => true,
         ];
     }
 }

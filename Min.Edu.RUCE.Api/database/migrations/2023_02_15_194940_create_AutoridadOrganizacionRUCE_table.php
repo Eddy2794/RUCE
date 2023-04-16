@@ -13,16 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('lib_autoridades_establecimiento_educativo', function (Blueprint $table) {
+        Schema::create('AutoridadOrganizacionRUCE', function (Blueprint $table) {
             $table->increments('id');
             $table->string('cargo',30);
 
             $table->unsignedInteger('fk_persona');
-            $table->foreign('fk_persona')->references('id')->on('lib_persona')->onDelete('cascade');
+            $table->foreign('fk_persona')->references('idPersonaRUCE')->on('PersonaRuce')->onDelete('cascade');
 
-            $table->unsignedInteger('fk_establecimiento_educativo');
-            $table->foreign('fk_establecimiento_educativo')->references('id')->on('lib_establecimiento_educativo')->onDelete('cascade');
-            $table->boolean('estadoActivo')->default(true);
+            $table->unsignedInteger('idOrganizacionRUCE');
+            $table->foreign('idOrganizacionRUCE')->references('idOrganizacionRUCE')->on('OrganizacionRUCE')->onDelete('cascade');
+            $table->boolean('estaActivo')->default(true)->nullable(false);
             $table->timestamps();
 
             
@@ -36,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lib_autoridades_establecimiento_educativo');
+        Schema::dropIfExists('AutoridadOrganizacionRUCE');
     }
 };

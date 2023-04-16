@@ -32,7 +32,7 @@ class PersonaController extends Controller
         $pageNumber = $request->query->get('PageNumber');
         $pageSize = $request->query->get('PageSize');
 
-        $data = Persona::where('estadoActivo',$estaActivo)->get()->toArray();
+        $data = Persona::where('estaActivo',$estaActivo)->get()->toArray();
 
         $errores = [];
 

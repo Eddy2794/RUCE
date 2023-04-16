@@ -9,11 +9,11 @@ export class CooperadoraModel extends BaseModel {
         public estado?: string,
         public legajo?: string,
         public decreto?: string,
-        public convenio_sc_economicas?: boolean,
+        public convenioScEconomicas?: boolean,
         public inscripcion_afip?: boolean,
         public inscripcion_rentas?: boolean,
         public inscripcion_renacopes?: boolean,
-        public fk_establecimiento_educativo?: EstablecimientoModel,
+        public idOrganizacionRUCE?: EstablecimientoModel,
         public fk_kiosco?: KioscoModel,
 
     ) {

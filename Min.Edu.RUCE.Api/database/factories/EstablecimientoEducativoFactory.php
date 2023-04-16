@@ -26,7 +26,7 @@ class EstablecimientoEducativoFactory extends Factory
             'email' => strtoupper($this->faker->safeEmailDomain()."@gmail.com"),
             'matricula' => $this->faker->numerify("####"),
             "domicilio" => strtoupper($this->faker->address()),
-            'estadoActivo' => true,
+            'estaActivo' => true,
         ];
     }
 }

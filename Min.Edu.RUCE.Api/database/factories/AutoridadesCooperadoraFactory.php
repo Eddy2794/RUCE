@@ -25,7 +25,7 @@ class AutoridadesCooperadoraFactory extends Factory
             'tipo_comision' => $this->faker->randomElement(["regularizadora","directiva"]),
             'fk_persona' => $this->faker->randomElement(Persona::all()->getQueueableIds()),
             'fk_cooperadora' => $this->faker->randomElement(Cooperadora::all()->getQueueableIds()),
-            'estadoActivo' => true,
+            'estaActivo' => true,
         ];
     }
 }

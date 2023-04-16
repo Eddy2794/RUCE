@@ -31,7 +31,7 @@ class AutoridadesCooperadoraController extends Controller
         $pageNumber = $request->query->get('PageNumber');
         $pageSize = $request->query->get('PageSize');
 
-        $data = AutoridadesCooperadora::where('estadoActivo',$estaActivo)->get()->toArray();
+        $data = AutoridadesCooperadora::where('estaActivo',$estaActivo)->get()->toArray();
 
         $errores = [];
 

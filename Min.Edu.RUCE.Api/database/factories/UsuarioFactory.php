@@ -21,7 +21,7 @@ class UsuarioFactory extends Factory
             'fk_persona' => $this->faker->randomElement(Persona::all()->getQueueableIds()),
             'username' => $this->faker->userName(),
             'password' => $this->faker->password(),
-            'estadoActivo' => true,
+            'estaActivo' => true,
         ];
     }
 }

@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('lib_tipo_asociacion', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('descripcion');
-            $table->boolean('estadoActivo')->default(true);
+        Schema::create('RefTipoDocumentoRUCE', function (Blueprint $table) {
+            $table->increments('idRefTipoDocumentoRUCE');
+            $table->string('tipoDocumentoDesc');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lib_tipo_asociacion');
+        Schema::dropIfExists('RefTipoDocumentoRUCE');
     }
 };

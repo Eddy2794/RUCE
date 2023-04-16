@@ -9,14 +9,14 @@ use Illuminate\Database\Eloquent\Model;
 class Usuario extends Model
 {
     use HasFactory;
-    protected $table = 'lib_usuario';
+    protected $table = 'usuario_ruce';
     protected $primary_key = 'id';
     protected $fillable = [
         'fk_persona',
         'password',
         'username',
         'administrador',
-        'estadoActivo'
+        'estaActivo'
     ];
 
     public function fromDateTime($value){
