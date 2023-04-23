@@ -13,17 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('UsuarioRUCE', function (Blueprint $table) {
-            $table->increments('idUsaurioRUCE');
+        Schema::create('_movimiento_expediente', function (Blueprint $table) {
+            $table->increments('idMovimientoExpediente');
 
-            $table->string('password');
-            $table->string('username');
-            $table->boolean('administrador')->default(false);
+            $table->unsignedInteger('fkIdExpediente');
+            $table->foreign('fkIdExpediente')->references('idExpediente')->on('Expediente')->onDelete('cascade');
 
-            $table->unsignedInteger('fkIdPersonaRUCE');
-            $table->foreign('fkIdPersonaRUCE')->references('idPersonaRUCE')->on('PersonaRuce')->onDelete('cascade');
+            $table->unsignedInteger('fkIdRefInstanciaInstrumento');
+            $table->foreign('fkIdRefInstanciaInstrumento')->references('idRefInstanciaInstrumento')->on('RefInstanciaInstrumento')->onDelete('cascade');
 
-            $table->boolean('estaActivo')->default(true)->nullable(false);
+            $table->boolean('estaActivo')->default(true);
             $table->dateTime('fechaEliminacion')->nullable(true);
             $table->integer('idUsuarioAlta')->default(null);
             $table->integer('idUsuarioModificacion')->default(null);
@@ -38,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('usuario_ruce');
+        Schema::dropIfExists('_movimiento_expediente');
     }
 };

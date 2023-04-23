@@ -23,9 +23,9 @@ return new class extends Migration
             $table->unsignedInteger('fkIdCooperadora');
             $table->foreign('fkIdCooperadora')->references('idCooperadora')->on('Cooperadora');
 
-            $table->boolean('estado_comision_directiva')->default(false);
-            $table->boolean('estado_resolucion')->default(false);
-            $table->boolean('estado_balance')->default(false);
+            $table->string('decreto')->nullable();
+            $table->string('nroResolucion')->nullable();
+
             $table->boolean('estaActivo')->default(true)->nullable(false);
             $table->date('fechaEliminacion');
             $table->integer('idUsuarioAlta')->nullable(true);

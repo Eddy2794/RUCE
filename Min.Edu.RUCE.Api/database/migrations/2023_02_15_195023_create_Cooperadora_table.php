@@ -25,19 +25,17 @@ return new class extends Migration
             $table->string('legajo',200)->nullable(true);
             $table->string('denominacion',100);
             $table->string('estado',200)->nullable(true);
-            $table->string('decreto',200)->nullable(true);
-            $table->string('nroResolucion',200)->nullable(true);
 
             $table->boolean('convenioScEconomicas')->default(false);
             $table->boolean('inscripcion_afip')->default(false);
             $table->boolean('inscripcion_rentas')->default(false);
             $table->boolean('inscripcion_renacopes')->default(false);
 
-            $table->integer('idUsuarioAlta')->nullable(true);
-            $table->integer('idUsuarioModificacion')->nullable(true);
 
             $table->boolean('estaActivo')->default(true)->nullable(false);
             $table->datetime('fechaEliminacion')->nullable(true);
+            $table->integer('idUsuarioAlta')->nullable(true);
+            $table->integer('idUsuarioModificacion')->nullable(true);
             $table->timestamps();
 
         });

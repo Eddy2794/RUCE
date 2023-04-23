@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('PersonaRuce', function (Blueprint $table) {
             $table->increments('idPersonaRUCE');
             $table->string('cuil')->unique();
-            $table->integer('dni')->unique();
+            $table->integer('documento')->unique();
 
             $table->unsignedInteger('fkIdRefTipoDocumento');
             $table->foreign('fkIdRefTipoDocumento')->references('idRefTipoDocumentoRUCE')->on('RefTipoDocumentoRUCE')->onDelete('cascade');
@@ -26,7 +26,11 @@ return new class extends Migration
             $table->string('nombre',200);
             $table->string('apellido',200);            
             $table->bigInteger('telefono');
+            
+            $table->dateTime('fechaEliminacion')->nullable(true);
             $table->boolean('estaActivo')->default(true)->nullable(false);
+            $table->integer('idUsuarioAlta')->default(null);
+            $table->integer('idUsuarioModificacion')->default(null);
             $table->timestamps();
         });
     }

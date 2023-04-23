@@ -3,6 +3,6 @@ import { PersonaModel } from './../Persona/persona-model';
 export class AutoridadEstablecimeintoModel {
     id!: number;
     cargo!: string;
-    fk_persona!: PersonaModel;
+    fkIdPersonaRUCE!: PersonaModel;
     fk_establecimiento!: EstablecimientoModel;
 }

@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('RefInstanciaInstrumentoPub', function (Blueprint $table) {
-            $table->increments('idRefInstanciaInstrumentoPub');
+        Schema::create('RefInstanciaInstrumento', function (Blueprint $table) {
+            $table->increments('idRefInstanciaInstrumento');
             $table->string('InstrumentoPublicoDesc');
             $table->timestamps();
         });

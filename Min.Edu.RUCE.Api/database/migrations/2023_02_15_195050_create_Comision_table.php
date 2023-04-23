@@ -6,11 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+    
     public function up()
     {
         Schema::create('Comision', function (Blueprint $table) {
@@ -22,8 +18,10 @@ return new class extends Migration
             $table->unsignedInteger('fkIdRefTipoComision');
             $table->foreign('fkIdRefTipoComision')->references('idRefTipoComision')->on('RefTipoComision')->onDelete('cascade');
 
-            $table->date('periodoInicio')->nullable(true);
-            $table->date('periodoFin')->nullable(true);
+            $table->dateTime('periodoInicio')->nullable(false);
+            $table->dateTime('periodoFin')->nullable(false);
+            $table->integer('nroSocios')->default(1);
+            $table->boolean('estadoResolucion')->default(false);
             
             $table->boolean('estaActivo')->default(true)->nullable(false);
             $table->date('fechaEliminacion');
@@ -37,11 +35,6 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('Comision');
