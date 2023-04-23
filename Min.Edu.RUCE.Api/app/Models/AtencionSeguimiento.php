@@ -6,14 +6,25 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TipoAsociacion extends Model
+class AtencionSeguimiento extends Model
 {
     use HasFactory;
-    protected $table = 'RefTipoAsociacion';
-    protected $primary_key = 'id';
+    protected $table = 'AtencionSeguimiento';
+    protected $primary_key = 'idAtencionSeguimiento';
     protected $fillable = [
-        'descripcion',
-        'estaActivo'
+        'fkIdCooperadora',
+        'fkIdPersona',
+        'llamadas',
+        'mesajes',
+        'emailEnviados',
+        'atencionOficina',
+        'atencionTerritorial',
+        'observaciones',
+        'fecha',
+        'estaActivo',
+        'fechaEliminacion',
+        'idUsuarioAlta',
+        'idUsuarioModificacion'
     ];
 
     public function fromDateTime($value){

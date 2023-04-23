@@ -1,21 +1,25 @@
 <?php
 
 namespace App\Models;
-
 use Carbon\Carbon;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AutoridadesEstablecimientoEducativo extends Model
+class Matricula extends Model
 {
     use HasFactory;
-    protected $table = 'AutoridadOrganizacionRUCE';
-    protected $primary_key = 'id';
+
+    protected $table = 'Matricula';
+    protected $primary_key = 'idMatricula';
     protected $fillable = [
-        'fk_persona',
-        'idOrganizacionRUCE',
-        'cargo',
-        'estaActivo'
+        'fkIdOrganizacionRUCE',
+        'periodoLectivo',
+        'matricula',
+        'estaActivo',
+        'fechaEliminacion',
+        'idUsuarioAlta',
+        'idUsuarioModificacion'
     ];
 
     public function fromDateTime($value){
@@ -25,6 +29,4 @@ class AutoridadesEstablecimientoEducativo extends Model
     public function toDateTime($value){
         return parent::toDateTime(Carbon::createFromFormat('d/m/Y H:i:s', $value)->format('d-m-Y H:i:s'));
     }
-
-    //public $timestamps = false;
 }

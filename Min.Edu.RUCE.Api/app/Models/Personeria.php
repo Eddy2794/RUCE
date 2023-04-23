@@ -10,14 +10,16 @@ class Personeria extends Model
 {
     use HasFactory;
     protected $table = 'Personaria';
-    protected $primary_key = 'id';
+    protected $primary_key = 'idPersoneria';
     protected $fillable = [
-        'fk_expediente',
-        'estado_comision_directiva',
-        'estado_resolucion',
-        'estado_balance',
+        'fkExpediente',
+        'decreto',
+        'nroResolucion',
         'fecha',
-        'estaActivo'
+        'estaActivo',
+        'fechaEliminacion',
+        'idUsuarioAlta',
+        'idUsuarioModificacion'
     ];
 
     public function fromDateTime($value){

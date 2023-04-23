@@ -6,18 +6,21 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Kiosco extends Model
+class Fondo extends Model
 {
     use HasFactory;
-    protected $table = 'Kiosco';
-    protected $primary_key = 'idKiosco';
+
+    protected $table = 'Fondo';
+    protected $primary_key = 'idFondo';
     protected $fillable = [
-        'fkIdCooperadora',
-        'idPersonaRUCE',
-        'accesoLicitacion',
-        'documentacionPresentada',
-        'periodo_inicio',
-        'periodo_fin',
+        'fkIdTipoFondo',
+        'fkCooperadora',
+        'fondoRecibido',
+        'fondoRendido',
+        'monto',
+        'fechaRecibido',
+        'fechaRendicion',
+        'anioOtorgado',
         'estaActivo',
         'fechaEliminacion',
         'idUsuarioAlta',

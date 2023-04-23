@@ -10,16 +10,17 @@ class Expediente extends Model
 {
     use HasFactory;
     protected $table = 'Expediente';
-    protected $primary_key = 'id';
+    protected $primary_key = 'idExpediente';
     protected $fillable = [
+        'idCooperadora',
         'nro_expediente',
-        'observaciones',
+        'cantObservaciones',
+        'observacionesDesc',
         'observaciones_respondidas',
-        'instrumento_publico',
-        'fiscalia_estado',
-        'nro_resolucion',
-        'decreto',
-        'estaActivo'
+        'estaActivo',
+        'fechaEliminacion',
+        'idUsuarioAlta',
+        'idUsuarioModificacion'
     ];
 
     public function fromDateTime($value){

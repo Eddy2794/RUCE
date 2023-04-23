@@ -6,19 +6,25 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AutoridadesCooperadora extends Model
+class PersonaRUCE extends Model
 {
     use HasFactory;
-    protected $table = 'lib_autoridades_cooperadora';
-    protected $primary_key = 'id';
+    
+
+    protected $table = 'PersonaRuce';
+    protected $primary_key = 'idPersonaRUCE';
     protected $fillable = [
-        'fk_persona',
-        'fk_cooperadora',
-        'cargo',
-        'inicio_cargo',
-        'fin_cargo',
-        'tipo_comision',
-        'estaActivo'
+        'idRefTipoDocumentoRUCE',
+        'documento',
+        'cuil',
+        'nombre',
+        'apellido',
+        'telefono',
+        'email',
+        'estaActivo',
+        'fechaEliminacion',
+        'idUsuarioAlta',
+        'idUsuarioModificacion'
     ];
 
     public function fromDateTime($value){

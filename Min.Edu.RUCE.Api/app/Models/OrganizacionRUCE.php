@@ -6,17 +6,26 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class HistorialCooperadora extends Model
+class OrganizacionRUCE extends Model
 {
     use HasFactory;
-    protected $table = 'lib_historial_cooperadora';
-    protected $primary_key = 'id';
+    protected $table = 'OrganizacionRUCE';
+    protected $primary_key = 'idOrganizacionRUCE';
     protected $fillable = [
-        'fk_cooperadora',
-        'fk_tipo_asociacion',
-        'fk_expediente',
-        'fecha',
-        'estaActivo'
+        'organizacionDesc',
+        'cue',
+        'anexo',
+        'region',
+        'nivel',
+        'localidad',
+        'departamento',
+        'telefono',
+        'email',
+        'domicilio',
+        'estaActivo',
+        'fechaEliminacion',
+        'idUsuarioAlta',
+        'idUsuarioModificacion'
     ];
 
     public function fromDateTime($value){

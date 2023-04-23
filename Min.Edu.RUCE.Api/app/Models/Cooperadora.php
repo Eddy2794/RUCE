@@ -10,20 +10,22 @@ class Cooperadora extends Model
 {
     use HasFactory;
     protected $table = 'Cooperadora';
-    protected $primary_key = 'id';
+    protected $primary_key = 'idCooperadora';
     protected $fillable = [
-        'fk_kiosco',
+        'fkRefTipoAsociacion',
         'idOrganizacionRUCE',
+        'cuit',
+        'legajo',
         'denominacion',
         'estado',
-        'convenioScEconomicas',
-        'inscripcion_afip',
-        'inscripcion_rentas',
-        'inscripcion_renacopes',
-        'legajo',
-        'decreto',
-        'fecha_creacion',
-        'estaActivo'
+        'convenioCsEconomicas',
+        'estadoAfip',
+        'estadoRentas',
+        'inscriptaRenacopes',
+        'estaActivo',
+        'fechaEliminacion',
+        'idUsuarioAlta',
+        'idUsuarioModificacion'
     ];
 
     public function fromDateTime($value){
