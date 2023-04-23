@@ -14,15 +14,24 @@ return new class extends Migration
     public function up()
     {
         Schema::create('AutoridadOrganizacionRUCE', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('cargo',30);
+            $table->increments('idAutoridadOrganizacionRUCE');
 
-            $table->unsignedInteger('fk_persona');
-            $table->foreign('fk_persona')->references('idPersonaRUCE')->on('PersonaRuce')->onDelete('cascade');
+            $table->unsignedInteger('fkIdCargo');
+            $table->foreign('fkIdCargo')->references('idCargo')->on('Cargo')->onDelete('cascade');
 
-            $table->unsignedInteger('idOrganizacionRUCE');
-            $table->foreign('idOrganizacionRUCE')->references('idOrganizacionRUCE')->on('OrganizacionRUCE')->onDelete('cascade');
-            $table->boolean('estaActivo')->default(true)->nullable(false);
+            $table->unsignedInteger('fkIdPersonaRUCE');
+            $table->foreign('fkIdPersonaRUCE')->references('idPersonaRUCE')->on('PersonaRuce')->onDelete('cascade');
+
+            $table->unsignedInteger('fkIdOrganizacionRUCE');
+            $table->foreign('fkIdOrganizacionRUCE')->references('idOrganizacionRUCE')->on('OrganizacionRUCE')->onDelete('cascade');
+
+            $table->dateTime('inicioCargo')->nullable(true);
+            $table->dateTime('finCargo')->nullable(true);
+
+            $table->boolean('estaActivo')->default(true);
+            $table->dateTime('fechaEliminacion')->nullable(true);
+            $table->integer('idUsuarioAlta')->default(null);
+            $table->integer('idUsuarioModificacion')->default(null);
             $table->timestamps();
 
             

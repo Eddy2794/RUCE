@@ -15,6 +15,10 @@ return new class extends Migration
     {
         Schema::create('Matricula', function (Blueprint $table) {
             $table->increments('idMatricula');
+
+            $table->unsignedInteger('fkIdOrganizacionRUCE');
+            $table->foreign('fkIdOrganizacion')->references('idOrganizacionRUCE')->on('OrganizacionRUCE')->onDelete('cascade');
+
             $table->integer('periodo_lectivo');
             $table->integer('matricula');
             $table->boolean('estaActivo')->default(true);

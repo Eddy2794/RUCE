@@ -4,5 +4,5 @@ export class UsuarioModel {
     password!: string;
     username!: string;
     administrador!: boolean;
-    fk_persona!: PersonaModel;
+    fkIdPersonaRUCE!: PersonaModel;
 }

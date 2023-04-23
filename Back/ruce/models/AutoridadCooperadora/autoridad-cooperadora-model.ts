@@ -2,7 +2,7 @@ import { CooperadoraModel } from './../Cooperadora/cooperadora-model';
 import { PersonaModel } from './../Persona/persona-model';
 export class AutoridadCooperadoraModel {
     id!: number;
-    fk_persona!: PersonaModel;
+    fkIdPersonaRUCE!: PersonaModel;
     fk_cooperadora!: CooperadoraModel;
     cargo!: string;
     inicio_cargo!: Date;

@@ -2,9 +2,9 @@
 
 namespace Database\Factories;
 
-use App\Models\EstablecimientoEducativo;
-use App\Models\Kiosco;
-use App\Models\TipoAsociacion;
+use App\Models\OrganizacionRUCE;
+use App\Models\PersonaRUCE;
+use App\Models\RefTipoAsociacion;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,19 +19,28 @@ class CooperadoraFactory extends Factory
      */
     public function definition()
     {
+        $valor = $this->faker->randomElement([false,true]);
         return [
+            'fk_idRefTipoAsociacion' => $this->faker->randomElement(RefTipoAsociacion::all()->getQueueableIds()),
+            'idOrganizacionRUCE' => $this->faker->randomElement(OrganizacionRUCE::all()->getQueueableIds()),
+
+            'legajo' => "legajo ".$this->faker->unique()->numerify("###"),
             'denominacion' => $this->faker->domainName,
             'estado' => $this->faker->randomElement(["verde","amarillo","rojo"]),
-            'legajo' => "legajo ".$this->faker->unique()->numerify("###"),
             'decreto' => "decreto ".$this->faker->unique()->numerify("###"),
+            'nro_resolucion' => $valor ? strval($this->faker->numerify('###')).$this->faker->randomAscii():null,
+
             'convenioScEconomicas' => $this->faker->randomElement([true,false]),
             'inscripcion_afip' => $this->faker->randomElement([true,false]),
             'inscripcion_rentas' => $this->faker->randomElement([true,false]),
             'inscripcion_renacopes' => $this->faker->randomElement([true,false]),
+            
+            'idUsuarioAlta' => $this->faker->randomElement(PersonaRUCE::all()->getQueueableIds()),
+            'idUsuarioModificacion' => $this->faker->randomElement(PersonaRUCE::all()->getQueueableIds()),
+
             'fecha_creacion' => $this->faker->date(),
-            'fk_kiosco' => $this->faker->unique()->randomElement(Kiosco::all()->getQueueableIds()),
-            'idOrganizacionRUCE' => $this->faker->randomElement(EstablecimientoEducativo::all()->getQueueableIds()),
-            'estaActivo' => true,
+            'estaActivo' => !$valor,
+            'fechaEliminacion' => $valor?$this->faker->date():null,
         ];
     }
 }
