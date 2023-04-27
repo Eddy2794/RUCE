@@ -12,8 +12,8 @@ class Cooperadora extends Model
     protected $table = 'Cooperadora';
     protected $primary_key = 'idCooperadora';
     protected $fillable = [
-        'fkRefTipoAsociacion',
-        'idOrganizacionRUCE',
+        'fkIdRefTipoAsociacion',
+        'fkIdOrganizacionRUCE',
         'cuit',
         'legajo',
         'denominacion',
@@ -21,7 +21,7 @@ class Cooperadora extends Model
         'convenioCsEconomicas',
         'estadoAfip',
         'estadoRentas',
-        'inscriptaRenacopes',
+        'inscripcionRenacopes',
         'estaActivo',
         'fechaEliminacion',
         'idUsuarioAlta',

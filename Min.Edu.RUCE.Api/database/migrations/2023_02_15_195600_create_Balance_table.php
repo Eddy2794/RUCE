@@ -13,12 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('_balance', function (Blueprint $table) {
+        Schema::create('Balance', function (Blueprint $table) {
             $table->increments('idBalance');
 
             $table->unsignedInteger('fkIdCooperadora');
-            $table->foreign('fkIdBalance')->references('idCooperadora')->on('Cooperadora')->onDelete('cascade');
+            $table->foreign('fkIdCooperadora')->references('idCooperadora')->on('Cooperadora')->onDelete('cascade');
 
+            $table->boolean('estadoBalance')->default(false);
             $table->boolean('estaActivo')->default(true);
             $table->dateTime('fechaEliminacion')->nullable(true);
             $table->integer('idUsuarioAlta')->default(null);

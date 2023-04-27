@@ -24,10 +24,11 @@ return new class extends Migration
 
             $table->integer('llamadas');
             $table->integer('mensajes');
-            $table->integer('email_enviados');
-            $table->integer('atencion_oficina');
-            $table->integer('atencion_territorial');
-            $table->text('observaciones');
+            $table->integer('emailEnviados');
+            $table->integer('atencionOficina');
+            $table->integer('atencionTerritorial');
+            $table->text('observacion');
+            $table->date('fecha');
             
             $table->boolean('estaActivo')->default(true)->nullable(false);
             $table->date('fechaEliminacion');

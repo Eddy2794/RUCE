@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('AutoridadOrganizacionRUCE', function (Blueprint $table) {
             $table->increments('idAutoridadOrganizacionRUCE');
 
-            $table->unsignedInteger('fkIdCargo');
-            $table->foreign('fkIdCargo')->references('idCargo')->on('Cargo')->onDelete('cascade');
+            $table->unsignedInteger('fkIdRefCargo');
+            $table->foreign('fkIdRefCargo')->references('idRefCargo')->on('RefCargo')->onDelete('cascade');
 
             $table->unsignedInteger('fkIdPersonaRUCE');
             $table->foreign('fkIdPersonaRUCE')->references('idPersonaRUCE')->on('PersonaRuce')->onDelete('cascade');

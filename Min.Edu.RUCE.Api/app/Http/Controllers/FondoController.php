@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\FondosCooperar;
+use App\Models\Fondo;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -15,7 +15,7 @@ class FondosCooperarController extends Controller
      */
     public function index(): JsonResponse
     {
-        $data = FondosCooperar::all();
+        $data = Fondo::all();
         $respuesta = [
             'entities' => $data,
             'paged' => [
@@ -31,7 +31,7 @@ class FondosCooperarController extends Controller
         $pageNumber = $request->query->get('PageNumber');
         $pageSize = $request->query->get('PageSize');
 
-        $data = FondosCooperar::where('estaActivo',$estaActivo)->get()->toArray();
+        $data = Fondo::where('estaActivo',$estaActivo)->get()->toArray();
 
         $errores = [];
 
@@ -74,35 +74,49 @@ class FondosCooperarController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'fk_cooperadora' => 'required',
-            'fondos_recibidos' => 'required',
-            'fondos_rendidos' => 'required',
-            'fecha_rendicion' => 'required',
-            'anio_otorgado' => 'required',
+            'fkIdTipoFondo' => 'required',
+            'fkCooperadora' => 'required',
+            'fondoRecibido' => 'required',
+            'fondoRendido' => 'required',
+            'monto' => 'required',
+            'fechaRecibido' => 'required',
+            'fechaRendicion' => 'required',
+            'anioOtorgado' => 'required',
+            'estaActivo' => 'required',
+            'fechaEliminacion' => 'required',
+            'idUsuarioAlta' => 'required',
+            'idUsuarioModificacion' => 'required',
         ]);
 
-        $fondosCooperar = new FondosCooperar();
+        $fondo = new Fondo();
 
-        $fondosCooperar->fk_cooperadora = $request->fk_cooperadora;
-        $fondosCooperar->fondos_recibidos = $request->fondos_recibidos;
-        $fondosCooperar->fondos_rendidos = $request->fondos_rendidos;
-        $fondosCooperar->fecha_rendicion = $request->fecha_rendicion;
-        $fondosCooperar->anio_otorgado = $request->anio_otorgado;
+        $fondo->fkIdTipoFondo = $request->fkIdTipoFondo;
+        $fondo->fkCooperadora = $request->fkCooperadora;
+        $fondo->fondoRecibido = $request->fondoRecibido;
+        $fondo->fondoRendido = $request->fondoRendido;
+        $fondo->monto = $request->monto;
+        $fondo->fechaRecibido = $request->fechaRecibido;
+        $fondo->fechaRendicion = $request->fechaRendicion;
+        $fondo->anioOtorgado = $request->anioOtorgado;
+        $fondo->estaActivo = $request->estaActivo;
+        $fondo->fechaEliminacion = $request->fechaEliminacion;
+        $fondo->idUsuarioAlta = $request->idUsuarioAlta;
+        $fondo->idUsuarioModificacion = $request->idUsuarioModificacion;
 
-        $fondosCooperar->save();
+        $fondo->save();
 
-        return response($fondosCooperar);
+        return response($fondo);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\FondosCooperar  $fondosCooperar
+     * @param  \App\Models\Fondo  $fondo
      * @return \Illuminate\Http\Response
      */
     public function show(int $id): JsonResponse
     {
-        $data = FondosCooperar::where('id', $id)->get();
+        $data = Fondo::where('id', $id)->get();
         $cantidad = count($data);
 
         $errores = [];
@@ -123,37 +137,54 @@ class FondosCooperarController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\FondosCooperar  $fondosCooperar
+     * @param  \App\Models\Fondo  $fondo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, FondosCooperar $fondosCooperar)
+    public function update(Request $request, Fondo $fondo)
     {
         $request->validate([
-            'fondos_recibidos' => 'required',
-            'fondos_rendidos' => 'required',
-            'fecha_rendicion' => 'required',
-            'anio_otorgado' => 'required',
+            'fkIdTipoFondo'=>'required',
+            'fkCooperadora'=>'required',
+            'fondoRecibido'=>'required',
+            'fondoRendido'=>'required',
+            'monto'=>'required',
+            'fechaRecibido'=>'required',
+            'fechaRendicion'=>'required',
+            'anioOtorgado'=>'required',
+            'estaActivo'=>'required',
+            'fechaEliminacion'=>'required',
+            'idUsuarioAlta'=>'required',
+            'idUsuarioModificacion'=>'required'
         ]);
 
-        $fondosCooperar->update([
+        $fondo->update([
             'fondos_recibidos' => $request->fondos_recibidos,
-            'fondos_rendidos' => $request->fondos_rendidos,
-            'fecha_rendicion' => $request->fecha_rendicion,
-            'anio_otorgado' => $request->anio_otorgado,
+            'fkIdTipoFondo' => $request->fkIdTipoFondo,
+            'fkCooperadora' => $request->fkCooperadora,
+            'fondoRecibido' => $request->fondoRecibido,
+            'fondoRendido' => $request->fondoRendido,
+            'monto' => $request->monto,
+            'fechaRecibido' => $request->fechaRecibido,
+            'fechaRendicion' => $request->fechaRendicion,
+            'anioOtorgado' => $request->anioOtorgado,
+            'estaActivo' => $request->estaActivo,
+            'fechaEliminacion' => $request->fechaEliminacion,
+            'idUsuarioAlta' => $request->idUsuarioAlta,
+            'idUsuarioModificacion' => $request->idUsuarioModificacion
         ]);
 
-        return response($fondosCooperar);
+        return response($fondo);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\FondosCooperar  $fondosCooperar
+     * @param  \App\Models\Fondo  $fondo
      * @return \Illuminate\Http\Response
      */
-    public function destroy(FondosCooperar $fondosCooperar)
+    public function destroy(Fondo $fondo)
     {
-        $fondosCooperar->delete();
+        $fondo->delete();
         return response()->noContent();
     }
 }

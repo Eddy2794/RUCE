@@ -76,35 +76,38 @@ class CooperadoraController extends Controller
         //visualiza los datos que se estan mandando en el requiest de la peticion
         // dd($request->all());
         $request->validate([
-            'fk_kiosco' => 'required',
-            'idOrganizacionRUCE' => 'required',
-            'denominacion' => 'required',
-            'decreto' => 'required',
-            'estado' => 'required',
+            'fkIdRefTipoAsociacion' => 'required',
+            'fkIdOrganizacionRUCE' => 'required',
+            'cuit' => 'required',
             'legajo' => 'required',
+            'denominacion' => 'required',
+            'estado' => 'required',
+            'convenioCsEconomicas' => 'required',
+            'estadoAfip' => 'required',
+            'estadoRentas' => 'required',
+            'inscripcionRenacopes' => 'required',
+            'estaActivo' => 'required',
+            'fechaEliminacion' => 'required',
+            'idUsuarioAlta' => 'required',
+            'idUsuarioModificacion' => 'required'
         ]);
 
         $cooperadora = new Cooperadora();
 
-        $cooperadora->fk_kiosco = $request->fk_kiosco;
-        $cooperadora->idOrganizacionRUCE = $request->idOrganizacionRUCE;
-        $cooperadora->denominacion = $request->denominacion;
-        if($request->estado)
-            $cooperadora->estado = $request->estado;
-        if($request->convenioScEconomicas)
-            $cooperadora->convenioScEconomicas = $request->convenioScEconomicas;
-        if($request->inscripcion_afip)
-            $cooperadora->inscripcion_afip = $request->inscripcion_afip;
-        if($request->inscripcion_rentas)
-            $cooperadora->inscripcion_rentas = $request->inscripcion_rentas;
-        if($request->inscripcion_renacopes)
-            $cooperadora->inscripcion_renacopes = $request->inscripcion_renacopes;
-        if($request->legajo)
-            $cooperadora->legajo = $request->legajo;
-        if($request->decreto)
-            $cooperadora->decreto = $request->decreto;
-        if($request->fecha_creacion)
-            $cooperadora->fecha_creacion = $request->fecha_creacion;
+        $cooperadora->fkIdRefTipoAsociacion = $request->fkIdRefTipoAsociacion;
+        $cooperadora->fkIdOrganizacionRUCE = $request->fkIdOrganizacionRUCE;
+        $cooperadora->cuit = $request->cuit;
+        $cooperadora-> legajo=  $request->legajo;
+        $cooperadora-> denominacion=  $request->denominacion;
+        $cooperadora-> estado=  $request->estado;
+        $cooperadora-> convenioCsEconomicas=  $request->convenioCsEconomicas;
+        $cooperadora-> estadoAfip=  $request->estadoAfip;
+        $cooperadora-> estadoRentas=  $request->estadoRentas;
+        $cooperadora-> inscripcionRenacopes=  $request->inscripcionRenacopes;
+        $cooperadora-> estaActivo=  $request->estaActivo;
+        $cooperadora-> fechaEliminacion=  $request->fechaEliminacion;
+        $cooperadora-> idUsuarioAlta=  $request->idUsuarioAlta;
+        $cooperadora-> idUsuarioModificacion=  $request->idUsuarioModificacion;
 
         $cooperadora->save();
 
@@ -146,29 +149,37 @@ class CooperadoraController extends Controller
     public function update(Request $request, Cooperadora $cooperadora)
     {
         $request->validate([
-            'fk_kiosco' => 'required',
-            'idOrganizacionRUCE' => 'required',
+            'fkIdRefTipoAsociacion' => 'required',
+            'fkIdOrganizacionRUCE' => 'required',
+            'cuit' => 'required',
+            'legajo' => 'required',
             'denominacion' => 'required',
             'estado' => 'required',
-            'convenioScEconomicas' => 'required',
-            'inscripcion_afip' => 'required',
-            'inscripcion_rentas' => 'required',
-            'inscripcion_renacopes' => 'required',
-            'legajo' => 'required',
-            'decreto' => 'required',
+            'convenioCsEconomicas' => 'required',
+            'estadoAfip' => 'required',
+            'estadoRentas' => 'required',
+            'inscripcionRenacopes' => 'required',
+            'estaActivo' => 'required',
+            'fechaEliminacion' => 'required',
+            'idUsuarioAlta' => 'required',
+            'idUsuarioModificacion' => 'required',
         ]);
 
         $cooperadora->update([
-            'fk_kiosco' => $request->fk_kiosco,
-            'idOrganizacionRUCE' => $request->idOrganizacionRUCE,
+            'fkIdRefTipoAsociacion' => $request->fkIdRefTipoAsociacion,
+            'fkIdOrganizacionRUCE' => $request->fkIdOrganizacionRUCE,
+            'cuit' => $request->cuit,
+            'legajo' => $request->legajo,
             'denominacion' => $request->denominacion,
             'estado' => $request->estado,
-            'convenioScEconomicas' => $request->convenioScEconomicas,
-            'inscripcion_afip' => $request->iscripcion_afip,
-            'inscripcion_rentas' => $request->inscripcion_rentas,
-            'inscripcion_renacopes' => $request->inscripcion_renacopes,
-            'legajo' => $request->legajo,
-            'decreto' => $request->decreto,
+            'convenioCsEconomicas' => $request->convenioCsEconomicas,
+            'estadoAfip' => $request->estadoAfip,
+            'estadoRentas' => $request->estadoRentas,
+            'inscripcionRenacopes' => $request->inscripcionRenacopes,
+            'estaActivo' => $request->estaActivo,
+            'fechaEliminacion' => $request->fechaEliminacion,
+            'idUsuarioAlta' => $request->idUsuarioAlta,
+            'idUsuarioModificacion' => $request->idUsuarioModificacion,
         ]);
 
         return response($cooperadora);

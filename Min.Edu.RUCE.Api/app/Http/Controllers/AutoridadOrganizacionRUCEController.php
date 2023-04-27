@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Comision;
-use App\Http\Controllers\Controller;
+use App\Models\AutoridadOrganizacionRUCE;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class ComisionController extends Controller
+class AutoridadOrganizacionRUCEController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,13 +15,14 @@ class ComisionController extends Controller
      */
     public function index(): JsonResponse
     {
-        $data = Comision::all();
+        $data = AutoridadOrganizacionRUCE::all();
         $respuesta = [
             'entities' => $data,
             'paged' => [
                 'entitiyCount' => count($data)
             ]
-        ];
+            ];
+        
         return response()->json($respuesta,200);
     }
 
@@ -32,7 +32,7 @@ class ComisionController extends Controller
         $pageNumber = $request->query->get('PageNumber');
         $pageSize = $request->query->get('PageSize');
 
-        $data = Comision::where('estaActivo',$estaActivo)->get()->toArray();
+        $data = AutoridadOrganizacionRUCE::where('estaActivo',$estaActivo)->get()->toArray();
 
         $errores = [];
 
@@ -74,46 +74,50 @@ class ComisionController extends Controller
      */
     public function store(Request $request)
     {
+        //validacion de la preticion de los datos
         $request->validate([
-            'fkIdCooperadora' => 'required',
-            'fkIdRefTipoComision' => 'required',
-            'periodoInicio' => 'required',
-            'periodoFin' => 'required',
-            'nroSocios' => 'required',
-            'estadoResolucion' => 'required',
-            'estaActivo' => 'required',
-            'fechaEliminacion' => 'required',
-            'idUsuarioAlta' => 'required',
-            'idUsuarioModificacion' => 'required',
+            'fkIdRefCargo' =>'required',
+            'fkIdPersonaRUCE' =>'required',
+            'fkIdOrganizacionRUCE' =>'required',
+            'inicioCargo' =>'required',
+            'finCargo' =>'required',
+            'estaActivo' =>'required',
+            'fechaEliminacion' =>'required',
+            'idUsuarioAlta' =>'required',
+            'idUsuarioModificacion' =>'required',
         ]);
 
-        $comision = new Comision();
+        //instancia de una autoridad del model
+        $autoridadOrganizacion = new AutoridadOrganizacionRUCE();
 
-        $comision-> fkIdCooperadora = $request->fkIdCooperadora;
-        $comision-> fkIdRefTipoComision = $request->fkIdRefTipoComision;
-        $comision-> periodoInicio = $request->periodoInicio;
-        $comision-> periodoFin = $request->periodoFin;
-        $comision-> nroSocios = $request->nroSocios;
-        $comision-> estadoResolucion = $request->estadoResolucion;
-        $comision-> estaActivo = $request->estaActivo;
-        $comision-> fechaEliminacion = $request->fechaEliminacion;
-        $comision-> idUsuarioAlta = $request->idUsuarioAlta;
-        $comision-> idUsuarioModificacion = $request->idUsuarioModificacion;
+        //asigmacion de los datos profvenientes del requies hacia la instancia de autoridad
+        $autoridadOrganizacion->fkIdRefCargo = $request->fkIdRefCargo;
+        $autoridadOrganizacion->fkIdPersonaRUCE = $request->fkIdPersonaRUCE;
+        $autoridadOrganizacion->fkIdOrganizacionRUCE = $request->fkIdOrganizacionRUCE;
+        $autoridadOrganizacion->inicioCargo = $request->inicioCargo;
+        $autoridadOrganizacion->finCargo = $request->finCargo;
+        $autoridadOrganizacion->estaActivo = $request->estaActivo;
+        $autoridadOrganizacion->fechaEliminacion = $request->fechaEliminacion;
+        $autoridadOrganizacion->idUsuarioAlta = $request->idUsuarioAlta;
+        $autoridadOrganizacion->idUsuarioModificacion = $request->idUsuarioModificacion;
 
-        return response($comision);
+        //generacion de registro en la base de datos
+        $autoridadOrganizacion->save();
+
+        return response($autoridadOrganizacion);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Comision  $comision
+     * @param  \App\Models\AutoridadOrganizacionRUCE  $autoridadOrganizacionRUCE
      * @return \Illuminate\Http\Response
      */
     public function show(int $id): JsonResponse
     {
-        $data = Comision::where('id', $id)->get();
+        $data = AutoridadOrganizacionRUCE::where('id', $id)->get();
         $cantidad = count($data);
-
+        
         $errores = [];
 
         $respuesta = [
@@ -125,57 +129,55 @@ class ComisionController extends Controller
                 'entitiyCount' => $cantidad
             ]
         ];
-        return response()->json($respuesta,200);
+        return response()->json($respuesta, 200);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Comision  $comision
+     * @param  \App\Models\AutoridadOrganizacionRUCE  $autoridadOrganizacionRUCE
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, int $id)
     {
         $request->validate([
-            'fkIdCooperadora'=>'required',
-            'fkIdRefTipoComision'=>'required',
-            'periodoInicio'=>'required',
-            'periodoFin'=>'required',
-            'nroSocios'=>'required',
-            'estadoResolucion'=>'required',
-            'estaActivo'=>'required',
-            'fechaEliminacion'=>'required',
-            'idUsuarioAlta'=>'required',
-            'idUsuarioModificacion'=>'required'
+            'fkIdRefCargo' =>'required',
+            'fkIdPersonaRUCE' =>'required',
+            'fkIdOrganizacionRUCE' =>'required',
+            'inicioCargo' =>'required',
+            'finCargo' =>'required',
+            'estaActivo' =>'required',
+            'fechaEliminacion' =>'required',
+            'idUsuarioAlta' =>'required',
+            'idUsuarioModificacion' =>'required',
         ]);
 
-        Comision::where('id', $id)->update([
-            'fkIdCooperadora' => $request->fkIdCooperadora,
-            'fkIdRefTipoComision' => $request->fkIdRefTipoComision,
-            'periodoInicio' => $request->periodoInicio,
-            'periodoFin' => $request->periodoFin,
-            'nroSocios' => $request->nroSocios,
-            'estadoResolucion' => $request->estadoResolucion,
+        //obtengo una autoridad establecimiento educativo desde la base de datos y actualizo sus datos
+        AutoridadOrganizacionRUCE::where('id',$id)->update([
+            'fkIdRefCargo' => $request->fkIdRefCargo,
+            'fkIdPersonaRUCE' => $request->fkIdPersonaRUCE,
+            'fkIdOrganizacionRUCE' => $request->fkIdOrganizacionRUCE,
+            'inicioCargo' => $request->inicioCargo,
+            'finCargo' => $request->finCargo,
             'estaActivo' => $request->estaActivo,
             'fechaEliminacion' => $request->fechaEliminacion,
             'idUsuarioAlta' => $request->idUsuarioAlta,
-            'idUsuarioModificacion' => $request->idUsuarioModificacion
+            'idUsuarioModificacion' => $request->idUsuarioModificacion,
         ]);
 
-        return response(Comision::where('id',$id)->get()[0]);
-
+        return response(AutoridadOrganizacionRUCE::where('id',$id)->get()[0]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Comision  $comision
+     * @param  \App\Models\AutoridadOrganizacionRUCE  $autoridadOrganizacionRUCE
      * @return \Illuminate\Http\Response
      */
     public function destroy(int $id)
     {
-        Comision::where('id',$id)->delete();
+        AutoridadOrganizacionRUCE::where('id',$id)->delete();
         return response()->noContent();
     }
 }

@@ -14,7 +14,7 @@ class PersonaRUCE extends Model
     protected $table = 'PersonaRuce';
     protected $primary_key = 'idPersonaRUCE';
     protected $fillable = [
-        'idRefTipoDocumentoRUCE',
+        'fkIdRefTipoDocumentoRUCE',
         'documento',
         'cuil',
         'nombre',

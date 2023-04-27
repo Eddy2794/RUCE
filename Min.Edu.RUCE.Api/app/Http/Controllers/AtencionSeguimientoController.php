@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SeguimientoAtencion;
+use App\Models\AtencionSeguimiento;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class SeguimientoAtencionController extends Controller
+class AtencionSeguimientoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class SeguimientoAtencionController extends Controller
      */
     public function index(): JsonResponse
     {
-        $data = SeguimientoAtencion::all();
+        $data = AtencionSeguimiento::all();
         $respuesta = [
             'entities' => $data,
             'paged' => [
@@ -31,7 +31,7 @@ class SeguimientoAtencionController extends Controller
         $pageNumber = $request->query->get('PageNumber');
         $pageSize = $request->query->get('PageSize');
 
-        $data = SeguimientoAtencion::where('estaActivo',$estaActivo)->get()->toArray();
+        $data = AtencionSeguimiento::where('estaActivo',$estaActivo)->get()->toArray();
 
         $errores = [];
 
@@ -74,37 +74,48 @@ class SeguimientoAtencionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'fk_cooperadora' => 'required',
+            'fkIdCooperadora' => 'required',
+            'fkIdPersonaRUCE'=>'required',
             'llamadas' => 'required',
             'mensajes' => 'required',
-            'email_enviados' => 'required',
-            'atencion_oficina' => 'required',
-            'atencion_territorial' => 'required',
+            'emailEnviados' => 'required',
+            'atencionOficina' => 'required',
+            'atencionTerritorial' => 'required',
             'fecha' => 'required',
+            'estaActivo' => 'required',
+            'fechaEliminacion' => 'required',
+            'idUsuarioAlta' => 'required',
+            'idUsuarioModificacion' => 'required',
         ]);
 
-        $seguimientoAtencion = new SeguimientoAtencion();
+        $atencionSeguimiento = new AtencionSeguimiento();
 
-        $seguimientoAtencion->fk_cooperadora = $request->fk_cooperadora;
-        $seguimientoAtencion->llamadas = $request->llamadas;
-        $seguimientoAtencion->mensajes = $request->mensajes;
-        $seguimientoAtencion->email_enviados = $request->email_enviados;
-        $seguimientoAtencion->atencion_oficina = $request->atencion_oficina;
-        $seguimientoAtencion->atencion_territorial = $request->atencion_territorial;
-        $seguimientoAtencion->fecha = $request->fecha;
+        $atencionSeguimiento->fkIdCooperadora = $request->fkIdCooperadora;
+        $atencionSeguimiento->llamadas = $request->llamadas;
+        $atencionSeguimiento->mensajes = $request->mensajes;
+        $atencionSeguimiento->emailEnviados = $request->emailEnviados;
+        $atencionSeguimiento->atencionOficina = $request->atencionOficina;
+        $atencionSeguimiento->atencionTerritorial = $request->atencionTerritorial;
+        $atencionSeguimiento->fecha = $request->fecha;
+        $atencionSeguimiento->estaActivo = $request->estaActivo;
+        $atencionSeguimiento->fechaEliminacion = $request->fechaEliminacion;
+        $atencionSeguimiento->idUsuarioAlta = $request->idUsuarioAlta;
+        $atencionSeguimiento->idUsuarioModificacion = $request->idUsuarioModificacion;
 
-        return response($seguimientoAtencion);
+        $atencionSeguimiento->save();
+
+        return response($atencionSeguimiento);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\SeguimientoAtencion  $seguimientoAtencion
+     * @param  \App\Models\AtencionSeguimiento  $atencionSeguimiento
      * @return \Illuminate\Http\Response
      */
     public function show(int $id): JsonResponse 
     {
-        $data = SeguimientoAtencion::where('id', $id)->get();
+        $data = AtencionSeguimiento::where('id', $id)->get();
         $cantidad = count($data);
 
         $errores = [];
@@ -125,39 +136,51 @@ class SeguimientoAtencionController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\SeguimientoAtencion  $seguimientoAtencion
+     * @param  \App\Models\AtencionSeguimiento  $atencionSeguimiento
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, int $id)
     {
         $request->validate([
+            'fkIdPersonaRUCE'=>'required',
             'llamadas' => 'required',
             'mensajes' => 'required',
-            'email_enviados' => 'required',
-            'atencion_oficina' => 'required',
-            'atencion_territorial' => 'required',
+            'emailEnviados' => 'required',
+            'atencionOficina' => 'required',
+            'atencionTerritorial' => 'required',
+            'fecha' => 'required',
+            'estaActivo' => 'required',
+            'fechaEliminacion' => 'required',
+            'idUsuarioAlta' => 'required',
+            'idUsuarioModificacion' => 'required',
         ]);
 
-        SeguimientoAtencion::where('id',$id)->update([
+        AtencionSeguimiento::where('id',$id)->update([
+            'fkIdPersonaRUCE' => $request->fkIdPersonaRUCE,
             'llamadas' => $request->llamadas,
             'mensajes' => $request->mensajes,
-            'email_enviados' => $request->email_enviados,
-            'atencion_oficina' => $request->atencion_oficina,
-            'atencion_territorial' => $request->atencion_territorial,
+            'emailEnviados' => $request->emailEnviados,
+            'atencionOficina' => $request->atencionOficina,
+            'atencionTerritorial' => $request->atencionTerritorial,
+            'fecha' => $request->fecha,
+            'estaActivo' => $request->estaActivo,
+            'fechaEliminacion' => $request->fechaEliminacion,
+            'idUsuarioAlta' => $request->idUsuarioAlta,
+            'idUsuarioModificacion' => $request->idUsuarioModificacion,
         ]);
 
-        return response(SeguimientoAtencion::where('id',$id)->get()[0]);
+        return response(AtencionSeguimiento::where('id',$id)->get()[0]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\SeguimientoAtencion  $seguimientoAtencion
+     * @param  \App\Models\AtencionSeguimiento  $atencionSeguimiento
      * @return \Illuminate\Http\Response
      */
     public function destroy(int $id)
     {
-        SeguimientoAtencion::where('id',$id)->delete();
+        AtencionSeguimiento::where('id',$id)->delete();
         return response()->noContent();
     }
 }

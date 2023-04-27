@@ -16,17 +16,17 @@ return new class extends Migration
         Schema::create('AutoridadComision', function (Blueprint $table) {
             $table->increments('idAutoridadComision');
             
-            $table->unsignedInteger('fkPersonaRUCE');
-            $table->foreign('fkPersonaRUCE')->references('idPersonaRUCE')->on('PersonaRuce')->onDelete('cascade');
+            $table->unsignedInteger('fkIdPersonaRUCE');
+            $table->foreign('fkIdPersonaRUCE')->references('idPersonaRUCE')->on('PersonaRuce')->onDelete('cascade');
 
-            $table->unsignedInteger('fkRefCargo');
-            $table->foreign('fkRefCargo')->references('idRefCargo')->on('RefCargo')->onDelete('cascade');
+            $table->unsignedInteger('fkIdRefCargo');
+            $table->foreign('fkIdRefCargo')->references('idRefCargo')->on('RefCargo')->onDelete('cascade');
 
-            $table->unsignedInteger('fkComision');
-            $table->foreign('fkComision')->references('idComision')->on('Comision')->onDelete('cascade');
+            $table->unsignedInteger('fkIdComision');
+            $table->foreign('fkIdComision')->references('idComision')->on('Comision')->onDelete('cascade');
 
-            $table->date('inicio_cargo')->nullable(true);
-            $table->date('fin_cargo')->nullable(true);
+            $table->date('inicioCargo')->nullable(true);
+            $table->date('finCargo')->nullable(true);
 
             $table->boolean('estaActivo')->default(true)->nullable(false);
             $table->datetime('fechaEliminacion')->nullable(true);

@@ -13,6 +13,7 @@ class Balance extends Model
     protected $table = 'Balance';
     protected $primary_key = 'idBalance';
     protected $fillable = [
+        'fkIdCooperadora',
         'estadoBalance',
         'estaActivo',
         'fechaEliminacion',

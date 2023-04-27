@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AutoridadesCooperadora;
+use App\Models\AutoridadComision;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class AutoridadesCooperadoraController extends Controller
+class AutoridadComisionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class AutoridadesCooperadoraController extends Controller
      */
     public function index(): JsonResponse
     {
-        $data = AutoridadesCooperadora::all();
+        $data = AutoridadComision::all();
         $respuesta = [
             'entities' => $data,
             'paged' => [
@@ -31,7 +31,7 @@ class AutoridadesCooperadoraController extends Controller
         $pageNumber = $request->query->get('PageNumber');
         $pageSize = $request->query->get('PageSize');
 
-        $data = AutoridadesCooperadora::where('estaActivo',$estaActivo)->get()->toArray();
+        $data = AutoridadComision::where('estaActivo',$estaActivo)->get()->toArray();
 
         $errores = [];
 
@@ -75,40 +75,46 @@ class AutoridadesCooperadoraController extends Controller
     {
         //validacion de la peticion de los datos del modelo
         $request->validate([
-            'fk_persona' =>'required',
-            'fk_cooperadora' =>'required',
-            'cargo' =>'required',
-            'inicio_cargo' =>'required',
-            'fin_cargo' =>'required',
-            'tipo_comision' =>'required',
+            'fkIdPersonaRUCE' =>'required',
+            'fkIdRefCargo' =>'required',
+            'fkIdComision' =>'required',
+            'inicioCargo' =>'required',
+            'finCargo' =>'required',
+            'estaActivo' =>'required',
+            'fechaEliminacion' =>'required',
+            'idUsuarioAlta' =>'required',
+            'idUsuarioModificacion' =>'required',
         ]);
 
         //instancia de una autoridad de cooperadora del modelo
-        $autoridadCoop = new AutoridadesCooperadora();
+        $autoridadComision = new AutoridadComision();
 
         //asignacion de los datos provenientes del requiest hacia la instancia de autoridad de cooperadora
-        $autoridadCoop->fk_persona = $request->fk_persona;
-        $autoridadCoop->fk_cooperadora = $request->fk_cooperadora;
-        $autoridadCoop->cargo = $request->cargo;
-        $autoridadCoop->inicio_cargo = $request->inicio_cargo;
-        $autoridadCoop->fin_cargo = $request->fin_cargo;
-        $autoridadCoop->tipo_comision = $request->tipo_comision;
+        $autoridadComision->fkIdPersonaRUCE = $request->fkIdPersonaRUCE;
+        $autoridadComision->fkIdRefCargo = $request->fkIdRefCargo;
+        $autoridadComision->fkIdComision = $request->fkIdComision;
+        $autoridadComision->inicioCargo = $request->inicioCargo;
+        $autoridadComision->finCargo = $request->finCargo;
+        $autoridadComision->estaActivo = $request->estaActivo;
+        $autoridadComision->fechaEliminacion = $request->fechaEliminacion;
+        $autoridadComision->idUsuarioAlta = $request->idUsuarioAlta;
+        $autoridadComision->idUsuarioModificacion = $request->idUsuarioModificacion;
 
         //generacion del registro en la base de datos
-        $autoridadCoop->save();
+        $autoridadComision->save();
 
-        return response($autoridadCoop);
+        return response($autoridadComision);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\AutoridadesCooperadora  $autoridadesCooperadora
+     * @param  \App\Models\AutoridadComision  $autoridadComision
      * @return \Illuminate\Http\Response
      */
     public function show(int $id): JsonResponse
     {
-        $data = AutoridadesCooperadora::where('id',$id)->get();
+        $data = AutoridadComision::where('id',$id)->get();
         $cantidad = count($data);
 
         $errores = [];
@@ -129,38 +135,48 @@ class AutoridadesCooperadoraController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\AutoridadesCooperadora  $autoridadCoop
+     * @param  \App\Models\AutoridadComision  $autoridadComision
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, AutoridadesCooperadora $autoridadCoop)
+    public function update(Request $request, AutoridadComision $autoridadComision)
     {
         //validacion de la peticion de los datos del modelo
         $request->validate([
-            'fk_cooperadora' =>'required',
-            'cargo' =>'required',
-            'fin_cargo' =>'required',
-            'tipo_comision' =>'required',
+            'fkIdPersonaRUCE' =>'required',
+            'fkIdRefCargo' =>'required',
+            'fkIdComision' =>'required',
+            'inicioCargo' =>'required',
+            'finCargo' =>'required',
+            'estaActivo' =>'required',
+            'fechaEliminacion' =>'required',
+            'idUsuarioAlta' =>'required',
+            'idUsuarioModificacion' =>'required',
         ]);
 
-        $autoridadCoop->update([
-            'fk_cooperadora' => $request->fk_cooperadora,
-            'cargo' => $request->cargo,
-            'fin_cargo' => $request->fin_cargo,
-            'tipo_comision' => $request->tipo_comision,
+        $autoridadComision->update([
+            'fkIdPersonaRUCE' => $request->fkIdPersonaRUCE,
+            'fkIdRefCargo' => $request->fkIdRefCargo,
+            'fkIdComision' => $request->fkIdComision,
+            'inicioCargo' => $request->inicioCargo,
+            'finCargo' => $request->finCargo,
+            'estaActivo' => $request->estaActivo,
+            'fechaEliminacion' => $request->fechaEliminacion,
+            'idUsuarioAlta' => $request->idUsuarioAlta,
+            'idUsuarioModificacion' => $request->idUsuarioModificacion,
         ]);
 
-        return response($autoridadCoop);
+        return response($autoridadComision);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\AutoridadesCooperadora  $autoridadesCooperadora
+     * @param  \App\Models\AutoridadComision  $autoridadComision
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AutoridadesCooperadora $autoridadesCooperadora)
+    public function destroy(AutoridadComision $autoridadComision)
     {
-        $autoridadesCooperadora->delete();
+        $autoridadComision->delete();
         return response()->noContent();
     }
 }

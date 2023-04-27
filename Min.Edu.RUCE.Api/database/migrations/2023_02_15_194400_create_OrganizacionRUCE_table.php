@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('OrganizacionRUCE', function (Blueprint $table) {
             $table->increments('idOrganizacionRUCE');
+            $table->string('organizacionDesc')->default('');
             $table->biginteger('cue');
             $table->unique('cue');
             $table->integer('anexo')->nullable();
-            $table->string('organizacionDesc')->default('');
             $table->string('region',3);
             $table->string('nivel',20);
             $table->string('localidad',100);

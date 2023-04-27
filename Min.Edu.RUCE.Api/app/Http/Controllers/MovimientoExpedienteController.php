@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\HistorialCooperadora;
+use App\Models\MovimientoExpediente;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class HistorialCooperadoraController extends Controller
+class MovimientoExpedienteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class HistorialCooperadoraController extends Controller
      */
     public function index(): JsonResponse
     {
-        $data = HistorialCooperadora::all();
+        $data = MovimientoExpediente::all();
         $respuesta = [
             'entities' => $data,
             'paged' => [
@@ -31,7 +31,7 @@ class HistorialCooperadoraController extends Controller
         $pageNumber = $request->query->get('PageNumber');
         $pageSize = $request->query->get('PageSize');
 
-        $data = HistorialCooperadora::where('estaActivo',$estaActivo)->get()->toArray();
+        $data = MovimientoExpediente::where('estaActivo',$estaActivo)->get()->toArray();
 
         $errores = [];
 
@@ -76,33 +76,37 @@ class HistorialCooperadoraController extends Controller
         //visualiza los datos que se estan mandando en el requiest de la peticion
         // dd($request->all());
         $request->validate([
-            'fk_tipo_asociacion' => 'required',
-            'fk_cooperadora' => 'required',
-            'fk_expediente' => 'required',
+            'fkIdExpediente' => 'required',
+            'fkIdRefInstanciaInstrumento' => 'required',
+            'estaActivo' => 'required',
+            'fechaEliminacion' => 'required',
+            'idUsuarioAlta' => 'required',
+            'idUsuarioModificacion' => 'required'
         ]);
 
-        $HistorialCooperadora = new HistorialCooperadora();
+        $movimientoExpediente = new MovimientoExpediente();
 
-        $HistorialCooperadora->fk_tipo_asociacion = $request->fk_tipo_asociacion;
-        $HistorialCooperadora->fk_cooperadora = $request->fk_cooperadora;
-        $HistorialCooperadora->fk_expediente = $request->fk_expediente;
-        if($request->fecha)
-            $HistorialCooperadora->fecha = $request->fecha;
+        $movimientoExpediente->fkIdExpediente = $request->fkIdExpediente;
+        $movimientoExpediente->fkIdRefInstanciaInstrumento = $request->fkIdRefInstanciaInstrumento;
+        $movimientoExpediente->estaActivo = $request->estaActivo;
+        $movimientoExpediente->fechaEliminacion = $request->fechaEliminacion;
+        $movimientoExpediente->idUsuarioAlta = $request->idUsuarioAlta;
+        $movimientoExpediente->idUsuarioModificacion = $request->idUsuarioModificacion;
 
-        $HistorialCooperadora->save();
+        $movimientoExpediente->save();
 
-        return response($HistorialCooperadora);
+        return response($movimientoExpediente);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\HistorialCooperadora  $HistorialCooperadora
+     * @param  \App\Models\MovimientoExpediente  $MovimientoExpediente
      * @return \Illuminate\Http\Response
      */
     public function show(int $id): JsonResponse
     {
-        $data = HistorialCooperadora::where('id', $id)->get();
+        $data = MovimientoExpediente::where('id', $id)->get();
         $cantidad = count($data);
 
         $errores = [];
@@ -123,35 +127,41 @@ class HistorialCooperadoraController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\HistorialCooperadora  $HistorialCooperadora
+     * @param  \App\Models\MovimientoExpediente  $MovimientoExpediente
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, int $id)
     {
         $request->validate([
-            'fk_tipo_asociacion' => 'required',
-            'fk_cooperadora' => 'required',
-            'fk_expediente' => 'required',
+            'fkIdExpediente'=>'required',
+            'fkIdRefInstanciaInstrumento'=>'required',
+            'estaActivo'=>'required',
+            'fechaEliminacion'=>'required',
+            'idUsuarioAlta'=>'required',
+            'idUsuarioModificacion'=>'required'
         ]);
 
-        HistorialCooperadora::where('id',$id)->update([
-            'fk_tipo_asociacion' => $request->fk_tipo_asociacion,
-            'fk_cooperadora' => $request->fk_kiosco,
-            'fk_expediente' => $request->fk_expediente,
+        MovimientoExpediente::where('id',$id)->update([
+            'fkIdExpediente' => $request->fkIdExpediente,
+            'fkIdRefInstanciaInstrumento' => $request->fkIdRefInstanciaInstrumento,
+            'estaActivo' => $request->estaActivo,
+            'fechaEliminacion' => $request->fechaEliminacion,
+            'idUsuarioAlta' => $request->idUsuarioAlta,
+            'idUsuarioModificacion' => $request->idUsuarioModificacion,
         ]);
 
-        return response(HistorialCooperadora::where('id',$id)->get()[0]);
+        return response(MovimientoExpediente::where('id',$id)->get()[0]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\HistorialCooperadora  $HistorialCooperadora
+     * @param  \App\Models\MovimientoExpediente  $MovimientoExpediente
      * @return \Illuminate\Http\Response
      */
     public function destroy(int $id)
     {
-        HistorialCooperadora::where('id',$id)->delete();
+        MovimientoExpediente::where('id',$id)->delete();
         return response()->noContent();
     }
 }

@@ -74,20 +74,30 @@ class KioscoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'responsable' => 'required',
+            'fkIdCooperadora' => 'required',
+            'idPersonaRUCE' => 'required',
+            'accesoLicitacion' => 'required',
+            'documentacionPresentada' => 'required',
+            'periodoInicio' => 'required',
+            'periodoFin' => 'required',
+            'estaActivo' => 'required',
+            'fechaEliminacion' => 'required',
+            'idUsuarioAlta' => 'required',
+            'idUsuarioModificacion' => 'required'
         ]);
 
         $kiosco = new Kiosco();
 
-        $kiosco->responsable = $request->responsable;
-        if($request->acceso_licitacion)
-            $kiosco->acceso_licitacion = $request->acceso_licitacion;
-        if($request->documentacion_presentada)
-            $kiosco->documentacion_presentada = $request->documentacion_presentada;
-        if($request->periodo_inicio)
-            $kiosco->periodo_inicio = $request->periodo_inicio;
-        if($request->periodo_fin)
-            $kiosco->periodo_fin = $request->periodo_fin;
+        $kiosco-> fkIdCooperadora= $request->fkIdCooperadora;
+        $kiosco-> idPersonaRUCE= $request->idPersonaRUCE;
+        $kiosco-> accesoLicitacion= $request->accesoLicitacion;
+        $kiosco-> documentacionPresentada= $request->documentacionPresentada;
+        $kiosco-> periodoInicio= $request->periodoInicio;
+        $kiosco-> periodoFin= $request->periodoFin;
+        $kiosco-> estaActivo= $request->estaActivo;
+        $kiosco-> fechaEliminacion= $request->fechaEliminacion;
+        $kiosco-> idUsuarioAlta= $request->idUsuarioAlta;
+        $kiosco-> idUsuarioModificacion= $request->idUsuarioModificacion;
 
         $kiosco->save();
 
@@ -129,19 +139,29 @@ class KioscoController extends Controller
     public function update(Request $request, Kiosco $kiosco)
     {
         $request->validate([
-            'responsable' => 'required',
-            'acceso_licitacion' => 'required',
-            'documentacion_presentada' => 'required',
-            'periodo_inicio' => 'required',
-            'periodo_fin' => 'required',
+            'fkIdCooperadora' => 'required',
+            'idPersonaRUCE' => 'required',
+            'accesoLicitacion' => 'required',
+            'documentacionPresentada' => 'required',
+            'periodoInicio' => 'required',
+            'periodoFin' => 'required',
+            'estaActivo' => 'required',
+            'fechaEliminacion' => 'required',
+            'idUsuarioAlta' => 'required',
+            'idUsuarioModificacion' => 'required'
         ]);
 
         $kiosco->update([
-            'responsable' => $request->responsable,
-            'acceso_licitacion' => $request->acceso_licitacion,
-            'documentacion_presentada' => $request->documentacion_presentada,
-            'periodo_inicio' => $request->periodo_inicio,
-            'periodo_fin' => $request->periodo_fin,
+            'fkIdCooperadora' => $request->fkIdCooperadora,
+            'idPersonaRUCE' => $request->idPersonaRUCE,
+            'accesoLicitacion' => $request->accesoLicitacion,
+            'documentacionPresentada' => $request->documentacionPresentada,
+            'periodoInicio' => $request->periodoInicio,
+            'periodoFin' => $request->periodoFin,
+            'estaActivo' => $request->estaActivo,
+            'fechaEliminacion' => $request->fechaEliminacion,
+            'idUsuarioAlta' => $request->idUsuarioAlta,
+            'idUsuarioModificacion' => $request->idUsuarioModificacion
         ]);
 
         return response($kiosco);

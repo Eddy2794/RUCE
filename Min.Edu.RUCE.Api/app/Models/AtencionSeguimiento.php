@@ -13,13 +13,13 @@ class AtencionSeguimiento extends Model
     protected $primary_key = 'idAtencionSeguimiento';
     protected $fillable = [
         'fkIdCooperadora',
-        'fkIdPersona',
+        'fkIdPersonaRUCE',
         'llamadas',
         'mesajes',
         'emailEnviados',
         'atencionOficina',
         'atencionTerritorial',
-        'observaciones',
+        'observacion',
         'fecha',
         'estaActivo',
         'fechaEliminacion',

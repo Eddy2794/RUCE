@@ -12,11 +12,11 @@ class Expediente extends Model
     protected $table = 'Expediente';
     protected $primary_key = 'idExpediente';
     protected $fillable = [
-        'idCooperadora',
-        'nro_expediente',
+        'fkIdCooperadora',
+        'nroExpediente',
         'cantObservaciones',
         'observacionesDesc',
-        'observaciones_respondidas',
+        'observacionesRespondidas',
         'estaActivo',
         'fechaEliminacion',
         'idUsuarioAlta',

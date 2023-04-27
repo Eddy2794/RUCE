@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('_movimiento_expediente', function (Blueprint $table) {
+        Schema::create('MovimientoExpediente', function (Blueprint $table) {
             $table->increments('idMovimientoExpediente');
 
             $table->unsignedInteger('fkIdExpediente');

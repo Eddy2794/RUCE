@@ -12,7 +12,7 @@ class MovimientoExpediente extends Model
     protected $table = 'MovimientoExpediente';
     protected $primary_key = 'idMovimientoExpediente';
     protected $fillable = [
-        'fkExpediente',
+        'fkIdExpediente',
         'fkIdRefInstanciaInstrumento',
         'estaActivo',
         'fechaEliminacion',

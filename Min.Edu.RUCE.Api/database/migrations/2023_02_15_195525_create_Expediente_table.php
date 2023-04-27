@@ -20,7 +20,7 @@ return new class extends Migration
             $table->unsignedInteger('fkIdCooperadora');
             $table->foreign('fkIdCooperadora')->references('idCooperadora')->on('Cooperadora')->onDelete('cascade');
 
-            $table->string('nro_expediente',100)->nullable(true);
+            $table->string('nroExpediente',100)->nullable(true);
             $table->integer('cantObservaciones')->default(0);
             $table->boolean('observacionesDesc')->default(false);
             $table->boolean('observacionesRespondidas')->default(false);

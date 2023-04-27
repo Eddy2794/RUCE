@@ -9,10 +9,11 @@ use Illuminate\Database\Eloquent\Model;
 class Personeria extends Model
 {
     use HasFactory;
-    protected $table = 'Personaria';
+    protected $table = 'Personeria';
     protected $primary_key = 'idPersoneria';
     protected $fillable = [
-        'fkExpediente',
+        'fkIdExpediente',
+        'fkIdCooperadora',
         'decreto',
         'nroResolucion',
         'fecha',

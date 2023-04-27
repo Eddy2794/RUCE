@@ -75,30 +75,28 @@ class ExpedienteController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nro_expediente' => 'required',
-            'observaciones' => 'required',
-            'observaciones_respondidas' => 'required',
-            'instrumento_publico' => 'required',
+            'fkIdCooperadora' => 'required',
+            'nroExpediente' => 'required',
+            'cantObservaciones' => 'required',
+            'observacionesDesc' => 'required',
+            'observacionesRespondidas' => 'required',
+            'estaActivo' => 'required',
+            'fechaEliminacion' => 'required',
+            'idUsuarioAlta' => 'required',
+            'idUsuarioModificacion' => 'required',
         ]);
 
         $expediente = new Expediente();
 
-        $expediente->nro_expediente = $request->nro_expediente;
-        
-        if($request->observaciones)
-            $expediente->observaciones = $request->observaciones;
-        if($request->observaciones_respondidas)
-            $expediente->observaciones_respondidas = $request->observaciones_respondidas;
-        if($request->instrumento_publico)
-            $expediente->instrumento_publico = $request->instrumento_publico;
-
-        if($request->fiscalia_estado)
-            $expediente->fiscalia_estado = $request->fiscalia_estado;
-        if($request->nro_resolucion)
-            $expediente->nro_resolucion = $request->nro_resolucion;
-            
-        if ($request->decreto)
-            $expediente->decreto = $request->decreto;
+        $expediente-> fkIdCooperadora = $request->fkIdCooperadora;
+        $expediente-> nroExpediente = $request->nroExpediente;
+        $expediente-> cantObservaciones = $request->cantObservaciones;
+        $expediente-> observacionesDesc = $request->observacionesDesc;
+        $expediente-> observacionesRespondidas = $request->observacionesRespondidas;
+        $expediente-> estaActivo = $request->estaActivo;
+        $expediente-> fechaEliminacion = $request->fechaEliminacion;
+        $expediente-> idUsuarioAlta = $request->idUsuarioAlta;
+        $expediente-> idUsuarioModificacion = $request->idUsuarioModificacion;
 
         $expediente->save();
 
@@ -140,24 +138,27 @@ class ExpedienteController extends Controller
     public function update(Request $request, Expediente $expediente)
     {
         $request->validate([
-            'nro_expediente' => 'required',
-            'observaciones' => 'required',
-            'observaciones_respondidas' => 'required',
-            'instrumento_publico' => 'required',
-            'decreto' => 'required',
+            'fkIdCooperadora' => 'required',
+            'nroExpediente' => 'required',
+            'cantObservaciones' => 'required',
+            'observacionesDesc' => 'required',
+            'observacionesRespondidas' => 'required',
+            'estaActivo' => 'required',
+            'fechaEliminacion' => 'required',
+            'idUsuarioAlta' => 'required',
+            'idUsuarioModificacion' => 'required',
         ]);
 
         $expediente->update([
-            'nro_expediente' => $request->nro_expediente,
-            'observaciones' => $request->observaciones,
-            'observaciones_respondidas' => $request->observaciones_respondidas,
-            'instrumento_publico' => $request->instrumento_publico,
-
-            'fiscalida_estado' => $request->fiscalida_estado,
-            'nro_resolucion' => $request->fiscalida_estado,
-
-            'decreto' => $request->decreto,
-            'fecha' => Carbon::createFromFormat('Y-m-d H:i:s',Carbon::now())->format('d-m-Y'),
+            'fkIdCooperadora' => $request->fkIdCooperadora,
+            'nroExpediente' => $request->nroExpediente,
+            'cantObservaciones' => $request->cantObservaciones,
+            'observacionesDesc' => $request->observacionesDesc,
+            'observacionesRespondidas' => $request->observacionesRespondidas,
+            'estaActivo' => $request->estaActivo,
+            'fechaEliminacion' => $request->fechaEliminacion,
+            'idUsuarioAlta' => $request->idUsuarioAlta,
+            'idUsuarioModificacion' => $request->idUsuarioModificacion,
         ]);
 
         return response($expediente);

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('RefInstanciaInstrumento', function (Blueprint $table) {
             $table->increments('idRefInstanciaInstrumento');
-            $table->string('InstrumentoPublicoDesc');
+            $table->string('InstrumentoDesc');
             $table->timestamps();
         });
     }

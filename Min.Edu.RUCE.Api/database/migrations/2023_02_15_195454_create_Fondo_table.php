@@ -22,12 +22,12 @@ return new class extends Migration
             $table->unsignedInteger('fkIdRefTipoFondo');
             $table->foreign('fkIdRefTipoFondo')->references('idRefTipoFondo')->on('RefTipoFondo')->onDelete('cascade');
 
-            $table->boolean('fondo_recibido')->default(false);
-            $table->boolean('fondo_rendido')->default(false);
+            $table->boolean('fondoRecibido')->default(false);
+            $table->boolean('fondoRendido')->default(false);
             $table->integer('monto')->default(0);
-            $table->date('fecha_recibido')->nullable(true);
-            $table->date('fecha_rendicion')->nullable(true);
-            $table->integer('anio_otorgado');
+            $table->date('fechaRecibido')->nullable(true);
+            $table->date('fechaRendicion')->nullable(true);
+            $table->integer('anioOtorgado');
 
             $table->boolean('estaActivo')->default(true)->nullable(false);
             $table->datetime('fechaEliminacion')->nullable(true);

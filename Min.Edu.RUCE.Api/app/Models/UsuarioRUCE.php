@@ -10,7 +10,7 @@ class UsuarioRUCE extends Model
 {
     use HasFactory;
     protected $table = 'UsuarioRuce';
-    protected $primary_key = 'idusuarioRuce';
+    protected $primary_key = 'idUsuarioRuce';
     protected $fillable = [
         'fkIdPersonaRUCE',
         'password',

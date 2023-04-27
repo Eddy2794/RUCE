@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('RefTipoAsociacion', function (Blueprint $table) {
             $table->increments('idRefTipoAsociacion');
-            $table->string('TipoAsociacionDesc');
+            $table->string('tipoAsociacionDesc');
             $table->timestamps();
         });
     }

@@ -16,16 +16,16 @@ return new class extends Migration
         Schema::create('Kiosco', function (Blueprint $table) {
             $table->increments('idKiosco');
             
-            $table->unsignedInteger('idPersonaRUCE');
-            $table->foreign('idPersonaRUCE')->references('idPersonaRUCE')->on('PersonaRuce')->onDelete('cascade');
+            $table->unsignedInteger('fkIdPersonaRUCE');
+            $table->foreign('fkIdPersonaRUCE')->references('idPersonaRUCE')->on('PersonaRuce')->onDelete('cascade');
 
-            $table->unsignedInteger('fk_cooperadora');
-            $table->foreign('fk_cooperadora')->references('idCooperadora')->on('Cooperadora')->onDelete('cascade');
+            $table->unsignedInteger('fkIdCooperadora');
+            $table->foreign('fkIdCooperadora')->references('idCooperadora')->on('Cooperadora')->onDelete('cascade');
             
-            $table->boolean('acceso_licitacion')->default(false);
-            $table->date('periodo_inicio')->nullable(true);
-            $table->date('periodo_fin')->nullable(true);
-            $table->boolean('documentacion_presentada')->default(false);
+            $table->boolean('accesoLicitacion')->default(false);
+            $table->boolean('documentacionPresentada')->default(false);
+            $table->date('periodoInicio')->nullable(true);
+            $table->date('periodoFin')->nullable(true);
             $table->boolean('estaActivo')->default(true)->nullable(false);
             $table->dateTime('fechaEliminacion')->nullable(true);
             $table->integer('idUsuarioAlta')->nullable(true);

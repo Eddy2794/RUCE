@@ -14,7 +14,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('Personaria', function (Blueprint $table) {
+        Schema::create('Personeria', function (Blueprint $table) {
             $table->increments('idPersoneria');
 
             $table->unsignedInteger('fkIdExpediente');
@@ -25,6 +25,7 @@ return new class extends Migration
 
             $table->string('decreto')->nullable();
             $table->string('nroResolucion')->nullable();
+            $table->date('fecha');
 
             $table->boolean('estaActivo')->default(true)->nullable(false);
             $table->date('fechaEliminacion');

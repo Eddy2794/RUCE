@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AutoridadesCooperadora;
-use App\Models\AutoridadesEstablecimientoEducativo;
+use App\Models\PersonaRUCE;
+use ArrayObject;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class AutoridadesEstablecimientoEducativoController extends Controller
+class PersonaRUCEController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,14 +16,13 @@ class AutoridadesEstablecimientoEducativoController extends Controller
      */
     public function index(): JsonResponse
     {
-        $data = AutoridadesCooperadora::all();
+        $data = PersonaRUCE::all();
         $respuesta = [
             'entities' => $data,
             'paged' => [
                 'entitiyCount' => count($data)
             ]
-            ];
-        
+        ];
         return response()->json($respuesta,200);
     }
 
@@ -33,7 +32,7 @@ class AutoridadesEstablecimientoEducativoController extends Controller
         $pageNumber = $request->query->get('PageNumber');
         $pageSize = $request->query->get('PageSize');
 
-        $data = AutoridadesCooperadora::where('estaActivo',$estaActivo)->get()->toArray();
+        $data = PersonaRUCE::where('estaActivo',$estaActivo)->get()->toArray();
 
         $errores = [];
 
@@ -75,38 +74,48 @@ class AutoridadesEstablecimientoEducativoController extends Controller
      */
     public function store(Request $request)
     {
-        //validacion de la preticion de los datos
+        //visualiza los datos que se estan mandando en el requiest de la peticion
+        // dd($request->all());
+
+        //validacion de la peticion de los datos del modelo
         $request->validate([
-            'fk_persona' =>'required',
-            'idOrganizacionRUCE' =>'required',
-            'cargo' =>'required',
+            'cuil' => 'required|min:8|max:11',
+            'email' =>'required',
+            'nombre' =>'required',
+            'apellido' =>'required',
+            'telefono' =>'required|min:10|max:13',
         ]);
 
-        //instancia de una autoridad del model
-        $autoridadeEE = new AutoridadesEstablecimientoEducativo();
+        //instancia de una personaRUCE del model
+        $personaRUCE = new PersonaRUCE();
 
-        //asigmacion de los datos profvenientes del requies hacia la instancia de autoridad
-        $autoridadeEE->cargo = $request->cargo;
-        $autoridadeEE->fk_persona = $request->fk_persona;
-        $autoridadeEE->idOrganizacionRUCE = $request->idOrganizacionRUCE;
+        //* TODO Agregar validaciones para el ingreso de cuil o email que ya se encuentren registrados
+
+        //asignacion de los datos provenientes del request hacia la instancia de personaRUCE
+        $personaRUCE->cuil = $request->cuil;
+        $personaRUCE->email = $request->email;
+        $personaRUCE->nombre = $request->nombre;
+        $personaRUCE->apellido = $request->apellido;
+        $personaRUCE->telefono = $request->telefono;
 
         //generacion de registro en la base de datos
-        $autoridadeEE->save();
-
-        return response($autoridadeEE);
+        $personaRUCE->save();
+        
+        return response($personaRUCE);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\AutoridadesEstablecimientoEducativo  $autoridadesEstablecimientoEducativo
+     * @param  \App\Models\PersonaRUCE  $personaRUCE
      * @return \Illuminate\Http\Response
      */
-    public function show(int $id): JsonResponse
+    public function show(PersonaRUCE $personaRUCE): JsonResponse
     {
-        $data = AutoridadesCooperadora::where('id', $id)->get();
+        //Visualiza los datos del objeto con el id obtenido como metodo
+        $data = [$personaRUCE];
         $cantidad = count($data);
-        
+
         $errores = [];
 
         $respuesta = [
@@ -118,43 +127,51 @@ class AutoridadesEstablecimientoEducativoController extends Controller
                 'entitiyCount' => $cantidad
             ]
         ];
-        return response()->json($respuesta, 200);
+        return response()->json($respuesta,200);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\AutoridadesEstablecimientoEducativo  $autoridadesEstablecimientoEducativo
+     * @param  \App\Models\PersonaRUCE  $personaRUCE
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, int $id)
+    public function update(Request $request, PersonaRUCE $personaRUCE)
     {
+        //visualiza los datos que se estan mandando en el requiest de la peticion
+        // dd($request->all());
+
+        //validacion de la peticion de los datos del modelo
         $request->validate([
-            'fk_persona' =>'required',
-            'idOrganizacionRUCE' =>'required',
-            'cargo' =>'required',
+            'cuil' => 'required',
+            'email' =>'required',
+            'nombre' =>'required',
+            'apellido' =>'required',
+            'telefono' =>'required',
         ]);
 
-        //obtengo una autoridad establecimiento educativo desde la base de datos y actualizo sus datos
-        AutoridadesEstablecimientoEducativo::where('id',$id)->update([
-            'cargo' => $request->cargo,
-            'fk_persona' => $request->fk_persona,
-            'idOrganizacionRUCE' => $request->idOrganizacionRUCE,
-        ]);
+        //obtengo una personaRUCE desde la base de datos y los guardo en una variable
+        $personaRUCE->update([
+                'nombre' => $request->nombre,
+                'apellido' => $request->apellido,
+                'telefono' => $request->telefono,
+                'email' => $request->email,
+            ]);
 
-        return response(AutoridadesEstablecimientoEducativo::where('id',$id)->get()[0]);
+        return response($personaRUCE);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\AutoridadesEstablecimientoEducativo  $autoridadesEstablecimientoEducativo
+     * @param  \App\Models\PersonaRUCE  $personaRUCE
      * @return \Illuminate\Http\Response
      */
-    public function destroy(int $id)
+    public function destroy(PersonaRUCE $personaRUCE)
     {
-        AutoridadesEstablecimientoEducativo::where('id',$id)->delete();
+        //Elimina la personaRUCE con el id que viene como parametro
+        $personaRUCE->delete();
         return response()->noContent();
     }
 }

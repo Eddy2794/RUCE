@@ -16,20 +16,21 @@ return new class extends Migration
         Schema::create('Cooperadora', function (Blueprint $table) {
             $table->increments('idCooperadora');
 
-            $table->unsignedInteger('fk_idRefTipoAsociacion');
-            $table->foreign('fk_idRefTipoAsociacion')->references('idRefTipoAsociacion')->on('RefTipoAsociacion')->onDelete('cascade');
+            $table->unsignedInteger('fkIdRefTipoAsociacion');
+            $table->foreign('fkIdRefTipoAsociacion')->references('idRefTipoAsociacion')->on('RefTipoAsociacion')->onDelete('cascade');
 
-            $table->unsignedInteger('idOrganizacionRUCE');
-            $table->foreign('idOrganizacionRUCE')->references('idOrganizacionRUCE')->on('OrganizacionRUCE')->onDelete('cascade');
+            $table->unsignedInteger('fkIdOrganizacionRUCE');
+            $table->foreign('fkIdOrganizacionRUCE')->references('idOrganizacionRUCE')->on('OrganizacionRUCE')->onDelete('cascade');
 
+            $table->string('cuit',13)->nullable(true);
             $table->string('legajo',200)->nullable(true);
             $table->string('denominacion',100);
             $table->string('estado',200)->nullable(true);
 
-            $table->boolean('convenioScEconomicas')->default(false);
-            $table->boolean('inscripcion_afip')->default(false);
-            $table->boolean('inscripcion_rentas')->default(false);
-            $table->boolean('inscripcion_renacopes')->default(false);
+            $table->boolean('convenioCsEconomicas')->default(false);
+            $table->boolean('estadoAfip')->default(false);
+            $table->boolean('estadoRentas')->default(false);
+            $table->boolean('inscripcionRenacopes')->default(false);
 
 
             $table->boolean('estaActivo')->default(true)->nullable(false);

@@ -17,9 +17,9 @@ return new class extends Migration
             $table->increments('idMatricula');
 
             $table->unsignedInteger('fkIdOrganizacionRUCE');
-            $table->foreign('fkIdOrganizacion')->references('idOrganizacionRUCE')->on('OrganizacionRUCE')->onDelete('cascade');
+            $table->foreign('fkIdOrganizacionRUCE')->references('idOrganizacionRUCE')->on('OrganizacionRUCE')->onDelete('cascade');
 
-            $table->integer('periodo_lectivo');
+            $table->integer('periodoLectivo');
             $table->integer('matricula');
             $table->boolean('estaActivo')->default(true);
             $table->datetime('fechaEliminacion');

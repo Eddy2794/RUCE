@@ -12,8 +12,9 @@ class AutoridadOrganizacionRUCE extends Model
     protected $table = 'AutoridadOrganizacionRUCE';
     protected $primary_key = 'idAutoridadOrganizacionRUCE';
     protected $fillable = [
-        'fkIdPersonaRUCE',
         'fkIdRefCargo',
+        'fkIdPersonaRUCE',
+        'fkIdOrganizacionRUCE',
         'inicioCargo',
         'finCargo',
         'estaActivo',
