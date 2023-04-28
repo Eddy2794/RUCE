@@ -6,14 +6,36 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class OrganizacionRUCEIndexResourse extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
-     */
+    public static $wrap = 'entities';
+    
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'idOrganizacionRUCE',
+            'organizacionDesc',
+            'cue',
+            'anexo',
+            'region',
+            'nivel',
+            'localidad',
+            'departamento',
+            'telefono',
+            'email',
+            'domicilio',
+            'estaActivo',
+            'created_at',
+            'updated_at',
+            'fechaEliminacion',
+            'idUsuarioAlta',
+            'idUsuarioModificacion'
+        ];
+    }
+
+    public function with($request)
+    {
+        return [
+            'sessage' => '',
+            'succeded' => true
+        ];
     }
 }

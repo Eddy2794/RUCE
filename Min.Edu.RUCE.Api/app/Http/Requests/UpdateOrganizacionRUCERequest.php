@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateOrganizacionRUCERequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class UpdateOrganizacionRUCERequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +25,64 @@ class UpdateOrganizacionRUCERequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'idOrganizacionRUCE' => [
+                'required',
+                'exists:OrganizacionRUCE,idOrganizacionRUCE'
+            ],
+            'organizacionDesc' => [
+                'required',
+                'string',
+                Rule::unique('OrganizacionRUCE','organizacionDesc')->where('idOrganizacionRUCE',$this->idOrganizacionRUCE)->withoutTrashed()
+            ],
+            'cue' => [
+                'required',
+                'biginteger',
+                Rule::unique('OrganizacionRUCE','cue')->where('cue',$this->cue)->withoutTrashed()
+            ],
+
+            'telefono' => [
+                'required',
+                'biginteger',
+                Rule::unique('OrganizacionRUCE','telefono')->where('telefono', $this->telefono)->withoutTrashed()
+            ],
+            'email' => [
+                'required',
+                'string',
+                Rule::unique('OrganizacionRUCE','email')->where('email', $this->email)->withoutTrashed()
+            ],
+            'domicilio' => [
+                'required',
+                'string',
+                Rule::unique('OrganizacionRUCE','domicilio')->where('domicilio', $this->domicilio)->withoutTrashed()
+            ],
+            'region' => [
+                'required',
+                'string'
+            ],
+            'nivel' => [
+                'required',
+                'string'
+            ],
+            'estaActivo' => [
+                'required',
+                'boolean'
+            ],
+            'idUsuarioModificacion' => [
+                'required',
+                'integer'
+            ]
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'idOrganizacionRUCE.exist' => 'Id de OrganizacionRUCE ya existe.',
+            'organizacionDesc.unique' => 'El nombre de la Oganizacion ya fue registrado.',
+            'cue.unique' => 'El CUE de la Ognaizacion ya fue registrado.',
+            'telefono.unique' => 'El telefono de la Organizacion ya fue registrado.',
+            'email.unique' => 'El email de la Oganizacion ya fue registrado.',
+            'domicilio.unique' => 'El domicilio de la Organizacion ya fue registrado.'
         ];
     }
 }

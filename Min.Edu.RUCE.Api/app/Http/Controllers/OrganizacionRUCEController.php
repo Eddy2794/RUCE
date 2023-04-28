@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\RequestCollection;
+
 use App\Http\Requests\StoreOrganizacionRUCERequest;
 use App\Http\Requests\UpdateOrganizacionRUCERequest;
-use App\Http\Resources\OrganizacionRUCECollection;
 use App\Http\Resources\OrganizacionRUCEResourse;
 use App\Models\OrganizacionRUCE;
 
@@ -19,10 +20,10 @@ class OrganizacionRUCEController extends Controller
         // return typeOf($request->page);
         try {
             if ($request->has('page')) {
-                return new OrganizacionRUCECollection(OrganizacionRUCE::orderBy('organizacionDesc')->paginate());
+                return new RequestCollection(OrganizacionRUCE::orderBy('organizacionDesc')->paginate());
             }
 
-            return new OrganizacionRUCECollection(OrganizacionRUCE::orderBy('organizacionDesc')->get());
+            return new RequestCollection(OrganizacionRUCE::orderBy('organizacionDesc')->get());
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,
@@ -88,10 +89,16 @@ class OrganizacionRUCEController extends Controller
     public function update(UpdateOrganizacionRUCERequest $request, OrganizacionRUCE $organizacionRUCE): JsonResponse
     {
         try {
-            $organizacionRUCE->nivel_id = $request->idOrganizacionRUCE ?: $organizacionRUCE->nivel_id;
-            $organizacionRUCE->nombre = $request->nombre ?: $organizacionRUCE->nombre;
-            $organizacionRUCE->nombre_abreviado = $request->nombreAbreviado ?: $organizacionRUCE->nombre_abreviado;
-            $organizacionRUCE->orientacion_id = $request->orientacionId ?: $organizacionRUCE->orientacion_id;
+            $organizacionRUCE->idOrganizacionRUCE = $request->idOrganizacionRUCE ?: $organizacionRUCE->idOrganizacionRUCE;
+            $organizacionRUCE->organizacionDesc = $request->organizacionDesc ?: $organizacionRUCE->organizacionDesc;
+            $organizacionRUCE->cue = $request->cue ?: $organizacionRUCE->cue;
+            $organizacionRUCE->telefono = $request->telefono ?: $organizacionRUCE->telefono;
+            $organizacionRUCE->email = $request->email ?: $organizacionRUCE->email;
+            $organizacionRUCE->domicilio = $request->domicilio ?: $organizacionRUCE->domicilio;
+            $organizacionRUCE->region = $request->region ?: $organizacionRUCE->region;
+            $organizacionRUCE->nivel = $request->nivel ?: $organizacionRUCE->nivel;
+            $organizacionRUCE->estaActivo = $request->estaActivo ?: $organizacionRUCE->estaActivo;
+            $organizacionRUCE->idUsuarioModificacion = $request->idUsuarioModificacion ?: $organizacionRUCE->idUsuarioModificacion;
 
             if ($organizacionRUCE->isClean()) {
                 return response()->json([
@@ -100,7 +107,21 @@ class OrganizacionRUCEController extends Controller
                 ], 422);
             }
 
-            $organizacionRUCE->save();
+            $organizacionRUCE->update([
+                'idOrganizacionRUCE' => $organizacionRUCE->idOrganizacionRUCE,
+                'organizacionDesc' => $organizacionRUCE->organizacionDesc,
+                'cue' => $organizacionRUCE->cue,
+                'anexo' => $organizacionRUCE->anexo,
+                'region' => $organizacionRUCE->region,
+                'nivel' => $organizacionRUCE->nivel,
+                'localidad' => $organizacionRUCE->localidad,
+                'departamento' => $organizacionRUCE->departamento,
+                'domicilio' => $organizacionRUCE->domicilio,
+                'telefono' => $organizacionRUCE->telefono,
+                'email' => $organizacionRUCE->email,
+                'estaActivo' => $organizacionRUCE->estaActivo,
+                'idUsuarioModificacion' => $organizacionRUCE->idUsuarioModificacion,
+            ]);
 
             return response()->json([
                 'succeeded' => true,
@@ -153,21 +174,21 @@ class OrganizacionRUCEController extends Controller
         $query = $organizacionRUCE->newQuery();
 
         if ($request->idOrganizacionRUCE) {
-            $query->where('nivel_id', $request->idOrganizacionRUCE)
+            $query->where('idOrganizacionRUCE', $request->idOrganizacionRUCE)
                 ->where(function ($q) use ($request) {
                     if ($request->q) {
-                        $q->where('nombre', 'like', '%' . $request->q . '%')
-                            ->orWhere('nombre_abreviado', 'like', '%' . $request->q . '%');
+                        $q->where('cue', 'like', '%' . $request->q . '%')
+                            ->orWhere('organizacionDesc', 'like', '%' . $request->q . '%');
                     }
                 });
         } else {
             if ($request->q) {
-                $query->where('nombre', 'like', '%' . $request->q . '%')
-                    ->orWhere('nombre_abreviado', 'like', '%' . $request->q . '%');
+                $query->where('cue', 'like', '%' . $request->q . '%')
+                    ->orWhere('organizacionDesc', 'like', '%' . $request->q . '%');
             }
         }
 
-        return new OrganizacionRUCECollection($query->orderBy('nombre')->paginate()->appends(['q' => $request->q, 'nivel' => $request->idOrganizacionRUCE]));
+        return new RequestCollection($query->orderBy('organizacionDesc')->paginate()->appends(['q' => $request->q, 'idOrganizacionRICE' => $request->idOrganizacionRUCE]));
     }
 
     // public function competencias($id)

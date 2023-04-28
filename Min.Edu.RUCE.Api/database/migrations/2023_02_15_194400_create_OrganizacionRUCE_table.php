@@ -23,16 +23,14 @@ return new class extends Migration
             $table->string('nivel',20);
             $table->string('localidad',100);
             $table->string('departamento',100);
+            $table->string('domicilio',100);
             $table->biginteger('telefono');
             $table->string('email',100);
-            $table->string('domicilio',100);
             $table->boolean('estaActivo')->default(true)->nullable(false);
             $table->dateTime('fechaEliminacion')->nullable(true);
             $table->integer('idUsuarioAlta')->default(null);
             $table->integer('idUsuarioModificacion')->default(null);
             $table->timestamps();
-
-            
         });
     }
 
