@@ -9,6 +9,7 @@ use App\Http\Resources\OrganizacionRUCEResourse;
 use App\Models\OrganizacionRUCE;
 
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 class OrganizacionRUCEController extends Controller
@@ -36,7 +37,7 @@ class OrganizacionRUCEController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreOrganizacionRUCERequest $request)
+    public function store(StoreOrganizacionRUCERequest $request): JsonResponse
     {
         try {
             OrganizacionRUCE::create([
@@ -51,6 +52,7 @@ class OrganizacionRUCEController extends Controller
                 'email' => $request->email,
                 'domicilio' => $request->domicilio,
             ]);
+            return response()->json();
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,
@@ -64,10 +66,10 @@ class OrganizacionRUCEController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(OrganizacionRUCE $organizacionRUCE)
+    public function show(OrganizacionRUCE $organizacionRUCE): JsonResponse
     {
         try {
-            return new OrganizacionRUCEResourse($organizacionRUCE);
+            return response()->json(new OrganizacionRUCEResourse($organizacionRUCE));
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,
@@ -83,10 +85,10 @@ class OrganizacionRUCEController extends Controller
      * @param  \App\Models\OrganizacionRUCE  $organizacionRUCE
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateOrganizacionRUCERequest $request, OrganizacionRUCE $organizacionRUCE)
+    public function update(UpdateOrganizacionRUCERequest $request, OrganizacionRUCE $organizacionRUCE): JsonResponse
     {
         try {
-            $organizacionRUCE->nivel_id = $request->nivelId ?: $organizacionRUCE->nivel_id;
+            $organizacionRUCE->nivel_id = $request->idOrganizacionRUCE ?: $organizacionRUCE->nivel_id;
             $organizacionRUCE->nombre = $request->nombre ?: $organizacionRUCE->nombre;
             $organizacionRUCE->nombre_abreviado = $request->nombreAbreviado ?: $organizacionRUCE->nombre_abreviado;
             $organizacionRUCE->orientacion_id = $request->orientacionId ?: $organizacionRUCE->orientacion_id;
@@ -118,10 +120,14 @@ class OrganizacionRUCEController extends Controller
      * @param  \App\Models\OrganizacionRUCE  $organizacionRUCE
      * @return \Illuminate\Http\Response
      */
-    public function destroy(OrganizacionRUCE $organizacionRUCE)
+    public function destroy(OrganizacionRUCE $organizacionRUCE): JsonResponse
     {
         try {
             
+            OrganizacionRUCE::where('id', $organizacionRUCE)->update([
+                'estaActivo'=>false,   
+            ]);
+
             $organizacionRUCE->competencias()->delete();
             $organizacionRUCE->delete();
 
@@ -146,8 +152,8 @@ class OrganizacionRUCEController extends Controller
 
         $query = $organizacionRUCE->newQuery();
 
-        if ($request->nivelId) {
-            $query->where('nivel_id', $request->nivelId)
+        if ($request->idOrganizacionRUCE) {
+            $query->where('nivel_id', $request->idOrganizacionRUCE)
                 ->where(function ($q) use ($request) {
                     if ($request->q) {
                         $q->where('nombre', 'like', '%' . $request->q . '%')
@@ -161,24 +167,24 @@ class OrganizacionRUCEController extends Controller
             }
         }
 
-        return new OrganizacionRUCECollection($query->orderBy('nombre')->paginate()->appends(['q' => $request->q, 'nivel' => $request->nivelId]));
+        return new OrganizacionRUCECollection($query->orderBy('nombre')->paginate()->appends(['q' => $request->q, 'nivel' => $request->idOrganizacionRUCE]));
     }
 
-    public function competencias($id)
-    {
-        $especialidad = Especialidad::findOrFail($id);
+    // public function competencias($id)
+    // {
+    //     $especialidad = Especialidad::findOrFail($id);
 
-        $competencia = new Competencia();
+    //     $competencia = new Competencia();
 
-        $competencias = $competencia->where('especialidad_id', $id)->paginate();
+    //     $competencias = $competencia->where('especialidad_id', $id)->paginate();
 
-        if ($competencias->isEmpty()) {
-            return response()->json([
-                'succeeded' => false,
-                'message' => "No existen Competencias para la especialidad seleccionado",
-            ]);
-        }
+    //     if ($competencias->isEmpty()) {
+    //         return response()->json([
+    //             'succeeded' => false,
+    //             'message' => "No existen Competencias para la especialidad seleccionado",
+    //         ]);
+    //     }
 
-        return new CompetenciaCollection($competencias);
-    }
+    //     return new CompetenciaCollection($competencias);
+    // }
 }
