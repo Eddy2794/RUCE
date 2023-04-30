@@ -3,13 +3,13 @@
 namespace Database\Factories;
 
 use App\Models\Cooperadora;
-use App\Models\Persona;
+use App\Models\PersonaRUCE;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\AutoridadesCooperadora>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\AutoridadComision>
  */
-class AutoridadesCooperadoraFactory extends Factory
+class AutoridadComisionFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -23,7 +23,7 @@ class AutoridadesCooperadoraFactory extends Factory
             'inicio_cargo' => $this->faker->date(),
             'fin_cargo' => $this->faker->date(),
             'tipo_comision' => $this->faker->randomElement(["regularizadora","directiva"]),
-            'fkIdPersonaRUCE' => $this->faker->randomElement(Persona::all()->getQueueableIds()),
+            'fkIdPersonaRUCE' => $this->faker->randomElement(PersonaRUCE::all()->getQueueableIds()),
             'fk_cooperadora' => $this->faker->randomElement(Cooperadora::all()->getQueueableIds()),
             'estaActivo' => true,
         ];

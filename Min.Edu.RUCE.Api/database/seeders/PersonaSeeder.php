@@ -2,8 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Persona;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\PersonaRUCE;
 use Illuminate\Database\Seeder;
 
 class PersonaSeeder extends Seeder
@@ -15,7 +14,7 @@ class PersonaSeeder extends Seeder
      */
     public function run()
     {
-        $persona1 = new Persona();
+        $persona1 = new PersonaRUCE();
         $persona1->cuil = 27342859127;
         $persona1->email = "edgardo@example.com";
         $persona1->nombre = "Edgardo";
@@ -23,7 +22,7 @@ class PersonaSeeder extends Seeder
         $persona1->telefono = 3885143456;
         $persona1->save();
         
-        $persona2 = new Persona();
+        $persona2 = new PersonaRUCE();
         $persona2->cuil = 20447064007;
         $persona2->email = "samuel@example.com";
         $persona2->nombre = "Samuel";

@@ -11,6 +11,7 @@ class OrganizacionRUCEIndexResourse extends JsonResource
     public function toArray($request)
     {
         return [
+            'idOrganizacionRUCE',
             'organizacionDesc',
             'cue',
             'anexo',
@@ -22,6 +23,8 @@ class OrganizacionRUCEIndexResourse extends JsonResource
             'email',
             'domicilio',
             'estaActivo',
+            'created_at',
+            'updated_at',
             'fechaEliminacion',
             'idUsuarioAlta',
             'idUsuarioModificacion'

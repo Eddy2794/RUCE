@@ -6,9 +6,9 @@ use App\Models\Cooperadora;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\FondosCooperar>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Fondo>
  */
-class FondosCooperarFactory extends Factory
+class FondoFactory extends Factory
 {
     /**
      * Define the model's default state.

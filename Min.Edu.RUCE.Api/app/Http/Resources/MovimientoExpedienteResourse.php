@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Models\OrganizacionRUCE;
+use App\Models\MovimientoExpediente;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class OrganizacionRUCEResourse extends JsonResource
@@ -11,9 +11,8 @@ class OrganizacionRUCEResourse extends JsonResource
     
     public function toArray($request)
     {
-        $model = new OrganizacionRUCE();
-        $datos = $model::where('idOrganizacionRUCE',$request->get('id'))->get()->toArray();
-        return $datos;
+        $model = new MovimientoExpediente();
+        return $model->getFillable();
     }
 
     public function with($request)

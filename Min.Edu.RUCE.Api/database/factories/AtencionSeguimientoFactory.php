@@ -6,9 +6,9 @@ use App\Models\Cooperadora;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\SeguimientoAtencion>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\AtencionSeguimiento>
  */
-class SeguimientoAtencionFactory extends Factory
+class AtencionSeguimientoFactory extends Factory
 {
     /**
      * Define the model's default state.
