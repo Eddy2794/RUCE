@@ -28,7 +28,7 @@ return new class extends Migration
             $table->string('email',100);
             $table->boolean('estaActivo')->default(true)->nullable(false);
             $table->dateTime('fechaEliminacion')->nullable(true);
-            $table->integer('idUsuarioAlta')->default(null);
+            $table->integer('idUsuarioAlta')->default(null)->nullable(true);
             $table->integer('idUsuarioModificacion')->default(null)->nullable(true);
             $table->timestamps();
         });

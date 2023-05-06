@@ -9,7 +9,7 @@ use App\Models\PersonaRUCE;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\OrganizacionRUCE>
  */
-class OrganizacionRUCEtivoFactory extends Factory
+class OrganizacionRUCEFactory extends Factory
 {
     /**
      * Define the model's default state.

@@ -38,37 +38,37 @@ class DatabaseSeeder extends Seeder
     {
         //Ejecucion de Seeders
 
-        $this->call([
-            PersonaSeeder::class,
-            UsuarioAdministradorSeeder::class,
-            RefSeeder::class,
-        ]);
+        // $this->call([
+        //     PersonaSeeder::class,
+        //     UsuarioAdministradorSeeder::class,
+        //     RefSeeder::class,
+        // ]);
 
         //Ejecucion de Factories
 
-        $cant_registros = 20;
+        $cant_registros = 40;
 
-        PersonaRUCE::factory($cant_registros)->create();
+        // PersonaRUCE::factory($cant_registros)->create();
         
-        UsuarioRUCE::factory($cant_registros)->create();
+        // UsuarioRUCE::factory($cant_registros)->create();
 
-        Kiosco::factory($cant_registros)->create();
+        // Kiosco::factory($cant_registros)->create();
 
         OrganizacionRUCE::factory($cant_registros)->create();
 
-        AutoridadOrganizacionRUCE::factory($cant_registros)->create();
+        // AutoridadOrganizacionRUCE::factory($cant_registros)->create();
 
-        Cooperadora::factory($cant_registros)->create();
+        // Cooperadora::factory($cant_registros)->create();
 
-        AutoridadComision::factory($cant_registros)->create();
+        // AutoridadComision::factory($cant_registros)->create();
 
-        AtencionSeguimiento::factory($cant_registros)->create();
+        // AtencionSeguimiento::factory($cant_registros)->create();
 
-        Fondo::factory($cant_registros)->create();
+        // Fondo::factory($cant_registros)->create();
 
-        Expediente::factory($cant_registros)->create();
+        // Expediente::factory($cant_registros)->create();
 
-        Personeria::factory($cant_registros)->create();
+        // Personeria::factory($cant_registros)->create();
 
     }
 }

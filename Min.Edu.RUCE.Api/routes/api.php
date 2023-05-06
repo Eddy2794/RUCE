@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\PersonaController;
-use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\PersonaRUCEController;
+use App\Http\Controllers\UsuarioRUCEController;
 use App\Http\Controllers\KioscoController;
 use App\Http\Controllers\OrganizacionRUCEController;
 use App\Http\Controllers\AutoridadOrganizacionRUCEController;
@@ -32,21 +32,21 @@ use Illuminate\Support\Facades\Route;
 //     Route::get('/', [EstablecimientoEducativoController::class, 'filtro'])->name('establecimientos_educativos.filter');
 // });
 
-// Route::group(['prefix' => '/establecimientos_educativos'],function () {
-//     Route::get('/', [EstablecimientoEducativoController::class, 'index'])->name('establecimientos_educativos.index');
-//     Route::post('/', [EstablecimientoEducativoController::class, 'store'])->name('establecimientos_educativos.store');
-//     Route::get('/{id}', [EstablecimientoEducativoController::class, 'show'])->name('establecimientos_educativos.show');
-//     Route::put('/{id}',[EstablecimientoEducativoController::class,'update'])->name('establecimientos_educativos.update');
-// });
+Route::group(['prefix' => '/organizacion'],function () {
+    Route::get('/', [OrganizacionRUCEController::class, 'index'])->name('organizacion.index');
+    Route::post('/', [OrganizacionRUCEController::class, 'store'])->name('organizacion.store');
+    Route::get('/get/', [OrganizacionRUCEController::class, 'show'])->name('organizacion.show');
+    // Route::get('/{id}', [OrganizacionRUCEController::class, 'show'])->name('organizacion.show');
+    // Route::put('/{id}',[OrganizacionRUCEController::class,'update'])->name('organizacion.update');
+});
 
-Route::get('/organizacion', [OrganizacionRUCEController::class, 'index']);
-Route::apiResource('organizacion', OrganizacionRUCE::class);
+// Route::apiResource('organizacion',OrganizacionRUCEController::class);
 
-Route::get('/personas/Filter', [PersonaController::class, 'filtro']);
-Route::apiResource('personas', PersonaController::class);
+Route::get('/personas/Filter', [PersonaRUCEController::class, 'filtro']);
+Route::apiResource('personas', PersonaRUCEController::class);
 
-Route::get('/usuarios/Filter', [UsuarioController::class, 'filtro']);
-Route::apiResource('usuarios', UsuarioController::class);
+Route::get('/usuarios/Filter', [UsuarioRUCEController::class, 'filtro']);
+Route::apiResource('usuarios', UsuarioRUCEController::class);
 
 Route::get('/kioscos/Filter', [KioscoController::class, 'filtro']);
 Route::apiResource('kioscos', KioscoController::class);
