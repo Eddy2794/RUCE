@@ -39,7 +39,6 @@ class UpdateOrganizacionRUCERequest extends FormRequest
                 'biginteger',
                 Rule::unique('OrganizacionRUCE','cue')->where('cue',$this->cue)->withoutTrashed()
             ],
-
             'telefono' => [
                 'required',
                 'biginteger',
@@ -77,7 +76,7 @@ class UpdateOrganizacionRUCERequest extends FormRequest
     public function messages()
     {
         return [
-            'idOrganizacionRUCE.exist' => 'Id de OrganizacionRUCE ya existe.',
+            'idOrganizacionRUCE.exist' => 'Id de OrganizacionRUCE no existe en la tabla OrganizacionRUCE.',
             'organizacionDesc.unique' => 'El nombre de la Oganizacion ya fue registrado.',
             'cue.unique' => 'El CUE de la Ognaizacion ya fue registrado.',
             'telefono.unique' => 'El telefono de la Organizacion ya fue registrado.',

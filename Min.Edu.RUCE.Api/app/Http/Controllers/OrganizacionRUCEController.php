@@ -107,21 +107,7 @@ class OrganizacionRUCEController extends Controller
                 ], 422);
             }
 
-            $organizacionRUCE->update([
-                'idOrganizacionRUCE' => $organizacionRUCE->idOrganizacionRUCE,
-                'organizacionDesc' => $organizacionRUCE->organizacionDesc,
-                'cue' => $organizacionRUCE->cue,
-                'anexo' => $organizacionRUCE->anexo,
-                'region' => $organizacionRUCE->region,
-                'nivel' => $organizacionRUCE->nivel,
-                'localidad' => $organizacionRUCE->localidad,
-                'departamento' => $organizacionRUCE->departamento,
-                'domicilio' => $organizacionRUCE->domicilio,
-                'telefono' => $organizacionRUCE->telefono,
-                'email' => $organizacionRUCE->email,
-                'estaActivo' => $organizacionRUCE->estaActivo,
-                'idUsuarioModificacion' => $organizacionRUCE->idUsuarioModificacion,
-            ]);
+            $organizacionRUCE->save();
 
             return response()->json([
                 'succeeded' => true,

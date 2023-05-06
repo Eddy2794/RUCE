@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TipoAsociacion;
+use App\Models\RefTipoAsociacion;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -15,7 +15,7 @@ class TipoAsociacionController extends Controller
      */
     public function index(): JsonResponse
     {
-        $data = TipoAsociacion::all();
+        $data = RefTipoAsociacion::all();
         $respuesta = [
             'entities' => $data,
             'paged' => [
@@ -31,7 +31,7 @@ class TipoAsociacionController extends Controller
         $pageNumber = $request->query->get('PageNumber');
         $pageSize = $request->query->get('PageSize');
 
-        $data = TipoAsociacion::where('estaActivo',$estaActivo)->get()->toArray();
+        $data = RefTipoAsociacion::where('estaActivo',$estaActivo)->get()->toArray();
 
         $errores = [];
 
@@ -77,7 +77,7 @@ class TipoAsociacionController extends Controller
             'descripcion' => 'required',
         ]);
     
-        $tipoAsociacion = new TipoAsociacion();
+        $tipoAsociacion = new RefTipoAsociacion();
         
         $tipoAsociacion->descripcion = $request->descripcion;
 
@@ -89,10 +89,10 @@ class TipoAsociacionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\TipoAsociacion  $tipoAsociacion
+     * @param  \App\Models\RefTipoAsociacion  $tipoAsociacion
      * @return \Illuminate\Http\Response
      */
-    public function show(TipoAsociacion $tipoAsociacion): JsonResponse 
+    public function show(RefTipoAsociacion $tipoAsociacion): JsonResponse 
     {
         $data = [$tipoAsociacion];
         $cantidad = count($data);
@@ -115,10 +115,10 @@ class TipoAsociacionController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\TipoAsociacion  $tipoAsociacion
+     * @param  \App\Models\RefTipoAsociacion  $tipoAsociacion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TipoAsociacion $tipoAsociacion)
+    public function update(Request $request, RefTipoAsociacion $tipoAsociacion)
     {
         $request->validate([
             'descripcion' => 'required',
@@ -134,10 +134,10 @@ class TipoAsociacionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\TipoAsociacion  $tipoAsociacion
+     * @param  \App\Models\RefTipoAsociacion  $tipoAsociacion
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TipoAsociacion $tipoAsociacion)
+    public function destroy(RefTipoAsociacion $tipoAsociacion)
     {
         $tipoAsociacion->delete();
         return response()->noContent();

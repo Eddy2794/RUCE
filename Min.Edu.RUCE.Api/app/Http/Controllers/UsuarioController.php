@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Usuario;
+use App\Models\UsuarioRUCE;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -16,7 +16,7 @@ class UsuarioController extends Controller
      */
     public function index(): JsonResponse
     {
-        $data = Usuario::all();
+        $data = UsuarioRUCE::all();
         $respuesta = [
             'entities' => $data,
             'paged' => [
@@ -32,7 +32,7 @@ class UsuarioController extends Controller
         $pageNumber = $request->query->get('PageNumber');
         $pageSize = $request->query->get('PageSize');
 
-        $data = Usuario::where('estaActivo',$estaActivo)->get()->toArray();
+        $data = UsuarioRUCE::where('estaActivo',$estaActivo)->get()->toArray();
 
         $errores = [];
 
@@ -80,7 +80,7 @@ class UsuarioController extends Controller
             'password' => 'required'
         ]);
 
-        $usuario = new Usuario();
+        $usuario = new UsuarioRUCE();
 
         $usuario->fk_persona = $request->fk_persona;
         $usuario->nombre_usuario = $request->nombre_usuario;
@@ -96,10 +96,10 @@ class UsuarioController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Usuario  $usuario
+     * @param  \App\Models\UsuarioRUCE  $usuario
      * @return \Illuminate\Http\Response
      */
-    public function show(Usuario $usuario): JsonResponse 
+    public function show(UsuarioRUCE $usuario): JsonResponse 
     {
         $data = [$usuario];
         $cantidad = count($data);
@@ -122,10 +122,10 @@ class UsuarioController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Usuario  $usuario
+     * @param  \App\Models\UsuarioRUCE  $usuario
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Usuario $usuario)
+    public function update(Request $request, UsuarioRUCE $usuario)
     {
         $request->validate([
             'username' => 'required',
@@ -152,10 +152,10 @@ class UsuarioController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Usuario  $usuario
+     * @param  \App\Models\UsuarioRUCE  $usuario
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Usuario $usuario)
+    public function destroy(UsuarioRUCE $usuario)
     {
         $usuario->delete();
         return response()->noContent();

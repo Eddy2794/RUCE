@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\PersonaRUCE;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\EstablecimientoEducativo>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\OrganizacionRUCE>
  */
 class OrganizacionRUCEtivoFactory extends Factory
 {
@@ -19,8 +19,9 @@ class OrganizacionRUCEtivoFactory extends Factory
     public function definition()
     {
         return [
-            'cue' => intval("380".$this->faker->unique()->numerify("######")),
             'organizacionDesc' => $this->faker->paragraph(1,true),
+            'cue' => intval("380".$this->faker->unique()->numerify("######")),
+            'anexo' => null,
             'region' => $this->faker->randomElement(['I','II','III','IV','V','VI','VII']),
             'nivel' => $this->faker->randomElement(["INICIAL","PRIMARIO","SECUNDARIO","SUPERIOR"]),
             'localidad' => strtoupper($this->faker->streetName()),
@@ -28,7 +29,7 @@ class OrganizacionRUCEtivoFactory extends Factory
             'telefono' => intval("0388".strval($this->faker->numerify("#######"))),
             'email' => strtoupper($this->faker->safeEmailDomain()."@gmail.com"),
             "domicilio" => strtoupper($this->faker->address()),
-            'matricula' => $this->faker->numerify("####"),
+            // 'matricula' => $this->faker->numerify("####"),
             'idUsuarioAlta' => $this->faker->randomElement(PersonaRUCE::all()->getQueueableIds()),
             'idUsuarioModificacion' => $this->faker->randomElement(PersonaRUCE::all()->getQueueableIds()),
             'estaActivo' => true,

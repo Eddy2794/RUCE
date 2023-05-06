@@ -7,7 +7,6 @@ use App\Models\RefTipoAsociacion;
 use App\Models\RefTipoComision;
 use App\Models\RefTipoDocumentoRUCE;
 use App\Models\RefTipoFondo;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class RefSeeder extends Seeder
