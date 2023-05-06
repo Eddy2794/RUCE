@@ -4,18 +4,26 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\AtencionSeguimiento;
 use App\Models\AutoridadComision;
 use App\Models\AutoridadOrganizacionRUCE;
-use App\Models\Expediente;
+use App\Models\Balance;
+use App\Models\Comision;
 use App\Models\Cooperadora;
-use App\Models\HistorialCooperadora;
-use App\Models\OrganizacionRUCE;
+use App\Models\Expediente;
 use App\Models\Fondo;
-use App\Models\HistorialEstadoCooperadora;
 use App\Models\Kiosco;
+use App\Models\Matricula;
+use App\Models\MovimientoExpediente;
+use App\Models\OrganizacionRUCE;
 use App\Models\PersonaRUCE;
 use App\Models\Personeria;
-use App\Models\AtencionSeguimiento;
+use App\Models\RefCargo;
+use App\Models\RefInstanciaInstrumento;
+use App\Models\RefTipoAsociacion;
+use App\Models\RefTipoComision;
+use App\Models\RefTipoDocumentoRUCE;
+use App\Models\RefTipoFondo;
 use App\Models\UsuarioRUCE;
 use Illuminate\Database\Seeder;
 

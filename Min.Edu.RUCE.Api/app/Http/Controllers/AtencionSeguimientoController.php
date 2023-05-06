@@ -2,9 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\RequestCollection;
+
+use App\Http\Resources\AtencionSeguimientoResourse;
+use App\Http\Requests\StoreAtencionSeguimientoRequest;
+use App\Http\Requests\UpdateAtencionSeguimientoRequest;
 use App\Models\AtencionSeguimiento;
+
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class AtencionSeguimientoController extends Controller
 {
@@ -13,56 +19,21 @@ class AtencionSeguimientoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(): JsonResponse
+    public function index(Request $request)
     {
-        $data = AtencionSeguimiento::all();
-        $respuesta = [
-            'entities' => $data,
-            'paged' => [
-                'entitiyCount' => count($data)
-            ]
-        ];
-        return response()->json($respuesta,200);
-    }
+        // return typeOf($request->page);
+        try {
+            if ($request->has('page')) {
+                return new RequestCollection(AtencionSeguimiento::orderBy('atencionSeguimiento')->paginate());
+            }
 
-    public function filtro(Request $request): JsonResponse  
-    {
-        $estaActivo = $request->query->get('EstaActivo');
-        $pageNumber = $request->query->get('PageNumber');
-        $pageSize = $request->query->get('PageSize');
-
-        $data = AtencionSeguimiento::where('estaActivo',$estaActivo)->get()->toArray();
-
-        $errores = [];
-
-        // dd($data, $estaActivo, $pageNumber, $pageSize);
-
-        // determina a partir de que indice toma los registros
-        $offset = ($pageNumber - 1) * $pageSize;
-
-        // toma los registros a partir del offset teniendo en cuenta pageSize
-        $elementos_pagina = array_slice($data, $offset, $pageSize);
-
-        $total_paginas = intval(ceil(count($data) / $pageSize));
-
-        // dd($offset/5+1,$elementos_pagina,count($elementos_pagina),$total_paginas);
-
-        // cuenta la cantidad de elementos se enviar en elementos_pagina
-        $cantidad = count($elementos_pagina);
-
-        $respuesta = [
-            'entities' => $elementos_pagina,
-            'succeded' => true,
-            'message' => "",
-            'errors' => $errores,
-            'paged' => [
-                'entitiyCount' => $cantidad,
-                'pageSize' => count($data),
-                'pageIndex' => $total_paginas,
-                'pageNumber' =>  intval($pageNumber)
-            ]
-        ];
-        return response()->json($respuesta,200);
+            return new RequestCollection(AtencionSeguimiento::orderBy('atencionSeguimiento')->get());
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -71,40 +42,31 @@ class AtencionSeguimientoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreAtencionSeguimientoRequest $request)
     {
-        $request->validate([
-            'fkIdCooperadora' => 'required',
-            'fkIdPersonaRUCE'=>'required',
-            'llamadas' => 'required',
-            'mensajes' => 'required',
-            'emailEnviados' => 'required',
-            'atencionOficina' => 'required',
-            'atencionTerritorial' => 'required',
-            'fecha' => 'required',
-            'estaActivo' => 'required',
-            'fechaEliminacion' => 'required',
-            'idUsuarioAlta' => 'required',
-            'idUsuarioModificacion' => 'required',
-        ]);
-
-        $atencionSeguimiento = new AtencionSeguimiento();
-
-        $atencionSeguimiento->fkIdCooperadora = $request->fkIdCooperadora;
-        $atencionSeguimiento->llamadas = $request->llamadas;
-        $atencionSeguimiento->mensajes = $request->mensajes;
-        $atencionSeguimiento->emailEnviados = $request->emailEnviados;
-        $atencionSeguimiento->atencionOficina = $request->atencionOficina;
-        $atencionSeguimiento->atencionTerritorial = $request->atencionTerritorial;
-        $atencionSeguimiento->fecha = $request->fecha;
-        $atencionSeguimiento->estaActivo = $request->estaActivo;
-        $atencionSeguimiento->fechaEliminacion = $request->fechaEliminacion;
-        $atencionSeguimiento->idUsuarioAlta = $request->idUsuarioAlta;
-        $atencionSeguimiento->idUsuarioModificacion = $request->idUsuarioModificacion;
-
-        $atencionSeguimiento->save();
-
-        return response($atencionSeguimiento);
+                try {
+            AtencionSeguimiento::create([
+                'fkIdCooperadora' => $request->fkIdCooperadora,
+                'fkIdPersonaRUCE' => $request->fkIdPersonaRUCE,
+                'llamadas' => $request->llamadas,
+                'mesajes' => $request->mesajes,
+                'emailEnviados' => $request->emailEnviados,
+                'atencionOficina' => $request->atencionOficina,
+                'atencionTerritorial' => $request->atencionTerritorial,
+                'observacion' => $request->observacion,
+                'fecha' => $request->fecha,
+                'estaActivo' => $request->estaActivo,
+                'fechaEliminacion' => $request->fechaEliminacion,
+                'idUsuarioAlta' => $request->idUsuarioAlta,
+                'idUsuarioModificacion' => $request->idUsuarioModificacion
+            ]);
+            return response()->json();
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -113,23 +75,16 @@ class AtencionSeguimientoController extends Controller
      * @param  \App\Models\AtencionSeguimiento  $atencionSeguimiento
      * @return \Illuminate\Http\Response
      */
-    public function show(int $id): JsonResponse 
+    public function show(AtencionSeguimiento $atencionSeguimiento)
     {
-        $data = AtencionSeguimiento::where('id', $id)->get();
-        $cantidad = count($data);
-
-        $errores = [];
-
-        $respuesta = [
-            'entities' => $data,
-            'succeded' => true,
-            'message' => "",
-            'errors' => $errores,
-            'paged' => [
-                'entitiyCount' => $cantidad
-            ]
-        ];
-        return response()->json($respuesta,200);
+        try {
+            return response()->json(new AtencionSeguimientoResourse($atencionSeguimiento));
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -139,37 +94,40 @@ class AtencionSeguimientoController extends Controller
      * @param  \App\Models\AtencionSeguimiento  $atencionSeguimiento
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, int $id)
+    public function update(UpdateAtencionSeguimientoRequest $request, AtencionSeguimiento $atencionSeguimiento)
     {
-        $request->validate([
-            'fkIdPersonaRUCE'=>'required',
-            'llamadas' => 'required',
-            'mensajes' => 'required',
-            'emailEnviados' => 'required',
-            'atencionOficina' => 'required',
-            'atencionTerritorial' => 'required',
-            'fecha' => 'required',
-            'estaActivo' => 'required',
-            'fechaEliminacion' => 'required',
-            'idUsuarioAlta' => 'required',
-            'idUsuarioModificacion' => 'required',
-        ]);
+        try {
+            $atencionSeguimiento->fkIdCooperadora = $request->fkIdCooperadora ?: $atencionSeguimiento->fkIdCooperadora;
+            $atencionSeguimiento->fkIdPersonaRUCE = $request->fkIdPersonaRUCE ?: $atencionSeguimiento->fkIdPersonaRUCE;
+            $atencionSeguimiento->llamadas = $request->llamadas ?: $atencionSeguimiento->llamadas;
+            $atencionSeguimiento->mesajes = $request->mesajes ?: $atencionSeguimiento->mesajes;
+            $atencionSeguimiento->emailEnviados = $request->emailEnviados ?: $atencionSeguimiento->emailEnviados;
+            $atencionSeguimiento->atencionOficina = $request->atencionOficina ?: $atencionSeguimiento->atencionOficina;
+            $atencionSeguimiento->atencionTerritorial = $request->atencionTerritorial ?: $atencionSeguimiento->atencionTerritorial;
+            $atencionSeguimiento->observacion = $request->observacion ?: $atencionSeguimiento->observacion;
+            $atencionSeguimiento->fecha = $request->fecha ?: $atencionSeguimiento->fecha;
+            $atencionSeguimiento->estaActivo = $request->estaActivo ?: $atencionSeguimiento->estaActivo;
+            $atencionSeguimiento->idUsuarioModificacion = $request->idUsuarioModificacion ?: $atencionSeguimiento->idUsuarioModificacion;
+            
+            if ($atencionSeguimiento->isClean()) {
+                return response()->json([
+                    'message' => 'No se modifico ningun valor',
+                    'succeeded' => false
+                ], 422);
+            }
 
-        AtencionSeguimiento::where('id',$id)->update([
-            'fkIdPersonaRUCE' => $request->fkIdPersonaRUCE,
-            'llamadas' => $request->llamadas,
-            'mensajes' => $request->mensajes,
-            'emailEnviados' => $request->emailEnviados,
-            'atencionOficina' => $request->atencionOficina,
-            'atencionTerritorial' => $request->atencionTerritorial,
-            'fecha' => $request->fecha,
-            'estaActivo' => $request->estaActivo,
-            'fechaEliminacion' => $request->fechaEliminacion,
-            'idUsuarioAlta' => $request->idUsuarioAlta,
-            'idUsuarioModificacion' => $request->idUsuarioModificacion,
-        ]);
+            $atencionSeguimiento->save();
 
-        return response(AtencionSeguimiento::where('id',$id)->get()[0]);
+            return response()->json([
+                'succeeded' => true,
+                'message' => 'Datos Modificados con exito',
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -178,9 +136,52 @@ class AtencionSeguimientoController extends Controller
      * @param  \App\Models\AtencionSeguimiento  $atencionSeguimiento
      * @return \Illuminate\Http\Response
      */
-    public function destroy(int $id)
+    public function destroy(AtencionSeguimiento $atencionSeguimiento)
     {
-        AtencionSeguimiento::where('id',$id)->delete();
-        return response()->noContent();
+        try {
+            
+            AtencionSeguimiento::where('id', $atencionSeguimiento)->update([
+                'estaActivo'=>false,   
+            ]);
+
+            $atencionSeguimiento->delete();
+
+            return response()->json([
+                'succeeded' => true,
+                'message' => 'Especialidad eliminada con exito'
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
+    }
+
+    public function search(Request $request, AtencionSeguimiento $atencionSeguimiento)
+    {
+        /*
+        Seguramente se puede refactorizar y optimizar
+        por ahora es la forma que da resultados esperados
+        */
+
+        $query = $atencionSeguimiento->newQuery();
+
+        if ($request->fkidCooperadora) {
+            $query->where('fkIdCooperadora', $request->fkIdCooperadora)
+                ->where(function ($q) use ($request) {
+                    if ($request->q) {
+                        $q->where('fkidCooperadora', 'like', '%' . $request->q . '%')
+                            ->orWhere('denominacion', 'like', '%' . $request->q . '%');
+                    }
+                });
+        } else {
+            if ($request->q) {
+                $query->where('fkidCooperadora', 'like', '%' . $request->q . '%')
+                    ->orWhere('denominacion', 'like', '%' . $request->q . '%');
+            }
+        }
+
+        return new RequestCollection($query->orderBy('denominacion')->paginate()->appends(['q' => $request->q, 'fkidCooperadora' => $request->fkidCooperadora]));
     }
 }

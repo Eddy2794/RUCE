@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-
-use App\Models\OrganizacionRUCE;
+use App\Models\Comision;
+use App\Models\Cooperadora;
 use App\Models\PersonaRUCE;
 use App\Models\RefCargo;
 use App\Models\UsuarioRUCE;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\AutoridadesEstablecimientoEducativo>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\AutoridadComision>
  */
-class AutoridadOrganizacionRUCEFactory extends Factory
+class AutoridadComisionFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -22,11 +22,11 @@ class AutoridadOrganizacionRUCEFactory extends Factory
     public function definition()
     {
         return [
-            'fkIdPersonaRUCE' => $this->faker->randomElement(PersonaRUCE::all()->getQueueableIds()),
-            'fkIdOrganizacionRUCE' => $this->faker->randomElement(OrganizacionRUCE::all()->getQueueableIds()),
-            'fkIdRefCargo' => $this->faker->randomElement(RefCargo::all()->getQueueableIds()),
             'inicioCargo' => $this->faker->date(),
             'finCargo' => $this->faker->date(),
+            'fkIdPersonaRUCE' => $this->faker->randomElement(PersonaRUCE::all()->getQueueableIds()),
+            'fkIdRefCargo' => $this->faker->randomElement(RefCargo::all()->getQueueableIds()),
+            'fkIdComision' => $this->faker->randomElement(Comision::all()->getQueueableIds()),
             'estaActivo' => true,
             'fechaEliminacion' => '',
             'idUsuarioAlta' => $this->faker->randomElement(UsuarioRUCE::all()->getQueueableIds()),

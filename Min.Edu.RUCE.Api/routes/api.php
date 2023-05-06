@@ -3,8 +3,8 @@
 use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\KioscoController;
-use App\Http\Controllers\EstablecimientoEducativoController;
-use App\Http\Controllers\AutoridadesEstablecimientoEducativoController;
+use App\Http\Controllers\OrganizacionRUCEController;
+use App\Http\Controllers\AutoridadOrganizacionRUCEController;
 use App\Http\Controllers\CooperadoraController;
 use App\Http\Controllers\SeguimientoAtencionController;
 use App\Http\Controllers\AutoridadesCooperadoraController;
@@ -13,6 +13,8 @@ use App\Http\Controllers\TipoAsociacionController;
 use App\Http\Controllers\HistorialCooperadoraController;
 use App\Http\Controllers\ExpedienteController;
 use App\Http\Controllers\PersoneriaController;
+use App\Models\AutoridadOrganizacionRUCE;
+use App\Models\OrganizacionRUCE;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,8 +39,8 @@ use Illuminate\Support\Facades\Route;
 //     Route::put('/{id}',[EstablecimientoEducativoController::class,'update'])->name('establecimientos_educativos.update');
 // });
 
-Route::get('/establecimientos_educativos/Filter', [EstablecimientoEducativoController::class, 'filtro']);
-Route::apiResource('establecimientos_educativos', EstablecimientoEducativoController::class);
+Route::get('/organizacion', [OrganizacionRUCEController::class, 'index']);
+Route::apiResource('organizacion', OrganizacionRUCE::class);
 
 Route::get('/personas/Filter', [PersonaController::class, 'filtro']);
 Route::apiResource('personas', PersonaController::class);
@@ -49,8 +51,8 @@ Route::apiResource('usuarios', UsuarioController::class);
 Route::get('/kioscos/Filter', [KioscoController::class, 'filtro']);
 Route::apiResource('kioscos', KioscoController::class);
 
-Route::get('/autoridades_est_edu/Filter', [AutoridadesEstablecimientoEducativoController::class, 'filtro']);
-Route::apiResource('autoridades_est_edu', AutoridadesEstablecimientoEducativoController::class);
+Route::get('/autoridadOrganizacion', [AutoridadOrganizacionRUCEController::class, 'index']);
+Route::apiResource('autoridadOrganizacion', AutoridadOrganizacionRUCEController::class);
 
 Route::get('/cooperadoras/Filter', [CooperadoraController::class, 'filtro']);
 Route::apiResource('cooperadoras', CooperadoraController::class);

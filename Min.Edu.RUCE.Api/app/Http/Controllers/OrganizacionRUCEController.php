@@ -17,7 +17,6 @@ class OrganizacionRUCEController extends Controller
 {
     public function index(Request $request)
     {
-        // return typeOf($request->page);
         try {
             if ($request->has('page')) {
                 return new RequestCollection(OrganizacionRUCE::orderBy('organizacionDesc')->paginate());
@@ -174,7 +173,7 @@ class OrganizacionRUCEController extends Controller
             }
         }
 
-        return new RequestCollection($query->orderBy('organizacionDesc')->paginate()->appends(['q' => $request->q, 'idOrganizacionRICE' => $request->idOrganizacionRUCE]));
+        return new RequestCollection($query->orderBy('organizacionDesc')->paginate()->appends(['q' => $request->q, 'idOrganizacionRUCE' => $request->idOrganizacionRUCE]));
     }
 
     // public function competencias($id)

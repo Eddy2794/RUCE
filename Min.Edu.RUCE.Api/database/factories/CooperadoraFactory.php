@@ -21,24 +21,21 @@ class CooperadoraFactory extends Factory
     {
         $valor = $this->faker->randomElement([false,true]);
         return [
-            'fk_idRefTipoAsociacion' => $this->faker->randomElement(RefTipoAsociacion::all()->getQueueableIds()),
-            'idOrganizacionRUCE' => $this->faker->randomElement(OrganizacionRUCE::all()->getQueueableIds()),
+            'fkIdRefTipoAsociacion' => $this->faker->randomElement(RefTipoAsociacion::all()->getQueueableIds()),
+            'fkIdOrganizacionRUCE' => $this->faker->randomElement(OrganizacionRUCE::all()->getQueueableIds()),
 
             'legajo' => "legajo ".$this->faker->unique()->numerify("###"),
             'denominacion' => $this->faker->domainName,
             'estado' => $this->faker->randomElement(["verde","amarillo","rojo"]),
-            'decreto' => "decreto ".$this->faker->unique()->numerify("###"),
-            'nro_resolucion' => $valor ? strval($this->faker->numerify('###')).$this->faker->randomAscii():null,
-
-            'convenioScEconomicas' => $this->faker->randomElement([true,false]),
-            'inscripcion_afip' => $this->faker->randomElement([true,false]),
-            'inscripcion_rentas' => $this->faker->randomElement([true,false]),
-            'inscripcion_renacopes' => $this->faker->randomElement([true,false]),
+            
+            'convenioCsEconomicas' => $this->faker->randomElement([true,false]),
+            'estadoAfip' => $this->faker->randomElement([true,false]),
+            'estadoRentas' => $this->faker->randomElement([true,false]),
+            'inscripcionRenacopes' => $this->faker->randomElement([true,false]),
             
             'idUsuarioAlta' => $this->faker->randomElement(PersonaRUCE::all()->getQueueableIds()),
             'idUsuarioModificacion' => $this->faker->randomElement(PersonaRUCE::all()->getQueueableIds()),
 
-            'fecha_creacion' => $this->faker->date(),
             'estaActivo' => !$valor,
             'fechaEliminacion' => $valor?$this->faker->date():null,
         ];

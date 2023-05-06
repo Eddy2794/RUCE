@@ -2,9 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\RequestCollection;
+
+use App\Http\Requests\StoreAutoridadComisionRequest;
+use App\Http\Requests\UpdateAutoridadComisionRequest;
+use App\Http\Resources\AutoridadComisionResourse;
 use App\Models\AutoridadComision;
+
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class AutoridadComisionController extends Controller
 {
@@ -13,56 +19,20 @@ class AutoridadComisionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(): JsonResponse
+    public function index(Request $request)
     {
-        $data = AutoridadComision::all();
-        $respuesta = [
-            'entities' => $data,
-            'paged' => [
-                'entitiyCount' =>($data)
-            ]
-        ];
-        return response()->json($respuesta,200);
-    }
+        try {
+            if ($request->has('page')) {
+                return new RequestCollection(AutoridadComision::orderBy('fkIdPersonaRUCE')->paginate());
+            }
 
-    public function filtro(Request $request): JsonResponse  
-    {
-        $estaActivo = $request->query->get('EstaActivo');
-        $pageNumber = $request->query->get('PageNumber');
-        $pageSize = $request->query->get('PageSize');
-
-        $data = AutoridadComision::where('estaActivo',$estaActivo)->get()->toArray();
-
-        $errores = [];
-
-        // dd($data, $estaActivo, $pageNumber, $pageSize);
-
-        // determina a partir de que indice toma los registros
-        $offset = ($pageNumber - 1) * $pageSize;
-
-        // toma los registros a partir del offset teniendo en cuenta pageSize
-        $elementos_pagina = array_slice($data, $offset, $pageSize);
-
-        $total_paginas = intval(ceil(count($data) / $pageSize));
-
-        // dd($offset/5+1,$elementos_pagina,count($elementos_pagina),$total_paginas);
-
-        // cuenta la cantidad de elementos se enviar en elementos_pagina
-        $cantidad = count($elementos_pagina);
-
-        $respuesta = [
-            'entities' => $elementos_pagina,
-            'succeded' => true,
-            'message' => "",
-            'errors' => $errores,
-            'paged' => [
-                'entitiyCount' => $cantidad,
-                'pageSize' => count($data),
-                'pageIndex' => $total_paginas,
-                'pageNumber' =>  intval($pageNumber)
-            ]
-        ];
-        return response()->json($respuesta,200);
+            return new RequestCollection(AutoridadComision::orderBy('fkIdPersonaRUCE')->get());
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -73,37 +43,21 @@ class AutoridadComisionController extends Controller
      */
     public function store(Request $request)
     {
-        //validacion de la peticion de los datos del modelo
-        $request->validate([
-            'fkIdPersonaRUCE' =>'required',
-            'fkIdRefCargo' =>'required',
-            'fkIdComision' =>'required',
-            'inicioCargo' =>'required',
-            'finCargo' =>'required',
-            'estaActivo' =>'required',
-            'fechaEliminacion' =>'required',
-            'idUsuarioAlta' =>'required',
-            'idUsuarioModificacion' =>'required',
-        ]);
-
-        //instancia de una autoridad de cooperadora del modelo
-        $autoridadComision = new AutoridadComision();
-
-        //asignacion de los datos provenientes del requiest hacia la instancia de autoridad de cooperadora
-        $autoridadComision->fkIdPersonaRUCE = $request->fkIdPersonaRUCE;
-        $autoridadComision->fkIdRefCargo = $request->fkIdRefCargo;
-        $autoridadComision->fkIdComision = $request->fkIdComision;
-        $autoridadComision->inicioCargo = $request->inicioCargo;
-        $autoridadComision->finCargo = $request->finCargo;
-        $autoridadComision->estaActivo = $request->estaActivo;
-        $autoridadComision->fechaEliminacion = $request->fechaEliminacion;
-        $autoridadComision->idUsuarioAlta = $request->idUsuarioAlta;
-        $autoridadComision->idUsuarioModificacion = $request->idUsuarioModificacion;
-
-        //generacion del registro en la base de datos
-        $autoridadComision->save();
-
-        return response($autoridadComision);
+        try {
+            AutoridadComision::create([
+                'fkIdPersonaRUCE' => $request->fkIdPersonaRUCE,
+                'fkIdRefCargo' => $request->fkIdRefCargo,
+                'fkIdComision' => $request->fkIdComision,
+                'inicioCargo' => $request->inicioCargo,
+                'finCargo' => $request->finCargo,
+            ]);
+            return response()->json();
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -112,23 +66,16 @@ class AutoridadComisionController extends Controller
      * @param  \App\Models\AutoridadComision  $autoridadComision
      * @return \Illuminate\Http\Response
      */
-    public function show(int $id): JsonResponse
+    public function show(AutoridadComision $autoridadComision)
     {
-        $data = AutoridadComision::where('id',$id)->get();
-        $cantidad = count($data);
-
-        $errores = [];
-
-        $respuesta = [
-            'entities' => $data,
-            'succeded' => true,
-            'message' => "",
-            'errors' => $errores,
-            'paged' => [
-                'entitiyCount' => $cantidad
-            ]
-        ];
-        return response()->json($respuesta, 200);
+        try {
+            return response()->json(new AutoridadComisionResourse($autoridadComision));
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -138,34 +85,36 @@ class AutoridadComisionController extends Controller
      * @param  \App\Models\AutoridadComision  $autoridadComision
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, AutoridadComision $autoridadComision)
+    public function update(UpdateAutoridadComisionRequest $request, AutoridadComision $autoridadComision)
     {
-        //validacion de la peticion de los datos del modelo
-        $request->validate([
-            'fkIdPersonaRUCE' =>'required',
-            'fkIdRefCargo' =>'required',
-            'fkIdComision' =>'required',
-            'inicioCargo' =>'required',
-            'finCargo' =>'required',
-            'estaActivo' =>'required',
-            'fechaEliminacion' =>'required',
-            'idUsuarioAlta' =>'required',
-            'idUsuarioModificacion' =>'required',
-        ]);
+        try {
+            $autoridadComision->fkIdPersonaRUCE = $request->fkIdPersonaRuce ?: $autoridadComision->fkIdRefCargo;
+            $autoridadComision->fkIdRefCargo = $request->fkIdRefCargo ?: $autoridadComision->fkIdRefCargo;
+            $autoridadComision->fkIdComision = $request->fkIdComision ?: $autoridadComision->fkIdComision;
+            $autoridadComision->inicioCargo = $request->inicioCargo ?: $autoridadComision->inicioCargo;
+            $autoridadComision->finCargo = $request->finCargo ?: $autoridadComision->finCargo;
+            $autoridadComision->estaActivo = $request->estaActivo ?: $autoridadComision->estaActivo;
+            $autoridadComision->idUsuarioModificacion = $request->idUsuarioModificacion ?: $autoridadComision->idUsuarioModificacion;
 
-        $autoridadComision->update([
-            'fkIdPersonaRUCE' => $request->fkIdPersonaRUCE,
-            'fkIdRefCargo' => $request->fkIdRefCargo,
-            'fkIdComision' => $request->fkIdComision,
-            'inicioCargo' => $request->inicioCargo,
-            'finCargo' => $request->finCargo,
-            'estaActivo' => $request->estaActivo,
-            'fechaEliminacion' => $request->fechaEliminacion,
-            'idUsuarioAlta' => $request->idUsuarioAlta,
-            'idUsuarioModificacion' => $request->idUsuarioModificacion,
-        ]);
+            if ($autoridadComision->isClean()) {
+                return response()->json([
+                    'message' => 'No se modifico ningun valor',
+                    'succeeded' => false
+                ], 422);
+            }
 
-        return response($autoridadComision);
+            $autoridadComision->save();
+
+            return response()->json([
+                'succeeded' => true,
+                'message' => 'Autoridad Modificado con exito',
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -176,7 +125,20 @@ class AutoridadComisionController extends Controller
      */
     public function destroy(AutoridadComision $autoridadComision)
     {
-        $autoridadComision->delete();
-        return response()->noContent();
+        try {
+
+
+            $autoridadComision->delete();
+
+            return response()->json([
+                'succeeded' => true,
+                'message' => 'Autoridad eliminado con exito'
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 }

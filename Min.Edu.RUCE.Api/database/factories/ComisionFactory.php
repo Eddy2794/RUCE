@@ -5,6 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 use App\Models\Cooperadora;
+use App\Models\RefTipoComision;
 use App\Models\UsuarioRUCE;
 
 /**
