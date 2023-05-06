@@ -2,9 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\RequestCollection;
+
+use App\Http\Requests\StoreAutoridadOrganizacionRUCERequest;
+use App\Http\Requests\UpdateAutoridadOrganizacionRUCERequest;
+use App\Http\Resources\AutoridadOrganizacionRUCEResourse;
 use App\Models\AutoridadOrganizacionRUCE;
+
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class AutoridadOrganizacionRUCEController extends Controller
 {
@@ -13,57 +19,21 @@ class AutoridadOrganizacionRUCEController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(): JsonResponse
+    public function index(Request $request)
     {
-        $data = AutoridadOrganizacionRUCE::all();
-        $respuesta = [
-            'entities' => $data,
-            'paged' => [
-                'entitiyCount' => count($data)
-            ]
-            ];
-        
-        return response()->json($respuesta,200);
-    }
+        // return typeOf($request->page);
+        try {
+            if ($request->has('page')) {
+                return new RequestCollection(AutoridadOrganizacionRUCE::orderBy('fkIdPersonaRUCE')->paginate());
+            }
 
-    public function filtro(Request $request): JsonResponse  
-    {
-        $estaActivo = $request->query->get('EstaActivo');
-        $pageNumber = $request->query->get('PageNumber');
-        $pageSize = $request->query->get('PageSize');
-
-        $data = AutoridadOrganizacionRUCE::where('estaActivo',$estaActivo)->get()->toArray();
-
-        $errores = [];
-
-        // dd($data, $estaActivo, $pageNumber, $pageSize);
-
-        // determina a partir de que indice toma los registros
-        $offset = ($pageNumber - 1) * $pageSize;
-
-        // toma los registros a partir del offset teniendo en cuenta pageSize
-        $elementos_pagina = array_slice($data, $offset, $pageSize);
-
-        $total_paginas = intval(ceil(count($data) / $pageSize));
-
-        // dd($offset/5+1,$elementos_pagina,count($elementos_pagina),$total_paginas);
-
-        // cuenta la cantidad de elementos se enviar en elementos_pagina
-        $cantidad = count($elementos_pagina);
-
-        $respuesta = [
-            'entities' => $elementos_pagina,
-            'succeded' => true,
-            'message' => "",
-            'errors' => $errores,
-            'paged' => [
-                'entitiyCount' => $cantidad,
-                'pageSize' => count($data),
-                'pageIndex' => $total_paginas,
-                'pageNumber' =>  intval($pageNumber)
-            ]
-        ];
-        return response()->json($respuesta,200);
+            return new RequestCollection(AutoridadOrganizacionRUCE::orderBy('fkIdPersonaRUCE')->get());
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -72,39 +42,23 @@ class AutoridadOrganizacionRUCEController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreAutoridadOrganizacionRUCERequest $request)
     {
-        //validacion de la preticion de los datos
-        $request->validate([
-            'fkIdRefCargo' =>'required',
-            'fkIdPersonaRUCE' =>'required',
-            'fkIdOrganizacionRUCE' =>'required',
-            'inicioCargo' =>'required',
-            'finCargo' =>'required',
-            'estaActivo' =>'required',
-            'fechaEliminacion' =>'required',
-            'idUsuarioAlta' =>'required',
-            'idUsuarioModificacion' =>'required',
-        ]);
-
-        //instancia de una autoridad del model
-        $autoridadOrganizacion = new AutoridadOrganizacionRUCE();
-
-        //asigmacion de los datos profvenientes del requies hacia la instancia de autoridad
-        $autoridadOrganizacion->fkIdRefCargo = $request->fkIdRefCargo;
-        $autoridadOrganizacion->fkIdPersonaRUCE = $request->fkIdPersonaRUCE;
-        $autoridadOrganizacion->fkIdOrganizacionRUCE = $request->fkIdOrganizacionRUCE;
-        $autoridadOrganizacion->inicioCargo = $request->inicioCargo;
-        $autoridadOrganizacion->finCargo = $request->finCargo;
-        $autoridadOrganizacion->estaActivo = $request->estaActivo;
-        $autoridadOrganizacion->fechaEliminacion = $request->fechaEliminacion;
-        $autoridadOrganizacion->idUsuarioAlta = $request->idUsuarioAlta;
-        $autoridadOrganizacion->idUsuarioModificacion = $request->idUsuarioModificacion;
-
-        //generacion de registro en la base de datos
-        $autoridadOrganizacion->save();
-
-        return response($autoridadOrganizacion);
+        try {
+            AutoridadOrganizacionRUCE::create([
+                'fkIdRefCargo' => $request->fkIdRefCargo,
+                'fkIdPersonaRUCE' => $request->fkIdPersonaRUCE,
+                'fkIdOrganizacionRUCE' => $request->fkIdOrganizacionRUCE,
+                'inicioCargo' => $request->inicioCargo,
+                'finCargo' => $request->finCargo,
+            ]);
+            return response()->json();
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -113,23 +67,16 @@ class AutoridadOrganizacionRUCEController extends Controller
      * @param  \App\Models\AutoridadOrganizacionRUCE  $autoridadOrganizacionRUCE
      * @return \Illuminate\Http\Response
      */
-    public function show(int $id): JsonResponse
+    public function show(AutoridadOrganizacionRUCE $autoridadOrganizacionRUCE)
     {
-        $data = AutoridadOrganizacionRUCE::where('id', $id)->get();
-        $cantidad = count($data);
-        
-        $errores = [];
-
-        $respuesta = [
-            'entities' => $data,
-            'succeded' => true,
-            'message' => "",
-            'errors' => $errores,
-            'paged' => [
-                'entitiyCount' => $cantidad
-            ]
-        ];
-        return response()->json($respuesta, 200);
+        try {
+            return response()->json(new AutoridadOrganizacionRUCEResourse($autoridadOrganizacionRUCE));
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -139,34 +86,36 @@ class AutoridadOrganizacionRUCEController extends Controller
      * @param  \App\Models\AutoridadOrganizacionRUCE  $autoridadOrganizacionRUCE
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, int $id)
+    public function update(UpdateAutoridadOrganizacionRUCERequest $request, AutoridadOrganizacionRUCE $autoridadOrganizacionRUCE)
     {
-        $request->validate([
-            'fkIdRefCargo' =>'required',
-            'fkIdPersonaRUCE' =>'required',
-            'fkIdOrganizacionRUCE' =>'required',
-            'inicioCargo' =>'required',
-            'finCargo' =>'required',
-            'estaActivo' =>'required',
-            'fechaEliminacion' =>'required',
-            'idUsuarioAlta' =>'required',
-            'idUsuarioModificacion' =>'required',
-        ]);
+        try {
+            $autoridadOrganizacionRUCE->fkIdRefCargo = $request->fkIdRefCargo ?: $autoridadOrganizacionRUCE->fkIdRefCargo;
+            $autoridadOrganizacionRUCE->fkIdPersonaRUCE = $request->fkIdPersonaRuce ?: $autoridadOrganizacionRUCE->fkIdRefCargo;
+            $autoridadOrganizacionRUCE->fkIdOrganizacionRUCE = $request->fkIdOrganizacionRUCE ?: $autoridadOrganizacionRUCE->fkIdOrganizacionRUCE;
+            $autoridadOrganizacionRUCE->inicioCargo = $request->inicioCargo ?: $autoridadOrganizacionRUCE->inicioCargo;
+            $autoridadOrganizacionRUCE->finCargo = $request->finCargo ?: $autoridadOrganizacionRUCE->finCargo;
+            $autoridadOrganizacionRUCE->estaActivo = $request->estaActivo ?: $autoridadOrganizacionRUCE->estaActivo;
+            $autoridadOrganizacionRUCE->idUsuarioModificacion = $request->idUsuarioModificacion ?: $autoridadOrganizacionRUCE->idUsuarioModificacion;
 
-        //obtengo una autoridad establecimiento educativo desde la base de datos y actualizo sus datos
-        AutoridadOrganizacionRUCE::where('id',$id)->update([
-            'fkIdRefCargo' => $request->fkIdRefCargo,
-            'fkIdPersonaRUCE' => $request->fkIdPersonaRUCE,
-            'fkIdOrganizacionRUCE' => $request->fkIdOrganizacionRUCE,
-            'inicioCargo' => $request->inicioCargo,
-            'finCargo' => $request->finCargo,
-            'estaActivo' => $request->estaActivo,
-            'fechaEliminacion' => $request->fechaEliminacion,
-            'idUsuarioAlta' => $request->idUsuarioAlta,
-            'idUsuarioModificacion' => $request->idUsuarioModificacion,
-        ]);
+            if ($autoridadOrganizacionRUCE->isClean()) {
+                return response()->json([
+                    'message' => 'No se modifico ningun valor',
+                    'succeeded' => false
+                ], 422);
+            }
 
-        return response(AutoridadOrganizacionRUCE::where('id',$id)->get()[0]);
+            $autoridadOrganizacionRUCE->save();
+
+            return response()->json([
+                'succeeded' => true,
+                'message' => 'Autoridad Modificado con exito',
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -175,9 +124,22 @@ class AutoridadOrganizacionRUCEController extends Controller
      * @param  \App\Models\AutoridadOrganizacionRUCE  $autoridadOrganizacionRUCE
      * @return \Illuminate\Http\Response
      */
-    public function destroy(int $id)
+    public function destroy(AutoridadOrganizacionRUCE $autoridadOrganizacionRUCE)
     {
-        AutoridadOrganizacionRUCE::where('id',$id)->delete();
-        return response()->noContent();
+        try {
+
+
+            $autoridadOrganizacionRUCE->delete();
+
+            return response()->json([
+                'succeeded' => true,
+                'message' => 'Autoridad eliminado con exito'
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 }

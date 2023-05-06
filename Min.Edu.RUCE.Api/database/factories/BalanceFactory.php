@@ -3,14 +3,13 @@
 namespace Database\Factories;
 
 use App\Models\Cooperadora;
-use App\Models\PersonaRUCE;
 use App\Models\UsuarioRUCE;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\AtencionSeguimiento>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Balance>
  */
-class AtencionSeguimientoFactory extends Factory
+class BalanceFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -20,15 +19,8 @@ class AtencionSeguimientoFactory extends Factory
     public function definition()
     {
         return [
-            'llamadas' => $this->faker->numerify("###"),
-            'mensajes' => $this->faker->numerify("###"),
-            'emailEnviados' => $this->faker->numerify("###"),
-            'atencionOficina' => $this->faker->numerify("###"),
-            'atencionTerritorial' => $this->faker->numerify("###"),
-            'observacion' => $this->faker->paragraph(1,true),
-            'fecha' => $this->faker->date(),
             'fkIdCooperadora' => $this->faker->randomElement(Cooperadora::all()->getQueueableIds()),
-            'fkIdPersonaRUCE' => $this->faker->randomElement(PersonaRUCE::all()->getQueueableIds()),
+            'estadoBalance' => false,
             'estaActivo' => true,
             'fechaEliminacion' => '',
             'idUsuarioAlta' => $this->faker->randomElement(UsuarioRUCE::all()->getQueueableIds()),
