@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ModelResourse;
+use App\Http\Resources\OrganizacionRUCEResourse;
 use App\Http\Resources\RequestCollection;
 
 use App\Http\Requests\StoreOrganizacionRUCERequest;
 use App\Http\Requests\UpdateOrganizacionRUCERequest;
-use App\Http\Resources\OrganizacionRUCEResourse;
 use App\Models\OrganizacionRUCE;
 
 use Illuminate\Http\Request;
@@ -19,10 +20,11 @@ class OrganizacionRUCEController extends Controller
     {
         try {
             if ($request->has('page')) {
-                return new RequestCollection(OrganizacionRUCE::orderBy('organizacionDesc')->paginate());
+                return new RequestCollection($request,OrganizacionRUCE::orderBy('organizacionDesc')->get());
             }
 
-            return new RequestCollection(OrganizacionRUCE::orderBy('organizacionDesc')->get());
+            return new RequestCollection($request,OrganizacionRUCE::orderBy('organizacionDesc')->get());
+            // return $request['data'];
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,
@@ -69,7 +71,8 @@ class OrganizacionRUCEController extends Controller
     public function show(OrganizacionRUCE $organizacionRUCE): JsonResponse
     {
         try {
-            return response()->json(new OrganizacionRUCEResourse($organizacionRUCE));
+            return response()->json(new ModelResourse($organizacionRUCE,'OrganizacionRUCE'));
+            // return response()->json(new OrganizacionRUCEResourse($organizacionRUCE));
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,
@@ -173,7 +176,7 @@ class OrganizacionRUCEController extends Controller
             }
         }
 
-        return new RequestCollection($query->orderBy('organizacionDesc')->paginate()->appends(['q' => $request->q, 'idOrganizacionRUCE' => $request->idOrganizacionRUCE]));
+        // return new RequestCollection($query->orderBy('organizacionDesc')->paginate()->appends(['q' => $request->q, 'idOrganizacionRUCE' => $request->idOrganizacionRUCE]));
     }
 
     // public function competencias($id)
