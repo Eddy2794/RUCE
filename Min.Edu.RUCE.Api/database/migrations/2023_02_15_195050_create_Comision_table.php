@@ -24,7 +24,7 @@ return new class extends Migration
             $table->boolean('estadoResolucion')->default(false);
             
             $table->boolean('estaActivo')->default(true)->nullable(false);
-            $table->date('fechaEliminacion');
+            
 
             $table->integer('idUsuarioAlta')->nullable(true);
             $table->integer('idUsuarioModificacion')->nullable(true);

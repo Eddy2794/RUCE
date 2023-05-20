@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreign('fkIdRefTipoAsociacion')->references('idRefTipoAsociacion')->on('RefTipoAsociacion')->onDelete('cascade');
 
             $table->unsignedInteger('fkIdOrganizacionRUCE');
-            $table->foreign('fkIdOrganizacionRUCE')->references('idOrganizacionRUCE')->on('Cooperadora')->onDelete('cascade');
+            $table->foreign('fkIdOrganizacionRUCE')->references('idOrganizacionRUCE')->on('OrganizacionRUCE')->onDelete('cascade');
 
             $table->string('cuit',13)->nullable(true);
             $table->string('legajo',200)->nullable(true);
@@ -34,7 +34,6 @@ return new class extends Migration
 
 
             $table->boolean('estaActivo')->default(true)->nullable(false);
-            $table->datetime('fechaEliminacion')->nullable(true);
             $table->integer('idUsuarioAlta')->nullable(true);
             $table->integer('idUsuarioModificacion')->nullable(true);
             $table->timestamps();

@@ -31,7 +31,6 @@ return new class extends Migration
             $table->date('fecha');
             
             $table->boolean('estaActivo')->default(true)->nullable(false);
-            $table->date('fechaEliminacion');
 
             $table->integer('idUsuarioAlta')->nullable(true);
             $table->integer('idUsuarioModificacion')->nullable(true);

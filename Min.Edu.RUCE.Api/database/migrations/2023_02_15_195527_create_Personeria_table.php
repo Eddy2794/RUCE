@@ -28,13 +28,13 @@ return new class extends Migration
             $table->date('fecha');
 
             $table->boolean('estaActivo')->default(true)->nullable(false);
-            $table->date('fechaEliminacion');
+            
             $table->integer('idUsuarioAlta')->nullable(true);
             $table->integer('idUsuarioModificacion')->nullable(true);
             $table->timestamps();
         });
         
-        Schema::table('Personaria', function (Blueprint $table) {
+        Schema::table('Personeria', function (Blueprint $table) {
             $table->softDeletes();
         });
     }
@@ -46,8 +46,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Personaria');
-        Schema::table('Personaria', function (Blueprint $table) {
+        Schema::dropIfExists('Personeria');
+        Schema::table('Personeria', function (Blueprint $table) {
             $table->dropSoftDeletes();
         });
     }

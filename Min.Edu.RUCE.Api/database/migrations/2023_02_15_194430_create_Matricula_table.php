@@ -16,13 +16,12 @@ return new class extends Migration
         Schema::create('Matricula', function (Blueprint $table) {
             $table->increments('idMatricula');
 
-            $table->unsignedInteger('fkIdMatricula');
-            $table->foreign('fkIdMatricula')->references('idMatricula')->on('Matricula')->onDelete('cascade');
+            $table->unsignedInteger('fkIdOrganizacionRUCE');
+            $table->foreign('fkIdOrganizacionRUCE')->references('idOrganizacionRUCE')->on('OrganizacionRUCE')->onDelete('cascade');
 
             $table->integer('periodoLectivo');
             $table->integer('matricula');
             $table->boolean('estaActivo')->default(true);
-            $table->datetime('fechaEliminacion');
             $table->integer('idUsuarioAlta')->nullable(true);
             $table->integer('idUsuarioModificacion')->nullable(true);
             $table->timestamps();
