@@ -5,12 +5,15 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class AutoridadComision extends Model
 {
     use HasFactory;
+    use SoftDeletes;
     protected $table = 'AutoridadComision';
     protected $primary_key = 'idAutoridadComision';
+    protected $dates = ['deleted_at'];
     protected $fillable = [
         'fkIdPersonaRUCE',
         'fkIdRefCargo',
@@ -18,7 +21,6 @@ class AutoridadComision extends Model
         'inicioCargo',
         'finCargo',
         'estaActivo',
-        'fechaEliminacion',
         'idUsuarioAlta',
         'idUsuarioModificacion'
     ];

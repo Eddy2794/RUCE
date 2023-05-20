@@ -28,5 +28,8 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('password_resets');
+        Schema::table('OrganizacionRUCE', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

@@ -5,12 +5,15 @@ use Carbon\Carbon;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class RefTipoAsociacion extends Model
 {
     use HasFactory;
+    use SoftDeletes;
     protected $table = 'RefTipoAsociacion';
     protected $primary_key = 'idRefTipoAsociacion';
+    protected $dates = ['deleted_at'];
     protected $fillable = [
         'tipoAsociacionDesc'
     ];

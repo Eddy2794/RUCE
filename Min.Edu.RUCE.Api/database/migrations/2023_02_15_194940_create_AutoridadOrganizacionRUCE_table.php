@@ -33,8 +33,10 @@ return new class extends Migration
             $table->integer('idUsuarioAlta')->default(null);
             $table->integer('idUsuarioModificacion')->default(null);
             $table->timestamps();
-
-            
+        });
+        
+        Schema::table('AutoridadOrganizacionRUCE', function (Blueprint $table) {
+            $table->softDeletes();
         });
     }
 
@@ -46,5 +48,8 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('AutoridadOrganizacionRUCE');
+        Schema::table('AutoridadOrganizacionRUCE', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

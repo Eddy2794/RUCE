@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('PersonaRuce', function (Blueprint $table) {
+        Schema::create('PersonaRUCE', function (Blueprint $table) {
             $table->increments('idPersonaRUCE');
             $table->string('cuil')->unique();
             $table->integer('documento')->unique();
@@ -33,6 +33,10 @@ return new class extends Migration
             $table->integer('idUsuarioModificacion')->default(null);
             $table->timestamps();
         });
+        
+        Schema::table('PersonaRUCE', function (Blueprint $table) {
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -42,6 +46,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('PersonaRuce');
+        Schema::dropIfExists('PersonaRUCE');
+        Schema::table('PersonaRUCE', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

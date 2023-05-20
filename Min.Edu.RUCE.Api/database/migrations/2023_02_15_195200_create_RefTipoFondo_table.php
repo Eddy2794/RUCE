@@ -18,6 +18,10 @@ return new class extends Migration
             $table->string('tipoFondoDesc',200);
             $table->timestamps();
         });
+        
+        Schema::table('RefTipoFondo', function (Blueprint $table) {
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -28,5 +32,8 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('RefTipoFondo');
+        Schema::table('RefTipoFondo', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

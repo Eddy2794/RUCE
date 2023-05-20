@@ -8,7 +8,7 @@ use App\models\RefTipoDocumento;
 use App\Models\RefTipoDocumentoRUCE;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Persona>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\PersonaRUCE>
  */
 class PersonaFactory extends Factory
 {

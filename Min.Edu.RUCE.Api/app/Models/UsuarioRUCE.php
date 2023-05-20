@@ -5,18 +5,20 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class UsuarioRUCE extends Model
 {
     use HasFactory;
+    use SoftDeletes;
     protected $table = 'UsuarioRuce';
     protected $primary_key = 'idUsuarioRuce';
+    protected $dates = ['deleted_at'];
     protected $fillable = [
         'fkIdPersonaRUCE',
         'password',
         'username',
         'estaActivo',
-        'fechaEliminacion',
         'idUsuarioAlta',
         'idUsuarioModificacion',
         'administrador',

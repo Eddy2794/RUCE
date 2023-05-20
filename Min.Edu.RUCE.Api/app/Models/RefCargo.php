@@ -5,13 +5,16 @@ use Carbon\Carbon;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class RefCargo extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $table = 'RefCargo';
     protected $primary_key = 'idRefCargo';
+    protected $dates = ['deleted_at'];
     protected $fillable = [
         'cargoDesc'
     ];

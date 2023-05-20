@@ -5,12 +5,15 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Kiosco extends Model
 {
     use HasFactory;
+    use SoftDeletes;
     protected $table = 'Kiosco';
     protected $primary_key = 'idKiosco';
+    protected $dates = ['deleted_at'];
     protected $fillable = [
         'fkIdCooperadora',
         'idPersonaRUCE',
@@ -19,7 +22,6 @@ class Kiosco extends Model
         'periodoInicio',
         'periodoFin',
         'estaActivo',
-        'fechaEliminacion',
         'idUsuarioAlta',
         'idUsuarioModificacion'
     ];

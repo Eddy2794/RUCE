@@ -4,9 +4,9 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { IBaseService } from '@app/shared/services/interface/i-base.service';
-import { SearchService } from '@app/shared/services/search.service';
-import { ColumnOptions, DataPage, FilterOptions, PaginateOptions } from '@app/shared/utils';
+import { IBaseService } from '@app/pages/organismos/shared/services/interface/i-base.service';
+import { SearchService } from '@app/pages/organismos/shared/services/search.service';
+import { ColumnOptions, DataPage, FilterOptions, PaginateOptions } from '@app/pages/organismos/shared/utils';
 import { Subject, takeUntil } from 'rxjs';
 
 

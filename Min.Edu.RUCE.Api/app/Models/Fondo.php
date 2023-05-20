@@ -5,13 +5,16 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Fondo extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $table = 'Fondo';
     protected $primary_key = 'idFondo';
+    protected $dates = ['deleted_at'];
     protected $fillable = [
         'fkIdTipoFondo',
         'fkCooperadora',
@@ -22,7 +25,6 @@ class Fondo extends Model
         'fechaRendicion',
         'anioOtorgado',
         'estaActivo',
-        'fechaEliminacion',
         'idUsuarioAlta',
         'idUsuarioModificacion'
     ];

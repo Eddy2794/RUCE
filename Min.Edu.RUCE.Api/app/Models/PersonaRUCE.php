@@ -5,14 +5,17 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PersonaRUCE extends Model
 {
     use HasFactory;
+    use SoftDeletes;
     
 
     protected $table = 'PersonaRuce';
     protected $primary_key = 'idPersonaRUCE';
+    protected $dates = ['deleted_at'];
     protected $fillable = [
         'fkIdRefTipoDocumentoRUCE',
         'documento',
@@ -22,7 +25,6 @@ class PersonaRUCE extends Model
         'telefono',
         'email',
         'estaActivo',
-        'fechaEliminacion',
         'idUsuarioAlta',
         'idUsuarioModificacion'
     ];

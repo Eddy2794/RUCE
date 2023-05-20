@@ -18,6 +18,10 @@ return new class extends Migration
             $table->string('InstrumentoDesc');
             $table->timestamps();
         });
+        
+        Schema::table('RefInstanciaInstrumento', function (Blueprint $table) {
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -27,6 +31,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('RefInstanciaInstrumentoPub');
+        Schema::dropIfExists('RefInstanciaInstrumento');
+        Schema::table('RefInstanciaInstrumento', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

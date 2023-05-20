@@ -28,6 +28,10 @@ return new class extends Migration
             $table->integer('idUsuarioModificacion')->default(null);
             $table->timestamps();
         });
+        
+        Schema::table('MovimientoExpediente', function (Blueprint $table) {
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -37,6 +41,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('_movimiento_expediente');
+        Schema::dropIfExists('MovimientoExpediente');
+        Schema::table('MovimientoExpediente', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

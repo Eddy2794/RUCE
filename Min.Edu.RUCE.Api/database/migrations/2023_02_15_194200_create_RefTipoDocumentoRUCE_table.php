@@ -18,6 +18,10 @@ return new class extends Migration
             $table->string('tipoDocumentoDesc');
             $table->timestamps();
         });
+        
+        Schema::table('RefTipoDocumentoRUCE', function (Blueprint $table) {
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -28,5 +32,8 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('RefTipoDocumentoRUCE');
+        Schema::table('RefTipoDocumentoRUCE', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

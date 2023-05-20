@@ -26,6 +26,10 @@ return new class extends Migration
             $table->integer('idUsuarioModificacion')->default(null);
             $table->timestamps();
         });
+        
+        Schema::table('Balance', function (Blueprint $table) {
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -35,6 +39,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('_balance');
+        Schema::dropIfExists('Balance');
+        Schema::table('Balance', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

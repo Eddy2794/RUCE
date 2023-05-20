@@ -5,19 +5,21 @@ use Carbon\Carbon;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Matricula extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $table = 'Matricula';
     protected $primary_key = 'idMatricula';
+    protected $dates = ['deleted_at'];
     protected $fillable = [
         'fkIdOrganizacionRUCE',
         'periodoLectivo',
         'matricula',
         'estaActivo',
-        'fechaEliminacion',
         'idUsuarioAlta',
         'idUsuarioModificacion'
     ];

@@ -35,15 +35,15 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => '/organizacion'],function () {
     Route::get('/', [OrganizacionRUCEController::class, 'index'])->name('organizacion.index');
     Route::post('/', [OrganizacionRUCEController::class, 'store'])->name('organizacion.store');
-    Route::get('/get/', [OrganizacionRUCEController::class, 'show'])->name('organizacion.show');
-    // Route::get('/{id}', [OrganizacionRUCEController::class, 'show'])->name('organizacion.show');
+    Route::get('/show', [OrganizacionRUCEController::class, 'show'])->name('organizacion.show');
+    Route::delete('/{id}', [OrganizacionRUCEController::class, 'destroy'])->name('organizacion.destroy');
     // Route::put('/{id}',[OrganizacionRUCEController::class,'update'])->name('organizacion.update');
 });
 
 // Route::apiResource('organizacion',OrganizacionRUCEController::class);
 
-Route::get('/personas/Filter', [PersonaRUCEController::class, 'filtro']);
-Route::apiResource('personas', PersonaRUCEController::class);
+Route::get('/persona/Filter', [PersonaRUCEController::class, 'filtro']);
+Route::apiResource('persona', PersonaRUCEController::class);
 
 Route::get('/usuarios/Filter', [UsuarioRUCEController::class, 'filtro']);
 Route::apiResource('usuarios', UsuarioRUCEController::class);

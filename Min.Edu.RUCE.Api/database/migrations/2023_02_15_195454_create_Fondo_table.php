@@ -34,7 +34,10 @@ return new class extends Migration
             $table->integer('idUsuarioAlta')->nullable(true);
             $table->integer('idUsuarioModificacion')->nullable(true);
             $table->timestamps();
-            
+        });
+        
+        Schema::table('Fondo', function (Blueprint $table) {
+            $table->softDeletes();
         });
     }
 
@@ -46,5 +49,8 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('Fondo');
+        Schema::table('Fondo', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

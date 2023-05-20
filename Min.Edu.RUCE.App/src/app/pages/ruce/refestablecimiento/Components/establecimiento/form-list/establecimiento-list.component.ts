@@ -8,8 +8,8 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { SearchOptionsGeneric, TypeControl, TypeData } from '@app/shared/utils/search-options-generic';
-import { ColumnOptions, FilterOptions } from '@app/shared/utils';
+import { SearchOptionsGeneric, TypeControl, TypeData } from '@app/pages/organismos/shared/utils/search-options-generic';
+import { ColumnOptions, FilterOptions } from '@app/pages/organismos/shared/utils';
 import { TableColumn } from 'src/@vex/interfaces/table-column.interface';
 
 @Component({

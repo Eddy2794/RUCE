@@ -32,6 +32,10 @@ return new class extends Migration
             $table->integer('idUsuarioModificacion')->nullable(true);
             $table->timestamps();
         });
+        
+        Schema::table('Kiosco', function (Blueprint $table) {
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -42,5 +46,8 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('Kiosco');
+        Schema::table('Kiosco', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

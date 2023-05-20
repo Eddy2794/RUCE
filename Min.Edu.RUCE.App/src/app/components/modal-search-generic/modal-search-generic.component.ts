@@ -1,8 +1,8 @@
 import { Component,  Inject } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { SearchService } from '@app/shared/services/search.service';
-import { IObjetoModalMultiple } from '@app/shared/utils/multiple-modal.interface';
+import { SearchService } from '@app/pages/organismos/shared/services/search.service';
+import { IObjetoModalMultiple } from '@app/pages/organismos/shared/utils/multiple-modal.interface';
 import * as moment from 'moment';
 import { ModalEntityMultipleSelectComponent } from '../modal-entity-multiple-select/modal-entity-multiple-select.component';
 import { ModalEntitySingleSelectComponent } from '../modal-entity-single-select/modal-entity-single-select.component';

@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('Matricula', function (Blueprint $table) {
             $table->increments('idMatricula');
 
-            $table->unsignedInteger('fkIdOrganizacionRUCE');
-            $table->foreign('fkIdOrganizacionRUCE')->references('idOrganizacionRUCE')->on('OrganizacionRUCE')->onDelete('cascade');
+            $table->unsignedInteger('fkIdMatricula');
+            $table->foreign('fkIdMatricula')->references('idMatricula')->on('Matricula')->onDelete('cascade');
 
             $table->integer('periodoLectivo');
             $table->integer('matricula');
@@ -26,6 +26,10 @@ return new class extends Migration
             $table->integer('idUsuarioAlta')->nullable(true);
             $table->integer('idUsuarioModificacion')->nullable(true);
             $table->timestamps();
+        });
+        
+        Schema::table('Matricula', function (Blueprint $table) {
+            $table->softDeletes();
         });
     }
 
@@ -37,5 +41,8 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('Matricula');
+        Schema::table('Matricula', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

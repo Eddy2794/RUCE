@@ -18,6 +18,10 @@ return new class extends Migration
             $table->string('cargoDesc');
             $table->timestamps();
         });
+        
+        Schema::table('RefCargo', function (Blueprint $table) {
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -28,5 +32,8 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('RefCargo');
+        Schema::table('RefCargo', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

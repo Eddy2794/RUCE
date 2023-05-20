@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RefGrupoNivelRoutingModule } from './refgruponivel-routing.module';
-import { SharedModule } from '@app/shared/shared.module';
+import { SharedModule } from '@app/pages/organismos/shared/shared.module';
 import { RefgruponivelListComponent } from './components/form-list/refgruponivel-list.component';
 import { RefgruponivelInsupdComponent } from './components/form-insupd/refgruponivel-insupd/refgruponivel-insupd.component';
 import { PageLayoutModule } from 'src/@vex/components/page-layout/page-layout.module';

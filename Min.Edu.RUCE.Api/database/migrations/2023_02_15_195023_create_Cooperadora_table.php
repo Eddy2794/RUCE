@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreign('fkIdRefTipoAsociacion')->references('idRefTipoAsociacion')->on('RefTipoAsociacion')->onDelete('cascade');
 
             $table->unsignedInteger('fkIdOrganizacionRUCE');
-            $table->foreign('fkIdOrganizacionRUCE')->references('idOrganizacionRUCE')->on('OrganizacionRUCE')->onDelete('cascade');
+            $table->foreign('fkIdOrganizacionRUCE')->references('idOrganizacionRUCE')->on('Cooperadora')->onDelete('cascade');
 
             $table->string('cuit',13)->nullable(true);
             $table->string('legajo',200)->nullable(true);
@@ -40,6 +40,10 @@ return new class extends Migration
             $table->timestamps();
 
         });
+        
+        Schema::table('Cooperadora', function (Blueprint $table) {
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -50,5 +54,8 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('Cooperadora');
+        Schema::table('Cooperadora', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

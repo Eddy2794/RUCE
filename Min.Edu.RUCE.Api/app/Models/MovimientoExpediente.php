@@ -5,17 +5,19 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class MovimientoExpediente extends Model
 {
     use HasFactory;
+    use SoftDeletes;
     protected $table = 'MovimientoExpediente';
     protected $primary_key = 'idMovimientoExpediente';
+    protected $dates = ['deleted_at'];
     protected $fillable = [
         'fkIdExpediente',
         'fkIdRefInstanciaInstrumento',
         'estaActivo',
-        'fechaEliminacion',
         'idUsuarioAlta',
         'idUsuarioModificacion'
     ];

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { RefGrupoNivelService } from '@app/pages/organismos/refgruponivel/services/refgruponivel.service';
-import { DataPage, FilterOptions } from '@app/shared/utils';
+import { DataPage, FilterOptions } from '@app/pages/organismos/shared/utils';
 import { RefNivelEducativoModel } from '@app/pages/organismos/refniveleducativo/model/refniveleducativo.model';
 import { RefNivelEducativoService } from '@app/pages/organismos/refniveleducativo/services/refniveleducativo.service';
-import { SearchOptionsGeneric, TypeControl, TypeData } from '@app/shared/utils/search-options-generic';
+import { SearchOptionsGeneric, TypeControl, TypeData } from '@app/pages/organismos/shared/utils/search-options-generic';
 import { TableColumn } from 'src/@vex/interfaces/table-column.interface';
 import { RefGrupoNivelModel } from '@app/pages/organismos/refgruponivel/model/refgruponivel.model';
 

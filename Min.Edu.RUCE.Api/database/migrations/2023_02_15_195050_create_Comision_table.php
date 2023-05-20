@@ -30,13 +30,18 @@ return new class extends Migration
             $table->integer('idUsuarioModificacion')->nullable(true);
 
             $table->timestamps();
-
-            
+        });
+        
+        Schema::table('Comision', function (Blueprint $table) {
+            $table->softDeletes();
         });
     }
 
     public function down()
     {
         Schema::dropIfExists('Comision');
+        Schema::table('Comision', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

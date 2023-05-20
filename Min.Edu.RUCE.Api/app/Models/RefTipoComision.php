@@ -5,13 +5,16 @@ use Carbon\Carbon;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class RefTipoComision extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $table = 'RefTipoComision';
     protected $primary_key = 'idRefTipoComision';
+    protected $dates = ['deleted_at'];
     protected $fillable = [
         'tipoComisionDesc'
     ];

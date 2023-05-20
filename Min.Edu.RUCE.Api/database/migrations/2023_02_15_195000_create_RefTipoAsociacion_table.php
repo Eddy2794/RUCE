@@ -18,6 +18,10 @@ return new class extends Migration
             $table->string('tipoAsociacionDesc');
             $table->timestamps();
         });
+        
+        Schema::table('RefTipoAsociacion', function (Blueprint $table) {
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -28,5 +32,8 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('RefTipoAsociacion');
+        Schema::table('RefTipoAsociacion', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

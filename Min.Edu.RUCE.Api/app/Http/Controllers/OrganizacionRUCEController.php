@@ -19,12 +19,10 @@ class OrganizacionRUCEController extends Controller
     public function index(Request $request)
     {
         try {
-            if ($request->has('page')) {
-                return new RequestCollection($request,OrganizacionRUCE::orderBy('organizacionDesc')->get());
+            if ($request->has('PageNumber')&&$request->has('PageSize')) {
+                return new RequestCollection(OrganizacionRUCE::paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']));
             }
-
-            return new RequestCollection($request,OrganizacionRUCE::orderBy('organizacionDesc')->get());
-            // return $request['data'];
+            return new RequestCollection(OrganizacionRUCE::paginate(10, ['*'], 'page', 1));
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,
@@ -72,7 +70,6 @@ class OrganizacionRUCEController extends Controller
     {
         try {
             return response()->json(new ModelResourse($organizacionRUCE,'OrganizacionRUCE'));
-            // return response()->json(new OrganizacionRUCEResourse($organizacionRUCE));
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,
@@ -129,20 +126,14 @@ class OrganizacionRUCEController extends Controller
      * @param  \App\Models\OrganizacionRUCE  $organizacionRUCE
      * @return \Illuminate\Http\Response
      */
-    public function destroy(OrganizacionRUCE $organizacionRUCE): JsonResponse
+    public function destroy(int $id): JsonResponse
     {
         try {
-            
-            OrganizacionRUCE::where('id', $organizacionRUCE)->update([
-                'estaActivo'=>false,   
-            ]);
-
-            $organizacionRUCE->competencias()->delete();
-            $organizacionRUCE->delete();
-
+            OrganizacionRUCE::where('idOrganizacionRUCE', $id)->update(['estaActivo'=>false,]);
+            OrganizacionRUCE::where('idOrganizacionRUCE', $id)->delete();
             return response()->json([
                 'succeeded' => true,
-                'message' => 'Especialidad eliminada con exito'
+                'message' => 'Organizacion eliminada con exito'
             ], Response::HTTP_OK);
         } catch (\Throwable $th) {
             return response()->json([

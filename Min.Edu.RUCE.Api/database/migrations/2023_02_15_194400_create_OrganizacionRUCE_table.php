@@ -27,10 +27,10 @@ return new class extends Migration
             $table->biginteger('telefono');
             $table->string('email',100);
             $table->boolean('estaActivo')->default(true)->nullable(false);
-            $table->dateTime('fechaEliminacion')->nullable(true);
             $table->integer('idUsuarioAlta')->default(null)->nullable(true);
             $table->integer('idUsuarioModificacion')->default(null)->nullable(true);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -42,5 +42,8 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('OrganizacionRUCE');
+        Schema::table('OrganizacionRUCE', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

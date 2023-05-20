@@ -5,18 +5,20 @@ use Carbon\Carbon;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Balance extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $table = 'Balance';
     protected $primary_key = 'idBalance';
+    protected $dates = ['deleted_at'];
     protected $fillable = [
         'fkIdCooperadora',
         'estadoBalance',
         'estaActivo',
-        'fechaEliminacion',
         'idUsuarioAlta',
         'idUsuarioModificacion'
     ];
