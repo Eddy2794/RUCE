@@ -12,7 +12,7 @@ class RefTipoAsociacion extends Model
     use HasFactory;
     use SoftDeletes;
     protected $table = 'RefTipoAsociacion';
-    protected $primary_key = 'idRefTipoAsociacion';
+    protected $primaryKey = 'idRefTipoAsociacion';
     protected $dates = ['deleted_at'];
     protected $fillable = [
         'tipoAsociacionDesc'

@@ -25,9 +25,6 @@ return new class extends Migration
             $table->integer('idUsuarioAlta')->default(null);
             $table->integer('idUsuarioModificacion')->default(null);
             $table->timestamps();
-        });
-        
-        Schema::table('Balance', function (Blueprint $table) {
             $table->softDeletes();
         });
     }

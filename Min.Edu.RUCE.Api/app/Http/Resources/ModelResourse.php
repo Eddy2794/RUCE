@@ -9,6 +9,7 @@ class ModelResourse extends JsonResource
     public static $wrap = 'entities';
 
     private $model = '',$nombre;
+    private $id;
     
     public function __construct($resource, $nombre = '')
     {
@@ -19,6 +20,7 @@ class ModelResourse extends JsonResource
         if (class_exists('App\Models'.'\\'.$nombre)) {
             $this->model = 'App\Models'.'\\'.$nombre;
             $this->nombre = $nombre;
+            $this->id = $resource;
         }
     }
 
@@ -26,7 +28,7 @@ class ModelResourse extends JsonResource
     {
         if ($this->model != ''){
             $modelo = new $this->model();
-            $datos = $modelo::where('id'.$this->nombre,$request['id'])->get();
+            $datos = $modelo::where('id'.$this->nombre,$this->id)->get();
             return ['entity'=>$datos];
         }
         else return [

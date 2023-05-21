@@ -12,7 +12,7 @@ class Expediente extends Model
     use HasFactory;
     use SoftDeletes;
     protected $table = 'Expediente';
-    protected $primary_key = 'idExpediente';
+    protected $primaryKey = 'idExpediente';
     protected $dates = ['deleted_at'];
     protected $fillable = [
         'fkIdCooperadora',

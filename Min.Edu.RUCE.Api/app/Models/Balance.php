@@ -13,7 +13,7 @@ class Balance extends Model
     use SoftDeletes;
 
     protected $table = 'Balance';
-    protected $primary_key = 'idBalance';
+    protected $primaryKey = 'idBalance';
     protected $dates = ['deleted_at'];
     protected $fillable = [
         'fkIdCooperadora',

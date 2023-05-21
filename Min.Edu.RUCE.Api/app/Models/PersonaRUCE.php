@@ -14,7 +14,7 @@ class PersonaRUCE extends Model
     
 
     protected $table = 'PersonaRuce';
-    protected $primary_key = 'idPersonaRUCE';
+    protected $primaryKey = 'idPersonaRUCE';
     protected $dates = ['deleted_at'];
     protected $fillable = [
         'fkIdRefTipoDocumentoRUCE',

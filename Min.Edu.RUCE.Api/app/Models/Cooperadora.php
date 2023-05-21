@@ -12,7 +12,7 @@ class Cooperadora extends Model
     use HasFactory;
     use SoftDeletes;
     protected $table = 'Cooperadora';
-    protected $primary_key = 'idCooperadora';
+    protected $primaryKey = 'idCooperadora';
     protected $dates = ['deleted_at'];
     protected $fillable = [
         'fkIdRefTipoAsociacion',

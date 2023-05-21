@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('OrganizacionRUCE', function (Blueprint $table) {
             $table->increments('idOrganizacionRUCE');
             $table->string('organizacionDesc')->default('');
-            $table->biginteger('cue');
+            $table->string('cue');
             $table->unique('cue');
             $table->integer('anexo')->nullable();
             $table->string('region',3);
@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('localidad',100);
             $table->string('departamento',100);
             $table->string('domicilio',100);
-            $table->biginteger('telefono');
+            $table->string('telefono');
             $table->string('email',100);
             $table->boolean('estaActivo')->default(true)->nullable(false);
             $table->integer('idUsuarioAlta')->default(null)->nullable(true);

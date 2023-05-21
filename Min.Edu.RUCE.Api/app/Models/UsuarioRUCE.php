@@ -12,7 +12,7 @@ class UsuarioRUCE extends Model
     use HasFactory;
     use SoftDeletes;
     protected $table = 'UsuarioRuce';
-    protected $primary_key = 'idUsuarioRuce';
+    protected $primaryKey = 'idUsuarioRuce';
     protected $dates = ['deleted_at'];
     protected $fillable = [
         'fkIdPersonaRUCE',

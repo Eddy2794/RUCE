@@ -13,7 +13,7 @@ class RefTipoFondo extends Model
     use SoftDeletes;
 
     protected $table = 'RefTipoFondo';
-    protected $primary_key = 'idRefTipoFondo';
+    protected $primaryKey = 'idRefTipoFondo';
     protected $dates = ['deleted_at'];
     protected $fillable = [
         'tipoFondoDesc'

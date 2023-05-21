@@ -9,7 +9,7 @@ use App\Http\Resources\RequestCollection;
 use App\Http\Requests\StoreOrganizacionRUCERequest;
 use App\Http\Requests\UpdateOrganizacionRUCERequest;
 use App\Models\OrganizacionRUCE;
-
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,8 +37,9 @@ class OrganizacionRUCEController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreOrganizacionRUCERequest $request): JsonResponse
+    public function store(Request $request): JsonResponse
     {
+        $request = new StoreOrganizacionRUCERequest($request->toArray());
         try {
             OrganizacionRUCE::create([
                 'organizacionDesc' => $request->organizacionDesc,
@@ -51,8 +52,12 @@ class OrganizacionRUCEController extends Controller
                 'telefono' => $request->telefono,
                 'email' => $request->email,
                 'domicilio' => $request->domicilio,
+                'idUsuarioAlta' => $request->idUsuarioAlta,
             ]);
-            return response()->json();
+            return response()->json([
+                'message' => 'Organizacion registrada con Exito',
+                'succeeded' => true
+            ], Response::HTTP_OK);
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,
@@ -66,7 +71,7 @@ class OrganizacionRUCEController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(OrganizacionRUCE $organizacionRUCE): JsonResponse
+    public function show(int $organizacionRUCE): JsonResponse
     {
         try {
             return response()->json(new ModelResourse($organizacionRUCE,'OrganizacionRUCE'));
@@ -85,32 +90,35 @@ class OrganizacionRUCEController extends Controller
      * @param  \App\Models\OrganizacionRUCE  $organizacionRUCE
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateOrganizacionRUCERequest $request, OrganizacionRUCE $organizacionRUCE): JsonResponse
+    public function update(Request $request, int $organizacionRUCE): JsonResponse
     {
         try {
-            $organizacionRUCE->idOrganizacionRUCE = $request->idOrganizacionRUCE ?: $organizacionRUCE->idOrganizacionRUCE;
+            $organizacionRUCE = OrganizacionRUCE::where('idOrganizacionRUCE', $organizacionRUCE)->first();
+            $request = new UpdateOrganizacionRUCERequest($request->toArray());
             $organizacionRUCE->organizacionDesc = $request->organizacionDesc ?: $organizacionRUCE->organizacionDesc;
             $organizacionRUCE->cue = $request->cue ?: $organizacionRUCE->cue;
+            $organizacionRUCE->anexo = $request->anexo ?: $organizacionRUCE->anexo;
             $organizacionRUCE->telefono = $request->telefono ?: $organizacionRUCE->telefono;
             $organizacionRUCE->email = $request->email ?: $organizacionRUCE->email;
             $organizacionRUCE->domicilio = $request->domicilio ?: $organizacionRUCE->domicilio;
+            $organizacionRUCE->departamento = $request->departamento ?: $organizacionRUCE->departamento;
+            $organizacionRUCE->localidad = $request->localidad ?: $organizacionRUCE->localidad;
             $organizacionRUCE->region = $request->region ?: $organizacionRUCE->region;
             $organizacionRUCE->nivel = $request->nivel ?: $organizacionRUCE->nivel;
-            $organizacionRUCE->estaActivo = $request->estaActivo ?: $organizacionRUCE->estaActivo;
-            $organizacionRUCE->idUsuarioModificacion = $request->idUsuarioModificacion ?: $organizacionRUCE->idUsuarioModificacion;
+            // $organizacionRUCE->idUsuarioModificacion = $request->idUsuarioModificacion ?: $organizacionRUCE->idUsuarioModificacion;
 
             if ($organizacionRUCE->isClean()) {
                 return response()->json([
-                    'message' => 'Nose modifico ningun valor',
+                    'message' => 'No se modifico ningun valor',
                     'succeeded' => false
                 ], 422);
             }
-
+            $organizacionRUCE->updated_at= Carbon::now();
             $organizacionRUCE->save();
 
             return response()->json([
                 'succeeded' => true,
-                'message' => 'Especialidad Modificada con exito',
+                'message' => 'Organizacion Modificada con exito',
             ], Response::HTTP_OK);
         } catch (\Throwable $th) {
             return response()->json([

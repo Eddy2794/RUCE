@@ -25,10 +25,6 @@ class UpdateOrganizacionRUCERequest extends FormRequest
     public function rules()
     {
         return [
-            'idOrganizacionRUCE' => [
-                'required',
-                'exists:OrganizacionRUCE,idOrganizacionRUCE'
-            ],
             'organizacionDesc' => [
                 'required',
                 'string',
@@ -36,12 +32,16 @@ class UpdateOrganizacionRUCERequest extends FormRequest
             ],
             'cue' => [
                 'required',
-                'biginteger',
+                'string',
                 Rule::unique('OrganizacionRUCE','cue')->where('cue',$this->cue)->withoutTrashed()
+            ],
+            'anexo' => [
+                'required',
+                'integer',
             ],
             'telefono' => [
                 'required',
-                'biginteger',
+                'string',
                 Rule::unique('OrganizacionRUCE','telefono')->where('telefono', $this->telefono)->withoutTrashed()
             ],
             'email' => [
@@ -58,17 +58,17 @@ class UpdateOrganizacionRUCERequest extends FormRequest
                 'required',
                 'string'
             ],
-            'nivel' => [
+            'localidad' => [
                 'required',
                 'string'
             ],
-            'estaActivo' => [
+            'departamento' => [
                 'required',
-                'boolean'
+                'string'
             ],
-            'idUsuarioModificacion' => [
+            'nivel' => [
                 'required',
-                'integer'
+                'string'
             ]
         ];
     }

@@ -36,12 +36,12 @@ class StoreOrganizacionRUCERequest extends FormRequest
             ],
             'cue' => [
                 'required',
-                'biginteger',
+                'string',
                 Rule::unique('OrganizacionRUCE','cue')->where('cue',$this->cue)->withoutTrashed()
             ],
             'anexo' => [
                 'required',
-                'integer'
+                'integer',
             ],
             'region' => [
                 'required',
@@ -61,7 +61,7 @@ class StoreOrganizacionRUCERequest extends FormRequest
             ],
             'telefono' => [
                 'required',
-                'biginteger',
+                'string',
                 Rule::unique('OrganizacionRUCE','telefono')->where('telefono', $this->telefono)->withoutTrashed()
             ],
             'email' => [
@@ -74,19 +74,7 @@ class StoreOrganizacionRUCERequest extends FormRequest
                 'string',
                 Rule::unique('OrganizacionRUCE','domicilio')->where('domicilio', $this->domicilio)->withoutTrashed()
             ],
-            'estaActivo' => [
-                'required',
-                'boolean'
-            ],
-            'fechaEliminacion' => [
-                'required',
-                'dateTime'
-            ],
             'idUsuarioAlta' => [
-                'required',
-                'integer'
-            ],
-            'idUsuarioModificacion' => [
                 'required',
                 'integer'
             ]

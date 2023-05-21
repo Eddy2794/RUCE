@@ -12,7 +12,7 @@ class Kiosco extends Model
     use HasFactory;
     use SoftDeletes;
     protected $table = 'Kiosco';
-    protected $primary_key = 'idKiosco';
+    protected $primaryKey = 'idKiosco';
     protected $dates = ['deleted_at'];
     protected $fillable = [
         'fkIdCooperadora',

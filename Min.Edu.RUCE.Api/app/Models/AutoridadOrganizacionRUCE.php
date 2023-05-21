@@ -12,7 +12,7 @@ class AutoridadOrganizacionRUCE extends Model
     use HasFactory;
     use SoftDeletes;
     protected $table = 'AutoridadOrganizacionRUCE';
-    protected $primary_key = 'idAutoridadOrganizacionRUCE';
+    protected $primaryKey = 'idAutoridadOrganizacionRUCE';
     protected $dates = ['deleted_at'];
     protected $fillable = [
         'fkIdRefCargo',
