@@ -14,10 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('Matricula', function (Blueprint $table) {
-            $table->increments('idMatricula');
+            $table->increments('id');
 
-            $table->unsignedInteger('fkIdOrganizacionRUCE');
-            $table->foreign('fkIdOrganizacionRUCE')->references('idOrganizacionRUCE')->on('OrganizacionRUCE')->onDelete('cascade');
+            $table->unsignedInteger('fkOrganizacionRUCE');
+            $table->foreign('fkOrganizacionRUCE')->references('id')->on('OrganizacionRUCE')->onDelete('cascade');
 
             $table->integer('periodoLectivo');
             $table->integer('matricula');

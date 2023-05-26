@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('RefTipoDocumentoRUCE', function (Blueprint $table) {
-            $table->increments('idRefTipoDocumentoRUCE');
+            $table->increments('id');
             $table->string('tipoDocumentoDesc');
             $table->timestamps();
         });

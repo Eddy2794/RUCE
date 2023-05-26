@@ -24,9 +24,9 @@ class StoreBalanceRequest extends FormRequest
     public function rules()
     {
         return [
-            'fkIdCooperadora' => [
+            'fkCooperadora' => [
                 'required',
-                'exists:Cooperadora,idCooperadora'
+                'exists:Cooperadora,id'
             ],
             'estadoBalance' => [
                 'required',
@@ -54,7 +54,7 @@ class StoreBalanceRequest extends FormRequest
     public function messages()
     {
         return [
-            'fkIdCooperadora.exist' => 'Id de Cooperadora no existe en la tabla Cooperdora.',
+            'fkCooperadora.exist' => 'Id de Cooperadora no existe en la tabla Cooperdora.',
         ];
     }
 }

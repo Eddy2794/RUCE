@@ -15,13 +15,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('Personeria', function (Blueprint $table) {
-            $table->increments('idPersoneria');
+            $table->increments('id');
 
-            $table->unsignedInteger('fkIdExpediente');
-            $table->foreign('fkIdExpediente')->references('idExpediente')->on('Expediente')->onDelete('cascade'); 
+            $table->unsignedInteger('fkExpediente');
+            $table->foreign('fkExpediente')->references('id')->on('Expediente')->onDelete('cascade'); 
 
-            $table->unsignedInteger('fkIdCooperadora');
-            $table->foreign('fkIdCooperadora')->references('idCooperadora')->on('Cooperadora');
+            $table->unsignedInteger('fkCooperadora');
+            $table->foreign('fkCooperadora')->references('id')->on('Cooperadora');
 
             $table->string('decreto')->nullable();
             $table->string('nroResolucion')->nullable();

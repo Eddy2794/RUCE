@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogComponent, DialogData } from '@app/components/dialog/dialog.component';
-import { ValidatorService } from '@app/pages/organismos/shared/validators/validator.service';
+import { ValidatorService } from '@app/shared/validators/validator.service';
 import { fadeInUp400ms } from 'src/@vex/animations/fade-in-up.animation';
 import { stagger60ms } from 'src/@vex/animations/stagger.animation';
 import { RefGrupoNivelService } from '../../../services/refgruponivel.service';

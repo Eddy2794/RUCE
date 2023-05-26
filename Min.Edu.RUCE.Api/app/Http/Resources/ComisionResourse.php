@@ -19,7 +19,7 @@ class ComisionResourse extends JsonResource
     public function toArray($request)
     {
         $model = new Comision();
-        $datos = $model::where('idcomision',$request->get('id'))->get()->toArray();
+        $datos = $model::where('id',$request->get('id'))->get()->toArray();
         return $datos;
     }
 

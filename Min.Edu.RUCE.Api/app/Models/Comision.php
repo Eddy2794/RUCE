@@ -13,11 +13,11 @@ class Comision extends Model
     use SoftDeletes;
 
     protected $table = 'Comision';
-    protected $primaryKey = 'idComision';
+    protected $primaryKey = 'id';
     protected $dates = ['deleted_at'];
     protected $fillable = [
-        'fkIdCooperadora',
-        'fkIdRefTipoComision',
+        'fkCooperadora',
+        'fkRefTipoComision',
         'periodoInicio',
         'periodoFin',
         'nroSocios',

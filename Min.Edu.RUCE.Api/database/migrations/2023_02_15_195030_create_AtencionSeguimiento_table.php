@@ -14,13 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('AtencionSeguimiento', function (Blueprint $table) {
-            $table->increments('idAtencionSeguimiento');
+            $table->increments('id');
 
-            $table->unsignedInteger('fkIdCooperadora');
-            $table->foreign('fkIdCooperadora')->references('idCooperadora')->on('Cooperadora')->onDelete('cascade');
+            $table->unsignedInteger('fkCooperadora');
+            $table->foreign('fkCooperadora')->references('id')->on('Cooperadora')->onDelete('cascade');
 
-            $table->unsignedInteger('fkIdPersonaRUCE');
-            $table->foreign('fkIdPersonaRUCE')->references('idPersonaRUCE')->on('PersonaRUCE')->onDelete('cascade');
+            $table->unsignedInteger('fkPersonaRUCE');
+            $table->foreign('fkPersonaRUCE')->references('id')->on('PersonaRUCE')->onDelete('cascade');
 
             $table->integer('llamadas');
             $table->integer('mensajes');

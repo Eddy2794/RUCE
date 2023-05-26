@@ -10,13 +10,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('Comision', function (Blueprint $table) {
-            $table->increments('idComision');
+            $table->increments('id');
 
-            $table->unsignedInteger('fkIdCooperadora');
-            $table->foreign('fkIdCooperadora')->references('idCooperadora')->on('Cooperadora')->onDelete('cascade');
+            $table->unsignedInteger('fkCooperadora');
+            $table->foreign('fkCooperadora')->references('id')->on('Cooperadora')->onDelete('cascade');
 
-            $table->unsignedInteger('fkIdRefTipoComision');
-            $table->foreign('fkIdRefTipoComision')->references('idRefTipoComision')->on('RefTipoComision')->onDelete('cascade');
+            $table->unsignedInteger('fkRefTipoComision');
+            $table->foreign('fkRefTipoComision')->references('id')->on('RefTipoComision')->onDelete('cascade');
 
             $table->dateTime('periodoInicio')->nullable(false);
             $table->dateTime('periodoFin')->nullable(false);

@@ -28,12 +28,16 @@ class UpdateOrganizacionRUCERequest extends FormRequest
             'organizacionDesc' => [
                 'required',
                 'string',
-                Rule::unique('OrganizacionRUCE','organizacionDesc')->where('idOrganizacionRUCE',$this->idOrganizacionRUCE)->withoutTrashed()
+                Rule::unique('OrganizacionRUCE','organizacionDesc')->ignore($this->id)
+                      ->where(fn($query)=>$query->where('organizacionDesc',$this->organizacionDesc))
+                      ->withoutTrashed()
             ],
             'cue' => [
                 'required',
                 'string',
-                Rule::unique('OrganizacionRUCE','cue')->where('cue',$this->cue)->withoutTrashed()
+                Rule::unique('OrganizacionRUCE','cue')
+                      ->where('cue',$this->cue)
+                      ->withoutTrashed()
             ],
             'anexo' => [
                 'required',
@@ -76,7 +80,7 @@ class UpdateOrganizacionRUCERequest extends FormRequest
     public function messages()
     {
         return [
-            'idOrganizacionRUCE.exist' => 'Id de OrganizacionRUCE no existe en la tabla OrganizacionRUCE.',
+            'id.exist' => 'Id de OrganizacionRUCE no existe en la tabla OrganizacionRUCE.',
             'organizacionDesc.unique' => 'El nombre de la Oganizacion ya fue registrado.',
             'cue.unique' => 'El CUE de la Ognaizacion ya fue registrado.',
             'telefono.unique' => 'El telefono de la Organizacion ya fue registrado.',

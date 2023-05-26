@@ -24,13 +24,13 @@ class UpdateAtencionSeguimientoRequest extends FormRequest
     public function rules()
     {
         return [
-            'fkIdCooperadora'=>[
+            'fkCooperadora'=>[
                 'required',
-                'exists:Cooperadora,idCooperadora'
+                'exists:Cooperadora,id'
             ],
-            'fkIdPersonaRUCE'=>[
+            'fkPersonaRUCE'=>[
                 'required',
-                'exists:PersonaRUCE,idPersonaRUCE'
+                'exists:PersonaRUCE,id'
             ],
             'llamadas'=>[
                 'required',
@@ -74,8 +74,8 @@ class UpdateAtencionSeguimientoRequest extends FormRequest
     public function messages()
     {
         return[
-            'fkIdCooperadora.exists' => 'Id de Cooperadora no existe en tabla Cooperadora',
-            'fkIdPersonaRUCE.exists' => 'Id de PersonaRUCE no existe en tabla PersonaRUCE',
+            'fkCooperadora.exists' => 'Id de Cooperadora no existe en tabla Cooperadora',
+            'fkPersonaRUCE.exists' => 'Id de PersonaRUCE no existe en tabla PersonaRUCE',
         ];
     }
 }

@@ -12,11 +12,11 @@ class AtencionSeguimiento extends Model
     use HasFactory;
     use SoftDeletes;
     protected $table = 'AtencionSeguimiento';
-    protected $primaryKey = 'idAtencionSeguimiento';
+    protected $primaryKey = 'id';
     protected $dates = ['deleted_at'];
     protected $fillable = [
-        'fkIdCooperadora',
-        'fkIdPersonaRUCE',
+        'fkCooperadora',
+        'fkPersonaRUCE',
         'llamadas',
         'mesajes',
         'emailEnviados',

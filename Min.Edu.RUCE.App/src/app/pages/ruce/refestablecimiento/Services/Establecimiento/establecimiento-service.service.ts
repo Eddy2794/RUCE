@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { EstablecimientoModel } from '../../Models/Establecimiento/establecimiento-model';
 
 import { environment } from '@environments/environment';
-import { BaseService } from '@app/pages/organismos/shared/services';
+import { BaseService } from '@app/shared/services';
 
 @Injectable({
   providedIn: 'root'

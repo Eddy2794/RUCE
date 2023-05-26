@@ -30,10 +30,19 @@
                 </mat-form-field>
                 
                 <mat-form-field>
-                    <mat-label>Matricula</mat-label>
-                    <input matInput formControlName="matricula" type="number">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput formControlName="organizacionDesc" type="text">
                     <mat-error>
-                        <app-ver-error [control]="this.formularioEstablecimiento.controls['matricula']">
+                        <app-ver-error [control]="this.formularioEstablecimiento.controls['organizacionDesc']">
+                        </app-ver-error>
+                    </mat-error>
+                </mat-form-field>
+                
+                <mat-form-field>
+                    <mat-label>Anexo</mat-label>
+                    <input matInput formControlName="anexo" type="number">
+                    <mat-error>
+                        <app-ver-error [control]="this.formularioEstablecimiento.controls['anexo']">
                         </app-ver-error>
                     </mat-error>
                 </mat-form-field>

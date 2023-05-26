@@ -18,9 +18,9 @@ class AtencionSeguimientoIndexResourse extends JsonResource
     public function toArray($request)
     {
         return [
-            'idAtencionSeguimiento',
-            'fkIdCooperadora',
-            'fkIdPersonaRUCE',
+            'id',
+            'fkCooperadora',
+            'fkPersonaRUCE',
             'llamadas',
             'mesajes',
             'emailEnviados',

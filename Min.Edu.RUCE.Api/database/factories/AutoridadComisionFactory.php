@@ -24,9 +24,9 @@ class AutoridadComisionFactory extends Factory
         return [
             'inicioCargo' => $this->faker->date(),
             'finCargo' => $this->faker->date(),
-            'fkIdPersonaRUCE' => $this->faker->randomElement(PersonaRUCE::all()->getQueueableIds()),
-            'fkIdRefCargo' => $this->faker->randomElement(RefCargo::all()->getQueueableIds()),
-            'fkIdComision' => $this->faker->randomElement(Comision::all()->getQueueableIds()),
+            'fkPersonaRUCE' => $this->faker->randomElement(PersonaRUCE::all()->getQueueableIds()),
+            'fkRefCargo' => $this->faker->randomElement(RefCargo::all()->getQueueableIds()),
+            'fkComision' => $this->faker->randomElement(Comision::all()->getQueueableIds()),
             'estaActivo' => true,
             'fechaEliminacion' => '',
             'idUsuarioAlta' => $this->faker->randomElement(UsuarioRUCE::all()->getQueueableIds()),

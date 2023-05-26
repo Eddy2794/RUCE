@@ -1,10 +1,10 @@
 import { EspaciosDirective } from './directives/espacios/espacios.directive';
-import { ButtonGroupComponent } from '../../../components/button-group/button-group.component';
+import { ButtonGroupComponent } from '@app/components/button-group/button-group.component';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { MaterialModule } from '@app/pages/organismos/shared/material/material.module';
+import { MaterialModule } from '@app/shared/material/material.module';
 
 import { TableComponent, TableMapObject } from '@app/components/table/table.component';
 import { VerErrorComponent } from '@app/components/ver-error/ver-error.component';

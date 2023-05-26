@@ -93,7 +93,7 @@ class OrganizacionRUCEController extends Controller
     public function update(Request $request, int $organizacionRUCE): JsonResponse
     {
         try {
-            $organizacionRUCE = OrganizacionRUCE::where('idOrganizacionRUCE', $organizacionRUCE)->first();
+            $organizacionRUCE = OrganizacionRUCE::where('id', $organizacionRUCE)->first();
             $request = new UpdateOrganizacionRUCERequest($request->toArray());
             $organizacionRUCE->organizacionDesc = $request->organizacionDesc ?: $organizacionRUCE->organizacionDesc;
             $organizacionRUCE->cue = $request->cue ?: $organizacionRUCE->cue;
@@ -137,8 +137,8 @@ class OrganizacionRUCEController extends Controller
     public function destroy(int $id): JsonResponse
     {
         try {
-            OrganizacionRUCE::where('idOrganizacionRUCE', $id)->update(['estaActivo'=>false,]);
-            OrganizacionRUCE::where('idOrganizacionRUCE', $id)->delete();
+            OrganizacionRUCE::where('id', $id)->update(['estaActivo'=>false,]);
+            OrganizacionRUCE::where('id', $id)->delete();
             return response()->json([
                 'succeeded' => true,
                 'message' => 'Organizacion eliminada con exito'
@@ -160,8 +160,8 @@ class OrganizacionRUCEController extends Controller
 
         $query = $organizacionRUCE->newQuery();
 
-        if ($request->idOrganizacionRUCE) {
-            $query->where('idOrganizacionRUCE', $request->idOrganizacionRUCE)
+        if ($request->id) {
+            $query->where('id', $request->id)
                 ->where(function ($q) use ($request) {
                     if ($request->q) {
                         $q->where('cue', 'like', '%' . $request->q . '%')
@@ -175,7 +175,7 @@ class OrganizacionRUCEController extends Controller
             }
         }
 
-        // return new RequestCollection($query->orderBy('organizacionDesc')->paginate()->appends(['q' => $request->q, 'idOrganizacionRUCE' => $request->idOrganizacionRUCE]));
+        // return new RequestCollection($query->orderBy('organizacionDesc')->paginate()->appends(['q' => $request->q, 'id' => $request->id]));
     }
 
     // public function competencias($id)

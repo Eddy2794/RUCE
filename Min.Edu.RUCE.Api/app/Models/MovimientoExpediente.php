@@ -12,11 +12,11 @@ class MovimientoExpediente extends Model
     use HasFactory;
     use SoftDeletes;
     protected $table = 'MovimientoExpediente';
-    protected $primaryKey = 'idMovimientoExpediente';
+    protected $primaryKey = 'id';
     protected $dates = ['deleted_at'];
     protected $fillable = [
-        'fkIdExpediente',
-        'fkIdRefInstanciaInstrumento',
+        'fkExpediente',
+        'fkRefInstanciaInstrumento',
         'estaActivo',
         'idUsuarioAlta',
         'idUsuarioModificacion'

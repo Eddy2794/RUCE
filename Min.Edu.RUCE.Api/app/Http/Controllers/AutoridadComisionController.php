@@ -23,10 +23,10 @@ class AutoridadComisionController extends Controller
     {
         try {
             if ($request->has('page')) {
-                return new RequestCollection(AutoridadComision::orderBy('fkIdPersonaRUCE')->paginate());
+                return new RequestCollection(AutoridadComision::orderBy('fkPersonaRUCE')->paginate());
             }
 
-            return new RequestCollection(AutoridadComision::orderBy('fkIdPersonaRUCE')->get());
+            return new RequestCollection(AutoridadComision::orderBy('fkPersonaRUCE')->get());
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,
@@ -45,9 +45,9 @@ class AutoridadComisionController extends Controller
     {
         try {
             AutoridadComision::create([
-                'fkIdPersonaRUCE' => $request->fkIdPersonaRUCE,
-                'fkIdRefCargo' => $request->fkIdRefCargo,
-                'fkIdComision' => $request->fkIdComision,
+                'fkPersonaRUCE' => $request->fkPersonaRUCE,
+                'fkRefCargo' => $request->fkRefCargo,
+                'fkComision' => $request->fkComision,
                 'inicioCargo' => $request->inicioCargo,
                 'finCargo' => $request->finCargo,
             ]);
@@ -88,9 +88,9 @@ class AutoridadComisionController extends Controller
     public function update(UpdateAutoridadComisionRequest $request, AutoridadComision $autoridadComision)
     {
         try {
-            $autoridadComision->fkIdPersonaRUCE = $request->fkIdPersonaRuce ?: $autoridadComision->fkIdRefCargo;
-            $autoridadComision->fkIdRefCargo = $request->fkIdRefCargo ?: $autoridadComision->fkIdRefCargo;
-            $autoridadComision->fkIdComision = $request->fkIdComision ?: $autoridadComision->fkIdComision;
+            $autoridadComision->fkPersonaRUCE = $request->fkPersonaRUCE ?: $autoridadComision->fkRefCargo;
+            $autoridadComision->fkRefCargo = $request->fkRefCargo ?: $autoridadComision->fkRefCargo;
+            $autoridadComision->fkComision = $request->fkComision ?: $autoridadComision->fkComision;
             $autoridadComision->inicioCargo = $request->inicioCargo ?: $autoridadComision->inicioCargo;
             $autoridadComision->finCargo = $request->finCargo ?: $autoridadComision->finCargo;
             $autoridadComision->estaActivo = $request->estaActivo ?: $autoridadComision->estaActivo;

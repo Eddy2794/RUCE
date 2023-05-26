@@ -75,8 +75,8 @@ class ComisionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'fkIdCooperadora' => 'required',
-            'fkIdRefTipoComision' => 'required',
+            'fkCooperadora' => 'required',
+            'fkRefTipoComision' => 'required',
             'periodoInicio' => 'required',
             'periodoFin' => 'required',
             'nroSocios' => 'required',
@@ -89,8 +89,8 @@ class ComisionController extends Controller
 
         $comision = new Comision();
 
-        $comision-> fkIdCooperadora = $request->fkIdCooperadora;
-        $comision-> fkIdRefTipoComision = $request->fkIdRefTipoComision;
+        $comision-> fkCooperadora = $request->fkCooperadora;
+        $comision-> fkRefTipoComision = $request->fkRefTipoComision;
         $comision-> periodoInicio = $request->periodoInicio;
         $comision-> periodoFin = $request->periodoFin;
         $comision-> nroSocios = $request->nroSocios;
@@ -138,8 +138,8 @@ class ComisionController extends Controller
     public function update(Request $request, int $id)
     {
         $request->validate([
-            'fkIdCooperadora'=>'required',
-            'fkIdRefTipoComision'=>'required',
+            'fkCooperadora'=>'required',
+            'fkRefTipoComision'=>'required',
             'periodoInicio'=>'required',
             'periodoFin'=>'required',
             'nroSocios'=>'required',
@@ -151,8 +151,8 @@ class ComisionController extends Controller
         ]);
 
         Comision::where('id', $id)->update([
-            'fkIdCooperadora' => $request->fkIdCooperadora,
-            'fkIdRefTipoComision' => $request->fkIdRefTipoComision,
+            'fkCooperadora' => $request->fkCooperadora,
+            'fkRefTipoComision' => $request->fkRefTipoComision,
             'periodoInicio' => $request->periodoInicio,
             'periodoFin' => $request->periodoFin,
             'nroSocios' => $request->nroSocios,

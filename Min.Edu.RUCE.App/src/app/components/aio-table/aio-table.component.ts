@@ -10,9 +10,9 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldDefaultOptions } from '@ang
 import { stagger40ms } from '../../../@vex/animations/stagger.animation';
 import { UntypedFormControl } from '@angular/forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { IBaseService } from '@app/pages/organismos/shared/services/interface/i-base.service';
-import { DataPage, FilterOptions, PaginateOptions } from '@app/pages/organismos/shared/utils';
-import { SearchService } from '@app/pages/organismos/shared/services/search.service';
+import { IBaseService } from '@app/shared/services/interface/i-base.service';
+import { DataPage, FilterOptions, PaginateOptions } from '@app/shared/utils';
+import { SearchService } from '@app/shared/services/search.service';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 

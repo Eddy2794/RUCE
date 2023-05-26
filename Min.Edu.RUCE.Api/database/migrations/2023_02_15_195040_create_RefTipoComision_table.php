@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('RefTipoComision', function (Blueprint $table) {
-            $table->increments('idRefTipoComision');
+            $table->increments('id');
             $table->string('tipoComisionDesc');
             $table->timestamps();
         });

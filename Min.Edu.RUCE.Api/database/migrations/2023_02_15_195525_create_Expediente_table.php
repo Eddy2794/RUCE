@@ -15,10 +15,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('Expediente', function (Blueprint $table) {
-            $table->increments('idExpediente');
+            $table->increments('id');
 
-            $table->unsignedInteger('fkIdCooperadora');
-            $table->foreign('fkIdCooperadora')->references('idCooperadora')->on('Cooperadora')->onDelete('cascade');
+            $table->unsignedInteger('fkCooperadora');
+            $table->foreign('fkCooperadora')->references('id')->on('Cooperadora')->onDelete('cascade');
 
             $table->string('nroExpediente',100)->nullable(true);
             $table->integer('cantObservaciones')->default(0);

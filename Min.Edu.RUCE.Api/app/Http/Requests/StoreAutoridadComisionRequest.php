@@ -24,17 +24,17 @@ class StoreAutoridadComisionRequest extends FormRequest
     public function rules()
     {
         return [
-            'fkIdPersonaRUCE'=>[
+            'fkPersonaRUCE'=>[
                 'required',
-                'exists:PersonaRUCE,idPersonaRUCE'
+                'exists:PersonaRUCE,id'
             ],
-            'fkIdRefCargo' => [
+            'fkRefCargo' => [
                 'required',
-                'exists:RefCargo,idRefCargo'
+                'exists:RefCargo,id'
             ],
-            'fkIdComision' => [
+            'fkComision' => [
                 'required',
-                'exists:Comision,idComision'
+                'exists:Comision,id'
             ],
             'inicioCargo' => [
                 'required',
@@ -66,9 +66,9 @@ class StoreAutoridadComisionRequest extends FormRequest
     public function messages()
     {
         return [
-            'fkIdRefCargo.exists' => 'Id de Cargo no existe en tabla RefCargo.',
-            'fkIdPersonaRUCE.exists' => 'Id de Persona no existe en tabla PersonaRUCE.',
-            'fkIdComision.exists' => 'Id de Comision no existe en tabla Comision.'
+            'fkRefCargo.exists' => 'Id de Cargo no existe en tabla RefCargo.',
+            'fkPersonaRUCE.exists' => 'Id de Persona no existe en tabla PersonaRUCE.',
+            'fkComision.exists' => 'Id de Comision no existe en tabla Comision.'
         ];
     }
 }

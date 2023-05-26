@@ -11,11 +11,11 @@ class UsuarioRUCE extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $table = 'UsuarioRuce';
-    protected $primaryKey = 'idUsuarioRuce';
+    protected $table = 'UsuarioRUCE';
+    protected $primaryKey = 'id';
     protected $dates = ['deleted_at'];
     protected $fillable = [
-        'fkIdPersonaRUCE',
+        'fkPersonaRUCE',
         'password',
         'username',
         'estaActivo',

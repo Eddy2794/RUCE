@@ -28,11 +28,11 @@ class ModelResourse extends JsonResource
     {
         if ($this->model != ''){
             $modelo = new $this->model();
-            $datos = $modelo::where('id'.$this->nombre,$this->id)->get();
-            return ['entity'=>$datos];
+            $datos = $modelo::where('id',$this->id)->get();
+            return ['entities'=>$datos];
         }
         else return [
-            'entity'=>[]
+            'entities'=>[]
         ];
     }
 

@@ -46,8 +46,8 @@ class AtencionSeguimientoController extends Controller
     {
                 try {
             AtencionSeguimiento::create([
-                'fkIdCooperadora' => $request->fkIdCooperadora,
-                'fkIdPersonaRUCE' => $request->fkIdPersonaRUCE,
+                'fkCooperadora' => $request->fkCooperadora,
+                'fkPersonaRUCE' => $request->fkPersonaRUCE,
                 'llamadas' => $request->llamadas,
                 'mesajes' => $request->mesajes,
                 'emailEnviados' => $request->emailEnviados,
@@ -97,8 +97,8 @@ class AtencionSeguimientoController extends Controller
     public function update(UpdateAtencionSeguimientoRequest $request, AtencionSeguimiento $atencionSeguimiento)
     {
         try {
-            $atencionSeguimiento->fkIdCooperadora = $request->fkIdCooperadora ?: $atencionSeguimiento->fkIdCooperadora;
-            $atencionSeguimiento->fkIdPersonaRUCE = $request->fkIdPersonaRUCE ?: $atencionSeguimiento->fkIdPersonaRUCE;
+            $atencionSeguimiento->fkCooperadora = $request->fkCooperadora ?: $atencionSeguimiento->fkCooperadora;
+            $atencionSeguimiento->fkPersonaRUCE = $request->fkPersonaRUCE ?: $atencionSeguimiento->fkPersonaRUCE;
             $atencionSeguimiento->llamadas = $request->llamadas ?: $atencionSeguimiento->llamadas;
             $atencionSeguimiento->mesajes = $request->mesajes ?: $atencionSeguimiento->mesajes;
             $atencionSeguimiento->emailEnviados = $request->emailEnviados ?: $atencionSeguimiento->emailEnviados;
@@ -167,21 +167,21 @@ class AtencionSeguimientoController extends Controller
 
         $query = $atencionSeguimiento->newQuery();
 
-        if ($request->fkidCooperadora) {
-            $query->where('fkIdCooperadora', $request->fkIdCooperadora)
+        if ($request->fkCooperadora) {
+            $query->where('fkCooperadora', $request->fkCooperadora)
                 ->where(function ($q) use ($request) {
                     if ($request->q) {
-                        $q->where('fkidCooperadora', 'like', '%' . $request->q . '%')
+                        $q->where('fkCooperadora', 'like', '%' . $request->q . '%')
                             ->orWhere('denominacion', 'like', '%' . $request->q . '%');
                     }
                 });
         } else {
             if ($request->q) {
-                $query->where('fkidCooperadora', 'like', '%' . $request->q . '%')
+                $query->where('fkCooperadora', 'like', '%' . $request->q . '%')
                     ->orWhere('denominacion', 'like', '%' . $request->q . '%');
             }
         }
 
-        return new RequestCollection($query->orderBy('denominacion')->paginate()->appends(['q' => $request->q, 'fkidCooperadora' => $request->fkidCooperadora]));
+        return new RequestCollection($query->orderBy('denominacion')->paginate()->appends(['q' => $request->q, 'fkCooperadora' => $request->fkCooperadora]));
     }
 }

@@ -13,7 +13,7 @@ class RefTipoDocumentoRUCE extends Model
     use SoftDeletes;
 
     protected $table = 'RefTipoDocumentoRUCE';
-    protected $primaryKey = 'idRefTipoDocumentoRUCE';
+    protected $primaryKey = 'id';
     protected $dates = ['deleted_at'];
     protected $fillable = [
         'tipoDocumentoDesc'

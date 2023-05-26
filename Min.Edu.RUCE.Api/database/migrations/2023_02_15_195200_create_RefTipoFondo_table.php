@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('RefTipoFondo', function (Blueprint $table) {
-            $table->increments('idRefTipoFondo');
+            $table->increments('id');
             $table->string('tipoFondoDesc',200);
             $table->timestamps();
         });

@@ -13,7 +13,7 @@ class RefCargo extends Model
     use SoftDeletes;
 
     protected $table = 'RefCargo';
-    protected $primaryKey = 'idRefCargo';
+    protected $primaryKey = 'id';
     protected $dates = ['deleted_at'];
     protected $fillable = [
         'cargoDesc'

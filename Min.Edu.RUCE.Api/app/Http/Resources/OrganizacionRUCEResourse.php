@@ -12,7 +12,7 @@ class OrganizacionRUCEResourse extends JsonResource
     public function toArray($request)
     {
         $model = new OrganizacionRUCE();
-        $datos = $model::where('idOrganizacionRUCE',$request->get('id'))->get()->toArray();
+        $datos = $model::where('id',$request->get('id'))->get()->toArray();
         return $datos;
     }
 

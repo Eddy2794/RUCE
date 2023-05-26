@@ -14,12 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('PersonaRUCE', function (Blueprint $table) {
-            $table->increments('idPersonaRUCE');
+            $table->increments('id');
             $table->string('cuil')->unique();
             $table->integer('documento')->unique();
 
             $table->unsignedInteger('fkIdRefTipoDocumento');
-            $table->foreign('fkIdRefTipoDocumento')->references('idRefTipoDocumentoRUCE')->on('RefTipoDocumentoRUCE')->onDelete('cascade');
+            $table->foreign('fkIdRefTipoDocumento')->references('id')->on('RefTipoDocumentoRUCE')->onDelete('cascade');
 
             $table->string('email');
             $table->unique('email');

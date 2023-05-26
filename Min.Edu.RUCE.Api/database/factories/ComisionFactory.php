@@ -22,7 +22,7 @@ class ComisionFactory extends Factory
     {
         $valor = $this->faker->randomElement([true,false]);
         return [
-            'fkIdCooperadora' => $this->faker->randomElement(Cooperadora::all()->getQueueableIds()),
+            'fkCooperadora' => $this->faker->randomElement(Cooperadora::all()->getQueueableIds()),
             'fkRefTipoComision' => $this->faker->randomElement(RefTipoComision::all()->getQueueableIds()),
             'periodoInicio' => $this->faker->dateTime(),
             'periodoFin' => $this->faker->dateTime(),

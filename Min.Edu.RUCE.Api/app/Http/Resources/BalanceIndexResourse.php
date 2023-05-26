@@ -18,7 +18,7 @@ class BalanceIndexResourse extends JsonResource
     public function toArray($request)
     {
         return [
-            'fkIdCooperadora',
+            'fkCooperadora',
             'estadoBalance',
             'estaActivo',
             'fechaEliminacion',

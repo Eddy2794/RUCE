@@ -13,7 +13,7 @@ class Fondo extends Model
     use SoftDeletes;
 
     protected $table = 'Fondo';
-    protected $primaryKey = 'idFondo';
+    protected $primaryKey = 'id';
     protected $dates = ['deleted_at'];
     protected $fillable = [
         'fkIdTipoFondo',

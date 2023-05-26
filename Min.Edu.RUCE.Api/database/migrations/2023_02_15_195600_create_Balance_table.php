@@ -14,10 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('Balance', function (Blueprint $table) {
-            $table->increments('idBalance');
+            $table->increments('id');
 
-            $table->unsignedInteger('fkIdCooperadora');
-            $table->foreign('fkIdCooperadora')->references('idCooperadora')->on('Cooperadora')->onDelete('cascade');
+            $table->unsignedInteger('fkCooperadora');
+            $table->foreign('fkCooperadora')->references('id')->on('Cooperadora')->onDelete('cascade');
 
             $table->boolean('estadoBalance')->default(false);
             $table->boolean('estaActivo')->default(true);

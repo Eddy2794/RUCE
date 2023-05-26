@@ -2,10 +2,10 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { ColumnOptions, FilterOptions } from '@app/pages/organismos/shared/utils';
+import { ColumnOptions, FilterOptions } from '@app/shared/utils';
 import { RefGrupoNivelModel } from '@app/pages/organismos/refgruponivel/model/refgruponivel.model';
 import { RefGrupoNivelService } from '@app/pages/organismos/refgruponivel/services/refgruponivel.service';
-import { SearchOptionsGeneric, TypeControl, TypeData } from '@app/pages/organismos/shared/utils/search-options-generic';
+import { SearchOptionsGeneric, TypeControl, TypeData } from '@app/shared/utils/search-options-generic';
 import { TableColumn } from 'src/@vex/interfaces/table-column.interface';
 
 

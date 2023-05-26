@@ -14,13 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('MovimientoExpediente', function (Blueprint $table) {
-            $table->increments('idMovimientoExpediente');
+            $table->increments('id');
 
-            $table->unsignedInteger('fkIdExpediente');
-            $table->foreign('fkIdExpediente')->references('idExpediente')->on('Expediente')->onDelete('cascade');
+            $table->unsignedInteger('fkExpediente');
+            $table->foreign('fkExpediente')->references('id')->on('Expediente')->onDelete('cascade');
 
-            $table->unsignedInteger('fkIdRefInstanciaInstrumento');
-            $table->foreign('fkIdRefInstanciaInstrumento')->references('idRefInstanciaInstrumento')->on('RefInstanciaInstrumento')->onDelete('cascade');
+            $table->unsignedInteger('fkRefInstanciaInstrumento');
+            $table->foreign('fkRefInstanciaInstrumento')->references('id')->on('RefInstanciaInstrumento')->onDelete('cascade');
 
             $table->boolean('estaActivo')->default(true);
             $table->dateTime('fechaEliminacion')->nullable(true);

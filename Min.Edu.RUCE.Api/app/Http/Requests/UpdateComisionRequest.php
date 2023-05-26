@@ -24,11 +24,11 @@ class UpdateComisionRequest extends FormRequest
     public function rules()
     {
         return [
-            'fkIdCooperadora' => [
+            'fkCooperadora' => [
                 'required',
-                'exists:Cooperadora,idCooperadora'
+                'exists:Cooperadora,id'
             ],
-            'fkIdRefTipoComision' => [
+            'fkRefTipoComision' => [
                 'required',
                 'exists:RefTipoComision,idTipoComision'
             ],
@@ -62,8 +62,8 @@ class UpdateComisionRequest extends FormRequest
     public function messages()
     {
         return [
-            'fkIdCooperadora.exist' => 'Id de Cooperadora no existe en la tabla Cooperdora.',
-            'fkIdRefTipoComision.exist' => 'Id de TipoComision no existe en la tabla RefTipoComision.'
+            'fkCooperadora.exist' => 'Id de Cooperadora no existe en la tabla Cooperdora.',
+            'fkRefTipoComision.exist' => 'Id de TipoComision no existe en la tabla RefTipoComision.'
         ];
     }
 }

@@ -18,8 +18,8 @@ class ComisionIndexResourse extends JsonResource
     public function toArray($request)
     {
         return [
-            'fkIdCooperadora',
-            'fkIdRefTipoComision',
+            'fkCooperadora',
+            'fkRefTipoComision',
             'periodoInicio',
             'periodoFin',
             'nroSocios',

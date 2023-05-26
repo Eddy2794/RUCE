@@ -25,14 +25,14 @@ class StoreOrganizacionRUCERequest extends FormRequest
     public function rules()
     {
         return [
-            'idOrganizacionRUCE' => [
+            'id' => [
                 'required',
-                'exists:OrganizacionRUCE,idOrganizacionRUCE'
+                'exists:OrganizacionRUCE,id'
             ],
             'organizacionDesc' => [
                 'required',
                 'string',
-                Rule::unique('OrganizacionRUCE','organizacionDesc')->where('idOrganizacionRUCE',$this->idOrganizacionRUCE)->withoutTrashed()
+                Rule::unique('OrganizacionRUCE','organizacionDesc')->where('id',$this->id)->withoutTrashed()
             ],
             'cue' => [
                 'required',
@@ -84,7 +84,7 @@ class StoreOrganizacionRUCERequest extends FormRequest
     public function messages()
     {
         return [
-            'idOrganizacionRUCE.exist' => 'Id de OrganizacionRUCE no existe en la tabla OrganizacionRUCE.',
+            'id.exist' => 'Id de OrganizacionRUCE no existe en la tabla OrganizacionRUCE.',
             'organizacionDesc.unique' => 'El nombre de la Oganizacion ya fue registrado.',
             'cue.unique' => 'El CUE de la Ognaizacion ya fue registrado.',
             'telefono.unique' => 'El telefono de la Organizacion ya fue registrado.',

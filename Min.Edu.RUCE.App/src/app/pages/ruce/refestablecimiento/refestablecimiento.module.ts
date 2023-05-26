@@ -10,7 +10,7 @@ import { AutoridadEstablecimientoService } from './Services/AutoridadEstablecimi
 
 import { RefEstablecimientoRoutingModule } from './refestablecimiento-routing.module';
 
-import { SharedModule } from '@app/pages/organismos/shared/shared.module';
+import { SharedModule } from '@app/shared/shared.module';
 import { PageLayoutModule } from 'src/@vex/components/page-layout/page-layout.module';
 import { BreadcrumbsModule } from 'src/@vex/components/breadcrumbs/breadcrumbs.module';
 import { SecondaryToolbarModule } from 'src/@vex/components/secondary-toolbar/secondary-toolbar.module';

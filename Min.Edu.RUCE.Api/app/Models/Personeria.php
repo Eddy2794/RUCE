@@ -12,11 +12,11 @@ class Personeria extends Model
     use HasFactory;
     use SoftDeletes;
     protected $table = 'Personeria';
-    protected $primaryKey = 'idPersoneria';
+    protected $primaryKey = 'id';
     protected $dates = ['deleted_at'];
     protected $fillable = [
-        'fkIdExpediente',
-        'fkIdCooperadora',
+        'fkExpediente',
+        'fkCooperadora',
         'decreto',
         'nroResolucion',
         'fecha',

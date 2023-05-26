@@ -14,13 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('Cooperadora', function (Blueprint $table) {
-            $table->increments('idCooperadora');
+            $table->increments('id');
 
-            $table->unsignedInteger('fkIdRefTipoAsociacion');
-            $table->foreign('fkIdRefTipoAsociacion')->references('idRefTipoAsociacion')->on('RefTipoAsociacion')->onDelete('cascade');
+            $table->unsignedInteger('fkRefTipoAsociacion');
+            $table->foreign('fkRefTipoAsociacion')->references('id')->on('RefTipoAsociacion')->onDelete('cascade');
 
-            $table->unsignedInteger('fkIdOrganizacionRUCE');
-            $table->foreign('fkIdOrganizacionRUCE')->references('idOrganizacionRUCE')->on('OrganizacionRUCE')->onDelete('cascade');
+            $table->unsignedInteger('fkOrganizacionRUCE');
+            $table->foreign('fkOrganizacionRUCE')->references('id')->on('OrganizacionRUCE')->onDelete('cascade');
 
             $table->string('cuit',13)->nullable(true);
             $table->string('legajo',200)->nullable(true);

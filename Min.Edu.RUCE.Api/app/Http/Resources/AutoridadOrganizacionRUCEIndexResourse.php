@@ -18,9 +18,9 @@ class AutoridadOrganizacionRUCEIndexResourse extends JsonResource
     public function toArray($request)
     {
         return [
-            'fkIdRefCargo',
-            'fkIdPersonaRUCE',
-            'fkIdOrganizacionRUCE',
+            'fkRefCargo',
+            'fkPersonaRUCE',
+            'fkOrganizacionRUCE',
             'inicioCargo',
             'finCargo',
             'estaActivo',

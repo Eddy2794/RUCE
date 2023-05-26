@@ -75,7 +75,7 @@ class MatriculaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'fkIdOrganizacionRUCE' => 'required',
+            'fkOrganizacionRUCE' => 'required',
             'periodoLectivo' => 'required',
             'matricula' => 'required',
             'estaActivo' => 'required',
@@ -86,7 +86,7 @@ class MatriculaController extends Controller
 
         $matricula = new Matricula();
 
-        $matricula->fkIdOrganizacionRUCE = $request->fkIdOrganizacionRUCE;
+        $matricula->fkOrganizacionRUCE = $request->fkOrganizacionRUCE;
         $matricula->periodoLectivo = $request->periodoLectivo;
         $matricula->matricula = $request->matricula;
         $matricula->estaActivo = $request->estaActivo;
@@ -132,7 +132,7 @@ class MatriculaController extends Controller
     public function update(Request $request, int $id)
     {
         $request->validate([
-            'fkIdOrganizacionRUCE'=>'required',
+            'fkOrganizacionRUCE'=>'required',
             'periodoLectivo'=>'required',
             'matricula'=>'required',
             'estaActivo'=>'required',
@@ -142,7 +142,7 @@ class MatriculaController extends Controller
         ]);
 
         Matricula::where('id',$id)->update([
-            'fkIdOrganizacionRUCE' => $request->fkIdOrganizacionRUCE,
+            'fkOrganizacionRUCE' => $request->fkOrganizacionRUCE,
             'periodoLectivo' => $request->periodoLectivo,
             'matricula' => $request->matricula,
             'estaActivo' => $request->estaActivo,

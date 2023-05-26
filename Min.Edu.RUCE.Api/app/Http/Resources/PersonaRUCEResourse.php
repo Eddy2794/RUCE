@@ -17,7 +17,7 @@ class PersonaRUCEResourse extends JsonResource
     public function toArray($request)
     {
         $model = new PersonaRUCE();
-        $datos = $model::where('idPersonaRUCE',$request->get('id'))->get()->toArray();
+        $datos = $model::where('id',$request->get('id'))->get()->toArray();
         return $datos;
     }
 

@@ -76,8 +76,8 @@ class MovimientoExpedienteController extends Controller
         //visualiza los datos que se estan mandando en el requiest de la peticion
         // dd($request->all());
         $request->validate([
-            'fkIdExpediente' => 'required',
-            'fkIdRefInstanciaInstrumento' => 'required',
+            'fkExpediente' => 'required',
+            'fkRefInstanciaInstrumento' => 'required',
             'estaActivo' => 'required',
             'fechaEliminacion' => 'required',
             'idUsuarioAlta' => 'required',
@@ -86,8 +86,8 @@ class MovimientoExpedienteController extends Controller
 
         $movimientoExpediente = new MovimientoExpediente();
 
-        $movimientoExpediente->fkIdExpediente = $request->fkIdExpediente;
-        $movimientoExpediente->fkIdRefInstanciaInstrumento = $request->fkIdRefInstanciaInstrumento;
+        $movimientoExpediente->fkExpediente = $request->fkExpediente;
+        $movimientoExpediente->fkRefInstanciaInstrumento = $request->fkRefInstanciaInstrumento;
         $movimientoExpediente->estaActivo = $request->estaActivo;
         $movimientoExpediente->fechaEliminacion = $request->fechaEliminacion;
         $movimientoExpediente->idUsuarioAlta = $request->idUsuarioAlta;
@@ -133,8 +133,8 @@ class MovimientoExpedienteController extends Controller
     public function update(Request $request, int $id)
     {
         $request->validate([
-            'fkIdExpediente'=>'required',
-            'fkIdRefInstanciaInstrumento'=>'required',
+            'fkExpediente'=>'required',
+            'fkRefInstanciaInstrumento'=>'required',
             'estaActivo'=>'required',
             'fechaEliminacion'=>'required',
             'idUsuarioAlta'=>'required',
@@ -142,8 +142,8 @@ class MovimientoExpedienteController extends Controller
         ]);
 
         MovimientoExpediente::where('id',$id)->update([
-            'fkIdExpediente' => $request->fkIdExpediente,
-            'fkIdRefInstanciaInstrumento' => $request->fkIdRefInstanciaInstrumento,
+            'fkExpediente' => $request->fkExpediente,
+            'fkRefInstanciaInstrumento' => $request->fkRefInstanciaInstrumento,
             'estaActivo' => $request->estaActivo,
             'fechaEliminacion' => $request->fechaEliminacion,
             'idUsuarioAlta' => $request->idUsuarioAlta,

@@ -76,8 +76,8 @@ class CooperadoraController extends Controller
         //visualiza los datos que se estan mandando en el requiest de la peticion
         // dd($request->all());
         $request->validate([
-            'fkIdRefTipoAsociacion' => 'required',
-            'fkIdOrganizacionRUCE' => 'required',
+            'fkRefTipoAsociacion' => 'required',
+            'fkOrganizacionRUCE' => 'required',
             'cuit' => 'required',
             'legajo' => 'required',
             'denominacion' => 'required',
@@ -94,8 +94,8 @@ class CooperadoraController extends Controller
 
         $cooperadora = new Cooperadora();
 
-        $cooperadora->fkIdRefTipoAsociacion = $request->fkIdRefTipoAsociacion;
-        $cooperadora->fkIdOrganizacionRUCE = $request->fkIdOrganizacionRUCE;
+        $cooperadora->fkRefTipoAsociacion = $request->fkRefTipoAsociacion;
+        $cooperadora->fkOrganizacionRUCE = $request->fkOrganizacionRUCE;
         $cooperadora->cuit = $request->cuit;
         $cooperadora-> legajo=  $request->legajo;
         $cooperadora-> denominacion=  $request->denominacion;
@@ -149,8 +149,8 @@ class CooperadoraController extends Controller
     public function update(Request $request, Cooperadora $cooperadora)
     {
         $request->validate([
-            'fkIdRefTipoAsociacion' => 'required',
-            'fkIdOrganizacionRUCE' => 'required',
+            'fkRefTipoAsociacion' => 'required',
+            'fkOrganizacionRUCE' => 'required',
             'cuit' => 'required',
             'legajo' => 'required',
             'denominacion' => 'required',
@@ -166,8 +166,8 @@ class CooperadoraController extends Controller
         ]);
 
         $cooperadora->update([
-            'fkIdRefTipoAsociacion' => $request->fkIdRefTipoAsociacion,
-            'fkIdOrganizacionRUCE' => $request->fkIdOrganizacionRUCE,
+            'fkRefTipoAsociacion' => $request->fkRefTipoAsociacion,
+            'fkOrganizacionRUCE' => $request->fkOrganizacionRUCE,
             'cuit' => $request->cuit,
             'legajo' => $request->legajo,
             'denominacion' => $request->denominacion,

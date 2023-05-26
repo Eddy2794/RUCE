@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('RefInstanciaInstrumento', function (Blueprint $table) {
-            $table->increments('idRefInstanciaInstrumento');
+            $table->increments('id');
             $table->string('InstrumentoDesc');
             $table->timestamps();
         });

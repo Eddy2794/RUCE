@@ -19,7 +19,7 @@ class BalanceFactory extends Factory
     public function definition()
     {
         return [
-            'fkIdCooperadora' => $this->faker->randomElement(Cooperadora::all()->getQueueableIds()),
+            'fkCooperadora' => $this->faker->randomElement(Cooperadora::all()->getQueueableIds()),
             'estadoBalance' => false,
             'estaActivo' => true,
             'fechaEliminacion' => '',

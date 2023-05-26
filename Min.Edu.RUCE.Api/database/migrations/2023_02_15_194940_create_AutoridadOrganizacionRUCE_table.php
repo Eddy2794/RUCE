@@ -14,16 +14,16 @@ return new class extends Migration
     public function up()
     {
         Schema::create('AutoridadOrganizacionRUCE', function (Blueprint $table) {
-            $table->increments('idAutoridadOrganizacionRUCE');
+            $table->increments('id');
 
-            $table->unsignedInteger('fkIdRefCargo');
-            $table->foreign('fkIdRefCargo')->references('idRefCargo')->on('RefCargo')->onDelete('cascade');
+            $table->unsignedInteger('fkRefCargo');
+            $table->foreign('fkRefCargo')->references('id')->on('RefCargo')->onDelete('cascade');
 
-            $table->unsignedInteger('fkIdPersonaRUCE');
-            $table->foreign('fkIdPersonaRUCE')->references('idPersonaRUCE')->on('PersonaRuce')->onDelete('cascade');
+            $table->unsignedInteger('fkPersonaRUCE');
+            $table->foreign('fkPersonaRUCE')->references('id')->on('PersonaRuce')->onDelete('cascade');
 
-            $table->unsignedInteger('fkIdOrganizacionRUCE');
-            $table->foreign('fkIdOrganizacionRUCE')->references('idOrganizacionRUCE')->on('OrganizacionRUCE')->onDelete('cascade');
+            $table->unsignedInteger('fkOrganizacionRUCE');
+            $table->foreign('fkOrganizacionRUCE')->references('id')->on('OrganizacionRUCE')->onDelete('cascade');
 
             $table->dateTime('inicioCargo')->nullable(true);
             $table->dateTime('finCargo')->nullable(true);

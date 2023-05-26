@@ -19,7 +19,7 @@ class AutoridadComisionResourse extends JsonResource
     public function toArray($request)
     {
         $model = new AutoridadComision();
-        $datos = $model::where('idAutoridadComision',$request->get('id'))->get()->toArray();
+        $datos = $model::where('id',$request->get('id'))->get()->toArray();
         return $datos;
     }
 

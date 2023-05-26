@@ -21,8 +21,8 @@ class CooperadoraFactory extends Factory
     {
         $valor = $this->faker->randomElement([false,true]);
         return [
-            'fkIdRefTipoAsociacion' => $this->faker->randomElement(RefTipoAsociacion::all()->getQueueableIds()),
-            'fkIdOrganizacionRUCE' => $this->faker->randomElement(OrganizacionRUCE::all()->getQueueableIds()),
+            'fkRefTipoAsociacion' => $this->faker->randomElement(RefTipoAsociacion::all()->getQueueableIds()),
+            'fkOrganizacionRUCE' => $this->faker->randomElement(OrganizacionRUCE::all()->getQueueableIds()),
 
             'legajo' => "legajo ".$this->faker->unique()->numerify("###"),
             'denominacion' => $this->faker->domainName,

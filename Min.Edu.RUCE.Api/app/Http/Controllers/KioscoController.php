@@ -74,8 +74,8 @@ class KioscoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'fkIdCooperadora' => 'required',
-            'idPersonaRUCE' => 'required',
+            'fkCooperadora' => 'required',
+            'id' => 'required',
             'accesoLicitacion' => 'required',
             'documentacionPresentada' => 'required',
             'periodoInicio' => 'required',
@@ -88,8 +88,8 @@ class KioscoController extends Controller
 
         $kiosco = new Kiosco();
 
-        $kiosco-> fkIdCooperadora= $request->fkIdCooperadora;
-        $kiosco-> idPersonaRUCE= $request->idPersonaRUCE;
+        $kiosco-> fkCooperadora= $request->fkCooperadora;
+        $kiosco-> id= $request->id;
         $kiosco-> accesoLicitacion= $request->accesoLicitacion;
         $kiosco-> documentacionPresentada= $request->documentacionPresentada;
         $kiosco-> periodoInicio= $request->periodoInicio;
@@ -139,8 +139,8 @@ class KioscoController extends Controller
     public function update(Request $request, Kiosco $kiosco)
     {
         $request->validate([
-            'fkIdCooperadora' => 'required',
-            'idPersonaRUCE' => 'required',
+            'fkCooperadora' => 'required',
+            'id' => 'required',
             'accesoLicitacion' => 'required',
             'documentacionPresentada' => 'required',
             'periodoInicio' => 'required',
@@ -152,8 +152,8 @@ class KioscoController extends Controller
         ]);
 
         $kiosco->update([
-            'fkIdCooperadora' => $request->fkIdCooperadora,
-            'idPersonaRUCE' => $request->idPersonaRUCE,
+            'fkCooperadora' => $request->fkCooperadora,
+            'id' => $request->id,
             'accesoLicitacion' => $request->accesoLicitacion,
             'documentacionPresentada' => $request->documentacionPresentada,
             'periodoInicio' => $request->periodoInicio,

@@ -24,10 +24,10 @@ class AutoridadOrganizacionRUCEController extends Controller
         // return typeOf($request->page);
         try {
             if ($request->has('page')) {
-                return new RequestCollection(AutoridadOrganizacionRUCE::orderBy('fkIdPersonaRUCE')->paginate());
+                return new RequestCollection(AutoridadOrganizacionRUCE::orderBy('fkPersonaRUCE')->paginate());
             }
 
-            return new RequestCollection(AutoridadOrganizacionRUCE::orderBy('fkIdPersonaRUCE')->get());
+            return new RequestCollection(AutoridadOrganizacionRUCE::orderBy('fkPersonaRUCE')->get());
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,
@@ -46,9 +46,9 @@ class AutoridadOrganizacionRUCEController extends Controller
     {
         try {
             AutoridadOrganizacionRUCE::create([
-                'fkIdRefCargo' => $request->fkIdRefCargo,
-                'fkIdPersonaRUCE' => $request->fkIdPersonaRUCE,
-                'fkIdOrganizacionRUCE' => $request->fkIdOrganizacionRUCE,
+                'fkRefCargo' => $request->fkRefCargo,
+                'fkPersonaRUCE' => $request->fkPersonaRUCE,
+                'fkOrganizacionRUCE' => $request->fkOrganizacionRUCE,
                 'inicioCargo' => $request->inicioCargo,
                 'finCargo' => $request->finCargo,
             ]);
@@ -89,9 +89,9 @@ class AutoridadOrganizacionRUCEController extends Controller
     public function update(UpdateAutoridadOrganizacionRUCERequest $request, AutoridadOrganizacionRUCE $autoridadOrganizacionRUCE)
     {
         try {
-            $autoridadOrganizacionRUCE->fkIdRefCargo = $request->fkIdRefCargo ?: $autoridadOrganizacionRUCE->fkIdRefCargo;
-            $autoridadOrganizacionRUCE->fkIdPersonaRUCE = $request->fkIdPersonaRuce ?: $autoridadOrganizacionRUCE->fkIdRefCargo;
-            $autoridadOrganizacionRUCE->fkIdOrganizacionRUCE = $request->fkIdOrganizacionRUCE ?: $autoridadOrganizacionRUCE->fkIdOrganizacionRUCE;
+            $autoridadOrganizacionRUCE->fkRefCargo = $request->fkRefCargo ?: $autoridadOrganizacionRUCE->fkRefCargo;
+            $autoridadOrganizacionRUCE->fkPersonaRUCE = $request->fkPersonaRUCE ?: $autoridadOrganizacionRUCE->fkRefCargo;
+            $autoridadOrganizacionRUCE->fkOrganizacionRUCE = $request->fkOrganizacionRUCE ?: $autoridadOrganizacionRUCE->fkOrganizacionRUCE;
             $autoridadOrganizacionRUCE->inicioCargo = $request->inicioCargo ?: $autoridadOrganizacionRUCE->inicioCargo;
             $autoridadOrganizacionRUCE->finCargo = $request->finCargo ?: $autoridadOrganizacionRUCE->finCargo;
             $autoridadOrganizacionRUCE->estaActivo = $request->estaActivo ?: $autoridadOrganizacionRUCE->estaActivo;

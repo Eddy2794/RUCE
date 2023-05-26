@@ -77,7 +77,7 @@ class BalanceController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'fkIdCooperadora' =>'required',
+            'fkCooperadora' =>'required',
             'estadoBalance' =>'required',
             'estaActivo' =>'required',
             'fechaEliminacion' =>'required',
@@ -89,7 +89,7 @@ class BalanceController extends Controller
         $balance = new Balance();
 
         //asigmacion de los datos profvenientes del requies hacia la instancia de autoridad
-        $balance-> fkIdCooperadora = $request-> fkIdCooperadora;
+        $balance-> fkCooperadora = $request-> fkCooperadora;
         $balance-> estadoBalance = $request-> estadoBalance;
         $balance-> estaActivo = $request-> estaActivo;
         $balance-> fechaEliminacion = $request-> fechaEliminacion;
@@ -135,7 +135,7 @@ class BalanceController extends Controller
     public function update(Request $request, int $id)
     {
         $request->validate([
-            'fkIdCooperadora' =>'required',
+            'fkCooperadora' =>'required',
             'estadoBalance' =>'required',
             'estaActivo' =>'required',
             'fechaEliminacion' =>'required',
@@ -145,7 +145,7 @@ class BalanceController extends Controller
 
                 //se obtiene una autoridad establecimiento educativo desde la base de datos y actualizo sus datos
                 Balance::where('id', $id )->update([
-                    'fkIdCooperadora' => $request->fkIdCooperadora,
+                    'fkCooperadora' => $request->fkCooperadora,
                     'estadoBalance' => $request->estadoBalance,
                     'estaActivo' => $request->estaActivo,
                     'fechaEliminacion' => $request->fechaEliminacion,

@@ -11,7 +11,7 @@ class OrganizacionRUCEIndexResourse extends JsonResource
     public function toArray($request)
     {
         return [
-            'idOrganizacionRUCE',
+            'id',
             'organizacionDesc',
             'cue',
             'anexo',

@@ -18,9 +18,9 @@ class AutoridadComisionIndexResourse extends JsonResource
     public function toArray($request)
     {
         return [
-            'fkIdPersonaRUCE',
-            'fkIdRefCargo',
-            'fkIdComision',
+            'fkPersonaRUCE',
+            'fkRefCargo',
+            'fkComision',
             'inicioCargo',
             'finCargo',
             'estaActivo',

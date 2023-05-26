@@ -14,14 +14,14 @@ return new class extends Migration
     public function up()
     {
         Schema::create('UsuarioRUCE', function (Blueprint $table) {
-            $table->increments('idUsuarioRUCE');
+            $table->increments('id');
 
             $table->string('password');
             $table->string('username');
             $table->boolean('administrador')->default(false);
 
-            $table->unsignedInteger('fkIdPersonaRUCE');
-            $table->foreign('fkIdPersonaRUCE')->references('idPersonaRUCE')->on('PersonaRuce')->onDelete('cascade');
+            $table->unsignedInteger('fkPersonaRUCE');
+            $table->foreign('fkPersonaRUCE')->references('id')->on('PersonaRuce')->onDelete('cascade');
 
             $table->boolean('estaActivo')->default(true)->nullable(false);
             $table->dateTime('fechaEliminacion')->nullable(true);

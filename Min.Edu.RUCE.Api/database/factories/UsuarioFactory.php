@@ -18,7 +18,7 @@ class UsuarioFactory extends Factory
     public function definition()
     {
         return [
-            'fkIdPersonaRUCE' => $this->faker->randomElement(Persona::all()->getQueueableIds()),
+            'fkPersonaRUCE' => $this->faker->randomElement(Persona::all()->getQueueableIds()),
             'username' => $this->faker->userName(),
             'password' => $this->faker->password(),
             'estaActivo' => true,

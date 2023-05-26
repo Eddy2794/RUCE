@@ -15,14 +15,14 @@ class UsuarioAdministradorSeeder extends Seeder
     public function run()
     {
         $user1 = new UsuarioRUCE();
-        $user1->fkIdPersonaRUCE=1;
+        $user1->fkPersonaRUCE=1;
         $user1->username = "edgardo";
         $user1->password = "12345";
         $user1->administrador = true;
         $user1->save();
 
         $user2 = new UsuarioRUCE();
-        $user2->fkIdPersonaRUCE=2;
+        $user2->fkPersonaRUCE=2;
         $user2->username = "samuel";
         $user2->password = "12345";
         $user2->administrador = true;

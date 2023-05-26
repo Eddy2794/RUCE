@@ -33,7 +33,8 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::group(['prefix' => '/organizacion'],function () {
-    Route::get('/', [OrganizacionRUCEController::class, 'index'])->name('organizacion.index');
+    // Route::get('/', [OrganizacionRUCEController::class, 'index'])->name('organizacion.index');
+    Route::get('/Filter', [OrganizacionRUCEController::class, 'index'])->name('organizacion.index');
     Route::post('/', [OrganizacionRUCEController::class, 'store'])->name('organizacion.store');
     Route::get('/{id}', [OrganizacionRUCEController::class, 'show'])->name('organizacion.show');
     Route::delete('/{id}', [OrganizacionRUCEController::class, 'destroy'])->name('organizacion.destroy');

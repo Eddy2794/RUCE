@@ -17,7 +17,7 @@ class BalanceResourse extends JsonResource
     public function toArray($request)
     {
         $model = new Balance();
-        $datos = $model::where('idBalance',$request->get('id'))->get()->toArray();
+        $datos = $model::where('id',$request->get('id'))->get()->toArray();
         return $datos;
     }
 

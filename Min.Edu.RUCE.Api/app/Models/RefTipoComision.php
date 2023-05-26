@@ -13,7 +13,7 @@ class RefTipoComision extends Model
     use SoftDeletes;
 
     protected $table = 'RefTipoComision';
-    protected $primaryKey = 'idRefTipoComision';
+    protected $primaryKey = 'id';
     protected $dates = ['deleted_at'];
     protected $fillable = [
         'tipoComisionDesc'

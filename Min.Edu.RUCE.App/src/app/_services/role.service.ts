@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BaseService } from '@app/pages/organismos/shared/services';
+import { BaseService } from '@app/shared/services';
 import { Role } from '@app/_models/role.model';
 import { environment } from '@environments/environment';
 

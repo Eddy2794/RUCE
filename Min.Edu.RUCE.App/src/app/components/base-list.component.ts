@@ -1,6 +1,6 @@
-import { PaginateOptions } from '@app/pages/organismos/shared/utils';
-import { ColumnOptions } from '@app/pages/organismos/shared/utils/column-options';
-import { FilterOptions } from '@app/pages/organismos/shared/utils/filter-options';
+import { PaginateOptions } from '@app/shared/utils';
+import { ColumnOptions } from '@app/shared/utils/column-options';
+import { FilterOptions } from '@app/shared/utils/filter-options';
 
 export class BaseListComponent {
     filter: FilterOptions;

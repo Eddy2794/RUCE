@@ -12,12 +12,12 @@ class AutoridadComision extends Model
     use HasFactory;
     use SoftDeletes;
     protected $table = 'AutoridadComision';
-    protected $primaryKey = 'idAutoridadComision';
+    protected $primaryKey = 'id';
     protected $dates = ['deleted_at'];
     protected $fillable = [
-        'fkIdPersonaRUCE',
-        'fkIdRefCargo',
-        'fkIdComision',
+        'fkPersonaRUCE',
+        'fkRefCargo',
+        'fkComision',
         'inicioCargo',
         'finCargo',
         'estaActivo',

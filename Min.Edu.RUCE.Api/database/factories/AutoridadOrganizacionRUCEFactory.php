@@ -22,9 +22,9 @@ class AutoridadOrganizacionRUCEFactory extends Factory
     public function definition()
     {
         return [
-            'fkIdPersonaRUCE' => $this->faker->randomElement(PersonaRUCE::all()->getQueueableIds()),
-            'fkIdOrganizacionRUCE' => $this->faker->randomElement(OrganizacionRUCE::all()->getQueueableIds()),
-            'fkIdRefCargo' => $this->faker->randomElement(RefCargo::all()->getQueueableIds()),
+            'fkPersonaRUCE' => $this->faker->randomElement(PersonaRUCE::all()->getQueueableIds()),
+            'fkOrganizacionRUCE' => $this->faker->randomElement(OrganizacionRUCE::all()->getQueueableIds()),
+            'fkRefCargo' => $this->faker->randomElement(RefCargo::all()->getQueueableIds()),
             'inicioCargo' => $this->faker->date(),
             'finCargo' => $this->faker->date(),
             'estaActivo' => true,

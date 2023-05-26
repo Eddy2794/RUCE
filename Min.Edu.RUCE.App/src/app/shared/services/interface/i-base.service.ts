@@ -1,4 +1,4 @@
-import { DataPage, FilterOptions, PaginateOptions } from '@app/pages/organismos/shared/utils';
+import { DataPage, FilterOptions, PaginateOptions } from '@app/shared/utils';
 import { Observable } from 'rxjs';
 
 

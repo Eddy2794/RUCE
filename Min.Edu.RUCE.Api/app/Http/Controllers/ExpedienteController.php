@@ -75,7 +75,7 @@ class ExpedienteController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'fkIdCooperadora' => 'required',
+            'fkCooperadora' => 'required',
             'nroExpediente' => 'required',
             'cantObservaciones' => 'required',
             'observacionesDesc' => 'required',
@@ -88,7 +88,7 @@ class ExpedienteController extends Controller
 
         $expediente = new Expediente();
 
-        $expediente-> fkIdCooperadora = $request->fkIdCooperadora;
+        $expediente-> fkCooperadora = $request->fkCooperadora;
         $expediente-> nroExpediente = $request->nroExpediente;
         $expediente-> cantObservaciones = $request->cantObservaciones;
         $expediente-> observacionesDesc = $request->observacionesDesc;
@@ -138,7 +138,7 @@ class ExpedienteController extends Controller
     public function update(Request $request, Expediente $expediente)
     {
         $request->validate([
-            'fkIdCooperadora' => 'required',
+            'fkCooperadora' => 'required',
             'nroExpediente' => 'required',
             'cantObservaciones' => 'required',
             'observacionesDesc' => 'required',
@@ -150,7 +150,7 @@ class ExpedienteController extends Controller
         ]);
 
         $expediente->update([
-            'fkIdCooperadora' => $request->fkIdCooperadora,
+            'fkCooperadora' => $request->fkCooperadora,
             'nroExpediente' => $request->nroExpediente,
             'cantObservaciones' => $request->cantObservaciones,
             'observacionesDesc' => $request->observacionesDesc,

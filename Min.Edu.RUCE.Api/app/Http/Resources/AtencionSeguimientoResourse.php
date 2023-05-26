@@ -19,7 +19,7 @@ class AtencionSeguimientoResourse extends JsonResource
     public function toArray($request)
     {
         $model = new AtencionSeguimiento();
-        $datos = $model::where('idAtencionSeguimiento',$request->get('id'))->get()->toArray();
+        $datos = $model::where('id',$request->get('id'))->get()->toArray();
         return $datos;
     }
 

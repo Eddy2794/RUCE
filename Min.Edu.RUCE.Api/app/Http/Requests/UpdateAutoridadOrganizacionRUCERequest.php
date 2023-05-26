@@ -24,17 +24,17 @@ class UpdateAutoridadOrganizacionRUCERequest extends FormRequest
     public function rules()
     {
         return [
-            'fkIdRefCargo' => [
+            'fkRefCargo' => [
                 'required',
-                'exists:RefCargo,idRefCargo'
+                'exists:RefCargo,id'
             ],
-            'fkIdPersonaRUCE' => [
+            'fkPersonaRUCE' => [
                 'required',
-                'exists:PersonaRUCE,idPersonaRUCE'
+                'exists:PersonaRUCE,id'
             ],
-            'fkIdOrganizacionRUCE' => [
+            'fkOrganizacionRUCE' => [
                 'required',
-                'exists:OrganizacionRUCE,idOrganizacionRUCE'
+                'exists:OrganizacionRUCE,id'
             ],
             'inicioCargo' => [
                 'required',
@@ -58,9 +58,9 @@ class UpdateAutoridadOrganizacionRUCERequest extends FormRequest
     public function messages()
     {
         return [
-            'fkIdRefCargo.exists' => 'Id de Cargo no existe en tabla RefCargo.',
-            'fkIdPersonaRUCE.exists' => 'Id de Persona no existe en tabla PersonaRUCE.',
-            'fkIdOrganizacionRUCE.exists' => 'Id de Organizacion no existe en tabla fkIdOrganizacionRUCE.'
+            'fkRefCargo.exists' => 'Id de Cargo no existe en tabla RefCargo.',
+            'fkPersonaRUCE.exists' => 'Id de Persona no existe en tabla PersonaRUCE.',
+            'fkOrganizacionRUCE.exists' => 'Id de Organizacion no existe en tabla fkOrganizacionRUCE.'
         ];
     }
 }

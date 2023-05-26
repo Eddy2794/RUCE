@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { SearchService } from '@app/pages/organismos/shared/services/search.service';
-import { ColumnOptions } from '@app/pages/organismos/shared/utils';
-import { SearchOptionsGeneric } from '@app/pages/organismos/shared/utils/search-options-generic';
+import { SearchService } from '@app/shared/services/search.service';
+import { ColumnOptions } from '@app/shared/utils';
+import { SearchOptionsGeneric } from '@app/shared/utils/search-options-generic';
 import { ModalSearchGenericComponent } from '../modal-search-generic/modal-search-generic.component';
 
 @Component({

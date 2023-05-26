@@ -13,7 +13,7 @@ class RefInstanciaInstrumento extends Model
     use SoftDeletes;
 
     protected $table = 'RefInstanciaInstrumento';
-    protected $primaryKey = 'idRefInstanciaInstrumento';
+    protected $primaryKey = 'id';
     protected $dates = ['deleted_at'];
     protected $fillable = [
         'instrumentoDesc'

@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogComponent, DialogData } from '@app/components/dialog/dialog.component';
-import { ValidatorService } from '@app/pages/organismos/shared/validators/validator.service';
+import { ValidatorService } from '@app/shared/validators/validator.service';
 import { fadeInUp400ms } from 'src/@vex/animations/fade-in-up.animation';
 import { stagger60ms } from 'src/@vex/animations/stagger.animation';
 import { EstablecimientoService } from '../../../Services/Establecimiento/establecimiento-service.service';
@@ -72,7 +72,12 @@ export class EstablecimientoInsupdComponent implements OnInit {
           validators: [ Validators.required, ] 
         }
       ],
-      matricula: [
+      organizacionDesc: [
+        null, { 
+          validators: [ Validators.required, ] 
+        }
+      ],
+      anexo: [
         null, { 
           validators: [ Validators.required, ] 
         }
@@ -136,7 +141,8 @@ export class EstablecimientoInsupdComponent implements OnInit {
       })
     if (this.accion === 'delete') {
       this.formularioEstablecimiento.controls['cue'].disable();
-      this.formularioEstablecimiento.controls['matricula'].disable();
+      this.formularioEstablecimiento.controls['organizacionDesc'].disable();
+      this.formularioEstablecimiento.controls['anexo'].disable();
       this.formularioEstablecimiento.controls['nivel'].disable();
       this.formularioEstablecimiento.controls['region'].disable();
       this.formularioEstablecimiento.controls['departamento'].disable();

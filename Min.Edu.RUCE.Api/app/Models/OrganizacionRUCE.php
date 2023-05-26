@@ -13,7 +13,7 @@ class OrganizacionRUCE extends Model
     use SoftDeletes;
 
     protected $table = 'OrganizacionRUCE';
-    protected $primaryKey = 'idOrganizacionRUCE';
+    protected $primaryKey = 'id';
     protected $dates = ['deleted_at'];
     protected $fillable = [
         'organizacionDesc',

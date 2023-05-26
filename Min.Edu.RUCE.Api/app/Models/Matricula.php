@@ -13,10 +13,10 @@ class Matricula extends Model
     use SoftDeletes;
 
     protected $table = 'Matricula';
-    protected $primaryKey = 'idMatricula';
+    protected $primaryKey = 'id';
     protected $dates = ['deleted_at'];
     protected $fillable = [
-        'fkIdOrganizacionRUCE',
+        'fkOrganizacionRUCE',
         'periodoLectivo',
         'matricula',
         'estaActivo',
