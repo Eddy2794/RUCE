@@ -132,7 +132,8 @@
           *matRowDef="let row; columns: visibleColumns;"
           @fadeInUp
           class="hover:bg-hover trans-ease-out cursor-pointer"
-          mat-row></tr>
+          mat-row
+          (click)="detalles(row)"></tr>
     </table>
     
     <mat-paginator (page)="pageChanged($event)" [pageSize]="pageProperties.pageSize"

@@ -97,7 +97,7 @@ class OrganizacionRUCEController extends Controller
             $request = new UpdateOrganizacionRUCERequest($request->toArray());
             $organizacionRUCE->organizacionDesc = $request->organizacionDesc ?: $organizacionRUCE->organizacionDesc;
             $organizacionRUCE->cue = $request->cue ?: $organizacionRUCE->cue;
-            $organizacionRUCE->anexo = $request->anexo ?: $organizacionRUCE->anexo;
+            $organizacionRUCE->anexo = ($request->anexo==$organizacionRUCE->anexo)?$organizacionRUCE->anexo:($request->anexo=='-1'?null:$request->anexo);
             $organizacionRUCE->telefono = $request->telefono ?: $organizacionRUCE->telefono;
             $organizacionRUCE->email = $request->email ?: $organizacionRUCE->email;
             $organizacionRUCE->domicilio = $request->domicilio ?: $organizacionRUCE->domicilio;

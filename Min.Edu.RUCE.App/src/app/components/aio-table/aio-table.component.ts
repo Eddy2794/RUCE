@@ -168,6 +168,12 @@ export class AioTableComponent implements OnInit, AfterViewInit, OnDestroy {
     this.router.navigate(['/pages/' + this.ruta + '/delete', data.id]);
 
   }
+
+  detalles(data: any) {
+    this.router.navigate(['/pages/' + this.ruta + '/detalles', data.id]);
+    // console.log("jksdhgoausjdbgpoajsdbf");
+  }
+
   pageChanged(pageEvent: PageEvent) {
   
     if (this.filter == this.filtroActual) {
