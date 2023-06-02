@@ -4,8 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Comision;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreComisionRequest;
+use App\Http\Requests\UpdateComisionRequest;
+use App\Http\Resources\ModelResourse;
+use App\Http\Resources\RequestCollection;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class ComisionController extends Controller
 {
@@ -14,56 +20,19 @@ class ComisionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(): JsonResponse
+    public function index(Request $request)
     {
-        $data = Comision::all();
-        $respuesta = [
-            'entities' => $data,
-            'paged' => [
-                'entitiyCount' => count($data)
-            ]
-        ];
-        return response()->json($respuesta,200);
-    }
-
-    public function filtro(Request $request): JsonResponse  
-    {
-        $estaActivo = $request->query->get('EstaActivo');
-        $pageNumber = $request->query->get('PageNumber');
-        $pageSize = $request->query->get('PageSize');
-
-        $data = Comision::where('estaActivo',$estaActivo)->get()->toArray();
-
-        $errores = [];
-
-        // dd($data, $estaActivo, $pageNumber, $pageSize);
-
-        // determina a partir de que indice toma los registros
-        $offset = ($pageNumber - 1) * $pageSize;
-
-        // toma los registros a partir del offset teniendo en cuenta pageSize
-        $elementos_pagina = array_slice($data, $offset, $pageSize);
-
-        $total_paginas = intval(ceil(count($data) / $pageSize));
-
-        // dd($offset/5+1,$elementos_pagina,count($elementos_pagina),$total_paginas);
-
-        // cuenta la cantidad de elementos se enviar en elementos_pagina
-        $cantidad = count($elementos_pagina);
-
-        $respuesta = [
-            'entities' => $elementos_pagina,
-            'succeded' => true,
-            'message' => "",
-            'errors' => $errores,
-            'paged' => [
-                'entitiyCount' => $cantidad,
-                'pageSize' => count($data),
-                'pageIndex' => $total_paginas,
-                'pageNumber' =>  intval($pageNumber)
-            ]
-        ];
-        return response()->json($respuesta,200);
+        try {
+            if ($request->has('PageNumber')&&$request->has('PageSize')) {
+                return new RequestCollection(Comision::paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']));
+            }
+            return new RequestCollection(Comision::paginate(10, ['*'], 'page', 1));
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -74,33 +43,27 @@ class ComisionController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'fkCooperadora' => 'required',
-            'fkRefTipoComision' => 'required',
-            'periodoInicio' => 'required',
-            'periodoFin' => 'required',
-            'nroSocios' => 'required',
-            'estadoResolucion' => 'required',
-            'estaActivo' => 'required',
-            'fechaEliminacion' => 'required',
-            'idUsuarioAlta' => 'required',
-            'idUsuarioModificacion' => 'required',
-        ]);
-
-        $comision = new Comision();
-
-        $comision-> fkCooperadora = $request->fkCooperadora;
-        $comision-> fkRefTipoComision = $request->fkRefTipoComision;
-        $comision-> periodoInicio = $request->periodoInicio;
-        $comision-> periodoFin = $request->periodoFin;
-        $comision-> nroSocios = $request->nroSocios;
-        $comision-> estadoResolucion = $request->estadoResolucion;
-        $comision-> estaActivo = $request->estaActivo;
-        $comision-> fechaEliminacion = $request->fechaEliminacion;
-        $comision-> idUsuarioAlta = $request->idUsuarioAlta;
-        $comision-> idUsuarioModificacion = $request->idUsuarioModificacion;
-
-        return response($comision);
+        $request = new StoreComisionRequest($request->toArray());
+        try {
+            Comision::create([
+                'fkCooperadora' => $request->fkCooperadora,
+                'fkRefTipoComision' => $request->fkRefTipoComision,
+                'periodoInicio' => $request->periodoInicio,
+                'periodoFin' => $request->periodoFin,
+                'nroSocios' => $request->nroSocios,
+                'estadoResolucion' => $request->estadoResolucion,
+                'idUsuarioAlta' => $request->idUsuarioAlta,
+            ]);
+            return response()->json([
+                'message' => 'Comision registrada con Exito',
+                'succeeded' => true
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -109,23 +72,16 @@ class ComisionController extends Controller
      * @param  \App\Models\Comision  $comision
      * @return \Illuminate\Http\Response
      */
-    public function show(int $id): JsonResponse
+    public function show(int $comision): JsonResponse
     {
-        $data = Comision::where('id', $id)->get();
-        $cantidad = count($data);
-
-        $errores = [];
-
-        $respuesta = [
-            'entities' => $data,
-            'succeded' => true,
-            'message' => "",
-            'errors' => $errores,
-            'paged' => [
-                'entitiyCount' => $cantidad
-            ]
-        ];
-        return response()->json($respuesta,200);
+        try {
+            return response()->json(new ModelResourse($comision,'Comision'));
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -135,36 +91,38 @@ class ComisionController extends Controller
      * @param  \App\Models\Comision  $comision
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, int $id)
+    public function update(Request $request, int $comision)
     {
-        $request->validate([
-            'fkCooperadora'=>'required',
-            'fkRefTipoComision'=>'required',
-            'periodoInicio'=>'required',
-            'periodoFin'=>'required',
-            'nroSocios'=>'required',
-            'estadoResolucion'=>'required',
-            'estaActivo'=>'required',
-            'fechaEliminacion'=>'required',
-            'idUsuarioAlta'=>'required',
-            'idUsuarioModificacion'=>'required'
-        ]);
+        try {
+            $comision = Comision::where('id', $comision)->first();
+            $request = new UpdateComisionRequest($request->toArray());
+            $comision->fkCooperadora = $request->fkCooperadora ?: $comision->fkCooperadora;
+            $comision->fkRefTipoComision = $request->fkRefTipoComision ?: $comision->fkRefTipoComision;
+            $comision->periodoInicio = $request->periodoInicio ?: $comision->periodoInicio;
+            $comision->periodoFin = $request->periodoFin ?: $comision->periodoFin;
+            $comision->nroSocios = $request->nroSocios ?: $comision->nroSocios;
+            $comision->estadoResolucion = $request->estadoResolucion ?: $comision->estadoResolucion;
+            $comision->idUsuarioModificacion = $request->idUsuarioModificacion ?: $comision->idUsuarioModificacion;
 
-        Comision::where('id', $id)->update([
-            'fkCooperadora' => $request->fkCooperadora,
-            'fkRefTipoComision' => $request->fkRefTipoComision,
-            'periodoInicio' => $request->periodoInicio,
-            'periodoFin' => $request->periodoFin,
-            'nroSocios' => $request->nroSocios,
-            'estadoResolucion' => $request->estadoResolucion,
-            'estaActivo' => $request->estaActivo,
-            'fechaEliminacion' => $request->fechaEliminacion,
-            'idUsuarioAlta' => $request->idUsuarioAlta,
-            'idUsuarioModificacion' => $request->idUsuarioModificacion
-        ]);
+            if ($comision->isClean()) {
+                return response()->json([
+                    'message' => 'No se modifico ningun valor',
+                    'succeeded' => false
+                ], 422);
+            }
+            $comision->updated_at= Carbon::now();
+            $comision->save();
 
-        return response(Comision::where('id',$id)->get()[0]);
-
+            return response()->json([
+                'succeeded' => true,
+                'message' => 'Organizacion Modificada con exito',
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -175,7 +133,45 @@ class ComisionController extends Controller
      */
     public function destroy(int $id)
     {
-        Comision::where('id',$id)->delete();
-        return response()->noContent();
+        try {
+            Comision::where('id', $id)->update(['estaActivo'=>false,]);
+            Comision::where('id', $id)->delete();
+            return response()->json([
+                'succeeded' => true,
+                'message' => 'Comision eliminada con exito'
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
+    }
+
+    public function search(Request $request, Comision $comision)
+    {
+        /*
+        Seguramente se puede refactorizar y optimizar
+        por ahora es la forma que da resultados esperados
+        */
+
+        $query = $comision->newQuery();
+
+        if ($request->id) {
+            $query->where('id', $request->id)
+                ->where(function ($q) use ($request) {
+                    if ($request->q) {
+                        $q->where('fkCooperadora', 'like', '%' . $request->q . '%')
+                            ->orWhere('denominacion', 'like', '%' . $request->q . '%');
+                    }
+                });
+        } else {
+            if ($request->q) {
+                $query->where('fkCooperadora', 'like', '%' . $request->q . '%')
+                    ->orWhere('denominacion', 'like', '%' . $request->q . '%');
+            }
+        }
+
+        // return new RequestCollection($query->orderBy('organizacionDesc')->paginate()->appends(['q' => $request->q, 'id' => $request->id]));
     }
 }

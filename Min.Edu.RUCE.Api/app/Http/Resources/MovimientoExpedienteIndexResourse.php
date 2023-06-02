@@ -11,21 +11,9 @@ class OrganizacionRUCEIndexResourse extends JsonResource
     public function toArray($request)
     {
         return [
-            'id',
-            'organizacionDesc',
-            'cue',
-            'anexo',
-            'region',
-            'nivel',
-            'localidad',
-            'departamento',
-            'telefono',
-            'email',
-            'domicilio',
+            'fkExpediente',
+            'fkRefInstanciaInstrumento',
             'estaActivo',
-            'created_at',
-            'updated_at',
-            'fechaEliminacion',
             'idUsuarioAlta',
             'idUsuarioModificacion'
         ];

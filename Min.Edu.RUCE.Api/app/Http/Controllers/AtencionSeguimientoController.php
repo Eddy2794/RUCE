@@ -7,8 +7,9 @@ use App\Http\Resources\RequestCollection;
 use App\Http\Resources\AtencionSeguimientoResourse;
 use App\Http\Requests\StoreAtencionSeguimientoRequest;
 use App\Http\Requests\UpdateAtencionSeguimientoRequest;
+use App\Http\Resources\ModelResourse;
 use App\Models\AtencionSeguimiento;
-
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -23,11 +24,11 @@ class AtencionSeguimientoController extends Controller
     {
         // return typeOf($request->page);
         try {
-            if ($request->has('page')) {
-                return new RequestCollection(AtencionSeguimiento::orderBy('atencionSeguimiento')->paginate());
+            if ($request->has('PageNumber')&&$request->has('PageSize')) {
+                return new RequestCollection(AtencionSeguimiento::paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']));
             }
 
-            return new RequestCollection(AtencionSeguimiento::orderBy('atencionSeguimiento')->get());
+            return new RequestCollection(AtencionSeguimiento::paginate(10, ['*'], 'page', 1));
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,
@@ -42,8 +43,9 @@ class AtencionSeguimientoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreAtencionSeguimientoRequest $request)
+    public function store(Request $request)
     {
+        $request = new StoreAtencionSeguimientoRequest($request->toArray());
                 try {
             AtencionSeguimiento::create([
                 'fkCooperadora' => $request->fkCooperadora,
@@ -55,12 +57,12 @@ class AtencionSeguimientoController extends Controller
                 'atencionTerritorial' => $request->atencionTerritorial,
                 'observacion' => $request->observacion,
                 'fecha' => $request->fecha,
-                'estaActivo' => $request->estaActivo,
-                'fechaEliminacion' => $request->fechaEliminacion,
                 'idUsuarioAlta' => $request->idUsuarioAlta,
-                'idUsuarioModificacion' => $request->idUsuarioModificacion
             ]);
-            return response()->json();
+            return response()->json([
+                'message' => 'Organizacion registrada con Exito',
+                'succeeded' => true
+            ], Response::HTTP_OK);
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,
@@ -75,10 +77,10 @@ class AtencionSeguimientoController extends Controller
      * @param  \App\Models\AtencionSeguimiento  $atencionSeguimiento
      * @return \Illuminate\Http\Response
      */
-    public function show(AtencionSeguimiento $atencionSeguimiento)
+    public function show(int $atencionSeguimiento)
     {
         try {
-            return response()->json(new AtencionSeguimientoResourse($atencionSeguimiento));
+            return response()->json(new ModelResourse($atencionSeguimiento,'AtencionSeguimiento'));
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,
@@ -94,9 +96,11 @@ class AtencionSeguimientoController extends Controller
      * @param  \App\Models\AtencionSeguimiento  $atencionSeguimiento
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateAtencionSeguimientoRequest $request, AtencionSeguimiento $atencionSeguimiento)
+    public function update(Request $request, int $atencionSeguimiento)
     {
         try {
+            $organizacionRUCE = AtencionSeguimiento::where('id', $atencionSeguimiento)->first();
+            $request = new UpdateAtencionSeguimientoRequest($request->toArray());
             $atencionSeguimiento->fkCooperadora = $request->fkCooperadora ?: $atencionSeguimiento->fkCooperadora;
             $atencionSeguimiento->fkPersonaRUCE = $request->fkPersonaRUCE ?: $atencionSeguimiento->fkPersonaRUCE;
             $atencionSeguimiento->llamadas = $request->llamadas ?: $atencionSeguimiento->llamadas;
@@ -115,7 +119,7 @@ class AtencionSeguimientoController extends Controller
                     'succeeded' => false
                 ], 422);
             }
-
+            $organizacionRUCE->updated_at= Carbon::now();
             $atencionSeguimiento->save();
 
             return response()->json([
@@ -136,19 +140,14 @@ class AtencionSeguimientoController extends Controller
      * @param  \App\Models\AtencionSeguimiento  $atencionSeguimiento
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AtencionSeguimiento $atencionSeguimiento)
+    public function destroy(int $id)
     {
         try {
-            
-            AtencionSeguimiento::where('id', $atencionSeguimiento)->update([
-                'estaActivo'=>false,   
-            ]);
-
-            $atencionSeguimiento->delete();
-
+            AtencionSeguimiento::where('id', $id)->update(['estaActivo'=>false,]);
+            AtencionSeguimiento::where('id', $id)->delete();
             return response()->json([
                 'succeeded' => true,
-                'message' => 'Especialidad eliminada con exito'
+                'message' => 'Datos eliminados con exito'
             ], Response::HTTP_OK);
         } catch (\Throwable $th) {
             return response()->json([

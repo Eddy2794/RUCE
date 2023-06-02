@@ -16,7 +16,7 @@ class Kiosco extends Model
     protected $dates = ['deleted_at'];
     protected $fillable = [
         'fkCooperadora',
-        'id',
+        'fkPersonaRUCE',
         'accesoLicitacion',
         'documentacionPresentada',
         'periodoInicio',

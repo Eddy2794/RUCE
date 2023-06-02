@@ -2,9 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreKioscoRequest;
+use App\Http\Requests\UpdateKioscoRequest;
+use App\Http\Resources\ModelResourse;
+use App\Http\Resources\RequestCollection;
 use App\Models\Kiosco;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class KioscoController extends Controller
 {
@@ -13,56 +19,19 @@ class KioscoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(): JsonResponse
+    public function index(Request $request)
     {
-        $data = Kiosco::all();
-        $respuesta = [
-            'entities' => $data,
-            'paged' => [
-                'entitiyCount' => count($data)
-            ]
-        ];
-        return response()->json($respuesta,200);
-    }
-
-    public function filtro(Request $request): JsonResponse  
-    {
-        $estaActivo = $request->query->get('EstaActivo');
-        $pageNumber = $request->query->get('PageNumber');
-        $pageSize = $request->query->get('PageSize');
-
-        $data = Kiosco::where('estaActivo',$estaActivo)->get()->toArray();
-
-        $errores = [];
-
-        // dd($data, $estaActivo, $pageNumber, $pageSize);
-
-        // determina a partir de que indice toma los registros
-        $offset = ($pageNumber - 1) * $pageSize;
-
-        // toma los registros a partir del offset teniendo en cuenta pageSize
-        $elementos_pagina = array_slice($data, $offset, $pageSize);
-
-        $total_paginas = intval(ceil(count($data) / $pageSize));
-
-        // dd($offset/5+1,$elementos_pagina,count($elementos_pagina),$total_paginas);
-
-        // cuenta la cantidad de elementos se enviar en elementos_pagina
-        $cantidad = count($elementos_pagina);
-
-        $respuesta = [
-            'entities' => $elementos_pagina,
-            'succeded' => true,
-            'message' => "",
-            'errors' => $errores,
-            'paged' => [
-                'entitiyCount' => $cantidad,
-                'pageSize' => count($data),
-                'pageIndex' => $total_paginas,
-                'pageNumber' =>  intval($pageNumber)
-            ]
-        ];
-        return response()->json($respuesta,200);
+        try {
+            if ($request->has('PageNumber')&&$request->has('PageSize')) {
+                return new RequestCollection(Kiosco::paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']));
+            }
+            return new RequestCollection(Kiosco::paginate(10, ['*'], 'page', 1));
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -73,35 +42,27 @@ class KioscoController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'fkCooperadora' => 'required',
-            'id' => 'required',
-            'accesoLicitacion' => 'required',
-            'documentacionPresentada' => 'required',
-            'periodoInicio' => 'required',
-            'periodoFin' => 'required',
-            'estaActivo' => 'required',
-            'fechaEliminacion' => 'required',
-            'idUsuarioAlta' => 'required',
-            'idUsuarioModificacion' => 'required'
-        ]);
-
-        $kiosco = new Kiosco();
-
-        $kiosco-> fkCooperadora= $request->fkCooperadora;
-        $kiosco-> id= $request->id;
-        $kiosco-> accesoLicitacion= $request->accesoLicitacion;
-        $kiosco-> documentacionPresentada= $request->documentacionPresentada;
-        $kiosco-> periodoInicio= $request->periodoInicio;
-        $kiosco-> periodoFin= $request->periodoFin;
-        $kiosco-> estaActivo= $request->estaActivo;
-        $kiosco-> fechaEliminacion= $request->fechaEliminacion;
-        $kiosco-> idUsuarioAlta= $request->idUsuarioAlta;
-        $kiosco-> idUsuarioModificacion= $request->idUsuarioModificacion;
-
-        $kiosco->save();
-
-        return response($kiosco);
+        $request = new StoreKioscoRequest($request->toArray());
+        try {
+            Kiosco::create([
+                'fkCooperadora' => $request->fkCooperadora,
+                'fkPersonaRUCE' => $request->fkPersonaRUCE,
+                'accesoLicitacion' => $request->accesoLicitacion,
+                'documentacionPresentada' => $request->documentacionPresentada,
+                'periodoInicio' => $request->periodoInicio,
+                'periodoFin' => $request->periodoFin,
+                'idUsuarioAlta' => $request->idUsuarioAlta,
+            ]);
+            return response()->json([
+                'message' => 'Kiosco registrado con Exito',
+                'succeeded' => true
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -110,23 +71,16 @@ class KioscoController extends Controller
      * @param  \App\Models\Kiosco  $kiosco
      * @return \Illuminate\Http\Response
      */
-    public function show(Kiosco $kiosco): JsonResponse
+    public function show(int $kiosco): JsonResponse
     {
-        $data = [$kiosco];
-        $cantidad = count($data);
-
-        $errores = [];
-
-        $respuesta = [
-            'entities' => $data,
-            'succeded' => true,
-            'message' => "",
-            'errors' => $errores,
-            'paged' => [
-                'entitiyCount' => $cantidad
-            ]
-        ];
-        return response()->json($respuesta,200);
+        try {
+            return response()->json(new ModelResourse($kiosco,'Kiosco'));
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -136,35 +90,38 @@ class KioscoController extends Controller
      * @param  \App\Models\Kiosco  $kiosco
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Kiosco $kiosco)
+    public function update(Request $request, int $kiosco)
     {
-        $request->validate([
-            'fkCooperadora' => 'required',
-            'id' => 'required',
-            'accesoLicitacion' => 'required',
-            'documentacionPresentada' => 'required',
-            'periodoInicio' => 'required',
-            'periodoFin' => 'required',
-            'estaActivo' => 'required',
-            'fechaEliminacion' => 'required',
-            'idUsuarioAlta' => 'required',
-            'idUsuarioModificacion' => 'required'
-        ]);
+        try {
+            $kiosco = Kiosco::where('id', $kiosco)->first();
+            $request = new UpdateKioscoRequest($request->toArray());
+            $kiosco->fkCooperadora = $request->fkCooperadora ?: $kiosco->fkCooperadora;
+            $kiosco->fkPersonaRUCE = $request->fkPersonaRUCE ?: $kiosco->fkPersonaRUCE;
+            $kiosco->accesoLicitacion = $request->accesoLicitacion ?: $kiosco->accesoLicitacion;
+            $kiosco->documentacionPresentada = $request->documentacionPresentada ?: $kiosco->documentacionPresentada;
+            $kiosco->periodoInicio = $request->periodoInicio ?: $kiosco->periodoInicio;
+            $kiosco->periodoFin = $request->periodoFin ?: $kiosco->periodoFin;
+            // $kiosco->idUsuarioModificacion = $request->idUsuarioModificacion ?: $kiosco->idUsuarioModificacion;
 
-        $kiosco->update([
-            'fkCooperadora' => $request->fkCooperadora,
-            'id' => $request->id,
-            'accesoLicitacion' => $request->accesoLicitacion,
-            'documentacionPresentada' => $request->documentacionPresentada,
-            'periodoInicio' => $request->periodoInicio,
-            'periodoFin' => $request->periodoFin,
-            'estaActivo' => $request->estaActivo,
-            'fechaEliminacion' => $request->fechaEliminacion,
-            'idUsuarioAlta' => $request->idUsuarioAlta,
-            'idUsuarioModificacion' => $request->idUsuarioModificacion
-        ]);
+            if ($kiosco->isClean()) {
+                return response()->json([
+                    'message' => 'No se modifico ningun valor',
+                    'succeeded' => false
+                ], 422);
+            }
+            $kiosco->updated_at= Carbon::now();
+            $kiosco->save();
 
-        return response($kiosco);
+            return response()->json([
+                'succeeded' => true,
+                'message' => 'Kiosco Modificado con exito',
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -173,9 +130,47 @@ class KioscoController extends Controller
      * @param  \App\Models\Kiosco  $kiosco
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Kiosco $kiosco)
+    public function destroy(int $id)
     {
-        $kiosco->delete();
-        return response()->noContent();
+        try {
+            Kiosco::where('id', $id)->update(['estaActivo'=>false,]);
+            Kiosco::where('id', $id)->delete();
+            return response()->json([
+                'succeeded' => true,
+                'message' => 'Kiosco eliminado con exito'
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
+    }
+
+    public function search(Request $request, Kiosco $kiosco)
+    {
+        /*
+        Seguramente se puede refactorizar y optimizar
+        por ahora es la forma que da resultados esperados
+        */
+
+        $query = $kiosco->newQuery();
+
+        if ($request->id) {
+            $query->where('id', $request->id)
+                ->where(function ($q) use ($request) {
+                    if ($request->q) {
+                        $q->where('cue', 'like', '%' . $request->q . '%')
+                            ->orWhere('organizacionDesc', 'like', '%' . $request->q . '%');
+                    }
+                });
+        } else {
+            if ($request->q) {
+                $query->where('cue', 'like', '%' . $request->q . '%')
+                    ->orWhere('organizacionDesc', 'like', '%' . $request->q . '%');
+            }
+        }
+
+        // return new RequestCollection($query->orderBy('organizacionDesc')->paginate()->appends(['q' => $request->q, 'id' => $request->id]));
     }
 }

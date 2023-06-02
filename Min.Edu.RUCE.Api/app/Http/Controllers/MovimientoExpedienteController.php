@@ -2,9 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreMovimientoExpedienteRequest;
+use App\Http\Requests\UpdateMovimientoExpedienteRequest;
+use App\Http\Resources\ModelResourse;
+use App\Http\Resources\RequestCollection;
 use App\Models\MovimientoExpediente;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class MovimientoExpedienteController extends Controller
 {
@@ -13,56 +19,19 @@ class MovimientoExpedienteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(): JsonResponse
+    public function index(Request $request)
     {
-        $data = MovimientoExpediente::all();
-        $respuesta = [
-            'entities' => $data,
-            'paged' => [
-                'entitiyCount' => count($data)
-            ]
-        ];
-        return response()->json($respuesta,200);
-    }
-
-    public function filtro(Request $request): JsonResponse  
-    {
-        $estaActivo = $request->query->get('EstaActivo');
-        $pageNumber = $request->query->get('PageNumber');
-        $pageSize = $request->query->get('PageSize');
-
-        $data = MovimientoExpediente::where('estaActivo',$estaActivo)->get()->toArray();
-
-        $errores = [];
-
-        // dd($data, $estaActivo, $pageNumber, $pageSize);
-
-        // determina a partir de que indice toma los registros
-        $offset = ($pageNumber - 1) * $pageSize;
-
-        // toma los registros a partir del offset teniendo en cuenta pageSize
-        $elementos_pagina = array_slice($data, $offset, $pageSize);
-
-        $total_paginas = intval(ceil(count($data) / $pageSize));
-
-        // dd($offset/5+1,$elementos_pagina,count($elementos_pagina),$total_paginas);
-
-        // cuenta la cantidad de elementos se enviar en elementos_pagina
-        $cantidad = count($elementos_pagina);
-
-        $respuesta = [
-            'entities' => $elementos_pagina,
-            'succeded' => true,
-            'message' => "",
-            'errors' => $errores,
-            'paged' => [
-                'entitiyCount' => $cantidad,
-                'pageSize' => count($data),
-                'pageIndex' => $total_paginas,
-                'pageNumber' =>  intval($pageNumber)
-            ]
-        ];
-        return response()->json($respuesta,200);
+        try {
+            if ($request->has('PageNumber')&&$request->has('PageSize')) {
+                return new RequestCollection(MovimientoExpediente::paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']));
+            }
+            return new RequestCollection(MovimientoExpediente::paginate(10, ['*'], 'page', 1));
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -71,97 +40,128 @@ class MovimientoExpedienteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
-        //visualiza los datos que se estan mandando en el requiest de la peticion
-        // dd($request->all());
-        $request->validate([
-            'fkExpediente' => 'required',
-            'fkRefInstanciaInstrumento' => 'required',
-            'estaActivo' => 'required',
-            'fechaEliminacion' => 'required',
-            'idUsuarioAlta' => 'required',
-            'idUsuarioModificacion' => 'required'
-        ]);
-
-        $movimientoExpediente = new MovimientoExpediente();
-
-        $movimientoExpediente->fkExpediente = $request->fkExpediente;
-        $movimientoExpediente->fkRefInstanciaInstrumento = $request->fkRefInstanciaInstrumento;
-        $movimientoExpediente->estaActivo = $request->estaActivo;
-        $movimientoExpediente->fechaEliminacion = $request->fechaEliminacion;
-        $movimientoExpediente->idUsuarioAlta = $request->idUsuarioAlta;
-        $movimientoExpediente->idUsuarioModificacion = $request->idUsuarioModificacion;
-
-        $movimientoExpediente->save();
-
-        return response($movimientoExpediente);
+        $request = new StoreMovimientoExpedienteRequest($request->toArray());
+        try {
+            MovimientoExpediente::create([
+                'fkExpediente' => $request->fkExpediente,
+                'fkRefInstanciaInstrumento' => $request->fkRefInstanciaInstrumento,
+                'idUsuarioAlta' => $request->idUsuarioAlta,
+            ]);
+            return response()->json([
+                'message' => 'Movimiento de Expediente registrada con Exito',
+                'succeeded' => true
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\MovimientoExpediente  $MovimientoExpediente
      * @return \Illuminate\Http\Response
      */
-    public function show(int $id): JsonResponse
+    public function show(int $movimientoExpediente): JsonResponse
     {
-        $data = MovimientoExpediente::where('id', $id)->get();
-        $cantidad = count($data);
-
-        $errores = [];
-
-        $respuesta = [
-            'entities' => $data,
-            'succeded' => true,
-            'message' => "",
-            'errors' => $errores,
-            'paged' => [
-                'entitiyCount' => $cantidad
-            ]
-        ];
-        return response()->json($respuesta,200);
+        try {
+            return response()->json(new ModelResourse($movimientoExpediente,'MovimientoExpediente'));
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\MovimientoExpediente  $MovimientoExpediente
+     * @param  \App\Models\MovimientoExpediente  $movimientoExpediente
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, int $id)
+    public function update(Request $request, int $movimientoExpediente): JsonResponse
     {
-        $request->validate([
-            'fkExpediente'=>'required',
-            'fkRefInstanciaInstrumento'=>'required',
-            'estaActivo'=>'required',
-            'fechaEliminacion'=>'required',
-            'idUsuarioAlta'=>'required',
-            'idUsuarioModificacion'=>'required'
-        ]);
+        try {
+            $movimientoExpediente = MovimientoExpediente::where('id', $movimientoExpediente)->first();
+            $request = new UpdateMovimientoExpedienteRequest($request->toArray());
+            $movimientoExpediente->fkExpediente = $request->fkExpediente ?: $movimientoExpediente->fkExpediente;
+            $movimientoExpediente->fkRefInstanciaInstrumento = $request->fkRefInstanciaInstrumento ?: $movimientoExpediente->fkRefInstanciaInstrumento;
+            // $movimientoExpediente->idUsuarioModificacion = $request->idUsuarioModificacion ?: $movimientoExpediente->idUsuarioModificacion;
 
-        MovimientoExpediente::where('id',$id)->update([
-            'fkExpediente' => $request->fkExpediente,
-            'fkRefInstanciaInstrumento' => $request->fkRefInstanciaInstrumento,
-            'estaActivo' => $request->estaActivo,
-            'fechaEliminacion' => $request->fechaEliminacion,
-            'idUsuarioAlta' => $request->idUsuarioAlta,
-            'idUsuarioModificacion' => $request->idUsuarioModificacion,
-        ]);
+            if ($movimientoExpediente->isClean()) {
+                return response()->json([
+                    'message' => 'No se modifico ningun valor',
+                    'succeeded' => false
+                ], 422);
+            }
+            $movimientoExpediente->updated_at= Carbon::now();
+            $movimientoExpediente->save();
 
-        return response(MovimientoExpediente::where('id',$id)->get()[0]);
+            return response()->json([
+                'succeeded' => true,
+                'message' => 'Movimiento de Expediente Modificada con exito',
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\MovimientoExpediente  $MovimientoExpediente
+     * @param  \App\Models\MovimientoExpediente  $movimientoExpediente
      * @return \Illuminate\Http\Response
      */
-    public function destroy(int $id)
+    public function destroy(int $id): JsonResponse
     {
-        MovimientoExpediente::where('id',$id)->delete();
-        return response()->noContent();
+        try {
+            MovimientoExpediente::where('id', $id)->update(['estaActivo'=>false,]);
+            MovimientoExpediente::where('id', $id)->delete();
+            return response()->json([
+                'succeeded' => true,
+                'message' => 'Movimiento de Expediente eliminada con exito'
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
+    }
+
+    public function search(Request $request, MovimientoExpediente $movimientoExpediente)
+    {
+        /*
+        Seguramente se puede refactorizar y optimizar
+        por ahora es la forma que da resultados esperados
+        */
+
+        $query = $movimientoExpediente->newQuery();
+
+        if ($request->id) {
+            $query->where('id', $request->id)
+                ->where(function ($q) use ($request) {
+                    if ($request->q) {
+                        $q->where('fkRefInstanciaInstrumento', 'like', '%' . $request->q . '%')
+                            ->orWhere('fkExpediente', 'like', '%' . $request->q . '%');
+                    }
+                });
+        } else {
+            if ($request->q) {
+                $query->where('fkRefInstanciaInstrumento', 'like', '%' . $request->q . '%')
+                    ->orWhere('fkExpediente', 'like', '%' . $request->q . '%');
+            }
+        }
+
+        // return new RequestCollection($query->orderBy('fkExpediente')->paginate()->appends(['q' => $request->q, 'id' => $request->id]));
     }
 }

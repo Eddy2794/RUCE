@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUsuarioRUCERequest;
+use App\Http\Requests\UpdateUsuarioRUCERequest;
+use App\Http\Resources\ModelResourse;
+use App\Http\Resources\RequestCollection;
 use App\Models\UsuarioRUCE;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-
+use Symfony\Component\HttpFoundation\Response;
 
 class UsuarioController extends Controller
 {
@@ -14,56 +19,19 @@ class UsuarioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(): JsonResponse
+    public function index(Request $request)
     {
-        $data = UsuarioRUCE::all();
-        $respuesta = [
-            'entities' => $data,
-            'paged' => [
-                'entitiyCount' => count($data)
-            ]
-        ];
-        return response()->json($respuesta,200);
-    }
-
-    public function filtro(Request $request): JsonResponse  
-    {
-        $estaActivo = $request->query->get('EstaActivo');
-        $pageNumber = $request->query->get('PageNumber');
-        $pageSize = $request->query->get('PageSize');
-
-        $data = UsuarioRUCE::where('estaActivo',$estaActivo)->get()->toArray();
-
-        $errores = [];
-
-        // dd($data, $estaActivo, $pageNumber, $pageSize);
-
-        // determina a partir de que indice toma los registros
-        $offset = ($pageNumber - 1) * $pageSize;
-
-        // toma los registros a partir del offset teniendo en cuenta pageSize
-        $elementos_pagina = array_slice($data, $offset, $pageSize);
-
-        $total_paginas = intval(ceil(count($data) / $pageSize));
-
-        // dd($offset/5+1,$elementos_pagina,count($elementos_pagina),$total_paginas);
-
-        // cuenta la cantidad de elementos se enviar en elementos_pagina
-        $cantidad = count($elementos_pagina);
-
-        $respuesta = [
-            'entities' => $elementos_pagina,
-            'succeded' => true,
-            'message' => "",
-            'errors' => $errores,
-            'paged' => [
-                'entitiyCount' => $cantidad,
-                'pageSize' => count($data),
-                'pageIndex' => $total_paginas,
-                'pageNumber' =>  intval($pageNumber)
-            ]
-        ];
-        return response()->json($respuesta,200);
+        try {
+            if ($request->has('PageNumber')&&$request->has('PageSize')) {
+                return new RequestCollection(UsuarioRUCE::paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']));
+            }
+            return new RequestCollection(UsuarioRUCE::paginate(10, ['*'], 'page', 1));
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -72,92 +40,130 @@ class UsuarioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
-        $request->validate([
-            'fk_persona' => 'required',
-            'username' => 'required',
-            'password' => 'required'
-        ]);
-
-        $usuario = new UsuarioRUCE();
-
-        $usuario->fk_persona = $request->fk_persona;
-        $usuario->nombre_usuario = $request->nombre_usuario;
-        $usuario->password = $request->password;
-        if($request->administrador)
-            $usuario->administrador = $request->administrador;
-
-        $usuario->save();
-
-        return response($usuario);
+        $request = new StoreUsuarioRUCERequest($request->toArray());
+        try {
+            UsuarioRUCE::create([
+                'fkPersonaRUCE' => $request->fkPersonaRUCE,
+                'password' => $request->password,
+                'username' => $request->username,
+                'idUsuarioAlta' => $request->idUsuarioAlta,
+            ]);
+            return response()->json([
+                'message' => 'Usuario Registrado con Exito',
+                'succeeded' => true
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\UsuarioRUCE  $usuario
      * @return \Illuminate\Http\Response
      */
-    public function show(UsuarioRUCE $usuario): JsonResponse 
+    public function show(int $usuarioRUCE): JsonResponse
     {
-        $data = [$usuario];
-        $cantidad = count($data);
-
-        $errores = [];
-
-        $respuesta = [
-            'entities' => $data,
-            'succeded' => true,
-            'message' => "",
-            'errors' => $errores,
-            'paged' => [
-                'entitiyCount' => $cantidad
-            ]
-        ];
-        return response()->json($respuesta,200);
+        try {
+            return response()->json(new ModelResourse($usuarioRUCE,'UsuarioRUCE'));
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\UsuarioRUCE  $usuario
+     * @param  \App\Models\UsuarioRUCE  $usuarioRUCE
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, UsuarioRUCE $usuario)
+    public function update(Request $request, int $usuarioRUCE): JsonResponse
     {
-        $request->validate([
-            'username' => 'required',
-            'password' => 'required'
-        ]);
+        try {
+            $usuarioRUCE = UsuarioRUCE::where('id', $usuarioRUCE)->first();
+            $request = new UpdateUsuarioRUCERequest($request->toArray());
+            $usuarioRUCE->fkPersonaRUCE = $request->fkPersonaRUCE ?: $usuarioRUCE->fkPersonaRUCE;
+            $usuarioRUCE->password = $request->password ?: $usuarioRUCE->password;
+            $usuarioRUCE->username = $request->username ?: $usuarioRUCE->username;
+            // $usuarioRUCE->idUsuarioModificacion = $request->idUsuarioModificacion ?: $usuarioRUCE->idUsuarioModificacion;
 
-        if($usuario->username == $request->username)
-            $usuario->update([
-                'password' => $request->password,
-            ]);
-        elseif($usuario->password == $request->password)
-            $usuario->update([
-                'username' => $request->username,
-            ]);
-        else
-            $usuario->update([
-                'password' => $request->password,
-                'username' => $usuario->username,
-            ]);
+            if ($usuarioRUCE->isClean()) {
+                return response()->json([
+                    'message' => 'No se modifico ningun valor',
+                    'succeeded' => false
+                ], 422);
+            }
+            $usuarioRUCE->updated_at= Carbon::now();
+            $usuarioRUCE->save();
 
-        return response($usuario);
+            return response()->json([
+                'succeeded' => true,
+                'message' => 'Tipo de Asociacion Modificada con exito',
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\UsuarioRUCE  $usuario
+     * @param  \App\Models\UsuarioRUCE  $usuarioRUCE
      * @return \Illuminate\Http\Response
      */
-    public function destroy(UsuarioRUCE $usuario)
+    public function destroy(int $id): JsonResponse
     {
-        $usuario->delete();
-        return response()->noContent();
+        try {
+            UsuarioRUCE::where('id', $id)->update(['estaActivo'=>false,]);
+            UsuarioRUCE::where('id', $id)->delete();
+            return response()->json([
+                'succeeded' => true,
+                'message' => 'Tipo de Asociacion eliminada con exito'
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
+    }
+
+    public function search(Request $request, UsuarioRUCE $usuarioRUCE)
+    {
+        /*
+        Seguramente se puede refactorizar y optimizar
+        por ahora es la forma que da resultados esperados
+        */
+
+        $query = $usuarioRUCE->newQuery();
+
+        if ($request->id) {
+            $query->where('id', $request->id)
+                ->where(function ($q) use ($request) {
+                    if ($request->q) {
+                        $q->where('password', 'like', '%' . $request->q . '%')
+                            ->orWhere('tipoAsociacionDesc', 'like', '%' . $request->q . '%');
+                    }
+                });
+        } else {
+            if ($request->q) {
+                $query->where('password', 'like', '%' . $request->q . '%')
+                    ->orWhere('tipoAsociacionDesc', 'like', '%' . $request->q . '%');
+            }
+        }
+
+        // return new RequestCollection($query->orderBy('tipoAsociacionDesc')->paginate()->appends(['q' => $request->q, 'id' => $request->id]));
     }
 }
