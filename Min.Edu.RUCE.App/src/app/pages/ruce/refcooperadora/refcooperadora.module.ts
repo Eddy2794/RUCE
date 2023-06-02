@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { AtencionSeguimientoComponent } from './Components/atencion-seguimiento/atencion-seguimiento.component';
 import { AutoridadCooperadoraComponent } from './Components/autoridad-cooperadora/autoridad-cooperadora.component';
-import { CooperadoraComponent } from './Components/cooperadora/cooperadora.component';
+import { CooperadoraInsupdComponent } from './Components/cooperadora/form-insupd/cooperadora-insupd.component';
 import { ExpedienteComponent } from './Components/expediente/expediente.component';
 import { FondosCooperarComponent } from './Components/fondos-cooperar/fondos-cooperar.component';
 import { HistorialCooperadoraComponent } from './Components/historial-cooperadora/historial-cooperadora.component';
@@ -20,22 +20,33 @@ import { HistorialEstadoCooperadoraService } from './Services/Historial_Estado_C
 import { TipoAsociacionService } from './Services/TipoAsociacion/tipo-asociacion.service';
 import { ExpedienteService } from './Services/Expediente/expediente.service';
 import { PersoneriaService } from './Services/Personeria/personeria.service';
+import { EncabezadoCooperadoraComponent } from './Components/cooperadora/encabezado-cooperadora/encabezado-cooperadora.component';
+import { SharedModule } from '@app/shared/shared.module';
+import { PageLayoutModule } from 'src/@vex/components/page-layout/page-layout.module';
+import { BreadcrumbsModule } from 'src/@vex/components/breadcrumbs/breadcrumbs.module';
+import { SecondaryToolbarModule } from 'src/@vex/components/secondary-toolbar/secondary-toolbar.module';
+import { RefCooperadoraRoutingModule } from './refcooperadora-routing.module';
 
 
 @NgModule({
   declarations: [
     AtencionSeguimientoComponent,
     AutoridadCooperadoraComponent,
-    CooperadoraComponent,
     ExpedienteComponent,
     FondosCooperarComponent,
     HistorialCooperadoraComponent,
     KioscoComponent,
     PersoneriaComponent,
     TipoAsociacionComponent,
+    EncabezadoCooperadoraComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RefCooperadoraRoutingModule,
+    SharedModule,
+    PageLayoutModule,
+    BreadcrumbsModule,
+    SecondaryToolbarModule
   ],
   providers: [
     CooperadoraService,
@@ -50,4 +61,4 @@ import { PersoneriaService } from './Services/Personeria/personeria.service';
     PersoneriaService
   ]
 })
-export class RefRUCEModule { }
+export class RefCooperadoraModule { }

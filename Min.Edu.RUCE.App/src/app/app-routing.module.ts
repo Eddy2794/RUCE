@@ -34,6 +34,13 @@ const routes: VexRoutes = [
               toolbarShadowEnabled: true,       
             }
           }, 
+          {
+            path: 'refcooperadora',
+            loadChildren: () => import('./pages/ruce/refcooperadora/refcooperadora.module').then(m=> m.RefCooperadoraModule),
+            data:{
+              toolbarShadowEnabled: true,       
+            }
+          }, 
             {
             path: 'wizard-ejemplo',
             loadChildren: () => import('./pages/wizard-ejemplo/wizard-ejemplo.module').then(m=> m.WizardEjemploModule)
