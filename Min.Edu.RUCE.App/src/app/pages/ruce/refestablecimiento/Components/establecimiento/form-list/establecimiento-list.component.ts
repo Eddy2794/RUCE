@@ -39,7 +39,8 @@ export class EstablecimientoListComponent implements OnInit {
 
   private setColumns() {
     this.columnasVex = [
-      { label: "CÓDIGO", property: "id", type: "text", visible: true, },
+      { label: "ACCIONES", property: "actions", type: "button", visible: true },
+      // { label: "CÓDIGO", property: "id", type: "text", visible: true, },
       { label: "NOMBRE", property: "organizacionDesc", type: "text", visible: true, },
       { label: "CUE", property: "cue", type: "text", visible: true },
       { label: "ANEXO", property: "anexo", type: "text", visible: true },
@@ -64,7 +65,6 @@ export class EstablecimientoListComponent implements OnInit {
       { label: "EMAIL", property: "email", type: "text", visible: true },
       { label: "TELEFONO", property: "telefono", type: "text", visible: true },
 
-      { label: "ACCIONES", property: "actions", type: "button", visible: true },
     ];
   }
 

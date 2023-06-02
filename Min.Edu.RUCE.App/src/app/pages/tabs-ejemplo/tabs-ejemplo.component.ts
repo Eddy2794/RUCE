@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TabsEjemploComponent implements OnInit {
 
- 
+ data: Array<any>;
   constructor( ) { }
 
   ngOnInit(): void {
