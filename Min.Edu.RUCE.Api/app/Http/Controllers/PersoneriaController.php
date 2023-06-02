@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePersoneriaRequest;
+use App\Http\Requests\UpdatePersoneriaRequest;
+use App\Http\Resources\ModelResourse;
+use App\Http\Resources\RequestCollection;
 use App\Models\Personeria;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class PersoneriaController extends Controller
 {
@@ -14,56 +19,19 @@ class PersoneriaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(): JsonResponse
+    public function index(Request $request)
     {
-        $data = Personeria::all();
-        $respuesta = [
-            'entities' => $data,
-            'paged' => [
-                'entitiyCount' => count($data)
-            ]
-        ];
-        return response()->json($respuesta,200);
-    }
-
-    public function filtro(Request $request): JsonResponse  
-    {
-        $estaActivo = $request->query->get('EstaActivo');
-        $pageNumber = $request->query->get('PageNumber');
-        $pageSize = $request->query->get('PageSize');
-
-        $data = Personeria::where('estaActivo',$estaActivo)->get()->toArray();
-
-        $errores = [];
-
-        // dd($data, $estaActivo, $pageNumber, $pageSize);
-
-        // determina a partir de que indice toma los registros
-        $offset = ($pageNumber - 1) * $pageSize;
-
-        // toma los registros a partir del offset teniendo en cuenta pageSize
-        $elementos_pagina = array_slice($data, $offset, $pageSize);
-
-        $total_paginas = intval(ceil(count($data) / $pageSize));
-
-        // dd($offset/5+1,$elementos_pagina,count($elementos_pagina),$total_paginas);
-
-        // cuenta la cantidad de elementos se enviar en elementos_pagina
-        $cantidad = count($elementos_pagina);
-
-        $respuesta = [
-            'entities' => $elementos_pagina,
-            'succeded' => true,
-            'message' => "",
-            'errors' => $errores,
-            'paged' => [
-                'entitiyCount' => $cantidad,
-                'pageSize' => count($data),
-                'pageIndex' => $total_paginas,
-                'pageNumber' =>  intval($pageNumber)
-            ]
-        ];
-        return response()->json($respuesta,200);
+        try {
+            if ($request->has('PageNumber')&&$request->has('PageSize')) {
+                return new RequestCollection(Personeria::paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']));
+            }
+            return new RequestCollection(Personeria::paginate(10, ['*'], 'page', 1));
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -72,52 +40,45 @@ class PersoneriaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
-        $request->validate([
-            'fk_expediente'
-        ]);
-
-        $personeria = new Personeria();
-
-        $personeria->fk_expediente = $request->fk_expediente;
-        if($request->estado_comision_directiva)
-            $personeria->estado_comision_directiva = $request->estado_comision_directiva;
-        if($request->estado_resolucion)
-            $personeria->estado_resolucion = $request->estado_resolucion;
-        if($request->estado_balance)
-            $personeria->estado_balance = $request->estado_balance;
-        if($request->fecha)
-            $personeria->fecha = $request->fecha;
-
-        $personeria->save();
-
-        return response($personeria);
+        $request = new StorePersoneriaRequest($request->toArray());
+        try {
+            Personeria::create([
+                'fkExpediente' => $request->fkExpediente,
+                'fkCooperadora' => $request->fkCooperadora,
+                'decreto' => $request->decreto,
+                'nroResolucion' => $request->nroResolucion,
+                'fecha' => $request->fecha,
+                'idUsuarioAlta' => $request->idUsuarioAlta,
+            ]);
+            return response()->json([
+                'message' => 'Personeria registrada con Exito',
+                'succeeded' => true
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Personeria  $personeria
      * @return \Illuminate\Http\Response
      */
-    public function show(Personeria $personeria): JsonResponse 
+    public function show(int $personeria): JsonResponse
     {
-        $data = [$personeria];
-        $cantidad = count($data);
-
-        $errores = [];
-
-        $respuesta = [
-            'entities' => $data,
-            'succeded' => true,
-            'message' => "",
-            'errors' => $errores,
-            'paged' => [
-                'entitiyCount' => $cantidad
-            ]
-        ];
-        return response()->json($respuesta,200);
+        try {
+            return response()->json(new ModelResourse($personeria,'Personeria'));
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -127,21 +88,37 @@ class PersoneriaController extends Controller
      * @param  \App\Models\Personeria  $personeria
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Personeria $personeria)
+    public function update(Request $request, int $personeria): JsonResponse
     {
-        $request->validate([
-            'estado_comision_directiva',
-            'estado_resolucion',
-        ]);
+        try {
+            $personeria = Personeria::where('id', $personeria)->first();
+            $request = new UpdatePersoneriaRequest($request->toArray());
+            $personeria->fkExpediente = $request->fkExpediente ?: $personeria->fkExpediente;
+            $personeria->fkCooperadora = $request->fkCooperadora ?: $personeria->fkCooperadora;
+            $personeria->decreto = $request->decreto ?: $personeria->decreto;
+            $personeria->nroResolucion = $request->nroResolucion ?: $personeria->nroResolucion;
+            $personeria->fecha = $request->fecha ?: $personeria->fecha;
+            // $personeria->idUsuarioModificacion = $request->idUsuarioModificacion ?: $personeria->idUsuarioModificacion;
 
-        $personeria->update([
-            'estado_comision_directiva' => $request->estado_comision_directiva,
-            'estado_resolucion' => $request->estado_resolucion,
-            'estado_balance' => $request->estado_balance,
-            'fecha' => Carbon::createFromFormat('Y-m-d H:i:s',Carbon::now())->format('d-m-Y')
-        ]);
+            if ($personeria->isClean()) {
+                return response()->json([
+                    'message' => 'No se modifico ningun valor',
+                    'succeeded' => false
+                ], 422);
+            }
+            $personeria->updated_at= Carbon::now();
+            $personeria->save();
 
-        return response($personeria);
+            return response()->json([
+                'succeeded' => true,
+                'message' => 'Personeria Modificada con exito',
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -150,9 +127,47 @@ class PersoneriaController extends Controller
      * @param  \App\Models\Personeria  $personeria
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Personeria $personeria)
+    public function destroy(int $id): JsonResponse
     {
-        $personeria->delete();
-        return response()->noContent();
+        try {
+            Personeria::where('id', $id)->update(['estaActivo'=>false,]);
+            Personeria::where('id', $id)->delete();
+            return response()->json([
+                'succeeded' => true,
+                'message' => 'Personeria eliminada con exito'
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
+    }
+
+    public function search(Request $request, Personeria $personeria)
+    {
+        /*
+        Seguramente se puede refactorizar y optimizar
+        por ahora es la forma que da resultados esperados
+        */
+
+        $query = $personeria->newQuery();
+
+        if ($request->id) {
+            $query->where('id', $request->id)
+                ->where(function ($q) use ($request) {
+                    if ($request->q) {
+                        $q->where('fkCooperadora', 'like', '%' . $request->q . '%')
+                            ->orWhere('fkExpediente', 'like', '%' . $request->q . '%');
+                    }
+                });
+        } else {
+            if ($request->q) {
+                $query->where('fkCooperadora', 'like', '%' . $request->q . '%')
+                    ->orWhere('fkExpediente', 'like', '%' . $request->q . '%');
+            }
+        }
+
+        // return new RequestCollection($query->orderBy('fkExpediente')->paginate()->appends(['q' => $request->q, 'id' => $request->id]));
     }
 }

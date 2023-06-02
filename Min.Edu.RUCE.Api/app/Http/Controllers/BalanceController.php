@@ -4,9 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Balance;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreBalanceRequest;
+use App\Http\Requests\UpdateBalanceRequest;
+use App\Http\Resources\ModelResourse;
+use App\Http\Resources\RequestCollection;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
-
+use Symfony\Component\HttpFoundation\Response;
 
 class BalanceController extends Controller
 {
@@ -15,57 +20,19 @@ class BalanceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(): JsonResponse
+    public function index(Request $request)
     {
-        $data = Balance::all();
-        $respuesta = [
-            'entities' => $data,
-            'paged' => [
-                'entitiyCount' => count($data)
-            ]
-            ];
-        
-        return response()->json($respuesta,200);
-    }
-
-    public function filtro(Request $request): JsonResponse  
-    {
-        $estaActivo = $request->query->get('EstaActivo');
-        $pageNumber = $request->query->get('PageNumber');
-        $pageSize = $request->query->get('PageSize');
-
-        $data = Balance::where('estaActivo',$estaActivo)->get()->toArray();
-
-        $errores = [];
-
-        // dd($data, $estaActivo, $pageNumber, $pageSize);
-
-        // determina a partir de que indice toma los registros
-        $offset = ($pageNumber - 1) * $pageSize;
-
-        // toma los registros a partir del offset teniendo en cuenta pageSize
-        $elementos_pagina = array_slice($data, $offset, $pageSize);
-
-        $total_paginas = intval(ceil(count($data) / $pageSize));
-
-        // dd($offset/5+1,$elementos_pagina,count($elementos_pagina),$total_paginas);
-
-        // cuenta la cantidad de elementos se enviar en elementos_pagina
-        $cantidad = count($elementos_pagina);
-
-        $respuesta = [
-            'entities' => $elementos_pagina,
-            'succeded' => true,
-            'message' => "",
-            'errors' => $errores,
-            'paged' => [
-                'entitiyCount' => $cantidad,
-                'pageSize' => count($data),
-                'pageIndex' => $total_paginas,
-                'pageNumber' =>  intval($pageNumber)
-            ]
-        ];
-        return response()->json($respuesta,200);
+        try {
+            if ($request->has('PageNumber')&&$request->has('PageSize')) {
+                return new RequestCollection(Balance::paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']));
+            }
+            return new RequestCollection(Balance::paginate(10, ['*'], 'page', 1));
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -76,27 +43,24 @@ class BalanceController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'fkCooperadora' =>'required',
-            'estadoBalance' =>'required',
-            'estaActivo' =>'required',
-            'fechaEliminacion' =>'required',
-            'idUsuarioAlta' =>'required',
-            'idUsuarioModificacion' =>'required',
-        ]);
-
-        //instancia de una autoridad del model
-        $balance = new Balance();
-
-        //asigmacion de los datos profvenientes del requies hacia la instancia de autoridad
-        $balance-> fkCooperadora = $request-> fkCooperadora;
-        $balance-> estadoBalance = $request-> estadoBalance;
-        $balance-> estaActivo = $request-> estaActivo;
-        $balance-> fechaEliminacion = $request-> fechaEliminacion;
-        $balance-> idUsuarioAlta = $request-> idUsuarioAlta;
-        $balance-> idUsuarioModificacion = $request-> idUsuarioModificacion;
-        $balance->save();
-        return response($balance);
+        $request = new StoreBalanceRequest($request->toArray());
+        try {
+            Balance::create([
+                'organizacionDesc' => $request->organizacionDesc,
+                'fkCooperadora' => $request->fkCooperadora,
+                'estadoBalance' => $request->estadoBalance,
+                'idUsuarioAlta' => $request->idUsuarioAlta
+            ]);
+            return response()->json([
+                'message' => 'Balance registrada con Exito',
+                'succeeded' => true
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -105,24 +69,16 @@ class BalanceController extends Controller
      * @param  \App\Models\Balance  $balance
      * @return \Illuminate\Http\Response
      */
-    public function show(int $id): JsonResponse 
+    public function show(int $balance): JsonResponse 
     {
-        $data = Balance::where('id', $id)->get();
-        $cantidad = count($data);
-
-        $errores = [];
-
-        $respuesta = [
-            'entities' => $data,
-            'succeded' => true,
-            'message' => "",
-            'errors' => $errores,
-            'paged' => [
-                'entitiyCount' => $cantidad
-            ]
-        ];
-        return response()->json($respuesta, 200);
-
+        try {
+            return response()->json(new ModelResourse($balance,'Balance'));
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -132,28 +88,33 @@ class BalanceController extends Controller
      * @param  \App\Models\Balance  $balance
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, int $id)
+    public function update(Request $request, int $balance)
     {
-        $request->validate([
-            'fkCooperadora' =>'required',
-            'estadoBalance' =>'required',
-            'estaActivo' =>'required',
-            'fechaEliminacion' =>'required',
-            'idUsuarioAlta' =>'required',
-            'idUsuarioModificacion' =>'required',
-        ]);
+        try {
+            $balance = Balance::where('id', $balance)->first();
+            $request = new UpdateBalanceRequest($request->toArray());
+            $balance->fkCooperadora = $request->fkCooperadora ?: $balance->fkCooperadora;
+            $balance->estadoBalance = $request->estadoBalance ?: $balance->estadoBalance;
 
-                //se obtiene una autoridad establecimiento educativo desde la base de datos y actualizo sus datos
-                Balance::where('id', $id )->update([
-                    'fkCooperadora' => $request->fkCooperadora,
-                    'estadoBalance' => $request->estadoBalance,
-                    'estaActivo' => $request->estaActivo,
-                    'fechaEliminacion' => $request->fechaEliminacion,
-                    'idUsuarioAlta' => $request->idUsuarioAlta,
-                    'idUsuarioModificacion' => $request->idUsuarioModificacion,
-                ]);
-                return response(Balance::where('id',$id)->get()[0]);
+            if ($balance->isClean()) {
+                return response()->json([
+                    'message' => 'No se modifico ningun valor',
+                    'succeeded' => false
+                ], 422);
+            }
+            $balance->updated_at= Carbon::now();
+            $balance->save();
 
+            return response()->json([
+                'succeeded' => true,
+                'message' => 'Balance Modificada con exito',
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -164,7 +125,45 @@ class BalanceController extends Controller
      */
     public function destroy(int $id)
     {
-        Balance::where('id',$id)->delete();
-        return response()->noContent();
+        try {
+            Balance::where('id', $id)->update(['estaActivo'=>false,]);
+            Balance::where('id', $id)->delete();
+            return response()->json([
+                'succeeded' => true,
+                'message' => 'Balance eliminado con exito'
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
+    }
+
+    public function search(Request $request, Balance $balance)
+    {
+        /*
+        Seguramente se puede refactorizar y optimizar
+        por ahora es la forma que da resultados esperados
+        */
+
+        $query = $balance->newQuery();
+
+        if ($request->id) {
+            $query->where('id', $request->id)
+                ->where(function ($q) use ($request) {
+                    if ($request->q) {
+                        $q->where('fkCooperadora', 'like', '%' . $request->q . '%')
+                            ->orWhere('denominacion', 'like', '%' . $request->q . '%');
+                    }
+                });
+        } else {
+            if ($request->q) {
+                $query->where('fkCooperadora', 'like', '%' . $request->q . '%')
+                    ->orWhere('denominacion', 'like', '%' . $request->q . '%');
+            }
+        }
+
+        // return new RequestCollection($query->orderBy('organizacionDesc')->paginate()->appends(['q' => $request->q, 'id' => $request->id]));
     }
 }

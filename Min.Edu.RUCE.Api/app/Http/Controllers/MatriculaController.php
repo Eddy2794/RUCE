@@ -4,8 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Matricula;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreMatriculaRequest;
+use App\Http\Requests\UpdateMatriculaRequest;
+use App\Http\Resources\ModelResourse;
+use App\Http\Resources\RequestCollection;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class MatriculaController extends Controller
 {
@@ -14,56 +20,19 @@ class MatriculaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        $data = Matricula::all();
-        $respuesta = [
-            'entities' => $data,
-            'paged' => [
-                'entitiyCount' => count($data)
-            ]
-        ];
-        return response()->json($respuesta,200);
-    }
-
-    public function filtro(Request $request): JsonResponse  
-    {
-        $estaActivo = $request->query->get('EstaActivo');
-        $pageNumber = $request->query->get('PageNumber');
-        $pageSize = $request->query->get('PageSize');
-
-        $data = Matricula::where('estaActivo',$estaActivo)->get()->toArray();
-
-        $errores = [];
-
-        // dd($data, $estaActivo, $pageNumber, $pageSize);
-
-        // determina a partir de que indice toma los registros
-        $offset = ($pageNumber - 1) * $pageSize;
-
-        // toma los registros a partir del offset teniendo en cuenta pageSize
-        $elementos_pagina = array_slice($data, $offset, $pageSize);
-
-        $total_paginas = intval(ceil(count($data) / $pageSize));
-
-        // dd($offset/5+1,$elementos_pagina,count($elementos_pagina),$total_paginas);
-
-        // cuenta la cantidad de elementos se enviar en elementos_pagina
-        $cantidad = count($elementos_pagina);
-
-        $respuesta = [
-            'entities' => $elementos_pagina,
-            'succeded' => true,
-            'message' => "",
-            'errors' => $errores,
-            'paged' => [
-                'entitiyCount' => $cantidad,
-                'pageSize' => count($data),
-                'pageIndex' => $total_paginas,
-                'pageNumber' =>  intval($pageNumber)
-            ]
-        ];
-        return response()->json($respuesta,200);
+        try {
+            if ($request->has('PageNumber')&&$request->has('PageSize')) {
+                return new RequestCollection(Matricula::paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']));
+            }
+            return new RequestCollection(Matricula::paginate(10, ['*'], 'page', 1));
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -74,27 +43,24 @@ class MatriculaController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'fkOrganizacionRUCE' => 'required',
-            'periodoLectivo' => 'required',
-            'matricula' => 'required',
-            'estaActivo' => 'required',
-            'fechaEliminacion' => 'required',
-            'idUsuarioAlta' => 'required',
-            'idUsuarioModificacion' => 'required'
-        ]);
-
-        $matricula = new Matricula();
-
-        $matricula->fkOrganizacionRUCE = $request->fkOrganizacionRUCE;
-        $matricula->periodoLectivo = $request->periodoLectivo;
-        $matricula->matricula = $request->matricula;
-        $matricula->estaActivo = $request->estaActivo;
-        $matricula->fechaEliminacion = $request->fechaEliminacion;
-        $matricula->idUsuarioAlta = $request->idUsuarioAlta;
-        $matricula->idUsuarioModificacion = $request->idUsuarioModificacion;
-
-        return response($matricula);
+        $request = new StoreMatriculaRequest($request->toArray());
+        try {
+            Matricula::create([
+                'fkmatricula' => $request->fkmatricula,
+                'periodoLectivo' => $request->periodoLectivo,
+                'matricula' => $request->matricula,
+                'idUsuarioAlta' => $request->idUsuarioAlta,
+            ]);
+            return response()->json([
+                'message' => 'Matricula registrada con Exito',
+                'succeeded' => true
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -103,23 +69,16 @@ class MatriculaController extends Controller
      * @param  \App\Models\Matricula  $matricula
      * @return \Illuminate\Http\Response
      */
-    public function show(int $id): JsonResponse
+    public function show(int $matricula): JsonResponse
     {
-        $data = Matricula::where('id', $id)->get();
-        $cantidad = count($data);
-
-        $errores = [];
-
-        $respuesta = [
-            'entities' => $data,
-            'succeded' => true,
-            'message' => "",
-            'errors' => $errores,
-            'paged' => [
-                'entitiyCount' => $cantidad
-            ]
-        ];
-        return response()->json($respuesta,200);
+        try {
+            return response()->json(new ModelResourse($matricula,'Matricula'));
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -129,40 +88,84 @@ class MatriculaController extends Controller
      * @param  \App\Models\Matricula  $matricula
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, int $id)
+    public function update(Request $request, int $matricula)
     {
-        $request->validate([
-            'fkOrganizacionRUCE'=>'required',
-            'periodoLectivo'=>'required',
-            'matricula'=>'required',
-            'estaActivo'=>'required',
-            'fechaEliminacion'=>'required',
-            'idUsuarioAlta'=>'required',
-            'idUsuarioModificacion'=>'required'
-        ]);
+        try {
+            $matricula = Matricula::where('id', $matricula)->first();
+            $request = new UpdateMatriculaRequest($request->toArray());
+            $matricula->fkOrganizacionRUCE = $request->fkOrganizacionRUCE ?: $matricula->fkOrganizacionRUCE;
+            $matricula->periodoLectivo = $request->periodoLectivo ?: $matricula->periodoLectivo;
+            $matricula->matricula = $request->matricula ?: $matricula->matricula;
+            // $matricula->idUsuarioModificacion = $request->idUsuarioModificacion ?: $matricula->idUsuarioModificacion;
 
-        Matricula::where('id',$id)->update([
-            'fkOrganizacionRUCE' => $request->fkOrganizacionRUCE,
-            'periodoLectivo' => $request->periodoLectivo,
-            'matricula' => $request->matricula,
-            'estaActivo' => $request->estaActivo,
-            'fechaEliminacion' => $request->fechaEliminacion,
-            'idUsuarioAlta' => $request->idUsuarioAlta,
-            'idUsuarioModificacion' => $request->idUsuarioModificacion,
-        ]);
+            if ($matricula->isClean()) {
+                return response()->json([
+                    'message' => 'No se modifico ningun valor',
+                    'succeeded' => false
+                ], 422);
+            }
+            $matricula->updated_at= Carbon::now();
+            $matricula->save();
 
-        return response(Matricula::where('id',$id)->get()[0]);
+            return response()->json([
+                'succeeded' => true,
+                'message' => 'Organizacion Modificada con exito',
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
-    /**
+        /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Matricula  $matricula
+     * @param  \App\Models\OrganizacionRUCE  $organizacionRUCE
      * @return \Illuminate\Http\Response
      */
-    public function destroy(int $id)
+    public function destroy(int $id): JsonResponse
     {
-        Matricula::where('id',$id)->delete();
-        return response()->noContent();
+        try {
+            Matricula::where('id', $id)->update(['estaActivo'=>false,]);
+            Matricula::where('id', $id)->delete();
+            return response()->json([
+                'succeeded' => true,
+                'message' => 'Matricula eliminada con exito'
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
+    }
+
+    public function search(Request $request, Matricula $matricula)
+    {
+        /*
+        Seguramente se puede refactorizar y optimizar
+        por ahora es la forma que da resultados esperados
+        */
+
+        $query = $matricula->newQuery();
+
+        if ($request->id) {
+            $query->where('id', $request->id)
+                ->where(function ($q) use ($request) {
+                    if ($request->q) {
+                        $q->where('cue', 'like', '%' . $request->q . '%')
+                            ->orWhere('organizacionDesc', 'like', '%' . $request->q . '%');
+                    }
+                });
+        } else {
+            if ($request->q) {
+                $query->where('cue', 'like', '%' . $request->q . '%')
+                    ->orWhere('organizacionDesc', 'like', '%' . $request->q . '%');
+            }
+        }
+
+        // return new RequestCollection($query->orderBy('organizacionDesc')->paginate()->appends(['q' => $request->q, 'id' => $request->id]));
     }
 }

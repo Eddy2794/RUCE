@@ -16,7 +16,7 @@ class Fondo extends Model
     protected $primaryKey = 'id';
     protected $dates = ['deleted_at'];
     protected $fillable = [
-        'fkIdTipoFondo',
+        'fkTipoFondo',
         'fkCooperadora',
         'fondoRecibido',
         'fondoRendido',

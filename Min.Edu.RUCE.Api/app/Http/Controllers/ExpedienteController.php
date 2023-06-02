@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreExpedienteRequest;
+use App\Http\Requests\UpdateExpedienteRequest;
+use App\Http\Resources\ModelResourse;
+use App\Http\Resources\RequestCollection;
 use App\Models\Expediente;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class ExpedienteController extends Controller
 {
@@ -14,56 +19,19 @@ class ExpedienteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(): JsonResponse
+    public function index(Request $request)
     {
-        $data = Expediente::all();
-        $respuesta = [
-            'entities' => $data,
-            'paged' => [
-                'entitiyCount' => count($data)
-            ]
-        ];
-        return response()->json($respuesta,200);
-    }
-
-    public function filtro(Request $request): JsonResponse  
-    {
-        $estaActivo = $request->query->get('EstaActivo');
-        $pageNumber = $request->query->get('PageNumber');
-        $pageSize = $request->query->get('PageSize');
-
-        $data = Expediente::where('estaActivo',$estaActivo)->get()->toArray();
-
-        $errores = [];
-
-        // dd($data, $estaActivo, $pageNumber, $pageSize);
-
-        // determina a partir de que indice toma los registros
-        $offset = ($pageNumber - 1) * $pageSize;
-
-        // toma los registros a partir del offset teniendo en cuenta pageSize
-        $elementos_pagina = array_slice($data, $offset, $pageSize);
-
-        $total_paginas = intval(ceil(count($data) / $pageSize));
-
-        // dd($offset/5+1,$elementos_pagina,count($elementos_pagina),$total_paginas);
-
-        // cuenta la cantidad de elementos se enviar en elementos_pagina
-        $cantidad = count($elementos_pagina);
-
-        $respuesta = [
-            'entities' => $elementos_pagina,
-            'succeded' => true,
-            'message' => "",
-            'errors' => $errores,
-            'paged' => [
-                'entitiyCount' => $cantidad,
-                'pageSize' => count($data),
-                'pageIndex' => $total_paginas,
-                'pageNumber' =>  intval($pageNumber)
-            ]
-        ];
-        return response()->json($respuesta,200);
+        try {
+            if ($request->has('PageNumber')&&$request->has('PageSize')) {
+                return new RequestCollection(Expediente::paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']));
+            }
+            return new RequestCollection(Expediente::paginate(10, ['*'], 'page', 1));
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -74,33 +42,26 @@ class ExpedienteController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'fkCooperadora' => 'required',
-            'nroExpediente' => 'required',
-            'cantObservaciones' => 'required',
-            'observacionesDesc' => 'required',
-            'observacionesRespondidas' => 'required',
-            'estaActivo' => 'required',
-            'fechaEliminacion' => 'required',
-            'idUsuarioAlta' => 'required',
-            'idUsuarioModificacion' => 'required',
-        ]);
-
-        $expediente = new Expediente();
-
-        $expediente-> fkCooperadora = $request->fkCooperadora;
-        $expediente-> nroExpediente = $request->nroExpediente;
-        $expediente-> cantObservaciones = $request->cantObservaciones;
-        $expediente-> observacionesDesc = $request->observacionesDesc;
-        $expediente-> observacionesRespondidas = $request->observacionesRespondidas;
-        $expediente-> estaActivo = $request->estaActivo;
-        $expediente-> fechaEliminacion = $request->fechaEliminacion;
-        $expediente-> idUsuarioAlta = $request->idUsuarioAlta;
-        $expediente-> idUsuarioModificacion = $request->idUsuarioModificacion;
-
-        $expediente->save();
-
-        return response($expediente);
+        $request = new StoreExpedienteRequest($request->toArray());
+        try {
+            Expediente::create([
+                'fkCooperadora' => $request->fkCooperadora,
+                'nroExpediente' => $request->nroExpediente,
+                'cantObservaciones' => $request->cantObservaciones,
+                'observacionesDesc' => $request->observacionesDesc,
+                'observacionesRespondidas' => $request->observacionesRespondidas,
+                'idUsuarioAlta' => $request->idUsuarioAlta,
+            ]);
+            return response()->json([
+                'message' => 'Expediente registrada con Exito',
+                'succeeded' => true
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -109,23 +70,16 @@ class ExpedienteController extends Controller
      * @param  \App\Models\Expediente  $expediente
      * @return \Illuminate\Http\Response
      */
-    public function show(int $id): JsonResponse
+    public function show(int $expediente)
     {
-        $data = Expediente::where('id', $id)->get();
-        $cantidad = count($data);
-
-        $errores = [];
-
-        $respuesta = [
-            'entities' => $data,
-            'succeded' => true,
-            'message' => "",
-            'errors' => $errores,
-            'paged' => [
-                'entitiyCount' => $cantidad
-            ]
-        ];
-        return response()->json($respuesta,200);
+        try {
+            return response()->json(new ModelResourse($expediente,'Expediente'));
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -135,33 +89,37 @@ class ExpedienteController extends Controller
      * @param  \App\Models\Expediente  $expediente
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Expediente $expediente)
+    public function update(Request $request, int $expediente)
     {
-        $request->validate([
-            'fkCooperadora' => 'required',
-            'nroExpediente' => 'required',
-            'cantObservaciones' => 'required',
-            'observacionesDesc' => 'required',
-            'observacionesRespondidas' => 'required',
-            'estaActivo' => 'required',
-            'fechaEliminacion' => 'required',
-            'idUsuarioAlta' => 'required',
-            'idUsuarioModificacion' => 'required',
-        ]);
+        try {
+            $expediente = Expediente::where('id', $expediente)->first();
+            $request = new UpdateExpedienteRequest($request->toArray());
+            $expediente->fkCooperadora = $request->fkCooperadora ?: $expediente->fkCooperadora;
+            $expediente->nroExpediente = $request->nroExpediente ?: $expediente->nroExpediente;
+            $expediente->cantObservaciones = $request->cantObservaciones ?: $expediente->cantObservaciones;
+            $expediente->observacionesDesc = $request->observacionesDesc ?: $expediente->observacionesDesc;
+            $expediente->observacionesRespondidas = $request->observacionesRespondidas ?: $expediente->observacionesRespondidas;
+            // $expediente->idUsuarioModificacion = $request->idUsuarioModificacion ?: $expediente->idUsuarioModificacion;
 
-        $expediente->update([
-            'fkCooperadora' => $request->fkCooperadora,
-            'nroExpediente' => $request->nroExpediente,
-            'cantObservaciones' => $request->cantObservaciones,
-            'observacionesDesc' => $request->observacionesDesc,
-            'observacionesRespondidas' => $request->observacionesRespondidas,
-            'estaActivo' => $request->estaActivo,
-            'fechaEliminacion' => $request->fechaEliminacion,
-            'idUsuarioAlta' => $request->idUsuarioAlta,
-            'idUsuarioModificacion' => $request->idUsuarioModificacion,
-        ]);
+            if ($expediente->isClean()) {
+                return response()->json([
+                    'message' => 'No se modifico ningun valor',
+                    'succeeded' => false
+                ], 422);
+            }
+            $expediente->updated_at= Carbon::now();
+            $expediente->save();
 
-        return response($expediente);
+            return response()->json([
+                'succeeded' => true,
+                'message' => 'Expediente Modificada con exito',
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
     /**
@@ -170,9 +128,47 @@ class ExpedienteController extends Controller
      * @param  \App\Models\Expediente  $expediente
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Expediente $expediente)
+    public function destroy(int $id)
     {
-        $expediente->delete();
-        return response()->noContent();
+        try {
+            Expediente::where('id', $id)->update(['estaActivo'=>false,]);
+            Expediente::where('id', $id)->delete();
+            return response()->json([
+                'succeeded' => true,
+                'message' => 'Expediente eliminada con exito'
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
+    }
+
+    public function search(Request $request, Expediente $expediente)
+    {
+        /*
+        Seguramente se puede refactorizar y optimizar
+        por ahora es la forma que da resultados esperados
+        */
+
+        $query = $expediente->newQuery();
+
+        if ($request->id) {
+            $query->where('id', $request->id)
+                ->where(function ($q) use ($request) {
+                    if ($request->q) {
+                        $q->where('cue', 'like', '%' . $request->q . '%')
+                            ->orWhere('organizacionDesc', 'like', '%' . $request->q . '%');
+                    }
+                });
+        } else {
+            if ($request->q) {
+                $query->where('cue', 'like', '%' . $request->q . '%')
+                    ->orWhere('organizacionDesc', 'like', '%' . $request->q . '%');
+            }
+        }
+
+        // return new RequestCollection($query->orderBy('organizacionDesc')->paginate()->appends(['q' => $request->q, 'id' => $request->id]));
     }
 }

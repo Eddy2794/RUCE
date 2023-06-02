@@ -98,13 +98,13 @@ class OrganizacionRUCEController extends Controller
             $organizacionRUCE->organizacionDesc = $request->organizacionDesc ?: $organizacionRUCE->organizacionDesc;
             $organizacionRUCE->cue = $request->cue ?: $organizacionRUCE->cue;
             $organizacionRUCE->anexo = $request->anexo ?: $organizacionRUCE->anexo;
+            $organizacionRUCE->region = $request->region ?: $organizacionRUCE->region;
+            $organizacionRUCE->nivel = $request->nivel ?: $organizacionRUCE->nivel;
+            $organizacionRUCE->localidad = $request->localidad ?: $organizacionRUCE->localidad;
+            $organizacionRUCE->departamento = $request->departamento ?: $organizacionRUCE->departamento;
             $organizacionRUCE->telefono = $request->telefono ?: $organizacionRUCE->telefono;
             $organizacionRUCE->email = $request->email ?: $organizacionRUCE->email;
             $organizacionRUCE->domicilio = $request->domicilio ?: $organizacionRUCE->domicilio;
-            $organizacionRUCE->departamento = $request->departamento ?: $organizacionRUCE->departamento;
-            $organizacionRUCE->localidad = $request->localidad ?: $organizacionRUCE->localidad;
-            $organizacionRUCE->region = $request->region ?: $organizacionRUCE->region;
-            $organizacionRUCE->nivel = $request->nivel ?: $organizacionRUCE->nivel;
             // $organizacionRUCE->idUsuarioModificacion = $request->idUsuarioModificacion ?: $organizacionRUCE->idUsuarioModificacion;
 
             if ($organizacionRUCE->isClean()) {
