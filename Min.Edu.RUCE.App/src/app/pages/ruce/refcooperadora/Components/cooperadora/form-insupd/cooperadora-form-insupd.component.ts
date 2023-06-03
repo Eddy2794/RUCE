@@ -4,21 +4,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogComponent, DialogData } from '@app/components/dialog/dialog.component';
 import { ValidatorService } from '@app/shared/validators/validator.service';
-import { fadeInUp400ms } from 'src/@vex/animations/fade-in-up.animation';
-import { stagger60ms } from 'src/@vex/animations/stagger.animation';
 import { CooperadoraService } from '../../../Services/Cooperadora/cooperadora.service';
 
 @Component({
-  selector: 'app-cooperadora',
-  templateUrl: './cooperadora-insupd.component.html',
-  styleUrls: ['./cooperadora-insupd.component.scss'],
-  animations: [
-    stagger60ms,
-    fadeInUp400ms
-  ]
+  selector: 'vex-form-insupd',
+  templateUrl: './cooperadora-form-insupd.component.html',
+  styleUrls: ['./cooperadora-form-insupd.component.scss']
 })
-export class CooperadoraInsupdComponent implements OnInit {
-
+export class CooperadoraFormInsupdComponent implements OnInit {
   formularioCooperadora!: FormGroup;
   id: number = 0;
   public accion: string = '';

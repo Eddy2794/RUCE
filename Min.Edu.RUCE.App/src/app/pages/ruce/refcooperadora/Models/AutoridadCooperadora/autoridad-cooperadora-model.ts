@@ -1,11 +1,11 @@
 import { BaseModel } from '@app/_models/base.model';
 import { CooperadoraModel } from './../Cooperadora/cooperadora-model';
-import { PersonaModel } from './../PersonaRUCE/personaruce-model';
+import { PersonaRUCEModel } from './../../../../ruce/persona-ruce/PersonaRUCE/persona-ruce-model';
 
 export class AutoridadCooperadoraModel extends BaseModel {
     static className: string = 'autoridades_cooperadoras';
     constructor(
-        public fk_persona?: PersonaModel,
+        public fk_persona?: PersonaRUCEModel,
         public fk_cooperadora?: CooperadoraModel,
         public cargo?: string,
         public inicio_cargo?: Date,

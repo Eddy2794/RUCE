@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 
 import { AtencionSeguimientoComponent } from './Components/atencion-seguimiento/atencion-seguimiento.component';
 import { AutoridadCooperadoraComponent } from './Components/autoridad-cooperadora/autoridad-cooperadora.component';
-import { CooperadoraInsupdComponent } from './Components/cooperadora/form-insupd/cooperadora-insupd.component';
 import { ExpedienteComponent } from './Components/expediente/expediente.component';
 import { FondosCooperarComponent } from './Components/fondos-cooperar/fondos-cooperar.component';
 import { HistorialCooperadoraComponent } from './Components/historial-cooperadora/historial-cooperadora.component';
 import { KioscoComponent } from './Components/kiosco/kiosco.component';
 import { PersoneriaComponent } from './Components/personeria/personeria.component';
 import { TipoAsociacionComponent } from './Components/tipo-asociacion/tipo-asociacion.component';
+import { CooperadoraFormInsupdComponent } from './Components/cooperadora/form-insupd/cooperadora-form-insupd.component';
 
 import { AtencionSeguimientoService } from './Services/AtencionSeguimiento/atencion-seguimiento.service';
 import { CooperadoraService } from './Services/Cooperadora/cooperadora.service';
@@ -26,6 +26,8 @@ import { PageLayoutModule } from 'src/@vex/components/page-layout/page-layout.mo
 import { BreadcrumbsModule } from 'src/@vex/components/breadcrumbs/breadcrumbs.module';
 import { SecondaryToolbarModule } from 'src/@vex/components/secondary-toolbar/secondary-toolbar.module';
 import { RefCooperadoraRoutingModule } from './refcooperadora-routing.module';
+import { CooperadoraListComponent } from './Components/cooperadora/form-list/cooperadora-list.component';
+import { PrincipalComponent } from './Components/cooperadora/principal/principal.component';
 
 
 @NgModule({
@@ -39,6 +41,9 @@ import { RefCooperadoraRoutingModule } from './refcooperadora-routing.module';
     PersoneriaComponent,
     TipoAsociacionComponent,
     EncabezadoCooperadoraComponent,
+    CooperadoraFormInsupdComponent,
+    CooperadoraListComponent,
+    PrincipalComponent,
   ],
   imports: [
     CommonModule,

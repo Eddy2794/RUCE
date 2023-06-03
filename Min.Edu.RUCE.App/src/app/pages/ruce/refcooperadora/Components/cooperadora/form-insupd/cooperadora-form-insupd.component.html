@@ -8,6 +8,7 @@
     </button>
 </vex-secondary-toolbar>
 <div [@stagger]="true" class="p-gutter container">
+    <vex-encabezado-cooperadora></vex-encabezado-cooperadora>
     <form autocomplete="off" [formGroup]="formularioCooperadora" (ngSubmit)="save()">
     <div class="flex flex-col sm:flex-row gap-4">
         <div @fadeInUp class="card flex-auto">

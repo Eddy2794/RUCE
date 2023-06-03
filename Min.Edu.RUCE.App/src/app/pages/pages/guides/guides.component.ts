@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import {
-  HelpCenterGuidesGuideComponent
-} from '../../apps/help-center/help-center-guides/help-center-guides-guide/help-center-guides-guide.component';
+import { HelpCenterGuidesGuideComponent } from '../../apps/help-center/help-center-guides/help-center-guides-guide/help-center-guides-guide.component';
 import { Guide, GuideCategory } from '../../apps/help-center/help-center-guides/help-center-guides.component';
 import { trackById } from '../../../../@vex/utils/track-by';
 import { stagger60ms } from '../../../../@vex/animations/stagger.animation';

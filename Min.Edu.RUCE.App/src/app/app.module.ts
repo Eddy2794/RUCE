@@ -1,3 +1,4 @@
+import { PersonaRUCEModel } from './pages/ruce/persona-ruce/PersonaRUCE/persona-ruce-model';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';

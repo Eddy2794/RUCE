@@ -177,13 +177,13 @@ export class AppComponent {
             icon: 'mat:touch_app',
             routerLinkActiveOptions: { exact: true }
           },
-          // {
-          //   type: 'link',
-          //   label: 'Grupo Nivel',
-          //   route:'/pages/refgruponivel',
-          //   icon: 'mat:touch_app',
-          //   routerLinkActiveOptions: { exact: true }
-          // },
+          {
+            type: 'link',
+            label: 'Cooperadora',
+            route:'/pages/refcooperadora',
+            icon: 'mat:touch_app',
+            routerLinkActiveOptions: { exact: true }
+          },
         ]
       }
     ];
