@@ -1,8 +1,8 @@
-import { PrincipalComponent } from './Components/cooperadora/principal/principal.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CooperadoraListComponent } from './Components/cooperadora/form-list/cooperadora-list.component';
-import { CooperadoraFormInsupdComponent } from './Components/cooperadora/form-insupd/cooperadora-form-insupd.component';
+import { CooperadoraListComponent } from './cooperadora/Components/form-list/cooperadora-list.component';
+import { CooperadoraFormInsupdComponent } from './cooperadora/Components/form-insupd/cooperadora-form-insupd.component';
+import { PrincipalComponent } from './cooperadora/Components/principal/principal.component';
 import { TabsEjemploComponent } from '../../tabs-ejemplo/tabs-ejemplo.component';
 
 

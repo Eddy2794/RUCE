@@ -28,8 +28,8 @@ const routes: VexRoutes = [
             }
           }, 
           {
-            path: 'refestablecimiento',
-            loadChildren: () => import('./pages/ruce/refestablecimiento/refestablecimiento.module').then(m=> m.RefEstablecimientoModule),
+            path: 'establecimientos',
+            loadChildren: () => import('./pages/ruce/reforganizacionruce/reforganizacionruce.module').then(m=> m.RefOrganizacionRUCEModule),
             data:{
               toolbarShadowEnabled: true,       
             }

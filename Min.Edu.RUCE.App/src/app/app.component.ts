@@ -173,7 +173,7 @@ export class AppComponent {
           {
             type: 'link',
             label: 'Establecimientos',
-            route:'/pages/refestablecimiento',
+            route:'/pages/establecimientos',
             icon: 'mat:touch_app',
             routerLinkActiveOptions: { exact: true }
           },
