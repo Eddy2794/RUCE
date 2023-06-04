@@ -1,8 +1,8 @@
+import { DetallesComponent } from './Components/detalles/detalles.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { OrganizacionRUCEListComponent } from './Components/organizacion-ruce/form-list/organizacionruce-list.component';
-import { OrganizacionRUCEInsupdComponent } from './Components/organizacion-ruce/form-insupd/organizacionruce-insupd.component';
-import { TabsEjemploComponent } from '../../tabs-ejemplo/tabs-ejemplo.component';
+import { OrganizacionRUCEListComponent } from './Components/form-list/organizacionruce-list.component';
+import { OrganizacionRUCEInsupdComponent } from './Components/form-insupd/organizacionruce-insupd.component';
 
 
 const routes: Routes = [
@@ -12,7 +12,7 @@ const routes: Routes = [
       { path: 'listar', component: OrganizacionRUCEListComponent},
       { path: 'add-edit/:id', component: OrganizacionRUCEInsupdComponent },
       { path: 'delete/:id', component: OrganizacionRUCEInsupdComponent },
-      { path: 'detalles/:id', component: TabsEjemploComponent },
+      { path: 'detalles/:id', component: DetallesComponent },
       { path: '**', redirectTo: 'listar' }
     ]
   }

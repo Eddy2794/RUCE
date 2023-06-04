@@ -15,7 +15,7 @@ const routes: Routes = [
       { path: 'delete/:id', component: CooperadoraFormInsupdComponent },
       { path: 'detalles/:id', component: TabsEjemploComponent },
       { path: 'principal', component: PrincipalComponent },
-      { path: '**', redirectTo: 'principal' }
+      { path: '**', redirectTo: 'listar' }
     ]
   }
 ];

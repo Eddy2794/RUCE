@@ -3,7 +3,7 @@ import { OrganizacionRUCEModel } from '../../../../reforganizacionruce/Models/Or
 import { KioscoModel } from '../../../Models/Kiosco/kiosco-model';
 
 export class CooperadoraModel extends BaseModel {
-    static className: string = 'cooperadoras';
+    static className: string = 'cooperadora';
     constructor(
         public denominacion?: string,
         public estado?: string,

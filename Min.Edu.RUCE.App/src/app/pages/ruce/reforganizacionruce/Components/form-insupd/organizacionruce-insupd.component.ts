@@ -6,7 +6,7 @@ import { DialogComponent, DialogData } from '@app/components/dialog/dialog.compo
 import { ValidatorService } from '@app/shared/validators/validator.service';
 import { fadeInUp400ms } from 'src/@vex/animations/fade-in-up.animation';
 import { stagger60ms } from 'src/@vex/animations/stagger.animation';
-import { OrganizacionRUCEService } from '../../../Services/OrganizacionRUCE/organizacionruce-service.service';
+import { OrganizacionRUCEService } from '../../Services/OrganizacionRUCE/organizacionruce-service.service';
 
 @Component({
   selector: 'app-organizacionruce-form',

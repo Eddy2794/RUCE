@@ -41,6 +41,15 @@ Route::group(['prefix' => '/organizacion'],function () {
     Route::put('/{id}',[OrganizacionRUCEController::class,'update'])->name('organizacion.update');
 });
 
+Route::group(['prefix' => '/cooperadora'],function () {
+    // Route::get('/', [CooperadoraController::class, 'index'])->name('organizacion.index');
+    Route::get('/Filter', [CooperadoraController::class, 'index'])->name('organizacion.index');
+    Route::post('/', [CooperadoraController::class, 'store'])->name('organizacion.store');
+    Route::get('/{id}', [CooperadoraController::class, 'show'])->name('organizacion.show');
+    Route::delete('/{id}', [CooperadoraController::class, 'destroy'])->name('organizacion.destroy');
+    Route::put('/{id}',[CooperadoraController::class,'update'])->name('organizacion.update');
+});
+
 // Route::apiResource('organizacion',OrganizacionRUCEController::class);
 
 // Route::get('/persona/Filter', [PersonaRUCEController::class, 'filtro']);

@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { OrganizacionRUCEListComponent } from './Components/organizacion-ruce/form-list/organizacionruce-list.component';
-import { OrganizacionRUCEInsupdComponent } from './Components/organizacion-ruce/form-insupd/organizacionruce-insupd.component';
+import { OrganizacionRUCEListComponent } from './Components/form-list/organizacionruce-list.component';
+import { OrganizacionRUCEInsupdComponent } from './Components/form-insupd/organizacionruce-insupd.component';
 
 
 import { OrganizacionRUCEService } from './Services/OrganizacionRUCE/organizacionruce-service.service';
@@ -14,6 +14,7 @@ import { SharedModule } from '@app/shared/shared.module';
 import { PageLayoutModule } from 'src/@vex/components/page-layout/page-layout.module';
 import { BreadcrumbsModule } from 'src/@vex/components/breadcrumbs/breadcrumbs.module';
 import { SecondaryToolbarModule } from 'src/@vex/components/secondary-toolbar/secondary-toolbar.module';
+import { DetallesComponent } from './Components/detalles/detalles.component';
 
 // import { VexAioTableModule } from 'vex-aio-table';
 
@@ -21,6 +22,7 @@ import { SecondaryToolbarModule } from 'src/@vex/components/secondary-toolbar/se
   declarations: [
     OrganizacionRUCEListComponent,
     OrganizacionRUCEInsupdComponent,
+    DetallesComponent,
   ],
   imports: [
     CommonModule,

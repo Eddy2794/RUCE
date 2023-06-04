@@ -1,5 +1,5 @@
-import { OrganizacionRUCEService } from "../../../Services/OrganizacionRUCE/organizacionruce-service.service";
-import { OrganizacionRUCEModel } from "../../../Models/OrganizacionRUCE/organizacionruce-model";
+import { OrganizacionRUCEService } from "../../Services/OrganizacionRUCE/organizacionruce-service.service";
+import { OrganizacionRUCEModel } from "../../Models/OrganizacionRUCE/organizacionruce-model";
 import { Component, OnInit } from "@angular/core";
 
 import { Router } from "@angular/router";

@@ -1,3 +1,4 @@
+import { OrganizacionRUCEService } from './../../../../reforganizacionruce/Services/OrganizacionRUCE/organizacionruce-service.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -5,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DialogComponent, DialogData } from '@app/components/dialog/dialog.component';
 import { ValidatorService } from '@app/shared/validators/validator.service';
 import { CooperadoraService } from '../../Services/Cooperadora/cooperadora.service';
+import { OrganizacionRUCEModel } from '@app/pages/ruce/reforganizacionruce/Models/OrganizacionRUCE/organizacionruce-model';
 
 @Component({
   selector: 'cooperadora-form-insupd',
@@ -16,12 +18,12 @@ export class CooperadoraFormInsupdComponent implements OnInit {
   id: number = 0;
   public accion: string = '';
 
-  regiones: string[]= ['I','II','III','IV',"V",'VI','VII'];
-  niveles: string[]= ['INICIAL','PRIMARIO','SECUNDARIO','SUPERIOR'];
+  organizaciones: Array<OrganizacionRUCEModel>;
 
   constructor(
     private fb: FormBuilder,
     private cooperadoraService: CooperadoraService,
+    private organizacionService: OrganizacionRUCEService,
     private activatedRoute: ActivatedRoute,
     private validadorServicio: ValidatorService,
     private router: Router,
@@ -51,80 +53,78 @@ export class CooperadoraFormInsupdComponent implements OnInit {
           });
         }
       });
+      this.organizaciones = new Array<OrganizacionRUCEModel>();
+      this.obtenerOrganizaciones();
     }
 
   ngOnInit(): void {
+
     
+  }
+
+  obtenerOrganizaciones(){
+    this.organizacionService.filter().subscribe((res: any) => {
+      res.entities.forEach((org: any) => this.organizaciones.push(Object.assign({}, org, this)));
+    });
   }
 
   createForm() {
     this.formularioCooperadora = this.fb.group({
       id: null,
-      cue: [
+      denominacion: [
+        null, { 
+          validators: [
+            Validators.required, 
+            this.validadorServicio.validarSoloLetras(),
+            this.validadorServicio.validarEspaciosInicioFin()
+          ] 
+        }
+      ],
+      estado: [
         null, { 
           validators: [ Validators.required, ] 
         }
       ],
-      organizacionDesc: [
+      legajo: [
         null, { 
-          validators: [ Validators.required, ] 
+          validators: [
+            Validators.required,
+            this.validadorServicio.validarEspaciosInicioFin()
+          ] 
         }
       ],
-      anexo: [
+      decreto: [
         null, { 
-          validators: [ Validators.required, ] 
+          validators: [
+            Validators.required, 
+            this.validadorServicio.validarSoloLetras(),
+            this.validadorServicio.validarEspaciosInicioFin()
+          ] 
         }
       ],
-      nivel: [
+      convenioScEconomicas: [
         null, {
           validators: [ Validators.required, ]
         }
       ],
-      region: [
+      inscripcion_afip: [
         null, { 
           validators: [ Validators.required, ] 
         }
       ],
-      departamento: [
+      inscripcion_rentas: [
         null, {
-          validators: [
-            Validators.required,
-            this.validadorServicio.validarSoloLetras(),
-            this.validadorServicio.validarEspaciosInicioFin()
-          ]
+          validators: [ Validators.required, ]
         }
       ],
-      domicilio: [
+      inscripcion_renacopes: [
         null, {
-          validators: [
-            Validators.required,
-            this.validadorServicio.validarCaracteresDescripcion(),
-            this.validadorServicio.validarEspaciosInicioFin()
-          ]
+          validators: [ Validators.required, ]
         }
       ],
-      localidad: [
+      organizacion_ruce: [
         null, {
-          validators: [
-            Validators.required,
-            this.validadorServicio.validarSoloLetras(),
-            this.validadorServicio.validarEspaciosInicioFin()
-          ]
-        }
-      ],
-      email: [
-        null, {
-          validators: [
-            // Validators.required,
-            this.validadorServicio.validarEspaciosInicioFin()
-          ]
-        }
-      ],
-      telefono: [
-        null, { 
-          validators: [ 
-            Validators.required,
-          ] 
+          validators: [ Validators.required, ]
         }
       ],
       estaActivo: true,
@@ -133,16 +133,14 @@ export class CooperadoraFormInsupdComponent implements OnInit {
         //validators: [ this.validadorServicio.validarFechasInicioFin('fechaInicio','fechaFinalizacion')]
       })
     if (this.accion === 'delete') {
-      this.formularioCooperadora.controls['cue'].disable();
-      this.formularioCooperadora.controls['organizacionDesc'].disable();
-      this.formularioCooperadora.controls['anexo'].disable();
-      this.formularioCooperadora.controls['nivel'].disable();
-      this.formularioCooperadora.controls['region'].disable();
-      this.formularioCooperadora.controls['departamento'].disable();
-      this.formularioCooperadora.controls['domicilio'].disable();
-      this.formularioCooperadora.controls['localidad'].disable();
-      this.formularioCooperadora.controls['email'].disable();
-      this.formularioCooperadora.controls['telefono'].disable();
+      this.formularioCooperadora.controls['denominacion'].disable();
+      this.formularioCooperadora.controls['legajo'].disable();
+      this.formularioCooperadora.controls['decreto'].disable();
+      this.formularioCooperadora.controls['convenioScEconomicas'].disable();
+      this.formularioCooperadora.controls['inscripcion_afip'].disable();
+      this.formularioCooperadora.controls['inscripcion_rentas'].disable();
+      this.formularioCooperadora.controls['inscripcion_renacopes'].disable();
+      this.formularioCooperadora.controls['organizacion_ruce'].disable();
     }
   }
 
@@ -154,7 +152,7 @@ export class CooperadoraFormInsupdComponent implements OnInit {
     if (this.id == 0) {
       this.formularioCooperadora.removeControl('id');
       this.cooperadoraService.create(this.formularioCooperadora.value).subscribe((resp: any) => {
-        this.mostrarDialogMsj("Mensaje", "Cooperadora Creado", false)
+        this.mostrarDialogMsj("Mensaje", "Cooperadora Creada", false)
         this.router.navigate(['/pages/refcooperadora']);
       }, err => {
         this.mostrarDialogMsj("Atención", err.error.errors, false)
@@ -162,7 +160,7 @@ export class CooperadoraFormInsupdComponent implements OnInit {
       );
     } else {
       this.cooperadoraService.update(this.formularioCooperadora.value.id, this.formularioCooperadora.value).subscribe((resp: any) => {
-        this.mostrarDialogMsj("Mensaje", "Cooperadora Modificado", false)
+        this.mostrarDialogMsj("Mensaje", "Cooperadora Modificada", false)
         this.router.navigate(['/pages/refcooperadora']);
       }, err => {
         this.mostrarDialogMsj("Atención", err.error.errors, false)

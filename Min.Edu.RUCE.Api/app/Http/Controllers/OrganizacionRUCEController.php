@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\ModelResourse;
-use App\Http\Resources\OrganizacionRUCEResourse;
 use App\Http\Resources\RequestCollection;
-
 use App\Http\Requests\StoreOrganizacionRUCERequest;
 use App\Http\Requests\UpdateOrganizacionRUCERequest;
 use App\Models\OrganizacionRUCE;

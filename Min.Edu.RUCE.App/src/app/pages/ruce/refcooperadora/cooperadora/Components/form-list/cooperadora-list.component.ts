@@ -40,31 +40,16 @@ export class CooperadoraListComponent implements OnInit {
   private setColumns() {
     this.columnasVex = [
       { label: "ACCIONES", property: "actions", type: "button", visible: true },
-      // { label: "CÓDIGO", property: "id", type: "text", visible: true, },
-      { label: "NOMBRE", property: "organizacionDesc", type: "text", visible: true, },
-      { label: "CUE", property: "cue", type: "text", visible: true },
-      { label: "ANEXO", property: "anexo", type: "text", visible: true },
-      { label: "NIVEL", property: "nivel", type: "text", visible: true },
-      { label: "REGION", property: "region", type: "text", visible: true },
-      { label: "DEPARTAMENTO", property: "departamento",
-        type: "text",
-        visible: true,
-      },
-      {
-        label: "LOCALIDAD",
-        property: "localidad",
-        type: "text",
-        visible: true,
-      },
-      {
-        label: "DOMICILIO",
-        property: "domicilio",
-        type: "text",
-        visible: true,
-      },
-      { label: "EMAIL", property: "email", type: "text", visible: true },
-      { label: "TELEFONO", property: "telefono", type: "text", visible: true },
-
+      { label: "CÓDIGO", property: "id", type: "text", visible: false },
+      { label: "DENOMINACION", property: "denominacion", type: "text", visible: true, },
+      { label: "ESTADO", property: "estado", type: "text", visible: true },
+      { label: "LEGAJO", property: "legajo", type: "text", visible: true },
+      { label: "DECRETO", property: "decreto", type: "text", visible: true },
+      { label: "CONVENIO SC ECONOMICAS", property: "convenioScEconomicas", type: "boolean", visible: true },
+      { label: "INSCRIPCION AFIP", property: "inscripcion_afip", type: "boolean", visible: true },
+      { label: "INSCRIPCION RENTAS", property: "inscripcion_rentas", type: "boolean", visible: true },
+      { label: "INSCRIPCION RENACOPES", property: "inscripcion_renacopes", type: "boolean", visible: true },
+      { label: "FK_KIOSCO", property: "fk_kiosco", type: "text", visible: false },
     ];
   }
 
