@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-class FondosCooperarController extends Controller
+class FondoController extends Controller
 {
     /**
      * Display a listing of the resource.
