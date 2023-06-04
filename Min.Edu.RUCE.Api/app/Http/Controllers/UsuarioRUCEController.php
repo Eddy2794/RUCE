@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-class UsuarioController extends Controller
+class UsuarioRUCEController extends Controller
 {
     /**
      * Display a listing of the resource.
