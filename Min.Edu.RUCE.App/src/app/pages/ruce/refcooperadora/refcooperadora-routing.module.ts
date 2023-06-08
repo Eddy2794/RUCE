@@ -4,6 +4,7 @@ import { CooperadoraListComponent } from './cooperadora/Components/form-list/coo
 import { CooperadoraFormInsupdComponent } from './cooperadora/Components/form-insupd/cooperadora-form-insupd.component';
 import { PrincipalComponent } from './cooperadora/Components/principal/principal.component';
 import { TabsEjemploComponent } from '../../tabs-ejemplo/tabs-ejemplo.component';
+import { EncabezadoCooperadoraComponent } from './cooperadora/Components/encabezado-cooperadora/encabezado-cooperadora.component';
 
 
 const routes: Routes = [
@@ -13,7 +14,7 @@ const routes: Routes = [
       { path: 'listar', component: CooperadoraListComponent},
       { path: 'add-edit/:id', component: CooperadoraFormInsupdComponent },
       { path: 'delete/:id', component: CooperadoraFormInsupdComponent },
-      { path: 'detalles/:id', component: TabsEjemploComponent },
+      { path: 'detalles/:id', component: PrincipalComponent },
       { path: 'principal', component: PrincipalComponent },
       { path: '**', redirectTo: 'listar' }
     ]

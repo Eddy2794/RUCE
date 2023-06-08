@@ -9,6 +9,7 @@ import { BaseService } from '@app/shared/services';
 @Injectable({
   providedIn: 'root'
 })
+
 export class CooperadoraService extends BaseService<CooperadoraModel>{
   constructor(private http: HttpClient){
     super(http, environment.apiRuceUrl, CooperadoraModel.className);

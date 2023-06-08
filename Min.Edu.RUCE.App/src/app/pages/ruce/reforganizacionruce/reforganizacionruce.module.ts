@@ -15,6 +15,8 @@ import { PageLayoutModule } from 'src/@vex/components/page-layout/page-layout.mo
 import { BreadcrumbsModule } from 'src/@vex/components/breadcrumbs/breadcrumbs.module';
 import { SecondaryToolbarModule } from 'src/@vex/components/secondary-toolbar/secondary-toolbar.module';
 import { DetallesComponent } from './Components/detalles/detalles.component';
+import { EncabezadoOrganizacionruceComponent } from './Components/encabezado-organizacionruce/encabezado-organizacionruce.component';
+import { AutoridadesFormListComponent } from './Components/autoridades-form-list/autoridades-form-list.component';
 
 // import { VexAioTableModule } from 'vex-aio-table';
 
@@ -23,6 +25,8 @@ import { DetallesComponent } from './Components/detalles/detalles.component';
     OrganizacionRUCEListComponent,
     OrganizacionRUCEInsupdComponent,
     DetallesComponent,
+    EncabezadoOrganizacionruceComponent,
+    AutoridadesFormListComponent,
   ],
   imports: [
     CommonModule,

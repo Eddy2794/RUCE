@@ -1,2 +1,25 @@
-<router-outlet></router-outlet>
-<vex-encabezado-cooperadora></vex-encabezado-cooperadora>
+<div [@stagger]="true" class="p-gutter">
+    <div class="flex flex-col gap-4">
+        <div @fadeInUp class="card flex-auto">
+            <div class="px-6 py-4 flex flex-col">
+                <div>
+                    <router-outlet></router-outlet>
+                    <vex-encabezado-cooperadora></vex-encabezado-cooperadora>
+                    <br>
+                </div>
+                <div>
+                    <mat-tab-group>
+                        <mat-tab label="DATOS DE SOLICITUD">
+                            <br>
+                           <!-- <vex-frmdatossolicitud></vex-frmdatossolicitud> -->
+                        </mat-tab>
+                        <mat-tab label="DATOS DE PLAZA">
+                            <!-- <vex-datosplaza-list></vex-datosplaza-list> -->
+                        </mat-tab>
+                    </mat-tab-group>
+                </div>
+            </div>
+            <br>
+        </div>
+    </div>
+</div>
