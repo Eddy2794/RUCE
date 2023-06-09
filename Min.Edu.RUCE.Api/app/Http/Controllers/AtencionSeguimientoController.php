@@ -15,11 +15,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AtencionSeguimientoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         // return typeOf($request->page);
@@ -37,12 +32,7 @@ class AtencionSeguimientoController extends Controller
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         $request = new StoreAtencionSeguimientoRequest($request->toArray());

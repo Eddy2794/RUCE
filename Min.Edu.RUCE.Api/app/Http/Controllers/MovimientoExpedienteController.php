@@ -14,11 +14,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class MovimientoExpedienteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         try {
@@ -34,12 +29,7 @@ class MovimientoExpedienteController extends Controller
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request): JsonResponse
     {
         $request = new StoreMovimientoExpedienteRequest($request->toArray());
@@ -61,11 +51,6 @@ class MovimientoExpedienteController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function show(int $movimientoExpediente): JsonResponse
     {
         try {
@@ -78,13 +63,6 @@ class MovimientoExpedienteController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\MovimientoExpediente  $movimientoExpediente
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, int $movimientoExpediente): JsonResponse
     {
         try {
@@ -115,12 +93,6 @@ class MovimientoExpedienteController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\MovimientoExpediente  $movimientoExpediente
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(int $id): JsonResponse
     {
         try {

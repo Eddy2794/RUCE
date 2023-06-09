@@ -15,11 +15,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RefInstanciaInstrumentoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         try {
@@ -35,12 +30,7 @@ class RefInstanciaInstrumentoController extends Controller
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request): JsonResponse
     {
         $request = new StoreRefInstanciaInstrumentoRequest($request->toArray());
@@ -60,11 +50,6 @@ class RefInstanciaInstrumentoController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function show(int $refInstanciaInstrumento): JsonResponse
     {
         try {
@@ -77,13 +62,6 @@ class RefInstanciaInstrumentoController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\RefInstanciaInstrumento  $refInstanciaInstrumento
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, int $refInstanciaInstrumento): JsonResponse
     {
         try {
@@ -112,12 +90,6 @@ class RefInstanciaInstrumentoController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\RefInstanciaInstrumento  $refInstanciaInstrumento
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(int $id): JsonResponse
     {
         try {

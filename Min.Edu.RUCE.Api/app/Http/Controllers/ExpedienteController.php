@@ -14,11 +14,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ExpedienteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         try {
@@ -34,13 +29,7 @@ class ExpedienteController extends Controller
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $request = new StoreExpedienteRequest($request->toArray());
         try {
@@ -63,14 +52,8 @@ class ExpedienteController extends Controller
             ], Response::HTTP_NOT_FOUND);
         }
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Expediente  $expediente
-     * @return \Illuminate\Http\Response
-     */
-    public function show(int $expediente)
+    
+    public function show(int $expediente): JsonResponse
     {
         try {
             return response()->json(new ModelResourse($expediente,'Expediente'));
@@ -82,14 +65,7 @@ class ExpedienteController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Expediente  $expediente
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, int $expediente)
+    public function update(Request $request, int $expediente): JsonResponse
     {
         try {
             $expediente = Expediente::where('id', $expediente)->first();
@@ -121,14 +97,8 @@ class ExpedienteController extends Controller
             ], Response::HTTP_NOT_FOUND);
         }
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Expediente  $expediente
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(int $id)
+    
+    public function destroy(int $id): JsonResponse
     {
         try {
             Expediente::where('id', $id)->update(['estaActivo'=>false,]);

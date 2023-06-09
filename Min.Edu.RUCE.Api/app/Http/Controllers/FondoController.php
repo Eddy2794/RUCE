@@ -14,11 +14,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class FondoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         try {
@@ -33,14 +28,8 @@ class FondoController extends Controller
             ], Response::HTTP_NOT_FOUND);
         }
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    
+    public function store(Request $request): JsonResponse
     {
         $request = new StoreFondoRequest($request->toArray());
         try {
@@ -66,14 +55,8 @@ class FondoController extends Controller
             ], Response::HTTP_NOT_FOUND);
         }
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Fondo  $fondo
-     * @return \Illuminate\Http\Response
-     */
-    public function show(int $fondo)
+    
+    public function show(int $fondo): JsonResponse
     {
         try {
             return response()->json(new ModelResourse($fondo,'Fondo'));
@@ -84,15 +67,8 @@ class FondoController extends Controller
             ], Response::HTTP_NOT_FOUND);
         }
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Fondo  $fondo
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, int $fondo)
+    
+    public function update(Request $request, int $fondo): JsonResponse
     {
         try {
             $fondo = Fondo::where('id', $fondo)->first();
@@ -127,14 +103,8 @@ class FondoController extends Controller
             ], Response::HTTP_NOT_FOUND);
         }
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Fondo  $fondo
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(int $id)
+    
+    public function destroy(int $id): JsonResponse
     {
         try {
             Fondo::where('id', $id)->update(['estaActivo'=>false,]);

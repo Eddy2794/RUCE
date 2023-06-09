@@ -14,11 +14,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class KioscoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         try {
@@ -34,13 +29,7 @@ class KioscoController extends Controller
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $request = new StoreKioscoRequest($request->toArray());
         try {
@@ -65,12 +54,6 @@ class KioscoController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Kiosco  $kiosco
-     * @return \Illuminate\Http\Response
-     */
     public function show(int $kiosco): JsonResponse
     {
         try {
@@ -83,14 +66,7 @@ class KioscoController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Kiosco  $kiosco
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, int $kiosco)
+    public function update(Request $request, int $kiosco): JsonResponse
     {
         try {
             $kiosco = Kiosco::where('id', $kiosco)->first();
@@ -124,13 +100,7 @@ class KioscoController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Kiosco  $kiosco
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(int $id)
+    public function destroy(int $id): JsonResponse
     {
         try {
             Kiosco::where('id', $id)->update(['estaActivo'=>false,]);

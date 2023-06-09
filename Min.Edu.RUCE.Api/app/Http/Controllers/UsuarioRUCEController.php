@@ -14,11 +14,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UsuarioRUCEController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         try {
@@ -34,12 +29,7 @@ class UsuarioRUCEController extends Controller
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request): JsonResponse
     {
         $request = new StoreUsuarioRUCERequest($request->toArray());
@@ -62,11 +52,6 @@ class UsuarioRUCEController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function show(int $usuarioRUCE): JsonResponse
     {
         try {
@@ -79,13 +64,6 @@ class UsuarioRUCEController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\UsuarioRUCE  $usuarioRUCE
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, int $usuarioRUCE): JsonResponse
     {
         try {
@@ -117,12 +95,6 @@ class UsuarioRUCEController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\UsuarioRUCE  $usuarioRUCE
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(int $id): JsonResponse
     {
         try {

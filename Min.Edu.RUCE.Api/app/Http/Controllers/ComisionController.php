@@ -15,11 +15,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ComisionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         try {
@@ -35,12 +30,7 @@ class ComisionController extends Controller
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         $request = new StoreComisionRequest($request->toArray());

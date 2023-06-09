@@ -10,25 +10,21 @@ use App\Http\Resources\AutoridadOrganizacionRUCEResourse;
 use App\Http\Resources\ModelResourse;
 use App\Models\AutoridadOrganizacionRUCE;
 use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class AutoridadOrganizacionRUCEController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         // return typeOf($request->page);
         try {
             if ($request->has('PageNumber')&&$request->has('PageSize')) {
-                return new RequestCollection(AutoridadOrganizacionRUCE::orderBy('fkPersonaRUCE')->paginate());
+                return new RequestCollection(AutoridadOrganizacionRUCE::paginate(10, ['*'], 'page', 1));
             }
 
-            return new RequestCollection(AutoridadOrganizacionRUCE::orderBy('fkPersonaRUCE')->get());
+            return new RequestCollection(AutoridadOrganizacionRUCE::paginate(10, ['*'], 'page', 1));
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,
@@ -37,13 +33,8 @@ class AutoridadOrganizacionRUCEController extends Controller
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+
+    public function store(Request $request): JsonResponse
     {
         $request = new StoreAutoridadOrganizacionRUCERequest($request->toArray());
         try {
@@ -72,7 +63,7 @@ class AutoridadOrganizacionRUCEController extends Controller
      * @param  \App\Models\AutoridadOrganizacionRUCE  $autoridadOrganizacionRUCE
      * @return \Illuminate\Http\Response
      */
-    public function show(int $autoridadOrganizacionRUCE)
+    public function show(int $autoridadOrganizacionRUCE): JsonResponse
     {
         try {
             return response()->json(new ModelResourse($autoridadOrganizacionRUCE,'AutoridadOrganizacionRUCE'));
@@ -91,7 +82,7 @@ class AutoridadOrganizacionRUCEController extends Controller
      * @param  \App\Models\AutoridadOrganizacionRUCE  $autoridadOrganizacionRUCE
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, int $autoridadOrganizacionRUCE)
+    public function update(Request $request, int $autoridadOrganizacionRUCE): JsonResponse
     {
         try {
                         $organizacionRUCE = AutoridadOrganizacionRUCE::where('id', $autoridadOrganizacionRUCE)->first();
@@ -124,13 +115,7 @@ class AutoridadOrganizacionRUCEController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\AutoridadOrganizacionRUCE  $autoridadOrganizacionRUCE
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(int $id)
+    public function destroy(int $id): JsonResponse
     {
         try {
 

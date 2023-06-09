@@ -14,11 +14,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RefTipoAsociacionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         try {
@@ -34,12 +29,7 @@ class RefTipoAsociacionController extends Controller
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request): JsonResponse
     {
         $request = new StoreRefTipoAsociacionRequest($request->toArray());
@@ -59,11 +49,6 @@ class RefTipoAsociacionController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function show(int $refTipoFondo): JsonResponse
     {
         try {
@@ -76,13 +61,6 @@ class RefTipoAsociacionController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\RefTipoAsociacion  $refTipoFondo
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, int $refTipoFondo): JsonResponse
     {
         try {
@@ -111,12 +89,6 @@ class RefTipoAsociacionController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\RefTipoAsociacion  $refTipoFondo
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(int $id): JsonResponse
     {
         try {

@@ -29,12 +29,7 @@ class OrganizacionRUCEController extends Controller
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request): JsonResponse
     {
         $request = new StoreOrganizacionRUCERequest($request->toArray());
@@ -64,11 +59,6 @@ class OrganizacionRUCEController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function show(int $organizacionRUCE): JsonResponse
     {
         try {
@@ -81,13 +71,6 @@ class OrganizacionRUCEController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\OrganizacionRUCE  $organizacionRUCE
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, int $organizacionRUCE): JsonResponse
     {
         try {
@@ -126,12 +109,6 @@ class OrganizacionRUCEController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\OrganizacionRUCE  $organizacionRUCE
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(int $id): JsonResponse
     {
         try {

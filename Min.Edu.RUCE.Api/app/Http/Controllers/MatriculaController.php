@@ -15,12 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class MatriculaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request): JsonResponse
+    public function index(Request $request)
     {
         try {
             if ($request->has('PageNumber')&&$request->has('PageSize')) {
@@ -35,13 +30,8 @@ class MatriculaController extends Controller
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+
+    public function store(Request $request): JsonResponse
     {
         $request = new StoreMatriculaRequest($request->toArray());
         try {
@@ -63,12 +53,7 @@ class MatriculaController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Matricula  $matricula
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(int $matricula): JsonResponse
     {
         try {
@@ -81,14 +66,7 @@ class MatriculaController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Matricula  $matricula
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, int $matricula)
+    public function update(Request $request, int $matricula): JsonResponse
     {
         try {
             $matricula = Matricula::where('id', $matricula)->first();
@@ -119,12 +97,6 @@ class MatriculaController extends Controller
         }
     }
 
-        /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\OrganizacionRUCE  $organizacionRUCE
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(int $id): JsonResponse
     {
         try {

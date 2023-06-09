@@ -15,11 +15,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PersonaRUCEController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         try {
@@ -35,12 +30,7 @@ class PersonaRUCEController extends Controller
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request): JsonResponse
     {
         $request = new StorePersonaRUCERequest($request->toArray());
@@ -67,11 +57,6 @@ class PersonaRUCEController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function show(int $personaRUCE): JsonResponse
     {
         try {
@@ -84,13 +69,6 @@ class PersonaRUCEController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\PersonaRUCE  $personaRUCE
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, int $personaRUCE): JsonResponse
     {
         try {
@@ -126,12 +104,6 @@ class PersonaRUCEController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\PersonaRUCE  $personaRUCE
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(int $id): JsonResponse
     {
         try {
