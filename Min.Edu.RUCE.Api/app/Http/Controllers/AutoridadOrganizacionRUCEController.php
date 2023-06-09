@@ -25,10 +25,10 @@ class AutoridadOrganizacionRUCEController extends Controller
         // return typeOf($request->page);
         try {
             if ($request->has('PageNumber')&&$request->has('PageSize')) {
-                return new RequestCollection(AutoridadOrganizacionRUCE::orderBy('fkPersonaRUCE')->paginate());
+                return new RequestCollection(AutoridadOrganizacionRUCE::paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']));
             }
 
-            return new RequestCollection(AutoridadOrganizacionRUCE::orderBy('fkPersonaRUCE')->get());
+            return new RequestCollection(AutoridadOrganizacionRUCE::paginate(10, ['*'], 'page', 1));
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,
