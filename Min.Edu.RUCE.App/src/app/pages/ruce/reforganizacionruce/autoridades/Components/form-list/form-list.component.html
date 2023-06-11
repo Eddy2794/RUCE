@@ -1,4 +1,4 @@
-<vex-aio-table [columns]="columnas" [sourceService]="autoridadOrganizacionRUCE" [filter]="filtro" [ruta]="'autoridadesorganizacionruce'" [nombreTabla]="'Autoridades de la Institucion Educativa'" [cabecera]="false">      
+<vex-aio-table [columns]="columnasVex" [sourceService]="autoridadOrganizacionRUCEService" [filter]="filtro" [ruta]="'autoridadesorganizacionruce'" [nombreTabla]="'Autoridades de la Institucion Educativa'" [cabecera]="false">      
     <app-input-search espacio1></app-input-search>
     <app-search-button-generic espacio2 [searchOptions]="searchOptions"></app-search-button-generic>       
     <app-button-nuevo bordederecho [routerLink]="'establecimientos/autoridades'" [addRowText]="'Agregar Autoridad'"></app-button-nuevo>
