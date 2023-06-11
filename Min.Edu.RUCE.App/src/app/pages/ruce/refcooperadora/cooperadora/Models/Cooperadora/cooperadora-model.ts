@@ -1,5 +1,5 @@
 import { BaseModel } from '@app/_models/base.model';
-import { OrganizacionRUCEModel } from '../../../../reforganizacionruce/Models/OrganizacionRUCE/organizacionruce-model';
+import { OrganizacionRUCEModel } from '../../../../reforganizacionruce/organizacion/Models/OrganizacionRUCE/organizacionruce-model';
 import { KioscoModel } from '../../../Models/Kiosco/kiosco-model';
 import { TipoAsociacionModel } from '../../../Models/TipoAsociacion/tipo-asociacion-model';
 

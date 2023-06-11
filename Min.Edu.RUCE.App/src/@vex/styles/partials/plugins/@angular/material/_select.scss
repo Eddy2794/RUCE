@@ -29,4 +29,12 @@
   .mat-menu-item-submenu-trigger {
     @apply pr-12;
   }
+  .mat-select-disabled .mat-select-value {
+    color: rgba(0, 0, 0, 0.9);
+  }
+  .mat-radio-button.mat-radio-disabled .mat-radio-ripple .mat-ripple-element,
+  .mat-radio-button.mat-radio-disabled .mat-radio-inner-circle {
+    background-color: rgba(0, 0, 0, 0.7);
+    white-space: normal;
+  }
 }

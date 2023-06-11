@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, Pipe, PipeTransform, ViewChild, OnDestroy } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, Pipe, PipeTransform, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -7,7 +7,6 @@ import { Router } from '@angular/router';
 import { IBaseService } from '@app/shared/services/interface/i-base.service';
 import { SearchService } from '@app/shared/services/search.service';
 import { ColumnOptions, DataPage, FilterOptions, PaginateOptions } from '@app/shared/utils';
-import { Subject, takeUntil } from 'rxjs';
 
 
 @Component({
@@ -16,7 +15,7 @@ import { Subject, takeUntil } from 'rxjs';
   styleUrls: ['./table.component.css'],
 
 })
-export class TableComponent implements OnInit, OnDestroy {
+export class TableComponent implements OnInit {
 
   @Input() sourceService!: IBaseService<any>;
   @Input() columns!: ColumnOptions[];
@@ -31,16 +30,11 @@ export class TableComponent implements OnInit, OnDestroy {
 
   bandera: boolean = false;
   valorbusq: any = this.filter;
-  valorPrevio!: any;
-  cambiaFiltro: boolean = false;
 
   dataPage!: DataPage<any>;
   paginate!: PaginateOptions;
 
-
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-
-
   @Input() dataSource = new MatTableDataSource<any>([]);
   @Input() columnHeader!: string[];
 
@@ -87,55 +81,89 @@ export class TableComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
 
   etiquetaShow: boolean = false;
-  private parar$ = new Subject();
+
 
   constructor(public router: Router,
     private dialog: MatDialog,
     public searchService: SearchService) {
-    // this.dataPage = new DataPage<any>();
+    this.dataPage = new DataPage<any>();
     this.paginate = new PaginateOptions(1, 10);
+
   }
 
   ngOnInit(): void {
-    this.searchService.setSearch = {estaActivo:true};
     this.valorbusq = JSON.parse(JSON.stringify(this.filter));
-
     this.observableSearch();
   }
 
-  ngOnDestroy(): void {
-    this.parar$.next(true);
-    this.parar$.complete();
+  ngAfterViewInit() {
+    //this.dataSource.paginator = this.paginator;
   }
 
+
+
   observableSearch() {
-    this.searchService.obsSearch.pipe(takeUntil(this.parar$)).subscribe((search) => {
-      console.log("Subcription SEARCH comp table");
+    this.searchService.obsSearch.subscribe((search) => {
+      //if (Object.entries(search).length > 0) {
       this.searchOptions = search;
+      console.log("SEARCH ", search);
       this.searchOption(this.searchOptions);
+      //}
     })
   }
 
+
   searchOption(value: any) {
-    this.filter = value;
-    this.loadPage(this.filter);
-    this.mostrarCriterios();
+    if (value) {
+      this.filter = value;
+      console.log("filter:", this.filter);
+      if (this.valorbusq != this.filter) {
+        this.bandera = true;
+        this.valorbusq = this.filter;
+      }
+      this.filter.estaActivo = true;
+      if (this.bandera) {
+        Object.assign(this.filter, { PageNumber: this.paginator === undefined ? 1 : this.paginator.firstPage() });
+        this.bandera = false;
+      } else {
+        Object.assign(this.filter, { PageNumber: this.paginator.pageIndex });
+      }
+      this.loadPage(this.filter);
+      this.mostrarCriterios();
+    } else {
+      this.loadPage();
+    }
   }
 
   loadPage(filter: any = undefined) {
-    if (this.paginator) {
-      this.paginator.pageIndex = 0;
-      this.paginate.pageNumber = 1;
-    }
+    let filterSearch: any;
+    filterSearch = filter ?? this.filter;
     this.sourceService.filter(this.filter, this.paginate).subscribe((resp: any) => {
       this.dataSource.data = resp.entities || [];
       this.dataPage = resp.entities;
       this.dataSource.sort = this.sort;
       this.pageProperties.length = resp.paged.entityCount;
     });
+
   }
 
+
   pageChanged(pageEvent: PageEvent) {
+    if (!pageEvent || !this.pageEventCalled) {
+      return;
+    }
+    // this.pageEventCalled.emit(pageEvent);
+
+    if (this.filter = this.valorbusq) {
+      Object.assign(this.filter, { PageNumber: this.paginator.pageIndex + 1 });
+      if (this.paginator.pageIndex < 1) {
+        Object.assign(this.filter, { PageNumber: 1 });
+      }
+    } else {
+      this.valorbusq = this.filter;
+    }
+    //
+
     this.paginate = new PaginateOptions(this.paginator.pageIndex == 0 ? 1 : (this.paginator.pageIndex + 1), this.paginator.pageSize);
     this.sourceService.filter(this.filter, this.paginate).subscribe((resp: any) => {
       this.dataSource.data = resp.entities || [];
@@ -143,19 +171,23 @@ export class TableComponent implements OnInit, OnDestroy {
       this.pageProperties.length = resp.paged.entityCount;
     });
   }
-
   edit(data: any) {
     this.router.navigate(['/pages/' + this.routerLink + '/add-edit', data.id]);
+
   }
 
   delete(data: any) {
     this.router.navigate(['/pages/' + this.routerLink + '/delete', data.id]);
+
   }
+
 
   closeDialog(): void {
     this.dialog.afterAllClosed.subscribe(() => {
+
     });
   }
+
 
   mostrarCriterios() {
     let st: string = '';
@@ -185,14 +217,19 @@ export class TableComponent implements OnInit, OnDestroy {
       }
     }
   }
+
 }
 
 @Pipe({ name: 'mapingObject' })
 export class TableMapObject implements PipeTransform {
+
   transform(value: any, path: string) {
-    path.split('.').forEach((p) => value = value[p] == null? '' : value[p]);
-    return value;
+    if (path != undefined) {
+      path.split('.').forEach((p) => value = value[p] == null ? '' : value[p]);
+      return value;
+    }
   }
+
 }
 
 export enum UserActions {
@@ -202,7 +239,6 @@ export enum UserActions {
   Delete = 'DELETE',
   Cancel = 'CANCEL',
 }
-
 export class Constants {
   public static apiRoot = '/api';
   public static API_VERSIONS = {
@@ -215,6 +251,7 @@ export class Constants {
       pageSize: 10,
     };
   }
+
   public static pageSizeOptions: number[] = [10];
 }
 

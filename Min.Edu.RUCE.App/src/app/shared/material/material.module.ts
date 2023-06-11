@@ -34,11 +34,13 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MY_DATE_FORMATS } from '../dateFormat/formatoFecha';
 import { MomentDateModule } from '@angular/material-moment-adapter';
+import { MatTreeModule } from '@angular/material/tree';
+
 
 @NgModule({
   declarations: [],
   providers: [
-    { provide: MAT_DATE_LOCALE, useValue:'es-ES'},
+    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
     { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS }
   ],
   imports: [
@@ -74,7 +76,9 @@ import { MomentDateModule } from '@angular/material-moment-adapter';
     MatTooltipModule,
     MatNativeDateModule,
     MatStepperModule,
-    MomentDateModule
+    MomentDateModule,
+    MatTreeModule
+
   ],
   exports: [
     MatAutocompleteModule,
@@ -109,6 +113,8 @@ import { MomentDateModule } from '@angular/material-moment-adapter';
     MatTooltipModule,
     MatNativeDateModule,
     MatStepperModule,
+    MatTreeModule
+
   ]
 })
 export class MaterialModule { }

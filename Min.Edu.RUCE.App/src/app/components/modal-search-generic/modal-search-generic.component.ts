@@ -156,7 +156,7 @@ export class ModalSearchGenericComponent {
   }
 
   searchEmmit(data: any) {
-    let filter: any = { estaActivo: true };
+    let filter: any = {};
     for (let field in data.controls) { // 'field' is a string      
       const control = data.get(field);
       if (moment.isMoment(control.value)){
@@ -172,6 +172,7 @@ export class ModalSearchGenericComponent {
     this.dialogRef.close(true);
   }
 
+  
   arrayMultipleCheck(nombre: string){
     return this.form.get(nombre) as FormArray;
   }
@@ -182,11 +183,11 @@ export class ModalSearchGenericComponent {
 
     this.arrayMultipleCheck(nombre).removeAt(indice);
   }
-  
+
   verform(){
     console.log(this.form);
   }
-  
+
   deshabilitar() {
     let arrayform: any[] = new Array;
     for (let a in this.form.controls) {
@@ -206,9 +207,6 @@ export class ModalSearchGenericComponent {
       for (var i = 0; i < arrayform.length; i++) {
         this.form.controls[arrayform[i]].enable();
       }
-    }    
+    }
   }
-  
-
 }
-

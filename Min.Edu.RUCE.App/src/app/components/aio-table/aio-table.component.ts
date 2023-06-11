@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnInit, Pipe, PipeTransform, ViewChild, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, Pipe, PipeTransform, ViewChild, OnDestroy, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -15,13 +15,15 @@ import { DataPage, FilterOptions, PaginateOptions } from '@app/shared/utils';
 import { SearchService } from '@app/shared/services/search.service';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
+import { DialogComponent, DialogData } from '../dialog/dialog.component';
+import { armarListaEtiqueta, mostrarCriterios, TextLabel, TextSearch } from '@app/shared/utils/etiqueta';
 
 
 @UntilDestroy()
 @Component({
   selector: 'vex-aio-table',
   templateUrl: './aio-table.component.html',
-  styleUrls:['./aio-table.component.css'],
+  styleUrls: ['./aio-table.component.css'],
   animations: [
     fadeInUp400ms,
     stagger40ms
@@ -39,7 +41,7 @@ import { Subject, takeUntil } from 'rxjs';
 
 export class AioTableComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  layoutCtrl = new UntypedFormControl('boxed');
+  layoutCtrl = new UntypedFormControl('fullwidth');
 
   @Input()
   columns: TableColumn<any>[] = [
@@ -58,11 +60,15 @@ export class AioTableComponent implements OnInit, AfterViewInit, OnDestroy {
     { label: 'Actions', property: 'actions', type: 'button', visible: true }
   ];
 
-  @Input() datosTabla: any;
+  @Output() seleccion = new EventEmitter<any>();
+
+  @Input() datosTabla!: any;
   @Input() sourceService!: IBaseService<any>;
   @Input() filter!: FilterOptions;
   @Input() ruta!: string;
-  @Input() public nombreTabla: string;
+  @Input() nombreTabla!: string;
+  @Input() cabecera!: boolean;
+  @Input() specialButton!: string[];
   @ViewChild('etiqueta') etiquetaname: any;
   etiquetaShow: boolean = false;
   pageSize = Constants.pageSettings().pageSize; // default page size for the Table.
@@ -70,38 +76,41 @@ export class AioTableComponent implements OnInit, AfterViewInit, OnDestroy {
   pageProperties: PageEvent = Constants.pageSettings();
 
   dataPage!: DataPage<any>;
+  filterAio!: FilterOptions;
   paginate!: PaginateOptions;
- 
+
   dataSource: MatTableDataSource<any> | null;
 
   selection = new SelectionModel<any>(true, []);
   searchCtrl = new UntypedFormControl();
+  textSearchList: TextLabel[] = [];
+  listTextOption: TextSearch[];
   filtroActual: any;
-  
+
   etiquetaBusqueda: string = '';
   path: string[] = [];
   private parar$ = new Subject();
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
+  isLoadingResults = false;
 
-  constructor(  private dialog: MatDialog,
-                public searchService: SearchService,
-                public router: Router) {
+  constructor(private dialog: MatDialog,
+    public searchService: SearchService,
+    private changeDetectorRef: ChangeDetectorRef,
+    public router: Router) {
     this.dataPage = new DataPage<any>();
     this.paginate = new PaginateOptions(1, 10);
   }
-  
+
   get visibleColumns() {
     return this.columns.filter(column => column.visible).map(column => column.property);
   }
-  
-  ngOnInit() {   
+
+  ngOnInit() {
     this.path.push(this.nombreTabla);
-    this.searchService.setSearch = {estaActivo:true};
-    this.filtroActual = this.filter;
+    this.searchService.setSearch = this.filter;
     this.dataSource = new MatTableDataSource();
-    //this.loadPage();
     this.observableSearch();
   }
 
@@ -117,81 +126,72 @@ export class AioTableComponent implements OnInit, AfterViewInit, OnDestroy {
     //this.dataSource.sort = this.sort;
   }
 
-  observableSearch(){
-    this.searchService.obsSearch.pipe(takeUntil(this.parar$)).subscribe((search)=>{
-      //if (Object.entries(search).length > 0) {
-        this.searchOption(search);  
-        //}
-      })
+  observableSearch() {
+    this.searchService.obsSearch.pipe(takeUntil(this.parar$)).subscribe((search) => {
+      this.searchOption(search);
+    })
   }
 
   searchOption(value: any) {
-    if (value) {
-      this.filter = value;
-      if (this.filtroActual != this.filter) {        
-        this.filter.estaActivo = true;
-        Object.assign(this.filter, { PageNumber: this.paginator === undefined ? 1 : this.paginator.firstPage() });
-      }else{        
-        this.filter.estaActivo = true;
-        Object.assign(this.filter, { PageNumber: this.paginator.pageIndex });
-      }
-      
-      this.loadPage(this.filter);
-      this.mostrarCriterios();
-    }else{
-      this.loadPage();
-    }
+    this.listTextOption = armarListaEtiqueta(value, this.filter);
+    this.filterAio = Object.assign(value, this.filter)
+    this.paginator.pageIndex = 0;
+    this.paginate = new PaginateOptions(this.paginator.pageIndex != 0 ? 1 : (this.paginator.pageIndex + 1), this.paginator.pageSize = 10);
+    this.loadPage(this.filterAio);
   }
 
-  loadPage(filter: any = undefined) {
-    let filterSearch: any;
-    filterSearch = filter ?? this.filter;
-    this.sourceService.filter(this.filter, this.paginate).subscribe((resp: any) => {
+  loadPage(filter: FilterOptions) {
+    // let filterSearch: any;
+    // filterSearch = filter ?? this.filter;
+    this.sourceService.filter(filter, this.paginate).subscribe((resp: any) => {
       this.dataSource.data = resp.entities || [];
       this.dataPage = resp.entities;
       this.dataSource.sort = this.sort;
-      this.pageProperties.length = resp.paged.entityCount;      
+      this.pageProperties.length = resp.paged.entityCount;
+      this.isLoadingResults = false;
+      this.textSearchList = mostrarCriterios(resp.entities[0], this.listTextOption);
     });
-
   }
 
-   confirmar(data: any) {
-     this.router.navigate(['/pages/' + this.ruta + '/confirm', data.id]);
-   }
-   
   modificar(data: any) {
     this.router.navigate(['/pages/' + this.ruta + '/add-edit', data.id]);
+  }
 
+  ver(data: any) {
+    this.router.navigate(['/pages/' + this.ruta + '/view', data.id]);
   }
 
   eliminar(data: any) {
     this.router.navigate(['/pages/' + this.ruta + '/delete', data.id]);
-
   }
 
-  detalles(data: any) {
-    this.router.navigate(['/pages/' + this.ruta + '/detalles', data.id]);
-    // console.log("jksdhgoausjdbgpoajsdbf");
+  confirmar(data: any) {
+    if (data.estaConfirmado) {
+      this.mostrarDialogMsj("Mensaje", "El Plan de Estudio seleccionado ya se encuentra Confirmado", false)
+      return
+    }
+    this.router.navigate(['/pages/' + this.ruta + '/confirm', data.id]);
+  }
+
+  seleccionar(data: any) {
+    this.seleccion.emit(data);
+  }
+
+  mostrarDialogMsj(titulo: string, msj: string, cancelVisible: boolean) {
+    let datos: DialogData = { titulo, msj, cancelVisible }
+    this.dialog.open(DialogComponent, {
+      width: '200px',
+      data: datos
+    });
   }
 
   pageChanged(pageEvent: PageEvent) {
-  
-    if (this.filter == this.filtroActual) {
-      //va a la pagina siguiente:
-      Object.assign(this.filter, { PageNumber: this.paginator.pageIndex +1});
-      if (this.paginator.pageIndex<1){
-        Object.assign(this.filter, { PageNumber: 1 });
-      }
-    }else{
-      //actualiza filtro actual
-      this.filtroActual = this.filter;
-    }
-
     this.paginate = new PaginateOptions(this.paginator.pageIndex == 0 ? 1 : (this.paginator.pageIndex + 1), this.paginator.pageSize);
     this.sourceService.filter(this.filter, this.paginate).subscribe((resp: any) => {
       this.dataSource.data = resp.entities || [];
       this.dataSource.sort = this.sort;
       this.pageProperties.length = resp.paged.entityCount;
+      this.pageProperties.pageSize = this.paginate.pageSize;
     });
   }
 
@@ -208,6 +208,10 @@ export class AioTableComponent implements OnInit, AfterViewInit, OnDestroy {
     event.stopPropagation();
     event.stopImmediatePropagation();
     column.visible = !column.visible;
+  }
+  removeBusqueda() {
+    this.searchService.setSearch = this.filter;
+
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
@@ -228,24 +232,24 @@ export class AioTableComponent implements OnInit, AfterViewInit, OnDestroy {
     return column.property;
   }
 
-  mostrarCriterios(){
+  mostrarCriterios() {
     let st: string = '';
     let arrayform: any[] = new Array;
     for (let a in this.filter) {
       var i = Object.keys(this.filter).indexOf(a);
-      if (!(a === 'estaActivo' || a === 'PageNumber')){
+      if (!(a === 'estaActivo' || a === 'PageNumber')) {
         arrayform[i] = a;
       }
     }
     Object.entries(arrayform).forEach(([keyarr, valuearr]) => {
       Object.entries(this.filter).forEach(([keyfilt, valuefilt]) => {
-        if(valuearr === keyfilt){
+        if (valuearr === keyfilt) {
           st = st + ' - ' + valuefilt;
         }
 
       });
     });
-  
+
     if (this.etiquetaname) {
       if (st.substring(3) != '') {
         this.etiquetaname.nativeElement.value = 'Criterio de Búsqueda: "' + st.substring(3).toUpperCase() + '"';
@@ -255,8 +259,9 @@ export class AioTableComponent implements OnInit, AfterViewInit, OnDestroy {
         this.etiquetaname.nativeElement.value = '';
         this.etiquetaShow = false;
       }
-    }     
-    
+      this.changeDetectorRef.detectChanges();
+    }
+
   }
 }
 

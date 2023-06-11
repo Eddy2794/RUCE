@@ -1,3 +1,4 @@
+import { SelectService } from '../../../shared/services/select.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -48,7 +49,8 @@ import { RefCooperadoraRoutingModule } from './refcooperadora-routing.module';
     HistorialEstadoCooperadoraService,
     TipoAsociacionService,
     ExpedienteService,
-    PersoneriaService
+    PersoneriaService,
+    SelectService
   ]
 })
 export class RefCooperadoraModule { }

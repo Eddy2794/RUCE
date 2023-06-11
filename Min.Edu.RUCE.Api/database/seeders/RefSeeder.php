@@ -20,7 +20,7 @@ class RefSeeder extends Seeder
     {
         // Tipos de Documento
         $refTipoDocumento = new RefTipoDocumentoRUCE();
-        $refTipoDocumento->tipoDocumentoDesc = '';
+        $refTipoDocumento->tipoDocumentoDesc = 'DNI';
         $refTipoDocumento->save();
 
 
@@ -28,35 +28,35 @@ class RefSeeder extends Seeder
 
         // Tipos de Cargo
         $refCargo = new RefCargo();
-        $refCargo->cargoDesc = '';
+        $refCargo->cargoDesc = 'DIRECTOR';
         $refCargo->save();
 
 
 
 
         // Tipos de Asociacion
-        $refTipoAsociacion = new RefTipoAsociacion();
-        $refTipoAsociacion->tipoAsociacionDesc = "Asociacion Simple";
-        $refTipoAsociacion->save();
+        // $refTipoAsociacion = new RefTipoAsociacion();
+        // $refTipoAsociacion->tipoAsociacionDesc = "Asociacion Simple";
+        // $refTipoAsociacion->save();
 
-        $refTipoAsociacion = new RefTipoAsociacion();
-        $refTipoAsociacion->tipoAsociacionDesc = "Asociacion Civil";
-        $refTipoAsociacion->save();
+        // $refTipoAsociacion = new RefTipoAsociacion();
+        // $refTipoAsociacion->tipoAsociacionDesc = "Asociacion Civil";
+        // $refTipoAsociacion->save();
 
 
 
 
         // Tipos de Comision
-        $refTipoComision = new RefTipoComision();
-        $refTipoComision->tipoComisionDesc = '';
-        $refTipoComision->save();
+        // $refTipoComision = new RefTipoComision();
+        // $refTipoComision->tipoComisionDesc = '';
+        // $refTipoComision->save();
 
 
 
 
         // Tipos de Fondo
-        $refTipoFondo = new RefTipoFondo();
-        $refTipoFondo->tipoFondoDesc = '';
-        $refTipoFondo->save();
+        // $refTipoFondo = new RefTipoFondo();
+        // $refTipoFondo->tipoFondoDesc = '';
+        // $refTipoFondo->save();
     }
 }

@@ -38,11 +38,11 @@ class DatabaseSeeder extends Seeder
     {
         //Ejecucion de Seeders
 
-        // $this->call([
-        //     PersonaSeeder::class,
-        //     UsuarioAdministradorSeeder::class,
-        //     RefSeeder::class,
-        // ]);
+        $this->call([
+            RefSeeder::class,
+            PersonaRUCESeeder::class,
+            // UsuarioAdministradorSeeder::class,
+        ]);
 
         //Ejecucion de Factories
 
@@ -56,7 +56,7 @@ class DatabaseSeeder extends Seeder
 
         OrganizacionRUCE::factory($cant_registros)->create();
 
-        // AutoridadOrganizacionRUCE::factory($cant_registros)->create();
+        AutoridadOrganizacionRUCE::factory(2)->create();
 
         // Cooperadora::factory($cant_registros)->create();
 

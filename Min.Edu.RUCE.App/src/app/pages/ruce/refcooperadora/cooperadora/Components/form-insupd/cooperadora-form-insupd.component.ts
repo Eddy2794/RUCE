@@ -1,12 +1,15 @@
-import { OrganizacionRUCEService } from './../../../../reforganizacionruce/Services/OrganizacionRUCE/organizacionruce-service.service';
+import { OrganizacionRUCEService } from '../../../../reforganizacionruce/organizacion/Services/OrganizacionRUCE/organizacionruce-service.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogComponent, DialogData } from '@app/components/dialog/dialog.component';
 import { ValidatorService } from '@app/shared/validators/validator.service';
 import { CooperadoraService } from '../../Services/Cooperadora/cooperadora.service';
-import { OrganizacionRUCEModel } from '@app/pages/ruce/reforganizacionruce/Models/OrganizacionRUCE/organizacionruce-model';
+import { OrganizacionRUCEModel } from '@app/pages/ruce/reforganizacionruce/organizacion/Models/OrganizacionRUCE/organizacionruce-model';
+import { ModalSelectOrganizacionComponent } from '@app/components/modal-select-organizacion/modal-select-organizacion.component';
+import { IBaseService } from '@app/shared/services/interface/i-base.service';
+import { FilterOptions } from '@app/shared/utils';
 
 @Component({
   selector: 'cooperadora-form-insupd',
@@ -23,7 +26,7 @@ export class CooperadoraFormInsupdComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private cooperadoraService: CooperadoraService,
-    private organizacionService: OrganizacionRUCEService,
+    protected organizacionService: OrganizacionRUCEService,
     private activatedRoute: ActivatedRoute,
     private validadorServicio: ValidatorService,
     private router: Router,
@@ -199,4 +202,54 @@ export class CooperadoraFormInsupdComponent implements OnInit {
     });
   }
 
+  openDialogSingle(dataSource: IBaseService<any>, nombreColumnaDesc: string, nombreEntidad: string, label: string) {
+    let resp!: any;
+    const dialogConfig = new MatDialogConfig();
+    const filter: FilterOptions = { estaActivo: true };
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '750px';
+
+    dialogConfig.data = {
+      dataSource,
+      nombreColumnaDesc,
+      nombreEntidad,
+      label,
+      filter
+    }
+    const dialogRef = this.matDialog.open(ModalSelectOrganizacionComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(respuesta => {
+      if (respuesta != undefined) {
+        resp = respuesta;
+        switch (nombreEntidad) {
+          case 'Organizacion':
+            this.formularioCooperadora.patchValue({
+              organismoPadre: resp.organizacionDesc != null ? resp.organizacionDesc : '',
+              idOrganizacionPadre: resp.organizacionDesc != null ? resp.id : 0,
+            });
+            break;
+          case 'RefTipoOrganizacion':
+            this.formularioCooperadora.patchValue({
+              tipoOrganizacionDesc: resp.tipoOrganizacionDesc != null ? resp.tipoOrganizacionDesc : '',
+              idRefTipoOrganizacion: resp.tipoOrganizacionDesc != null ? resp.id : 0,
+              esEducativa: resp.esEducativa,
+            });
+            break;
+          default:
+            break;
+        }
+      }
+    });
+
+  }
+
+  eliminarTipoOrg() {
+    this.formularioCooperadora.controls["tipoOrganizacionDesc"].setValue(null);
+    this.formularioCooperadora.controls["idRefTipoOrganizacion"].setValue(null);
+  }
+
+  eliminarOrgPadre() {
+    this.formularioCooperadora.controls["organismoPadre"].setValue(null);
+    this.formularioCooperadora.controls["idOrganizacionPadre"].setValue(null);
+  }
 }

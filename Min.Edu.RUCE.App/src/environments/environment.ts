@@ -8,6 +8,7 @@ export const environment = {
   apiPofUrl: 'https://192.168.22.14:8081/api',
   apiConfigUrl: 'https://192.168.22.14:8101/api',
   apiPersonasUrl: 'https://192.168.22.14:8091/api',
+  apiOrganizacionUrl: 'https://192.168.22.14:4301/api',
   apiRuceUrl: 'http://localhost:8000/api'
 };
 /*

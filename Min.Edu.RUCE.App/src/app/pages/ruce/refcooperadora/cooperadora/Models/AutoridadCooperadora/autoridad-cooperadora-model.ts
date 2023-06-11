@@ -1,6 +1,6 @@
 import { BaseModel } from '@app/_models/base.model';
 import { CooperadoraModel } from '../Cooperadora/cooperadora-model';
-import { PersonaRUCEModel } from '../../../../persona-ruce/Model/persona-ruce-model';
+import { PersonaRUCEModel } from '../../../../ref-ruce/Model/persona-ruce-model';
 
 export class AutoridadCooperadoraModel extends BaseModel {
     static className: string = 'autoridades_cooperadoras';

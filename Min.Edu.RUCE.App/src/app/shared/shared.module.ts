@@ -1,5 +1,4 @@
-import { EspaciosDirective } from './directives/espacios/espacios.directive';
-import { ButtonGroupComponent } from '@app/components/button-group/button-group.component';
+import { ButtonGroupComponent } from './../components/button-group/button-group.component';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -28,7 +27,13 @@ import { ModalEntityMultipleSelectComponent } from '@app/components/modal-entity
 import { AioTableComponent } from '@app/components/aio-table/aio-table.component';
 import { PageLayoutModule } from 'src/@vex/components/page-layout/page-layout.module';
 import { BreadcrumbsModule } from 'src/@vex/components/breadcrumbs/breadcrumbs.module';
-
+import { TableSelectComponent } from '@app/components/tableSelect/table-select.component';
+import { EspaciosDirective } from './directives/espacios/espacios.directive';
+import { ModalMultipleSelectComponent } from '@app/components/modal-multiple-select/modal-multiple-select.component';
+import { TableMultipleSelectComponent } from '@app/components/tableMultipleSelect/tablemultipleselect.component';
+import { TablaRelacionesComponent } from '@app/components/tabla-relaciones/tabla-relaciones.component';
+import { SearchFiltersComponent } from '@app/components/search-filters/search-filters.component';
+import { ModalSelectOrganizacionComponent } from '@app/components/modal-select-organizacion/modal-select-organizacion.component';
 
 @NgModule({
   declarations: [
@@ -50,11 +55,17 @@ import { BreadcrumbsModule } from 'src/@vex/components/breadcrumbs/breadcrumbs.m
     ModalSearchGenericComponent,
     SearchButtonGenericComponent,
     ModalEntitySingleSelectComponent,
-    InputSearchComponent,    
+    InputSearchComponent,
     ButtonNuevoComponent,
     ModalEntityMultipleSelectComponent,
     AioTableComponent,
-    EspaciosDirective
+    TableSelectComponent,
+    EspaciosDirective,
+    TableMultipleSelectComponent,
+    ModalMultipleSelectComponent,
+    TablaRelacionesComponent,
+    SearchFiltersComponent,
+    ModalSelectOrganizacionComponent
   ],
   providers: [
   ],
@@ -90,11 +101,17 @@ import { BreadcrumbsModule } from 'src/@vex/components/breadcrumbs/breadcrumbs.m
     ModalSearchGenericComponent,
     SearchButtonGenericComponent,
     ModalEntitySingleSelectComponent,
-    InputSearchComponent,    
+    InputSearchComponent,
     ButtonNuevoComponent,
     ModalEntityMultipleSelectComponent,
     AioTableComponent,
-    EspaciosDirective
+    TableSelectComponent,
+    EspaciosDirective,
+    TableMultipleSelectComponent,
+    ModalMultipleSelectComponent,
+    TablaRelacionesComponent,
+    SearchFiltersComponent,
+    ModalSelectOrganizacionComponent
   ]
 })
 export class SharedModule {

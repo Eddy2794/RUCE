@@ -1,0 +1,6 @@
+<vex-aio-table [columns]="columnasVex" [sourceService]="refjornadaService" [filter]="filtro" [ruta]="'refjornada'" [nombreTabla]="'Jornada'">      
+  <app-input-search espacio1></app-input-search>
+  <app-search-button-generic espacio2 [searchOptions]="searchOptions">
+  </app-search-button-generic>       
+<app-button-nuevo bordederecho [routerLink]="'refjornada'" [addRowText]="'Agregar Jornada'"></app-button-nuevo>
+</vex-aio-table>

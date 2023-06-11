@@ -1,0 +1,169 @@
+<vex-secondary-toolbar current="Detalle de Presupuesto">
+    <vex-breadcrumbs *ngIf="accion==='add'" [crumbs]="['Presupuesto', 'Nuevo']" class="flex-auto"></vex-breadcrumbs>
+    <vex-breadcrumbs *ngIf="accion==='edit'" [crumbs]="['Presupuesto', 'Modificar']" class="flex-auto">
+    </vex-breadcrumbs>
+    <vex-breadcrumbs *ngIf="accion==='delete'" [crumbs]="['Presupuesto', 'Eliminar']" class="flex-auto">
+    </vex-breadcrumbs>
+
+    <button class="ml-2" color="primary" mat-icon-button type="button">
+        <mat-icon svgIcon="mat:more_vert"></mat-icon>
+    </button>
+</vex-secondary-toolbar>
+<div [@stagger]="true" class="p-gutter">
+    <div class="flex flex-col sm:flex-row gap-4">
+        <div @fadeInUp class="card flex-auto">
+            <div class="px-6 py-4 border-b flex items-center">
+                <h2 class="title m-0">Presupuesto</h2>
+            </div>
+            <div class="px-6 py-4 flex flex-col">
+                <form autocomplete="off" [formGroup]="frmPresupuesto">
+                    <div class="flex flex-col sm:flex-row sm:gap-3">
+                        <mat-form-field style="width: 100%">
+                            <mat-label>Ejercicio</mat-label>
+                            <input matInput formControlName="ejercicioDesc" readonly="true" type="text" maxlength="250"
+                                mayus espacios>
+                            <button mat-icon-button matTooltip="Búsqueda" color="primary"
+                                Style="font-size:28px; position: absolute; right: 2rem; bottom: 0.01rem;"
+                                *ngIf="accion === 'add' || accion === 'edit'"
+                                (click)="openDialogSingle(ejercicioService,'ejercicioDesc','RefEjercicio','Ejercicio')">
+                                <mat-icon svgIcon="mat:search"></mat-icon>
+                            </button>
+                            <button mat-icon-button matTooltip="Eliminar" color="primary" type="button"
+                                (click)="limpiarEjercicio()" *ngIf="accion === 'add' || accion === 'edit'"
+                                Style="font-size:28px; position: absolute; right: 0.1rem; bottom: 0.01rem;">
+                                <mat-icon svgIcon="mat:clear"></mat-icon>
+                            </button>
+                            <mat-error>
+                                <app-ver-error [control]="this.frmPresupuesto.controls['ejercicioDesc']">
+                                </app-ver-error>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field style="width: 100%">
+                            <mat-label>Unidad de Organización</mat-label>
+                            <mat-select formControlName="idRefUdeOxEjer">
+                                <mat-option>Seleccione</mat-option>
+                                <mat-option *ngFor="let item of refUdeOxEjercicioList" [value]="item.id">
+                                    {{item.refUdeO.udeoDesc}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>
+                                <app-ver-error [control]="this.frmPresupuesto.controls['idRefUdeOxEjer']">
+                                </app-ver-error>
+                            </mat-error>
+                        </mat-form-field>
+
+                    </div>
+                    <div class="flex flex-col sm:flex-row sm:gap-3">
+                        <mat-form-field style="width: 100%">
+                            <mat-label>Finalidad</mat-label>
+                            <mat-select formControlName="idRefFinalidadxEjer">
+                                <mat-option>Seleccione</mat-option>
+                                <mat-option *ngFor="let item of refFinalidadxEjerList" [value]="item.id">
+                                    {{item.refFinalidad.finalidadDesc}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>
+                                <app-ver-error [control]="this.frmPresupuesto.controls['idRefFinalidadxEjer']">
+                                </app-ver-error>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field style="width: 100%">
+                            <mat-label>Función</mat-label>
+                            <mat-select formControlName="idRefFuncionxEjer">
+                                <mat-option>Seleccione</mat-option>
+                                <mat-option *ngFor="let item of refFuncionxEjerList" [value]="item.id">
+                                    {{item.refFuncion.funcionDesc}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>
+                                <app-ver-error [control]="this.frmPresupuesto.controls['idRefFuncionxEjer']">
+                                </app-ver-error>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="flex flex-col sm:flex-row sm:gap-3">
+                        <mat-form-field style="width: 100%">
+                            <mat-label>Escalafón</mat-label>
+                            <mat-select formControlName="idRefEscalafon">
+                                <mat-option>Seleccione</mat-option>
+                                <mat-option *ngFor="let item of refEscalafonList" [value]="item.id">
+                                    {{item.escalafonDesc}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>
+                                <app-ver-error [control]="this.frmPresupuesto.controls['idRefEscalafon']">
+                                </app-ver-error>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field style="width: 100%">
+                            <mat-label>Adicional</mat-label>
+                            <mat-select formControlName="idRefAdicional">
+                                <mat-option>Seleccione</mat-option>
+                                <mat-option *ngFor="let item of refAdicionalList" [value]="item.id">
+                                    {{item.adicionalDesc}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>
+                                <app-ver-error [control]="this.frmPresupuesto.controls['idRefAdicional']">
+                                </app-ver-error>
+                            </mat-error>
+                        </mat-form-field>
+
+                    </div>
+                    <div class="flex flex-col sm:flex-row sm:gap-3">
+                        <mat-form-field style="width: 100%">
+                            <mat-form-field class="hidden">
+                                <input matInput formControlName="idCargoSalarial">
+                            </mat-form-field>
+                            <mat-label>Cargo Salarial </mat-label>
+                            <input matInput formControlName="cargoSalarialDesc" readonly="true" type="text"
+                                maxlength="250" mayus espacios>
+                            <button mat-icon-button matTooltip="Búsqueda" color="primary"
+                                *ngIf="accion === 'add' || accion === 'edit'"
+                                Style="font-size:28px; position: absolute; right: 2rem; bottom: 0.01rem;"
+                                (click)="openDialogSingle(cargoSalarialService,'cargoSalarialDesc','CargoSalarial','Cargo Salarial')">
+                                <mat-icon svgIcon="mat:search"></mat-icon>
+                            </button>
+                            <button mat-icon-button matTooltip="Eliminar" color="primary" type="button"
+                                (click)="limpiarCargosalarial()" *ngIf="accion === 'add' || accion === 'edit'"
+                                Style="font-size:28px; position: absolute; right: 0.1rem; bottom: 0.01rem;">
+                                <mat-icon svgIcon="mat:clear"></mat-icon>
+                            </button>
+                            <mat-error>
+                                <app-ver-error [control]="this.frmPresupuesto.controls['cargoSalarialDesc']">
+                                </app-ver-error>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field style="width: 100%">
+                            <mat-label>Cantidad Presupuestada </mat-label>
+                            <input matInput formControlName="cantPresupuestada" type="text" solonum minlength="1"
+                                maxlength="3" espacios>
+                            <mat-error>
+                                <app-ver-error [control]="this.frmPresupuesto.controls['cantPresupuestada']">
+                                </app-ver-error>
+                            </mat-error>
+                        </mat-form-field>
+
+                    </div>
+                    <div class="flex flex-col sm:flex-row sm:gap-3">
+                        <mat-form-field style="width: 50%">
+                            <mat-label>Cantidad Disponible </mat-label>
+                            <input matInput formControlName="cantDisponible" readonly="true" solonum minlength="1"
+                                maxlength="3" espacios>
+                            <mat-error>
+                                <app-ver-error [control]="this.frmPresupuesto.controls['cantDisponible']">
+                                </app-ver-error>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+
+                    <br>
+                    <app-button-group (cancel)="cancel()" (delete)="eliminar()" (submit)="save()" [accion]="accion">
+                    </app-button-group>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

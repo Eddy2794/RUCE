@@ -1,2 +1,2 @@
 # RUCE
-Sistema de Gestión de cooperadoras de establecimientos Educativos
+Sistema de Gestión de cooperadoras de Instituciones Educativas

@@ -1,5 +1,5 @@
 <div ngClass="dvBotones">
     <button mat-raised-button color="warn" type="button" (click)="cancelando()">Cancelar</button>
-    <button mat-raised-button color="primary" type="button" (click)="aceptando()"  *ngIf="accion !== 'delete' && accion !== 'confirm'">Guardar</button>
+    <button mat-raised-button color="primary" type="button" (click)="aceptando()" *ngIf="accion !== 'delete' && accion !== 'view'">Guardar</button>
     <button mat-raised-button color="primary" type="button" (click)="eliminando()" *ngIf="accion === 'delete'">Eliminar</button>
 </div>

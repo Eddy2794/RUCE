@@ -140,8 +140,4 @@ export class BaseService<T extends BaseModel> implements IBaseService<T> {
     upload(propertyName: string, idEntity: number, file: FormData) {
         return this.httpClient.put<T[]>(`${this.apiUrl}/${'upload/image'}/${this.endPoint}/${propertyName}/${idEntity}`, file) as Observable<T[]>;
     }
-
-    confirm(id: number, model: T): Observable<T> {
-        return this.httpClient.put<T>(`${this.apiUrl}/${this.endPoint}/Confirmar/${id}`, model) as Observable<T>;
-    }
 }

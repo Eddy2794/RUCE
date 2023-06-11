@@ -1,4 +1,4 @@
-
+import { Component, Inject, LOCALE_ID, Renderer2 } from '@angular/core';
 import { ConfigService } from '../@vex/config/config.service';
 import { Settings } from 'luxon';
 import { DOCUMENT } from '@angular/common';
@@ -13,7 +13,6 @@ import { ColorSchemeName } from '../@vex/config/colorSchemeName';
 import { MatIconRegistry, SafeResourceUrlWithIconOptions } from '@angular/material/icon';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ColorVariable, colorVariables } from '../@vex/components/config-panel/color-variables';
-import { Component, Inject, LOCALE_ID, Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'vex-root',
@@ -22,16 +21,16 @@ import { Component, Inject, LOCALE_ID, Renderer2 } from '@angular/core';
 })
 export class AppComponent {
   constructor(private configService: ConfigService,
-              private renderer: Renderer2,
-              private platform: Platform,
-              @Inject(DOCUMENT) private document: Document,
-              @Inject(LOCALE_ID) private localeId: string,
-              private layoutService: LayoutService,
-              private route: ActivatedRoute,
-              private navigationService: NavigationService,
-              private splashScreenService: SplashScreenService,
-              private readonly matIconRegistry: MatIconRegistry,
-              private readonly domSanitizer: DomSanitizer) {
+    private renderer: Renderer2,
+    private platform: Platform,
+    @Inject(DOCUMENT) private document: Document,
+    @Inject(LOCALE_ID) private localeId: string,
+    private layoutService: LayoutService,
+    private route: ActivatedRoute,
+    private navigationService: NavigationService,
+    private splashScreenService: SplashScreenService,
+    private readonly matIconRegistry: MatIconRegistry,
+    private readonly domSanitizer: DomSanitizer) {
     Settings.defaultLocale = this.localeId;
 
     if (this.platform.BLINK) {
@@ -78,13 +77,13 @@ export class AppComponent {
      */
     this.configService.updateConfig({
       sidenav: {
-        title: 'SIARH WEB',
-        imageUrl: 'assets/img/demo/logosiarh-removebg-preview.png',
+        title: 'POF',
+        imageUrl: '',
         showCollapsePin: true,
         search: {
           visible: false
         }
-      },      
+      },
       footer: {
         visible: false
       }
@@ -135,57 +134,111 @@ export class AppComponent {
     this.navigationService.items = [
       {
         type: 'subheading',
-        label: 'Inicio',
+        label: 'Principal',
         children: [
           {
             type: 'link',
-            label: 'Principal',
-            route: '/',
+            label: 'Planes de Estudio',
+            route: '/pages/planestudio'
+          }
+        ]
+      },
+      {
+        type: 'subheading',
+        label: 'Gestión de POF',
+        children: [
+          {
+            type: 'link',
+            label: 'Cargos Salariales',
+            route: '/pages/cargosalarial'
+          },
+          {
+            type: 'link',
+            label: 'Cargos Funcionales',
+            route: '/pages/cargofuncional'
+          },
+          {
+            type: 'link',
+            label: 'Plazas',
+            route: '/pages/plaza'
+          },
+          {
+            type: 'link',
+            label: 'Presupuesto',
+            route: '/pages/presupuesto'
+          }
+
+        ]
+      },
+      {
+        type: 'subheading',
+        label: 'Organismos',
+        children: [
+          {
+            type: 'link',
+            label: 'Buscador con Filtros',
+            route: '/pages/ejbuscfiltr',
+            icon: 'mat:touch_app',
+            routerLinkActiveOptions: { exact: true }
+          },
+          {
+            type: 'link',
+            label: 'Wizard',
+            route: '/pages/wizard-ejemplo',
+            icon: 'mat:insights',
+            routerLinkActiveOptions: { exact: true }
+          },
+          {
+            type: 'link',
+            label: 'Tabs',
+            route: '/pages/tabs-ejemplo',
             icon: 'mat:insights',
             routerLinkActiveOptions: { exact: true }
           }
         ]
       },
       {
-        type: 'subheading',
-        label: 'Organizacion',
-        children: [
-          {
-            type: 'link',
-            label: 'Niveles Educativos',
-            route:'/pages/refniveleducativo',
-            icon: 'mat:touch_app',
-            routerLinkActiveOptions: { exact: true }
-          },
-          {
-            type: 'link',
-            label: 'Grupo Nivel',
-            route:'/pages/refgruponivel',
-            icon: 'mat:touch_app',
-            routerLinkActiveOptions: { exact: true }
-          },
-        ]
-      },
-      {
-        type: 'subheading',
+        type: "dropdown",
         label: 'RUCE',
         children: [
           {
             type: 'link',
-            label: 'Establecimientos',
-            route:'/pages/establecimientos',
-            icon: 'mat:touch_app',
+            label: 'Instituciones',
+            route: '/pages/establecimientos',
+            icon: 'mat:school',
             routerLinkActiveOptions: { exact: true }
           },
           {
             type: 'link',
             label: 'Cooperadora',
-            route:'/pages/refcooperadora',
-            icon: 'mat:touch_app',
+            route: '/pages/refcooperadora',
+            icon: 'mat:diversity_2',
             routerLinkActiveOptions: { exact: true }
-          },
+          }
+          // {
+          //   type: 'link',
+          //   label: 'Buscador con Filtros',
+          //   route: '/pages/ejbuscfiltr',
+          //   icon: 'mat:touch_app',
+          //   routerLinkActiveOptions: { exact: true }
+          // },
+          // {
+          //   type: 'link',
+          //   label: 'Wizard',
+          //   route: '/pages/wizard-ejemplo',
+          //   icon: 'mat:insights',
+          //   routerLinkActiveOptions: { exact: true }
+          // },
+          // {
+          //   type: 'link',
+          //   label: 'Tabs',
+          //   route: '/pages/tabs-ejemplo',
+          //   icon: 'mat:insights',
+          //   routerLinkActiveOptions: { exact: true }
+          // },
         ]
-      }
+      },
+
     ];
   }
 }

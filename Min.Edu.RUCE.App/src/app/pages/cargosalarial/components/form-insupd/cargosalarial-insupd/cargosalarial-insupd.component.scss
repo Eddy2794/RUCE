@@ -1,0 +1,17 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    margin: 1rem auto;
+    max-width: 600px;
+}
+
+.errorForm {
+    font-size: smaller;
+}
+
+input {
+    text-transform: uppercase;
+}
+mat-form-field{
+    margin-bottom: 30px;
+}

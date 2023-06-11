@@ -17,7 +17,7 @@ export class ButtonNuevoComponent implements OnInit {
   }
 
   add(action: any, obj: any) {
-    this.router.navigate(['/pages/' + this.routerLink + '/add-edit', '0']);
+    this.router.navigate(['/pages/' + this.routerLink + '/add-edit/',0]);
   }
 
 

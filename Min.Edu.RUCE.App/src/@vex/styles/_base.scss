@@ -2,6 +2,10 @@ input, textarea {
   box-sizing: content-box;
   line-height: 1.5;
 }
+.mat-input-element:disabled {
+  color: rgb(0, 0, 0.85);
+
+}
 
 button:focus {
   outline: unset !important;

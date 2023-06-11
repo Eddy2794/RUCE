@@ -8,9 +8,10 @@ use App\Models\OrganizacionRUCE;
 use App\Models\PersonaRUCE;
 use App\Models\RefCargo;
 use App\Models\UsuarioRUCE;
+use Illuminate\Support\Carbon;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\AutoridadesEstablecimientoEducativo>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\AutoridadOrganizacionRUCE>
  */
 class AutoridadOrganizacionRUCEFactory extends Factory
 {
@@ -25,12 +26,14 @@ class AutoridadOrganizacionRUCEFactory extends Factory
             'fkPersonaRUCE' => $this->faker->randomElement(PersonaRUCE::all()->getQueueableIds()),
             'fkOrganizacionRUCE' => $this->faker->randomElement(OrganizacionRUCE::all()->getQueueableIds()),
             'fkRefCargo' => $this->faker->randomElement(RefCargo::all()->getQueueableIds()),
-            'inicioCargo' => $this->faker->date(),
-            'finCargo' => $this->faker->date(),
+            'inicioCargo' => $this->faker->dateTimeThisMonth()->format('d-m-Y H:i:s'),
+            'finCargo' => $this->faker->dateTimeThisYear()->format('d-m-Y H:i:s'),
             'estaActivo' => true,
-            'fechaEliminacion' => '',
-            'idUsuarioAlta' => $this->faker->randomElement(UsuarioRUCE::all()->getQueueableIds()),
-            'idUsuarioModificacion' => $this->faker->randomElement(UsuarioRUCE::all()->getQueueableIds()),
+            // 'fechaEliminacion' => '',
+            // 'idUsuarioAlta' => $this->faker->randomElement(UsuarioRUCE::all()->getQueueableIds()),
+            // 'idUsuarioModificacion' => $this->faker->randomElement(UsuarioRUCE::all()->getQueueableIds()),
+            'idUsuarioAlta' => 1,
+            'idUsuarioModificacion' => 1,
         ];
     }
 }

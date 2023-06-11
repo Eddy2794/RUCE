@@ -6,15 +6,15 @@
                 <div *ngSwitchCase="'input'">
                     <mat-form-field class="contenedorCampos" appearance="fill">
                         <mat-label>{{ searchOptions[i].label }}</mat-label>
-                        <input matInput type="searchOptions[i].typeData" (keyup)="deshabilitar()" [id]="searchOptions[i].name"
+                        <input matInput type="searchOptions[i].typeData" [id]="searchOptions[i].name" (keyup)="deshabilitar()"
                             [formControlName]="searchOptions[i].name" >
                     </mat-form-field>
                 </div>
                 <div *ngSwitchCase="'select'">
                     <mat-form-field class="contenedorCampos" appearance="fill">
                         <mat-label>{{ searchOptions[i].label }}</mat-label>
-                        <mat-select [formControlName]="searchOptions[i].name" (selectionChange)="cambioValor(searchOptions[i].name, $event.value)" >                            
-                            <mat-option> Seleccione</mat-option>
+                        <mat-select [formControlName]="searchOptions[i].name" (selectionChange)="cambioValor(searchOptions[i].name, $event.value)">                            
+                            <mat-option value="Seleccione"> Seleccione</mat-option>
                             <mat-option *ngFor="let item of searchOptions[i].value" [value]="item.id">{{ item[searchOptions[i].property] }} </mat-option>
                         </mat-select>
                     </mat-form-field>
@@ -90,3 +90,4 @@
     <button mat-button (click)="close();">Cancelar</button>
     <button mat-button [disabled]="!form.valid || form.pristine" (click)="searchEmmit(form);">Buscar</button>
 </mat-dialog-actions>
+
