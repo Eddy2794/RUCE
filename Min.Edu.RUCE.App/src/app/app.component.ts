@@ -198,7 +198,7 @@ export class AppComponent {
         ]
       },
       {
-        type: "dropdown",
+        type: "subheading",
         label: 'RUCE',
         children: [
           {
