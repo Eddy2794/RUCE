@@ -25,7 +25,6 @@ export class EncabezadoOrganizacionruceComponent implements OnInit {
   obtenerData(id: any) {
     this.organizacionRUCEService.findOne(id).subscribe((res:any)=>{
       this.organizacionruce = Object.assign({},res.entities[0], this.organizacionruce);
-      console.log(this.organizacionruce);
     });
     throw new Error('Method not implemented.');
   }

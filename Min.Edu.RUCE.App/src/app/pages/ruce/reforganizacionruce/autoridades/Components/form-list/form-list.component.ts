@@ -41,13 +41,10 @@ export class AutoridadFormListComponent implements OnInit {
   private setColumns(){
     this.columnasVex = [
       { label: 'ACCIONES', property: 'actions', type: 'button', visible: true },
-/*       { label: 'APELLIDO', property: 'refPersonaRUCE.apellido', type: 'text', visible: true },
-      { label: 'NOMBRE', property: 'refPersonaRUCE.nombre', type: 'text', visible: true },
-      { label: 'DNI', property: 'refPersonaRUCE.documento', type: 'text', visible: true },
-      { label: 'CUIL', property: 'refPersonaRUCE.cuil', type: 'text', visible: true },
-      { label: 'TELEFONO', property: 'refPersonaRUCE.telefono', type: 'text', visible: true },
-      { label: 'EMAIL', property: 'refPersonaRUCE.email', type: 'text', visible: true },
-      { label: 'CARGO', property: 'refCargo.cargoDesc', type: 'text', visible: true }, */
+      { label: 'ID', property: 'id', type: 'text', visible: true },
+      { label: 'CARGO', property: 'fkRefCargo', type: 'text', visible: true },
+      { label: 'PERSONA', property: 'fkPersonaRUCE', type: 'text', visible: true },
+      { label: 'INSTITUCION', property: 'fkOrganizacionRUCE', type: 'text', visible: true },
       { label: 'INICIO', property: 'inicioCargo', type: 'date', visible: true },
       { label: 'FIN', property: 'finCargo', type: 'date', visible: true },
     ];
@@ -70,7 +67,7 @@ export class AutoridadFormListComponent implements OnInit {
         label: 'DNI',
         readonly: false,
         value: this.refPersonaRUCE,
-        property: 'nombre'
+        property: 'documento'
       }),
       new SearchOptionsGeneric({
         typeControl: TypeControl.INPUT,
@@ -88,7 +85,7 @@ export class AutoridadFormListComponent implements OnInit {
         label: 'Apellido',
         readonly: false,
         value: this.refPersonaRUCE,
-        property: 'nombre'
+        property: 'apellido'
       }),
     ]
   }
