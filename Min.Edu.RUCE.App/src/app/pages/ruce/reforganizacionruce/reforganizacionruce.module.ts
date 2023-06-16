@@ -28,7 +28,7 @@ import { AutoridadInsupdComponent } from './autoridades/Components/form-insupd/i
     DetallesComponent,
     EncabezadoOrganizacionruceComponent,
     AutoridadFormListComponent,
-    AutoridadInsupdComponent
+    AutoridadInsupdComponent,
   ],
   imports: [
     CommonModule,

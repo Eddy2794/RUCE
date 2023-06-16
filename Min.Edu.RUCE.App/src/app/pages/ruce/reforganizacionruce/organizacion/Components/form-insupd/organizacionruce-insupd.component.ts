@@ -45,6 +45,10 @@ export class OrganizacionRUCEInsupdComponent implements OnInit {
             this.accion = 'add'
             break;
           }
+          case 'view': {
+            this.accion = 'view'
+            break;
+          }
         }
       });
       
@@ -67,89 +71,23 @@ export class OrganizacionRUCEInsupdComponent implements OnInit {
   createForm() {
     this.formularioOrganizacionRUCE = this.fb.group({
       id: null,
-      cue: [
-        null, { 
-          validators: [ Validators.required, ] 
-        }
-      ],
-      organizacionDesc: [
-        null, { 
-          validators: [ Validators.required, ] 
-        }
-      ],
-      anexo: [
-        null, { 
-          validators: [ Validators.required, ] 
-        }
-      ],
-      nivel: [
-        null, {
-          validators: [ Validators.required, ]
-        }
-      ],
-      region: [
-        null, { 
-          validators: [ Validators.required, ] 
-        }
-      ],
-      departamento: [
-        null, {
-          validators: [
-            Validators.required,
-            this.validadorServicio.validarSoloLetras(),
-            this.validadorServicio.validarEspaciosInicioFin()
-          ]
-        }
-      ],
-      domicilio: [
-        null, {
-          validators: [
-            Validators.required,
-            this.validadorServicio.validarCaracteresDescripcion(),
-            this.validadorServicio.validarEspaciosInicioFin()
-          ]
-        }
-      ],
-      localidad: [
-        null, {
-          validators: [
-            Validators.required,
-            this.validadorServicio.validarSoloLetras(),
-            this.validadorServicio.validarEspaciosInicioFin()
-          ]
-        }
-      ],
-      email: [
-        null, {
-          validators: [
-            // Validators.required,
-            this.validadorServicio.validarEspaciosInicioFin()
-          ]
-        }
-      ],
-      telefono: [
-        null, { 
-          validators: [ 
-            Validators.required,
-          ] 
-        }
-      ],
+      cue: [null, { validators: [ Validators.required, Validators.minLength(3), Validators.maxLength(250), this.validadorServicio.validarEspaciosInicioFin() ]}],
+      organizacionDesc: [null, {validators: [ Validators.required, Validators.minLength(3), Validators.maxLength(250), this.validadorServicio.validarEspaciosInicioFin(), this.validadorServicio.validarCaracteresDescripcion() ]}],
+      anexo: [null, {validators: [ Validators.required, this.validadorServicio.validarEspaciosInicioFin() ]}],
+      nivel: [null, {validators: [ Validators.required, ]}],
+      region: [null, {validators: [ Validators.required, ]}],
+      departamento: [null, {validators: [ Validators.required,this.validadorServicio.validarSoloLetras(), Validators.minLength(3), Validators.maxLength(250),this.validadorServicio.validarEspaciosInicioFin(), this.validadorServicio.validarCaracteresDescripcion() ]}],
+      domicilio: [null, {validators: [ Validators.required,this.validadorServicio.validarSoloLetras(), Validators.minLength(3), Validators.maxLength(250),this.validadorServicio.validarEspaciosInicioFin(), this.validadorServicio.validarCaracteresDescripcion()]}],
+      localidad: [null, {validators: [ Validators.required,this.validadorServicio.validarSoloLetras(), Validators.minLength(3), Validators.maxLength(250),this.validadorServicio.validarEspaciosInicioFin(), this.validadorServicio.validarCaracteresDescripcion()]}],
+      email: [null, {validators: [ Validators.required, Validators.email , this.validadorServicio.validarEspaciosInicioFin()]}],
+      telefono: [null, {validators: [ Validators.required, Validators.minLength(3), Validators.maxLength(13) ]}],
       estaActivo: true,
     },
       {
         //validators: [ this.validadorServicio.validarFechasInicioFin('fechaInicio','fechaFinalizacion')]
       })
-    if (this.accion === 'delete') {
-      this.formularioOrganizacionRUCE.controls['cue'].disable();
-      this.formularioOrganizacionRUCE.controls['organizacionDesc'].disable();
-      this.formularioOrganizacionRUCE.controls['anexo'].disable();
-      this.formularioOrganizacionRUCE.controls['nivel'].disable();
-      this.formularioOrganizacionRUCE.controls['region'].disable();
-      this.formularioOrganizacionRUCE.controls['departamento'].disable();
-      this.formularioOrganizacionRUCE.controls['domicilio'].disable();
-      this.formularioOrganizacionRUCE.controls['localidad'].disable();
-      this.formularioOrganizacionRUCE.controls['email'].disable();
-      this.formularioOrganizacionRUCE.controls['telefono'].disable();
+    if (this.accion === 'delete' || this.accion === 'view') {
+      this.formularioOrganizacionRUCE.disable();
     }
   }
 
