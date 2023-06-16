@@ -10,6 +10,6 @@ import { PersonaRUCEModel } from "../Model/persona-ruce-model";
 
 export class PersonaruceService extends BaseService<PersonaRUCEModel>  {
     constructor(http: HttpClient){
-        super(http, environment.apiConfigUrl, PersonaRUCEModel.className);
+        super(http, environment.apiRuceUrl, PersonaRUCEModel.className);
     }
 }

@@ -76,8 +76,10 @@ Route::group(['prefix' => '/autoridad_comision'],function () {
 });
 
 Route::group(['prefix' => '/autoridad_organizacion'],function () {
-    // Route::get('/', [OrganizacionRUCEController::class, 'index'])->name('organizacion.index');
-    Route::get('/Filter', [AutoridadOrganizacionRUCEController::class, 'index'])->name('autoridad_organizacion.index');
+    Route::get('/', [AutoridadOrganizacionRUCEController::class, 'index'])->name('autoridad_organizacion.index');
+    Route::get('/Filter', [AutoridadOrganizacionRUCEController::class, 'autoridades'])->name('autoridad_organizacion.autoridades');
+    // Route::get('/autoridades/{idOrganizacion}', [AutoridadOrganizacionRUCEController::class, 'autoridades'])->name('autoridad_organizacion.autoridades');
+    // Route::get('/Filter', [AutoridadOrganizacionRUCEController::class, 'index'])->name('autoridad_organizacion.index');
     Route::post('/', [AutoridadOrganizacionRUCEController::class, 'store'])->name('autoridad_organizacion.store');
     Route::get('/{id}', [AutoridadOrganizacionRUCEController::class, 'show'])->name('autoridad_organizacion.show');
     Route::delete('/{id}', [AutoridadOrganizacionRUCEController::class, 'destroy'])->name('autoridad_organizacion.destroy');

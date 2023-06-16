@@ -11,6 +11,6 @@ import { RefCargoModel } from "../../ref-ruce/Model/refcargo-model";
 export class RefcargoService extends BaseService<RefCargoModel>  {
     constructor(http: HttpClient)
     {
-        super(http, environment.apiConfigUrl, RefCargoModel.className);
+        super(http, environment.apiRuceUrl, RefCargoModel.className);
     }
 }

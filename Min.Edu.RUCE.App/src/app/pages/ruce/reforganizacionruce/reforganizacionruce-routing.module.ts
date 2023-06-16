@@ -5,6 +5,7 @@ import { OrganizacionRUCEListComponent } from './organizacion/Components/form-li
 import { OrganizacionRUCEInsupdComponent } from './organizacion/Components/form-insupd/organizacionruce-insupd.component';
 import { AutoridadFormListComponent } from './autoridades/Components/form-list/form-list.component';
 import { AutoridadInsupdComponent } from './autoridades/Components/form-insupd/insupd.component';
+import { AutoridadListComponent } from './autoridades/Components/form-list/autoridad-list/autoridad-list.component';
 
 
 const routes: Routes = [
@@ -17,10 +18,12 @@ const routes: Routes = [
       { path: 'view/:id', component: DetallesComponent },
       { path: 'autoridades',
         children: [
-          { path: 'listar', component: AutoridadFormListComponent},
+          { path: 'listar', component: AutoridadListComponent},
+          // { path: 'listar', component: AutoridadFormListComponent},
           { path: 'add-edit/:id', component: AutoridadInsupdComponent },
           { path: 'delete/:id', component: AutoridadInsupdComponent },
           { path: 'view/:id', component: DetallesComponent },
+          { path: '**', redirectTo: 'listar' }
         ]},
       { path: '**', redirectTo: 'listar' }
     ]

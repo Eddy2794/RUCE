@@ -1,0 +1,67 @@
+<vex-page-layout>
+  <vex-page-layout-header class="pb-16 flex flex-col items-start justify-center -mb-16">
+    <div class="w-full flex flex-col justify-between">
+      <div>
+        <h1 class="title mt-0 mb-1"> Planes de Estudio</h1>
+        <vex-breadcrumbs [crumbs]="['Gestión Institucional','Planes de Estudio']"></vex-breadcrumbs>
+      </div>
+
+    </div>
+  </vex-page-layout-header>
+
+  <div [@stagger]="true" class="p-gutter">
+    <div class="flex flex-col gap-4">
+      <div @fadeInUp class="card flex-auto">
+        <div class="px-6 py-6 border-b">
+
+          <div class="px-2 py-4 border-b flex items-center">
+            <h2 class="title m-0">Organización</h2>
+          </div>
+
+          <ng-container [formGroup]="frmAutoridades">
+            <!-- BUSCADOR -->
+            <app-search-filters [columnasVex]="columnasBusqueda" [filtro]="filtroBusqueda"
+              [searchOptions]="searchOptionsBusqueda" [sourceService]="organizacionRUCEService"
+              [nombreTabla]="'Organización'" [campoDesc]="'organizacionDesc'" [requerido]="true"
+              formControlName="organizacionDesc" (datos)="obtenerBusqueda($event)">
+            </app-search-filters>
+            <!-- FIN BUSCADOR -->
+            <div *ngIf="frmAutoridades.controls.organizacionDesc.value">
+              <mat-form-field style="width: 24%; margin-right: 1%">
+                <mat-label>CUE</mat-label>
+                <input matInput formControlName="cue" type="text" maxlength="10" espacios solonum readonly="true" />
+              </mat-form-field>
+
+              <mat-form-field style="width: 24%; margin-right: 1%">
+                <mat-label>Anexo</mat-label>
+                <input matInput formControlName="anexo" type="text" readonly="true" />
+              </mat-form-field>
+
+              <mat-form-field style="width: 24%; margin-right: 1%">
+                <mat-label>Jornada</mat-label>
+                <input matInput formControlName="jornadaDesc" type="text" readonly="true" />
+              </mat-form-field>
+
+              <mat-form-field style="width: 24%;">
+                <mat-label>Categoría</mat-label>
+                <input matInput formControlName="categoriaOrganizacionDesc" type="text" readonly="true" />
+              </mat-form-field>
+            </div>
+            <div *ngIf="verListado">
+              <vex-aio-table [columns]="columnasVex" [sourceService]="autoridadService" [filter]="filtro"
+                [ruta]="'autoridades'" [nombreTabla]="'Autoridades'" [cabecera]="false">
+                <app-input-search espacio1></app-input-search>
+
+                <app-search-button-generic espacio2 [searchOptions]="searchOptions">
+                </app-search-button-generic>
+
+                <app-button-nuevo bordederecho [routerLink]="'autoridades'" [addRowText]="'Agregar Autoridad'">
+                </app-button-nuevo>
+              </vex-aio-table>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</vex-page-layout>
