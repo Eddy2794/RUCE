@@ -22,7 +22,7 @@
                 
                 <mat-form-field>
                     <mat-label>CUE</mat-label>
-                    <input matInput formControlName="cue" type="number">
+                    <input matInput formControlName="cue" type="number" mayus espacios>
                     <mat-error>
                         <app-ver-error [control]="this.formularioOrganizacionRUCE.controls['cue']">
                         </app-ver-error>
@@ -31,7 +31,7 @@
                 
                 <mat-form-field>
                     <mat-label>Nombre</mat-label>
-                    <input matInput formControlName="organizacionDesc" type="text">
+                    <input matInput formControlName="organizacionDesc" type="text" mayus espacios>
                     <mat-error>
                         <app-ver-error [control]="this.formularioOrganizacionRUCE.controls['organizacionDesc']">
                         </app-ver-error>
@@ -40,7 +40,7 @@
                 
                 <mat-form-field>
                     <mat-label>Anexo</mat-label>
-                    <input matInput formControlName="anexo" type="number">
+                    <input matInput formControlName="anexo" type="number" mayus espacios>
                     <mat-error>
                         <app-ver-error [control]="this.formularioOrganizacionRUCE.controls['anexo']">
                         </app-ver-error>
@@ -71,7 +71,7 @@
 
                 <mat-form-field>
                     <mat-label>Departamento</mat-label>
-                    <input matInput formControlName="departamento" type="text" mayus>
+                    <input matInput formControlName="departamento" type="text" mayus espacios>
                     <mat-error>
                         <app-ver-error [control]="this.formularioOrganizacionRUCE.controls['departamento']"></app-ver-error>
                     </mat-error>
@@ -79,7 +79,7 @@
 
                 <mat-form-field>
                     <mat-label>Localidad</mat-label>
-                    <input matInput formControlName="localidad" type="text" mayus>
+                    <input matInput formControlName="localidad" type="text" mayus espacios>
                     <mat-error>
                         <app-ver-error [control]="this.formularioOrganizacionRUCE.controls['localidad']"></app-ver-error>
                     </mat-error>
@@ -87,7 +87,7 @@
 
                 <mat-form-field>
                     <mat-label>Domicilio</mat-label>
-                    <input matInput formControlName="domicilio" type="text" mayus>
+                    <input matInput formControlName="domicilio" type="text" mayus espacios>
                     <mat-error>
                         <app-ver-error [control]="this.formularioOrganizacionRUCE.controls['domicilio']"></app-ver-error>
                     </mat-error>
@@ -95,7 +95,7 @@
 
                 <mat-form-field>
                     <mat-label>Email</mat-label>
-                    <input matInput formControlName="email" type="mail">
+                    <input matInput formControlName="email" type="mail" mayus espacios>
                     <mat-error>
                         <app-ver-error [control]="this.formularioOrganizacionRUCE.controls['email']"></app-ver-error>
                     </mat-error>
@@ -103,7 +103,7 @@
                 
                 <mat-form-field>
                     <mat-label>Telefono</mat-label>
-                    <input matInput formControlName="telefono" type="tel" pattern="[0-9]{10}" placeholder="Ingrese numero sin 0 ni 15 ej: 3881234567">
+                    <input matInput formControlName="telefono" type="number" pattern="[0-9]{10}" placeholder="Ingrese numero sin 0 ni 15 ej: 3881234567" mayus espacios>
                     <mat-error>
                         <app-ver-error [control]="this.formularioOrganizacionRUCE.controls['telefono']">
                         </app-ver-error>

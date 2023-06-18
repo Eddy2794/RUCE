@@ -19,6 +19,10 @@ import { Subscription } from 'rxjs';
 import { OrganizacionRUCEService } from '@app/pages/ruce/reforganizacionruce/organizacion/Services/OrganizacionRUCE/organizacionruce-service.service';
 import { OrganizacionRUCEModel } from '@app/pages/ruce/reforganizacionruce/organizacion/Models/OrganizacionRUCE/organizacionruce-model';
 import { ObserverValueService } from '@app/pages/plaza/services/observervalue.service';
+import { RefCargoModel } from '@app/pages/ruce/ref-ruce/Model/refcargo-model';
+import { RefcargoService } from '@app/pages/ruce/ref-ruce/Services/refcargo-service';
+import { PersonaRUCEModel } from '@app/pages/ruce/ref-ruce/Model/persona-ruce-model';
+import { PersonaruceService } from '@app/pages/ruce/ref-ruce/Services/personaruce-service';
 
 @Component({
   selector: 'vex-autoridad-organizacionRUCE',
@@ -40,10 +44,13 @@ export class AutoridadListComponent implements OnInit, OnDestroy {
   filtro: FilterOptions = { estaActivo: true };
   columnasVex: TableColumn<AutoridadOrganizacionRUCEModel>[];
 
-  autoridadesOrganiazcion: AutoridadOrganizacionRUCEModel[] = [];
+  autoridadesOrganizacion: AutoridadOrganizacionRUCEModel[] = [];
   refNivelEducList: RefniveleducativoModel[] = [];
   refJornadaModel: RefJornadaModel[] = [];
   refEspecialidad: RefEspecialidadModel[] = [];
+  organizacionRUCE: OrganizacionRUCEModel[] = [];
+  personaRUCE: PersonaRUCEModel[] = [];
+  refCargo: RefCargoModel[] = [];
 
   verListado: boolean = false;
 
@@ -54,6 +61,8 @@ export class AutoridadListComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     public organizacionRUCEService: OrganizacionRUCEService,
     public autoridadService: AutoridadOrganizacionRUCEService,
+    public refCargoService: RefcargoService,
+    public personaRUCEService: PersonaruceService,
     private observerValueService: ObserverValueService,
     public dialog: MatDialog) { }
 
@@ -72,22 +81,20 @@ export class AutoridadListComponent implements OnInit, OnDestroy {
     this.frmAutoridades = this.fb.group({
       idOrganizacion: [null, { validators: [Validators.required] }],
       organizacionDesc: null,
-      idRefEspecialidad: null,
       cue: null,
       anexo: null,
-      jornadaDesc: null,
-      categoriaOrganizacionDesc: null,
+      nivel: null,
+      region: null,
     });
   }
 
   private setBusqueda() {
     this.columnasBusqueda = [
-      { label: 'CÓDIGO', property: 'id', type: 'text', visible: true },
-      { label: 'ORGANIZACION', property: 'organizacionDesc', type: 'text', visible: true },
       { label: 'CUE', property: 'cue', type: 'text', visible: true },
+      { label: 'ORGANIZACION', property: 'organizacionDesc', type: 'text', visible: true },
       { label: 'ANEXO', property: 'anexo', type: 'text', visible: true },
-      { label: 'JORNADA', property: 'refJornada.jornadaDesc', type: 'object', visible: true },
-      { label: 'CATEGORIA', property: 'refCategoriaOrganizacion.categoriaOrganizacionDesc', type: 'object', visible: true },
+      { label: 'NIVEL', property: 'nivel', type: 'object', visible: true },
+      { label: 'REGION', property: 'region', type: 'object', visible: true },
       { label: '', property: 'selection', type: 'button', visible: true }
     ];
   }
@@ -159,8 +166,9 @@ export class AutoridadListComponent implements OnInit, OnDestroy {
   obtenerBusqueda(resp) {
     if (resp) {
       this.frmAutoridades.patchValue(resp);
-      this.frmAutoridades.controls.jornadaDesc.setValue(resp.refJornada ? resp.refJornada.jornadaDesc : 'SIN DATOS');
-      this.frmAutoridades.controls.categoriaOrganizacionDesc.setValue(resp.refCategoriaOrganizacion ? resp.refCategoriaOrganizacion.categoriaOrganizacionDesc : 'SIN DATOS');
+      this.frmAutoridades.controls.anexo.setValue(resp.anexo);
+      this.frmAutoridades.controls.nivel.setValue(resp.nivel);
+      this.frmAutoridades.controls.region.setValue(resp.region);
       this.frmAutoridades.controls.idOrganizacion.setValue(resp.id);
       this.observerValueService.sendIdOrgValue(resp.id);
       this.observerValueService.sendDescOrgValue(resp.organizacionDesc);
@@ -187,9 +195,9 @@ export class AutoridadListComponent implements OnInit, OnDestroy {
   private setColumns() {
     this.columnasVex = [
       { label: 'CÓDIGO', property: 'id', type: 'text', visible: true },
-      { label: 'CARGO', property: 'fkRefCargo', type: 'text', visible: true },
+      { label: 'CARGO', property: 'refCargo.cargoDesc', type: 'object', visible: true },
       { label: 'PERSONA', property: 'fkPersonaRUCE', type: 'text', visible: true },
-      { label: 'ORGANIZACION', property: 'fkOrganizacionRUCE', type: 'text', visible: true },
+      { label: 'ORGANIZACION', property: 'fkOrganizacionRUCE.organizacionDesc', type: 'object', visible: true },
       { label: 'INICIO DE CARGO', property: 'inicioCargo', type: 'text', visible: true },
       { label: 'FIN DE CARGO', property: 'finCargo', type: 'text', visible: true },
       
@@ -252,8 +260,8 @@ export class AutoridadListComponent implements OnInit, OnDestroy {
   }
 
   loadAutoridades() {
-    this.autoridadService.filter(this.filtro).subscribe((resp: DataPage<any>) => {
-      this.autoridadesOrganiazcion = Object.assign({},resp.entities,this.autoridadesOrganiazcion) || [];
+    this.autoridadService.filter(this.filtro).subscribe((resp: DataPage<AutoridadOrganizacionRUCEModel>) => {
+      this.autoridadesOrganizacion = Object.assign({},resp.entities,this.autoridadesOrganizacion) || [];
       this.setSearchOptions();
     });
   }

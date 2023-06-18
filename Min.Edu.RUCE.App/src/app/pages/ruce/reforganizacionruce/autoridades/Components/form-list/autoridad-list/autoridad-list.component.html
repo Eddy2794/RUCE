@@ -2,8 +2,8 @@
   <vex-page-layout-header class="pb-16 flex flex-col items-start justify-center -mb-16">
     <div class="w-full flex flex-col justify-between">
       <div>
-        <h1 class="title mt-0 mb-1"> Planes de Estudio</h1>
-        <vex-breadcrumbs [crumbs]="['Gestión Institucional','Planes de Estudio']"></vex-breadcrumbs>
+        <h1 class="title mt-0 mb-1"> Autoridades</h1>
+        <vex-breadcrumbs [crumbs]="['Institucion Educativa','Autoridades']"></vex-breadcrumbs>
       </div>
 
     </div>
@@ -15,14 +15,14 @@
         <div class="px-6 py-6 border-b">
 
           <div class="px-2 py-4 border-b flex items-center">
-            <h2 class="title m-0">Organización</h2>
+            <h2 class="title m-0">Institución</h2>
           </div>
 
           <ng-container [formGroup]="frmAutoridades">
             <!-- BUSCADOR -->
             <app-search-filters [columnasVex]="columnasBusqueda" [filtro]="filtroBusqueda"
               [searchOptions]="searchOptionsBusqueda" [sourceService]="organizacionRUCEService"
-              [nombreTabla]="'Organización'" [campoDesc]="'organizacionDesc'" [requerido]="true"
+              [nombreTabla]="'Institución Educativa'" [campoDesc]="'organizacionDesc'" [requerido]="true"
               formControlName="organizacionDesc" (datos)="obtenerBusqueda($event)">
             </app-search-filters>
             <!-- FIN BUSCADOR -->
@@ -38,13 +38,13 @@
               </mat-form-field>
 
               <mat-form-field style="width: 24%; margin-right: 1%">
-                <mat-label>Jornada</mat-label>
-                <input matInput formControlName="jornadaDesc" type="text" readonly="true" />
+                <mat-label>Nivel</mat-label>
+                <input matInput formControlName="nivel" type="text" readonly="true" />
               </mat-form-field>
 
               <mat-form-field style="width: 24%;">
-                <mat-label>Categoría</mat-label>
-                <input matInput formControlName="categoriaOrganizacionDesc" type="text" readonly="true" />
+                <mat-label>Region</mat-label>
+                <input matInput formControlName="region" type="text" readonly="true" />
               </mat-form-field>
             </div>
             <div *ngIf="verListado">
