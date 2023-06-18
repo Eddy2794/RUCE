@@ -10,7 +10,7 @@ import { OrganizacionRUCEService } from '../../Services/OrganizacionRUCE/organiz
 })
 export class DetallesComponent implements OnInit {
   data?: OrganizacionRUCEModel;
-  id?: string;
+  id?: number;
   constructor(
     private route:ActivatedRoute, 
     private organizacionRUCEService:OrganizacionRUCEService

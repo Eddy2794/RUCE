@@ -138,7 +138,7 @@ export class AutoridadInsupdComponent implements OnInit {
       {
         //validators: [ this.validadorServicio.validarFechasInicioFin('fechaInicio','fechaFinalizacion')]
       })
-    if (this.accion === 'delete') {
+    // if (this.accion === 'delete') {
       // this.formularioOrganizacionRUCE.controls['cue'].disable();
       // this.formularioOrganizacionRUCE.controls['organizacionDesc'].disable();
       // this.formularioOrganizacionRUCE.controls['anexo'].disable();
@@ -149,7 +149,7 @@ export class AutoridadInsupdComponent implements OnInit {
       // this.formularioOrganizacionRUCE.controls['localidad'].disable();
       // this.formularioOrganizacionRUCE.controls['email'].disable();
       // this.formularioOrganizacionRUCE.controls['telefono'].disable();
-    }
+    // }
   }
 
   save() {

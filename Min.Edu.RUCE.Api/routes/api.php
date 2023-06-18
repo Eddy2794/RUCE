@@ -167,7 +167,7 @@ Route::group(['prefix' => '/personeria'],function () {
     Route::put('/{id}',[PersoneriaController::class,'update'])->name('personeria.update');
 });
 
-Route::group(['prefix' => '/cargo'],function () {
+Route::group(['prefix' => '/refcargo'],function () {
     // Route::get('/', [OrganizacionRUCEController::class, 'index'])->name('organizacion.index');
     Route::get('/Filter', [RefCargoController::class, 'index'])->name('cargo.index');
     Route::post('/', [RefCargoController::class, 'store'])->name('cargo.store');

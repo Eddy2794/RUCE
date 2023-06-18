@@ -37,8 +37,8 @@ class AutoridadOrganizacionRUCEController extends Controller
     {
         try{
             if ($request->has('PageNumber')&&$request->has('PageSize')) {
-                // dd(AutoridadOrganizacionRUCE::paginate(10, ['*'], 'page', 1)->where('fkOrganizacionRUCE',$idOrganizacion));
-                $autoridades = AutoridadOrganizacionRUCE::where('fkOrganizacionRUCE', $request['idOrganizacion'])->paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']);
+                $autoridades = AutoridadOrganizacionRUCE::with('refCargo','personaRuce')->where('fkOrganizacionRUCE', $request['idOrganizacion'])->paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']);
+                // $autoridades = AutoridadOrganizacionRUCE::where('fkOrganizacionRUCE', $request['idOrganizacion'])->paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']);
                 $datos = [];
                 foreach ($autoridades->items() as $autoridad) {
                     $datos[] = $autoridad->toArray();

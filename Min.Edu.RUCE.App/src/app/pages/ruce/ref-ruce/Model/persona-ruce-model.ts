@@ -1,7 +1,7 @@
 import { BaseModel } from '@app/_models/base.model';
 
 export class PersonaRUCEModel extends BaseModel {
-    static className: string = 'PersonaRUCE';
+    static className: string = 'persona_ruce';
     constructor(
         public id?: number,
         public fkRefTipoDocumentoRUCE?: number,

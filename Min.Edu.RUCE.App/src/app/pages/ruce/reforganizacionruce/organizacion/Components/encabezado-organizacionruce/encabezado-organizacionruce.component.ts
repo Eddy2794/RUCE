@@ -16,7 +16,9 @@ export class EncabezadoOrganizacionruceComponent implements OnInit {
   constructor(
     private route:ActivatedRoute,
     private organizacionRUCEService:OrganizacionRUCEService
-  ) { }
+  ) { 
+    this.organizacionruce = {}
+  }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
@@ -24,9 +26,8 @@ export class EncabezadoOrganizacionruceComponent implements OnInit {
   }
   obtenerData(id: any) {
     this.organizacionRUCEService.findOne(id).subscribe((res:any)=>{
-      this.organizacionruce = Object.assign({},res.entities[0], this.organizacionruce);
+      this.organizacionruce = Object.assign(this.organizacionruce,res.entities[0]);
     });
-    throw new Error('Method not implemented.');
   }
 
 }

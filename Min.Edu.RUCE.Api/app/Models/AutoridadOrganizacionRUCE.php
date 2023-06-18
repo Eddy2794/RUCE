@@ -25,6 +25,21 @@ class AutoridadOrganizacionRUCE extends Model
         'idUsuarioModificacion'
     ];
 
+    public function refCargo()
+    {
+        return $this->belongsTo(RefCargo::class, 'fkRefCargo');
+    }
+
+    public function personaRuce()
+    {
+        return $this->belongsTo(PersonaRUCE::class, 'fkPersonaRUCE');
+    }
+
+    public function organizacionRuce()
+    {
+        return $this->belongsTo(OrganizacionRUCE::class, 'fkOrganizacionRUCE');
+    }
+
     public function fromDateTime($value){
         return Carbon::parse(parent::fromDateTime($value))->format('d-m-Y H:i:s');
     }

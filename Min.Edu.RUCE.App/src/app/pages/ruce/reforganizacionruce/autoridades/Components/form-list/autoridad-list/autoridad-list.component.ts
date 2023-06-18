@@ -1,5 +1,5 @@
 import { AutoridadOrganizacionRUCEService } from './../../../Services/AutoridadOrganizacionRUCE/autoridad-organizacionruce.service';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AutoridadOrganizacionRUCEModel } from '@app/pages/ruce/reforganizacionruce/autoridades/Models/AutoridadOrganizacionRUCE/autoridad-organizacionruce-model';
 import { RefniveleducativoModel } from '@app/pages/referenciales/refniveleducativo/model/refniveleducativo.model';
@@ -52,10 +52,10 @@ export class AutoridadListComponent implements OnInit, OnDestroy {
   personaRUCE: PersonaRUCEModel[] = [];
   refCargo: RefCargoModel[] = [];
 
-  verListado: boolean = false;
 
   subsOrganizacion: Subscription;
   obsOrganizacion!: OrganizacionRUCEModel;
+  @Input() idOrganizacion!: number;
 
   constructor(
     private fb: FormBuilder,
@@ -67,37 +67,13 @@ export class AutoridadListComponent implements OnInit, OnDestroy {
     public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.createForm();
-    this.setBusqueda();
-    // this.loadJornada();
-    // this.loadCategoria();
+    this.obtenerBusqueda()
   }
 
   ngOnDestroy(): void {
     this.subsOrganizacion.unsubscribe();
   }
 
-  createForm() {
-    this.frmAutoridades = this.fb.group({
-      idOrganizacion: [null, { validators: [Validators.required] }],
-      organizacionDesc: null,
-      cue: null,
-      anexo: null,
-      nivel: null,
-      region: null,
-    });
-  }
-
-  private setBusqueda() {
-    this.columnasBusqueda = [
-      { label: 'CUE', property: 'cue', type: 'text', visible: true },
-      { label: 'ORGANIZACION', property: 'organizacionDesc', type: 'text', visible: true },
-      { label: 'ANEXO', property: 'anexo', type: 'text', visible: true },
-      { label: 'NIVEL', property: 'nivel', type: 'object', visible: true },
-      { label: 'REGION', property: 'region', type: 'object', visible: true },
-      { label: '', property: 'selection', type: 'button', visible: true }
-    ];
-  }
   private setSearchOptions2() {
     this.searchOptionsBusqueda = [
       new SearchOptionsGeneric({
@@ -148,39 +124,10 @@ export class AutoridadListComponent implements OnInit, OnDestroy {
       // }),
     ];
   }
-  // loadJornada() {
-  //   const filtroJornada: FilterOptions = { estaActivo: true, SortProperties: 'jornadaDesc asc', PageSize: 1000 }
-  //   this.refJornadaService.filter(filtroJornada).subscribe((resp: DataPage<RefJornadaModel>) => {
-  //     this.refJornadaModel = resp.entities || [];
-  //     this.setSearchOptions2();
-  //   });
-  // }
-  // loadCategoria() {
-  //   const filtroCat: FilterOptions = { estaActivo: true }
-  //   this.refCatService.filter(filtroCat).subscribe((resp: DataPage<RefCategoriaOrganizacionRUCEModel>) => {
-  //     this.refCatModel = resp.entities || [];
-  //     this.setSearchOptions2();
-  //   });
-  // }
 
-  obtenerBusqueda(resp) {
-    if (resp) {
-      this.frmAutoridades.patchValue(resp);
-      this.frmAutoridades.controls.anexo.setValue(resp.anexo);
-      this.frmAutoridades.controls.nivel.setValue(resp.nivel);
-      this.frmAutoridades.controls.region.setValue(resp.region);
-      this.frmAutoridades.controls.idOrganizacion.setValue(resp.id);
-      this.observerValueService.sendIdOrgValue(resp.id);
-      this.observerValueService.sendDescOrgValue(resp.organizacionDesc);
-      // this.observerValueService.sendOrganizacionValue(resp);
-      this.filtro = { estaActivo: true, PageSize: 10, idOrganizacion: resp.id };
-      this.cargarList();
-    }
-    else {
-      this.frmAutoridades.reset();
-      this.verListado = false;
-    }
-
+  obtenerBusqueda() {
+    this.filtro = { estaActivo: true, PageSize: 10, idOrganizacion: this.idOrganizacion };
+    this.cargarList();
   }
 
   cargarList() {
@@ -189,15 +136,18 @@ export class AutoridadListComponent implements OnInit, OnDestroy {
     // this.loadNivelEduc();
     // this.loadEspecialidad();
     // this.loadEstado();
-    this.verListado = true;
   }
 
   private setColumns() {
     this.columnasVex = [
-      { label: 'CÓDIGO', property: 'id', type: 'text', visible: true },
-      { label: 'CARGO', property: 'refCargo.cargoDesc', type: 'object', visible: true },
-      { label: 'PERSONA', property: 'fkPersonaRUCE', type: 'text', visible: true },
-      { label: 'ORGANIZACION', property: 'fkOrganizacionRUCE.organizacionDesc', type: 'object', visible: true },
+      { label: 'ACCIONES', property: 'actions', type: 'button', visible: true },
+      { label: 'CUIL', property: 'persona_ruce.cuil', type: 'object', visible: true },
+      { label: 'DNI', property: 'persona_ruce.documento', type: 'object', visible: true },
+      { label: 'NOMBRE', property: 'persona_ruce.nombre', type: 'object', visible: true },
+      { label: 'APELLIDO', property: 'persona_ruce.apellido', type: 'object', visible: true },
+      { label: 'EMAIL', property: 'persona_ruce.email', type: 'object', visible: true },
+      { label: 'TELEFONO', property: 'persona_ruce.telefono', type: 'object', visible: true },
+      { label: 'CARGO', property: 'ref_cargo.cargoDesc', type: 'object', visible: true },
       { label: 'INICIO DE CARGO', property: 'inicioCargo', type: 'text', visible: true },
       { label: 'FIN DE CARGO', property: 'finCargo', type: 'text', visible: true },
       
@@ -265,6 +215,25 @@ export class AutoridadListComponent implements OnInit, OnDestroy {
       this.setSearchOptions();
     });
   }
+
+  // loadAutoridades() {
+  //   this.autoridadService.filter(this.filtro).subscribe((resp: DataPage<AutoridadOrganizacionRUCEModel>) => {
+  //     // console.log(resp)
+  //     this.autoridadesOrganizacion = Object.assign(resp,this.autoridadesOrganizacion) || [];
+  //     // console.log(this.autoridadesOrganizacion)
+  //     // this.autoridadesOrganizacion.forEach((autoridad: AutoridadOrganizacionRUCEModel, index)=>{
+  //     //   // console.log(Number(autoridad.fkRefCargo))
+  //     //   this.refCargoService.findOne(Number(autoridad.fkRefCargo),this.filtro).subscribe((resp: any)=> {
+  //     //     this.autoridadesOrganizacion[index].fkRefCargo = Object.assign(resp.entities[0],this.autoridadesOrganizacion[index].fkRefCargo) || this.autoridadesOrganizacion[index].fkRefCargo
+  //     //   })
+  //     //   this.personaRUCEService.findOne(Number(autoridad.fkPersonaRUCE),this.filtro).subscribe((resp: any)=> {
+  //     //     this.autoridadesOrganizacion[index].fkPersonaRUCE = Object.assign(resp.entities[0],this.autoridadesOrganizacion[index].fkPersonaRUCE) || this.autoridadesOrganizacion[index].fkRefCargo
+  //     //   })
+  //     // })
+  //     // console.log(this.autoridadesOrganizacion)
+  //     this.setSearchOptions();
+  //   });
+  // }
 
   // loadPropForm() {
   //   const filtroPropForm: FilterOptions = { estaActivo: true }
