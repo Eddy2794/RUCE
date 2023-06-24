@@ -41,6 +41,7 @@ export class CooperadoraListComponent implements OnInit {
     this.columnasVex = [
       { label: "ACCIONES", property: "actions", type: "button", visible: true },
       { label: "CÓDIGO", property: "id", type: "text", visible: false },
+      { label: "CUE INSTITUCIÓN", property: "fkOrganizaciónRUCE", type: "text", visible: true, },
       { label: "DENOMINACION", property: "denominacion", type: "text", visible: true, },
       { label: "ESTADO", property: "estado", type: "text", visible: true },
       { label: "LEGAJO", property: "legajo", type: "text", visible: true },

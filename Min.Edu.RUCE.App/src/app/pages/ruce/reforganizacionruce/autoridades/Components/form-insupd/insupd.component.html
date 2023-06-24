@@ -8,7 +8,7 @@
     </button>
 </vex-secondary-toolbar>
 <div [@stagger]="true" class="p-gutter container">
-    <form autocomplete="off" [formGroup]="formularioOrganizacionRUCE" (ngSubmit)="save()">
+    <form autocomplete="off" [formGroup]="formularioAutoridad" (ngSubmit)="save()">
     <div class="flex flex-col sm:flex-row gap-4">
         <div @fadeInUp class="card flex-auto">
             <div class="px-6 py-4 border-b flex items-center">
@@ -20,76 +20,69 @@
 
             <div class="px-6 py-4 flex flex-col">
                 
-                <mat-form-field>
-                    <mat-label>CUE</mat-label>
-                    <input matInput formControlName="cue" type="number">
+                <mat-form-field disabled>
+                    <mat-label>Institución Educativa</mat-label>
+                    <input matInput formControlName="fkOrganizacionRUCE" type="number">
                     <mat-error>
-                        <app-ver-error [control]="this.formularioOrganizacionRUCE.controls['cue']">
+                        <app-ver-error [control]="this.formularioAutoridad.controls['fkOrganizacionRUCE']">
                         </app-ver-error>
                     </mat-error>
                 </mat-form-field>
                 
                 <mat-form-field>
-                    <mat-label>Nombre</mat-label>
-                    <input matInput formControlName="organizacionDesc" type="text">
+                    <mat-label>Tipo de Documento</mat-label>
+                    <input matInput formControlName="" type="text">
                     <mat-error>
-                        <app-ver-error [control]="this.formularioOrganizacionRUCE.controls['organizacionDesc']">
+                        <app-ver-error [control]="this.formularioAutoridad.controls['']">
                         </app-ver-error>
                     </mat-error>
                 </mat-form-field>
                 
                 <mat-form-field>
-                    <mat-label>Anexo</mat-label>
-                    <input matInput formControlName="anexo" type="number">
+                    <mat-label>Documento</mat-label>
+                    <input matInput formControlName="" type="number">
                     <mat-error>
-                        <app-ver-error [control]="this.formularioOrganizacionRUCE.controls['anexo']">
+                        <app-ver-error [control]="this.formularioAutoridad.controls['']">
                         </app-ver-error>
                     </mat-error>
                 </mat-form-field>
 
                 <mat-form-field>
-                    <mat-label>Nivel Educativo</mat-label>
-                    <mat-select formControlName="nivel">
+                    <mat-label>CUIL</mat-label>
+<!--                     <mat-select formControlName="nivel">
                         <mat-option>Seleccione</mat-option>
                         <mat-option *ngFor="let item of niveles" [value]="item">{{item}} </mat-option>
-                    </mat-select>
+                    </mat-select> -->
                     <mat-error>
-                        <app-ver-error [control]="this.formularioOrganizacionRUCE.controls['nivel']"></app-ver-error>
+                        <app-ver-error [control]="this.formularioAutoridad.controls['']"></app-ver-error>
                     </mat-error>
                 </mat-form-field>
 
                 <mat-form-field>
-                    <mat-label>Region</mat-label>
-                    <mat-select formControlName="region">
+                    <mat-label>Apellido</mat-label>
+<!--                     <mat-select formControlName="region">
                         <mat-option>Seleccione</mat-option>
                         <mat-option *ngFor="let item of regiones" [value]="item">{{item}} </mat-option>
-                    </mat-select>
+                    </mat-select> -->
                     <mat-error>
-                        <app-ver-error [control]="this.formularioOrganizacionRUCE.controls['region']"></app-ver-error>
+                        <app-ver-error [control]="this.formularioAutoridad.controls['']"></app-ver-error>
                     </mat-error>
                 </mat-form-field>
 
                 <mat-form-field>
-                    <mat-label>Departamento</mat-label>
-                    <input matInput formControlName="departamento" type="text" mayus>
+                    <mat-label>Nombre</mat-label>
+                    <input matInput formControlName="" type="text" mayus>
                     <mat-error>
-                        <app-ver-error [control]="this.formularioOrganizacionRUCE.controls['departamento']"></app-ver-error>
+                        <app-ver-error [control]="this.formularioAutoridad.controls['']"></app-ver-error>
                     </mat-error>
                 </mat-form-field>
 
                 <mat-form-field>
-                    <mat-label>Localidad</mat-label>
-                    <input matInput formControlName="localidad" type="text" mayus>
+                    <mat-label>Telefono</mat-label>
+                    <input matInput formControlName="telefono" type="tel" pattern="[0-9]{10}" placeholder="Ingrese numero sin 0 ni 15 ej: 3881234567">
                     <mat-error>
-                        <app-ver-error [control]="this.formularioOrganizacionRUCE.controls['localidad']"></app-ver-error>
-                    </mat-error>
-                </mat-form-field>
-
-                <mat-form-field>
-                    <mat-label>Domicilio</mat-label>
-                    <input matInput formControlName="domicilio" type="text" mayus>
-                    <mat-error>
-                        <app-ver-error [control]="this.formularioOrganizacionRUCE.controls['domicilio']"></app-ver-error>
+                        <app-ver-error [control]="this.formularioAutoridad.controls['telefono']">
+                        </app-ver-error>
                     </mat-error>
                 </mat-form-field>
 
@@ -97,16 +90,7 @@
                     <mat-label>Email</mat-label>
                     <input matInput formControlName="email" type="mail">
                     <mat-error>
-                        <app-ver-error [control]="this.formularioOrganizacionRUCE.controls['email']"></app-ver-error>
-                    </mat-error>
-                </mat-form-field>
-                
-                <mat-form-field>
-                    <mat-label>Telefono</mat-label>
-                    <input matInput formControlName="telefono" type="tel" pattern="[0-9]{10}" placeholder="Ingrese numero sin 0 ni 15 ej: 3881234567">
-                    <mat-error>
-                        <app-ver-error [control]="this.formularioOrganizacionRUCE.controls['telefono']">
-                        </app-ver-error>
+                        <app-ver-error [control]="this.formularioAutoridad.controls['email']"></app-ver-error>
                     </mat-error>
                 </mat-form-field>
 

@@ -43,6 +43,10 @@ export class CooperadoraFormInsupdComponent implements OnInit {
             this.accion = 'add'
             break;
           }
+          case 'view': {
+            this.accion = 'view'
+            break;
+          }
         }
       });
       
@@ -77,9 +81,11 @@ export class CooperadoraFormInsupdComponent implements OnInit {
       denominacion: [
         null, { 
           validators: [
-            Validators.required, 
-            this.validadorServicio.validarSoloLetras(),
-            this.validadorServicio.validarEspaciosInicioFin()
+            Validators.required,
+            Validators.minLength(3),
+            this.validadorServicio.validarCaracteresDescripcion(),
+            this.validadorServicio.validarEspaciosInicioFin(),
+            Validators.max(255),
           ] 
         }
       ],
@@ -92,7 +98,9 @@ export class CooperadoraFormInsupdComponent implements OnInit {
         null, { 
           validators: [
             Validators.required,
-            this.validadorServicio.validarEspaciosInicioFin()
+            Validators.minLength(3),
+            this.validadorServicio.validarEspaciosInicioFin(),
+            Validators.max(100),
           ] 
         }
       ],
@@ -100,50 +108,24 @@ export class CooperadoraFormInsupdComponent implements OnInit {
         null, { 
           validators: [
             Validators.required, 
-            this.validadorServicio.validarSoloLetras(),
-            this.validadorServicio.validarEspaciosInicioFin()
+            Validators.minLength(3),
+            this.validadorServicio.validarEspaciosInicioFin(),
+            Validators.max(100),
           ] 
         }
       ],
-      convenioScEconomicas: [
-        null, {
-          validators: [ Validators.required, ]
-        }
-      ],
-      inscripcion_afip: [
-        null, { 
-          validators: [ Validators.required, ] 
-        }
-      ],
-      inscripcion_rentas: [
-        null, {
-          validators: [ Validators.required, ]
-        }
-      ],
-      inscripcion_renacopes: [
-        null, {
-          validators: [ Validators.required, ]
-        }
-      ],
-      organizacion_ruce: [
-        null, {
-          validators: [ Validators.required, ]
-        }
-      ],
+      convenioScEconomicas: false,
+      inscripcion_afip: false,
+      inscripcion_rentas: false,
+      inscripcion_renacopes: false,
+      organizacion_ruce: false,
       estaActivo: true,
     },
       {
         //validators: [ this.validadorServicio.validarFechasInicioFin('fechaInicio','fechaFinalizacion')]
       })
-    if (this.accion === 'delete') {
-      this.formularioCooperadora.controls['denominacion'].disable();
-      this.formularioCooperadora.controls['legajo'].disable();
-      this.formularioCooperadora.controls['decreto'].disable();
-      this.formularioCooperadora.controls['convenioScEconomicas'].disable();
-      this.formularioCooperadora.controls['inscripcion_afip'].disable();
-      this.formularioCooperadora.controls['inscripcion_rentas'].disable();
-      this.formularioCooperadora.controls['inscripcion_renacopes'].disable();
-      this.formularioCooperadora.controls['organizacion_ruce'].disable();
+    if (this.accion === 'delete' || this.accion === "view") {
+      this.formularioCooperadora.disable();
     }
   }
 
