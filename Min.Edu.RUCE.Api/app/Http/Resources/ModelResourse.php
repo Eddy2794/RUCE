@@ -29,7 +29,21 @@ class ModelResourse extends JsonResource
         if ($this->model != ''){
             $modelo = new $this->model();
             $datos = $modelo::where('id',$this->id)->get();
-            return ['entities'=>$datos];
+
+            //obtiene los datos de cada clave foranea que contenga cualquier modelo
+            foreach ($datos as $registro) {
+                foreach ($registro->getAttributes() as $clave => $valor) {
+                    if(str_contains($clave,'fk')){
+                        $modelo = 'App\Models'.'\\'.substr($clave,2);
+                        $modelo = new $modelo;
+                        $valor = $modelo::where('id',$valor)->get();
+                        if($valor!=[])
+                            $datos[0][$clave]=$valor[0];
+                    }
+                }
+            }
+
+            return ['entities'=>$datos[0]];
         }
         else return [
             'entities'=>[]
