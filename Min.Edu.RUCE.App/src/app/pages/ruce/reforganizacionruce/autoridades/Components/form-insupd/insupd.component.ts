@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -18,12 +18,13 @@ import { AutoridadOrganizacionRUCEService } from './../../Services/AutoridadOrga
 })
 export class AutoridadInsupdComponent implements OnInit {
 
-  formularioOrganizacionRUCE!: FormGroup;
+  formularioAutoridad!: FormGroup;
   id: number = 0;
   public accion: string = '';
+  @Input() idOrganizacion!: number;
 
-  regiones: string[]= ['I','II','III','IV',"V",'VI','VII'];
-  niveles: string[]= ['INICIAL','PRIMARIO','SECUNDARIO','SUPERIOR'];
+/*   regiones: string[]= ['I','II','III','IV',"V",'VI','VII'];
+  niveles: string[]= ['INICIAL','PRIMARIO','SECUNDARIO','SUPERIOR']; */
 
   constructor(
     private fb: FormBuilder,
@@ -44,6 +45,10 @@ export class AutoridadInsupdComponent implements OnInit {
             this.accion = 'add'
             break;
           }
+          case 'view': {
+            this.accion = 'view'
+            break;
+          }
         }
       });
       
@@ -53,7 +58,7 @@ export class AutoridadInsupdComponent implements OnInit {
         if (this.id !== 0) {
           if (this.accion !== 'delete'){this.accion = 'edit'}
           this.autoridadOrganizacionRUCEService.findOne(this.id).subscribe((resp: any) => {
-            this.formularioOrganizacionRUCE.patchValue(resp.entities[0]);
+            this.formularioAutoridad.patchValue(resp.entities[0]);
           });
         }
       });
@@ -64,111 +69,40 @@ export class AutoridadInsupdComponent implements OnInit {
   }
 
   createForm() {
-    this.formularioOrganizacionRUCE = this.fb.group({
+    this.formularioAutoridad = this.fb.group({
       id: null,
-      // cue: [
-      //   null, { 
-      //     validators: [ Validators.required, ] 
-      //   }
-      // ],
-      // organizacionDesc: [
-      //   null, { 
-      //     validators: [ Validators.required, ] 
-      //   }
-      // ],
-      // anexo: [
-      //   null, { 
-      //     validators: [ Validators.required, ] 
-      //   }
-      // ],
-      // nivel: [
-      //   null, {
-      //     validators: [ Validators.required, ]
-      //   }
-      // ],
-      // region: [
-      //   null, { 
-      //     validators: [ Validators.required, ] 
-      //   }
-      // ],
-      // departamento: [
-      //   null, {
-      //     validators: [
-      //       Validators.required,
-      //       this.validadorServicio.validarSoloLetras(),
-      //       this.validadorServicio.validarEspaciosInicioFin()
-      //     ]
-      //   }
-      // ],
-      // domicilio: [
-      //   null, {
-      //     validators: [
-      //       Validators.required,
-      //       this.validadorServicio.validarCaracteresDescripcion(),
-      //       this.validadorServicio.validarEspaciosInicioFin()
-      //     ]
-      //   }
-      // ],
-      // localidad: [
-      //   null, {
-      //     validators: [
-      //       Validators.required,
-      //       this.validadorServicio.validarSoloLetras(),
-      //       this.validadorServicio.validarEspaciosInicioFin()
-      //     ]
-      //   }
-      // ],
-      // email: [
-      //   null, {
-      //     validators: [
-      //       // Validators.required,
-      //       this.validadorServicio.validarEspaciosInicioFin()
-      //     ]
-      //   }
-      // ],
-      // telefono: [
-      //   null, { 
-      //     validators: [ 
-      //       Validators.required,
-      //     ] 
-      //   }
-      // ],
+      fkOrganizacionRUCE: [null, { validators: [ Validators.required, Validators.minLength(3), Validators.maxLength(250), this.validadorServicio.validarEspaciosInicioFin() ]}],
+      fkRefCargo: [null, {validators: [ Validators.required, ]}],
+      fkPersonaRUCE: [null, {validators: [ Validators.required, ]}],
+      inicioCargo: [null, {validators: [ Validators.required, this.validadorServicio.validarFechasInicioFin ]}],
+      finCargo: [null, {validators: [ Validators.required, this.validadorServicio.validarFechasInicioFin ]}],
       estaActivo: true,
     },
       {
         //validators: [ this.validadorServicio.validarFechasInicioFin('fechaInicio','fechaFinalizacion')]
       })
-    // if (this.accion === 'delete') {
-      // this.formularioOrganizacionRUCE.controls['cue'].disable();
-      // this.formularioOrganizacionRUCE.controls['organizacionDesc'].disable();
-      // this.formularioOrganizacionRUCE.controls['anexo'].disable();
-      // this.formularioOrganizacionRUCE.controls['nivel'].disable();
-      // this.formularioOrganizacionRUCE.controls['region'].disable();
-      // this.formularioOrganizacionRUCE.controls['departamento'].disable();
-      // this.formularioOrganizacionRUCE.controls['domicilio'].disable();
-      // this.formularioOrganizacionRUCE.controls['localidad'].disable();
-      // this.formularioOrganizacionRUCE.controls['email'].disable();
-      // this.formularioOrganizacionRUCE.controls['telefono'].disable();
-    // }
+    if (this.accion === 'delete'|| this.accion === 'view') {
+      this.formularioAutoridad.disable();
+    }
   }
 
   save() {
-    if (this.formularioOrganizacionRUCE.invalid) {
-      this.formularioOrganizacionRUCE.markAllAsTouched();
+    if (this.formularioAutoridad.invalid) {
+      this.formularioAutoridad.markAllAsTouched();
       return;
     }
     if (this.id == 0) {
-      this.formularioOrganizacionRUCE.removeControl('id');
-      this.autoridadOrganizacionRUCEService.create(this.formularioOrganizacionRUCE.value).subscribe((resp: any) => {
-        this.mostrarDialogMsj("Mensaje", "OrganizacionRUCE Creado", false)
+      this.formularioAutoridad.removeControl('id');
+      this.autoridadOrganizacionRUCEService.create(this.formularioAutoridad.value).subscribe((resp: any) => {
+        this.mostrarDialogMsj("Mensaje", "Autoridad Creado", false)
         this.router.navigate(['/pages/establecimientos']);
       }, err => {
         this.mostrarDialogMsj("Atención", err.error.errors, false)
       }
       );
     } else {
-      this.autoridadOrganizacionRUCEService.update(this.formularioOrganizacionRUCE.value.id, this.formularioOrganizacionRUCE.value).subscribe((resp: any) => {
-        this.mostrarDialogMsj("Mensaje", "OrganizacionRUCE Modificado", false)
+      this.autoridadOrganizacionRUCEService.update(this.formularioAutoridad.value.id, this.formularioAutoridad.value).subscribe((resp: any) => {
+        this.mostrarDialogMsj("Mensaje", "Autoridad Modificado", false)
         this.router.navigate(['/pages/establecimientos']);
       }, err => {
         this.mostrarDialogMsj("Atención", err.error.errors, false)
@@ -188,8 +122,8 @@ export class AutoridadInsupdComponent implements OnInit {
 
     dialog.afterClosed().subscribe(result => {
       if (result === "Aceptar") {
-        this.autoridadOrganizacionRUCEService.delete(this.formularioOrganizacionRUCE.value.id).subscribe((resp: any) => {
-          this.mostrarDialogMsj("Mensaje", "OrganizacionRUCE Eliminado", false)
+        this.autoridadOrganizacionRUCEService.delete(this.formularioAutoridad.value.id).subscribe((resp: any) => {
+          this.mostrarDialogMsj("Mensaje", "Autoridad Eliminado", false)
           this.router.navigate(['/pages/establecimientos']);
         }, err => {
           this.mostrarDialogMsj("Atención", err.error.errors, false)

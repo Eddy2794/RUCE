@@ -39,8 +39,7 @@
                 </mat-form-field>
 
                 <mat-form-field>
-                    <mat-label>
-                        Estado</mat-label>
+                    <mat-label>Estado</mat-label>
                     <mat-select formControlName="estado">
                         <mat-option>Seleccione</mat-option>
                         <mat-option [value]="-1">Rojo</mat-option>
@@ -52,37 +51,41 @@
                     </mat-error>
                 </mat-form-field>
 
-                <mat-form-field>
-                    <mat-label>Convenio Sc Economicas</mat-label>
-                    <input matInput formControlName="estado" type="boolean">
-                    <mat-error>
-                        <app-ver-error [control]="this.formularioCooperadora.controls['convenioScEconomicas']"></app-ver-error>
-                    </mat-error>
-                </mat-form-field>
-                <!-- 
-                <mat-form-field>
-                    <mat-label>Inscripcion Afip</mat-label>
-                    <mat-slide-toggle color="primary" formControlName="inscripcion_afip" [checked]="false"></mat-slide-toggle>
-                    <mat-error>
-                        <app-ver-error [control]="this.formularioCooperadora.controls['inscripcion_afip']"></app-ver-error>
-                    </mat-error>
-                </mat-form-field>
+                <mat-label>Convenio Cs. Económicas</mat-label>
+                <br>
+                <mat-radio-group aria-label="Seleccione una opción" formControlName="convenioScEconomicas">
+                    <br>
+                    <mat-radio-button [value]=true>SI</mat-radio-button>
+                    <mat-radio-button [value]=false>NO</mat-radio-button>
+                    <br>
+                </mat-radio-group>
 
-                <mat-form-field>
-                    <mat-label>Inscripcion Rentas</mat-label>
-                    <mat-slide-toggle color="primary" formControlName="inscripcion_rentas" [checked]="false"></mat-slide-toggle>
-                    <mat-error>
-                        <app-ver-error [control]="this.formularioCooperadora.controls['inscripcion_rentas']"></app-ver-error>
-                    </mat-error>
-                </mat-form-field>
+                <mat-label>Inscripcion Afip</mat-label>
+                <br>
+                <mat-radio-group aria-label="Seleccione una opción" formControlName="inscripcion_afip">
+                    <br>
+                    <mat-radio-button [value]=true>SI</mat-radio-button>
+                    <mat-radio-button [value]=false>NO</mat-radio-button>
+                    <br>
+                </mat-radio-group>
 
-                <mat-form-field>
-                    <mat-label>Inscripcion Renacopes</mat-label>
-                    <mat-slide-toggle color="primary" formControlName="inscripcion_rentas" [checked]="false"></mat-slide-toggle>
-                    <mat-error>
-                        <app-ver-error [control]="this.formularioCooperadora.controls['inscripcion_renacopes']"></app-ver-error>
-                    </mat-error>
-                </mat-form-field> -->
+                <mat-label>Inscripcion Rentas</mat-label>
+                <br>
+                <mat-radio-group aria-label="Seleccione una opción" formControlName="inscripcion_rentas">
+                    <br>
+                    <mat-radio-button [value]=true>SI</mat-radio-button>
+                  <mat-radio-button [value]=false>NO</mat-radio-button>
+                  <br>
+                </mat-radio-group>
+
+                <mat-label>Inscripcion Renacopes</mat-label>
+                <br>
+                <mat-radio-group aria-label="Seleccione una opción" formControlName="inscripcion_renacopes">
+                    <br>
+                    <mat-radio-button [value]=true>SI</mat-radio-button>
+                  <mat-radio-button [value]=false>NO</mat-radio-button>
+                  <br>
+                </mat-radio-group>
 
                 <mat-form-field>
                     <mat-label>Organizaciones</mat-label>

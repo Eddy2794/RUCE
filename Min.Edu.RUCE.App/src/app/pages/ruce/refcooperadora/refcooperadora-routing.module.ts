@@ -14,7 +14,7 @@ const routes: Routes = [
       { path: 'listar', component: CooperadoraListComponent},
       { path: 'add-edit/:id', component: CooperadoraFormInsupdComponent },
       { path: 'delete/:id', component: CooperadoraFormInsupdComponent },
-      { path: 'detalles/:id', component: PrincipalComponent },
+      { path: 'view/:id', component: PrincipalComponent },
       { path: 'principal', component: PrincipalComponent },
       { path: '**', redirectTo: 'listar' }
     ]
