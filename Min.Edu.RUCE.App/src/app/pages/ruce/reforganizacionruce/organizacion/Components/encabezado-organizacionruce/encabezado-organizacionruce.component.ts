@@ -26,7 +26,7 @@ export class EncabezadoOrganizacionruceComponent implements OnInit {
   }
   obtenerData(id: any) {
     this.organizacionRUCEService.findOne(id).subscribe((res:any)=>{
-      this.organizacionruce = Object.assign(this.organizacionruce,res.entities[0]);
+      this.organizacionruce = Object.assign(this.organizacionruce,res.entities);
     });
   }
 

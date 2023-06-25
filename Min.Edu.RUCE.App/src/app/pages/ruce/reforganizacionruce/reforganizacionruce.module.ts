@@ -16,9 +16,8 @@ import { BreadcrumbsModule } from 'src/@vex/components/breadcrumbs/breadcrumbs.m
 import { SecondaryToolbarModule } from 'src/@vex/components/secondary-toolbar/secondary-toolbar.module';
 import { DetallesComponent } from './organizacion/Components/detalles/detalles.component';
 import { EncabezadoOrganizacionruceComponent } from './organizacion/Components/encabezado-organizacionruce/encabezado-organizacionruce.component';
-import { AutoridadFormListComponent } from './autoridades/Components/form-list/form-list.component';
 import { AutoridadInsupdComponent } from './autoridades/Components/form-insupd/insupd.component';
-import { AutoridadListComponent } from './autoridades/Components/form-list/autoridad-list/autoridad-list.component';
+import { AutoridadListComponent } from './autoridades/Components/autoridad-list/autoridad-list.component';
 
 // import { VexAioTableModule } from 'vex-aio-table';
 
@@ -28,7 +27,6 @@ import { AutoridadListComponent } from './autoridades/Components/form-list/autor
     OrganizacionRUCEInsupdComponent,
     DetallesComponent,
     EncabezadoOrganizacionruceComponent,
-    AutoridadFormListComponent,
     AutoridadInsupdComponent,
     AutoridadListComponent
   ],

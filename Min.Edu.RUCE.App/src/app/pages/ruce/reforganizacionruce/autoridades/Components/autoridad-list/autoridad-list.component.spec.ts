@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PlanunidadListComponent } from './planunidad-list.component';
+import { AutoridadListComponent } from './autoridad-list.component';
 
-describe('PlanunidadListComponent', () => {
-  let component: PlanunidadListComponent;
-  let fixture: ComponentFixture<PlanunidadListComponent>;
+describe('AutoridadListComponent', () => {
+  let component: AutoridadListComponent;
+  let fixture: ComponentFixture<AutoridadListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PlanunidadListComponent ]
+      declarations: [ AutoridadListComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PlanunidadListComponent);
+    fixture = TestBed.createComponent(AutoridadListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -15,6 +15,7 @@ export class FilterOptions {
     SortProperties?: string;
     PageSize?: number;
     idOrganizacion?: number;
+    filtros?: string;
     estaConfirmado?: boolean;
     esEducativa?: boolean;
     idRefNivelEducativo?: number;
@@ -36,6 +37,7 @@ export class FilterOptions {
         this.idEdificio = 0;
         this.idEspacioCurricular = 0;
         this.idOrganizacion = 0;
+        this.filtros = JSON.parse("{}");
         this.idRefNivelEducativo = 0;
         this.idPlanEstudioDesarrollo = 0;
         this.idPlanEspacio = 0;

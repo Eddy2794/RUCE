@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('cuil')->unique();
             $table->integer('documento')->unique();
 
-            $table->unsignedInteger('fkIdRefTipoDocumento');
-            $table->foreign('fkIdRefTipoDocumento')->references('id')->on('RefTipoDocumentoRUCE')->onDelete('cascade');
+            $table->unsignedInteger('fkRefTipoDocumentoRUCE');
+            $table->foreign('fkRefTipoDocumentoRUCE')->references('id')->on('RefTipoDocumentoRUCE')->onDelete('cascade');
 
             $table->string('email');
             $table->unique('email');

@@ -1,4 +1,4 @@
-import { AutoridadOrganizacionRUCEService } from './../../../Services/AutoridadOrganizacionRUCE/autoridad-organizacionruce.service';
+import { AutoridadOrganizacionRUCEService } from '../../Services/AutoridadOrganizacionRUCE/autoridad-organizacionruce.service';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AutoridadOrganizacionRUCEModel } from '@app/pages/ruce/reforganizacionruce/autoridades/Models/AutoridadOrganizacionRUCE/autoridad-organizacionruce-model';
@@ -41,7 +41,8 @@ export class AutoridadListComponent implements OnInit, OnDestroy {
   frmAutoridades!: FormGroup;
 
   searchOptions!: SearchOptionsGeneric[];
-  filtro: FilterOptions = { estaActivo: true };
+  filtros!: {};
+  filtro: FilterOptions = { estaActivo: true, filtros: null};
   columnasVex: TableColumn<AutoridadOrganizacionRUCEModel>[];
 
   autoridadesOrganizacion: AutoridadOrganizacionRUCEModel[] = [];
@@ -71,7 +72,6 @@ export class AutoridadListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subsOrganizacion.unsubscribe();
   }
 
   private setSearchOptions2() {
@@ -126,7 +126,7 @@ export class AutoridadListComponent implements OnInit, OnDestroy {
   }
 
   obtenerBusqueda() {
-    this.filtro = { estaActivo: true, PageSize: 10, idOrganizacion: this.idOrganizacion };
+    this.filtro = { estaActivo: true, PageSize: 10, filtros:'{"fkOrganizacionRUCE":"'+this.idOrganizacion+'"}'};
     this.cargarList();
   }
 
@@ -141,15 +141,15 @@ export class AutoridadListComponent implements OnInit, OnDestroy {
   private setColumns() {
     this.columnasVex = [
       { label: 'ACCIONES', property: 'actions', type: 'button', visible: true },
-      { label: 'CUIL', property: 'persona_ruce.cuil', type: 'object', visible: true },
-      { label: 'DNI', property: 'persona_ruce.documento', type: 'object', visible: true },
-      { label: 'NOMBRE', property: 'persona_ruce.nombre', type: 'object', visible: true },
-      { label: 'APELLIDO', property: 'persona_ruce.apellido', type: 'object', visible: true },
-      { label: 'EMAIL', property: 'persona_ruce.email', type: 'object', visible: true },
-      { label: 'TELEFONO', property: 'persona_ruce.telefono', type: 'object', visible: true },
-      { label: 'CARGO', property: 'ref_cargo.cargoDesc', type: 'object', visible: true },
-      { label: 'INICIO DE CARGO', property: 'inicioCargo', type: 'text', visible: true },
-      { label: 'FIN DE CARGO', property: 'finCargo', type: 'text', visible: true },
+      { label: 'CUIL', property: 'fkPersonaRUCE.cuil', type: 'object', visible: true },
+      { label: 'DNI', property: 'fkPersonaRUCE.documento', type: 'object', visible: true },
+      { label: 'NOMBRE', property: 'fkPersonaRUCE.nombre', type: 'object', visible: true },
+      { label: 'APELLIDO', property: 'fkPersonaRUCE.apellido', type: 'object', visible: true },
+      { label: 'EMAIL', property: 'fkPersonaRUCE.email', type: 'object', visible: true },
+      { label: 'TELEFONO', property: 'fkPersonaRUCE.telefono', type: 'object', visible: true },
+      { label: 'CARGO', property: 'fkRefCargo.cargoDesc', type: 'object', visible: true },
+      { label: 'INICIO DE CARGO', property: 'inicioCargo', type: 'date', visible: true },
+      { label: 'FIN DE CARGO', property: 'finCargo', type: 'date', visible: true },
       
     ]
   }

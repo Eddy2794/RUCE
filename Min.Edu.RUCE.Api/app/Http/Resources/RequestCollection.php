@@ -6,6 +6,8 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 
+use App\Http\Resources\ModelResourse;
+
 class RequestCollection extends ResourceCollection
 {
     public static $wrap = 'entities';
@@ -21,18 +23,22 @@ class RequestCollection extends ResourceCollection
     public function toArray($data){
         $datos = $this->data;
         
-        foreach($this->filtros as $clave => $valor) {
-            $datos = $datos->filter(function ($item) use ($clave, $valor) {
-                return $item[$clave] == $valor;
-            });
+        if($this->filtros!=[]){
+            foreach($this->filtros as $clave => $valor) {
+                $datos = $datos->filter(function ($item) use ($clave, $valor) {
+                    return $item[$clave] == $valor;
+                });
+            }
+            //agrega informacion de las claves foraneas
+            $addFkData = new ModelResourse(null,'');
+            $datos=$addFkData->addFkData($datos);
+
+            $paginaActual = $this->data->currentPage();
+            $porPagina = $this->data->perPage();
+            $total = $datos->count();
+            $items = $datos->forPage($paginaActual, $porPagina)->values();        
+            $this->data = new LengthAwarePaginator($items, $total, $porPagina, $paginaActual);
         }
-
-        $paginaActual = $this->data->currentPage();
-        $porPagina = $this->data->perPage();
-        $total = $datos->count();
-        $items = $datos->forPage($paginaActual, $porPagina)->values();        
-        $this->data = new LengthAwarePaginator($items, $total, $porPagina, $paginaActual);
-
         return $datos->values()->toArray();
     }
 

@@ -21,7 +21,7 @@ class AutoridadOrganizacionRUCEController extends Controller
         // return typeOf($request->page);
         try {
             if ($request->has('PageNumber')&&$request->has('PageSize')) {
-                return new RequestCollection(AutoridadOrganizacionRUCE::paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']), json_decode($request['filtro'],true));
+                return new RequestCollection(AutoridadOrganizacionRUCE::paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']), json_decode($request['filtros'],true));
             }
             return new RequestCollection(AutoridadOrganizacionRUCE::paginate(10, ['*'], 'page', 1));
         } catch (\Throwable $th) {
@@ -32,35 +32,35 @@ class AutoridadOrganizacionRUCEController extends Controller
         }
     }
 
-    public function autoridades(Request $request)
-    {
-        try{
-            if ($request->has('PageNumber')&&$request->has('PageSize')) {
-                $autoridades = AutoridadOrganizacionRUCE::with('refCargo','personaRuce')->where('fkOrganizacionRUCE', $request['idOrganizacion'])->paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']);
-                // $autoridades = AutoridadOrganizacionRUCE::where('fkOrganizacionRUCE', $request['idOrganizacion'])->paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']);
-                $datos = [];
-                foreach ($autoridades->items() as $autoridad) {
-                    $datos[] = $autoridad->toArray();
-                }
-                $resp['entities'] = $datos;
-                $resp['message'] = "";
-                $resp['succeded'] = true;
-                $resp['paged'] = [
-                    "entityCount"=> count($datos),
-                    "pageSize"=> $request['PageSize'],
-                    "pageNumber"=> $request['PageNumber']
-                ];
-                return $resp;
-                // return AutoridadOrganizacionRUCE::where('fkOrganizacionRUCE',$idOrganizacion)->get();
-            }
-            return AutoridadOrganizacionRUCE::where('fkOrganizacionRUCE',$request['idOrganizacion'])->get();
-        } catch(\Throwable $th){
-            return response()->json([
-                'succeeded' => false,
-                'message' => $th->getMessage()
-            ], Response::HTTP_NOT_FOUND);
-        }
-    }
+    // public function autoridades(Request $request)
+    // {
+    //     try{
+    //         if ($request->has('PageNumber')&&$request->has('PageSize')) {
+    //             $autoridades = AutoridadOrganizacionRUCE::with('refCargo','personaRuce')->where('fkOrganizacionRUCE', $request['idOrganizacion'])->paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']);
+    //             // $autoridades = AutoridadOrganizacionRUCE::where('fkOrganizacionRUCE', $request['idOrganizacion'])->paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']);
+    //             $datos = [];
+    //             foreach ($autoridades->items() as $autoridad) {
+    //                 $datos[] = $autoridad->toArray();
+    //             }
+    //             $resp['entities'] = $datos;
+    //             $resp['message'] = "";
+    //             $resp['succeded'] = true;
+    //             $resp['paged'] = [
+    //                 "entityCount"=> count($datos),
+    //                 "pageSize"=> $request['PageSize'],
+    //                 "pageNumber"=> $request['PageNumber']
+    //             ];
+    //             return $resp;
+    //             // return AutoridadOrganizacionRUCE::where('fkOrganizacionRUCE',$idOrganizacion)->get();
+    //         }
+    //         return AutoridadOrganizacionRUCE::where('fkOrganizacionRUCE',$request['idOrganizacion'])->get();
+    //     } catch(\Throwable $th){
+    //         return response()->json([
+    //             'succeeded' => false,
+    //             'message' => $th->getMessage()
+    //         ], Response::HTTP_NOT_FOUND);
+    //     }
+    // }
 
     public function store(Request $request): JsonResponse
     {

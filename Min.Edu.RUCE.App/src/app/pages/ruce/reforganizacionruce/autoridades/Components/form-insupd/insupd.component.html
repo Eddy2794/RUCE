@@ -19,78 +19,103 @@
             </div>
 
             <div class="px-6 py-4 flex flex-col">
+                <ng-template *ngIf="accion==='edit'">
+                    <mat-form-field disabled>
+                        <mat-label>Institución Educativa</mat-label>
+                        <input matInput formControlName="fkOrganizacionRUCE" type="number">
+                        <mat-error>
+                            <app-ver-error [control]="this.formularioAutoridad.controls['fkOrganizacionRUCE']">
+                            </app-ver-error>
+                        </mat-error>
+                    </mat-form-field>
+                </ng-template>
                 
-                <mat-form-field disabled>
-                    <mat-label>Institución Educativa</mat-label>
-                    <input matInput formControlName="fkOrganizacionRUCE" type="number">
-                    <mat-error>
-                        <app-ver-error [control]="this.formularioAutoridad.controls['fkOrganizacionRUCE']">
-                        </app-ver-error>
-                    </mat-error>
-                </mat-form-field>
-                
-                <mat-form-field>
-                    <mat-label>Tipo de Documento</mat-label>
-                    <input matInput formControlName="" type="text">
-                    <mat-error>
-                        <app-ver-error [control]="this.formularioAutoridad.controls['']">
-                        </app-ver-error>
-                    </mat-error>
-                </mat-form-field>
-                
-                <mat-form-field>
-                    <mat-label>Documento</mat-label>
-                    <input matInput formControlName="" type="number">
-                    <mat-error>
-                        <app-ver-error [control]="this.formularioAutoridad.controls['']">
-                        </app-ver-error>
-                    </mat-error>
-                </mat-form-field>
+                <div>
+                    <mat-form-field>
+                        <mat-label>Tipo de Documento</mat-label>
+                        <mat-select formControlName="fkPersonaRUCE_tipoDocumento">
+                            <mat-option>Seleccione</mat-option>
+                            <mat-option *ngFor="let item of tiposDocumentos" [value]="item?.id">{{item?.tipoDocumentoDesc}}</mat-option>
+                        </mat-select>
+                        <mat-error>
+                            <app-ver-error [control]="this.formularioAutoridad.controls['fkPersonaRUCE_tipoDocumento']"></app-ver-error>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Documento</mat-label>
+                        <input matInput formControlName="fkPersonaRUCE_documento" type="text">
+                        <mat-error>
+                            <app-ver-error [control]="this.formularioAutoridad.controls['fkPersonaRUCE_documento']">
+                            </app-ver-error>
+                        </mat-error>
+                    </mat-form-field>
 
+                    <mat-form-field>
+                        <mat-label>Cuil</mat-label>
+                        <input matInput formControlName="fkPersonaRUCE_cuil" type="text">
+                        <mat-error>
+                            <app-ver-error [control]="this.formularioAutoridad.controls['fkPersonaRUCE_cuil']">
+                            </app-ver-error>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Nombre</mat-label>
+                        <input matInput formControlName="fkPersonaRUCE_nombre" type="text">
+                        <mat-error>
+                            <app-ver-error [control]="this.formularioAutoridad.controls['fkPersonaRUCE_nombre']">
+                            </app-ver-error>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Apellido</mat-label>
+                        <input matInput formControlName="fkPersonaRUCE_apellido" type="text">
+                        <mat-error>
+                            <app-ver-error [control]="this.formularioAutoridad.controls['fkPersonaRUCE_apellido']">
+                            </app-ver-error>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Telefono</mat-label>
+                        <input matInput formControlName="fkPersonaRUCE_telefono" type="tel" pattern="[0-9]{10}" placeholder="Ingrese numero sin 0 ni 15 ej: 3881234567">
+                        <mat-error>
+                            <app-ver-error [control]="this.formularioAutoridad.controls['fkPersonaRUCE_telefono']">
+                            </app-ver-error>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Email</mat-label>
+                        <input matInput formControlName="fkPersonaRUCE_email" type="email">
+                        <mat-error>
+                            <app-ver-error [control]="this.formularioAutoridad.controls['fkPersonaRUCE_email']">
+                            </app-ver-error>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                
                 <mat-form-field>
-                    <mat-label>CUIL</mat-label>
-<!--                     <mat-select formControlName="nivel">
+                    <mat-label>Cargo</mat-label>
+                    <mat-select formControlName="fkRefCargo">
                         <mat-option>Seleccione</mat-option>
-                        <mat-option *ngFor="let item of niveles" [value]="item">{{item}} </mat-option>
-                    </mat-select> -->
+                        <mat-option *ngFor="let item of cargos" [value]="item?.id">{{item?.cargoDesc}}</mat-option>
+                    </mat-select>
                     <mat-error>
-                        <app-ver-error [control]="this.formularioAutoridad.controls['']"></app-ver-error>
+                        <app-ver-error [control]="this.formularioAutoridad.controls['fkRefCargo']"></app-ver-error>
                     </mat-error>
                 </mat-form-field>
-
                 <mat-form-field>
-                    <mat-label>Apellido</mat-label>
-<!--                     <mat-select formControlName="region">
-                        <mat-option>Seleccione</mat-option>
-                        <mat-option *ngFor="let item of regiones" [value]="item">{{item}} </mat-option>
-                    </mat-select> -->
+                    <mat-label>Inicio Cargo</mat-label>
+                    <input matInput formControlName="inicioCargo" type="date">
                     <mat-error>
-                        <app-ver-error [control]="this.formularioAutoridad.controls['']"></app-ver-error>
-                    </mat-error>
-                </mat-form-field>
-
-                <mat-form-field>
-                    <mat-label>Nombre</mat-label>
-                    <input matInput formControlName="" type="text" mayus>
-                    <mat-error>
-                        <app-ver-error [control]="this.formularioAutoridad.controls['']"></app-ver-error>
-                    </mat-error>
-                </mat-form-field>
-
-                <mat-form-field>
-                    <mat-label>Telefono</mat-label>
-                    <input matInput formControlName="telefono" type="tel" pattern="[0-9]{10}" placeholder="Ingrese numero sin 0 ni 15 ej: 3881234567">
-                    <mat-error>
-                        <app-ver-error [control]="this.formularioAutoridad.controls['telefono']">
+                        <app-ver-error [control]="this.formularioAutoridad.controls['inicioCargo']">
                         </app-ver-error>
                     </mat-error>
                 </mat-form-field>
 
                 <mat-form-field>
-                    <mat-label>Email</mat-label>
-                    <input matInput formControlName="email" type="mail">
+                    <mat-label>Fin Cargo</mat-label>
+                    <input matInput formControlName="finCargo" type="date">
                     <mat-error>
-                        <app-ver-error [control]="this.formularioAutoridad.controls['email']"></app-ver-error>
+                        <app-ver-error [control]="this.formularioAutoridad.controls['finCargo']"></app-ver-error>
                     </mat-error>
                 </mat-form-field>
 

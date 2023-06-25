@@ -23,7 +23,7 @@ class PersonaFactory extends Factory
         return [
             'cuil' => intval(strval($this->faker->randomElement([20,23,24,27])).strval($dni).strval($this->faker->numerify("#"))),
             'dni' => $dni,
-            'fkIdRefTipoDocumento' => $this->faker->randomElement(RefTipoDocumentoRUCE::all()->getQueueableIds()),
+            'fkRefTipoDocumentoRUCE' => $this->faker->randomElement(RefTipoDocumentoRUCE::all()->getQueueableIds()),
             'email' => $this->faker->unique()->safeEmail(),
             'nombre' => $this->faker->name(),
             'apellido' => $this->faker->lastName(),

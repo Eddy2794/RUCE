@@ -15,7 +15,7 @@ class PersonaRUCESeeder extends Seeder
     public function run()
     {
         $persona1 = new PersonaRUCE();
-        $persona1 ->fkIdRefTipoDocumento = 1;
+        $persona1 ->fkRefTipoDocumentoRUCE = 1;
         $persona1->documento = 12345678;
         $persona1->cuil = 27342859127;
         $persona1->email = "edgardo@example.com";
@@ -27,7 +27,7 @@ class PersonaRUCESeeder extends Seeder
         $persona1->save();
         
         $persona2 = new PersonaRUCE();
-        $persona2 ->fkIdRefTipoDocumento = 1;
+        $persona2 ->fkRefTipoDocumentoRUCE = 1;
         $persona2->documento = 44706400;
         $persona2->cuil = 20447064007;
         $persona2->email = "samuel@example.com";
