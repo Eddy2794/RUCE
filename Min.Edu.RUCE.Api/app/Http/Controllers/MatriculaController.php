@@ -31,9 +31,9 @@ class MatriculaController extends Controller
     }
 
 
-    public function store(Request $request): JsonResponse
+    public function store(StoreMatriculaRequest $request): JsonResponse
     {
-        $request = new StoreMatriculaRequest($request->toArray());
+        //$request = new StoreMatriculaRequest($request->toArray());
         try {
             Matricula::create([
                 'fkmatricula' => $request->fkmatricula,
@@ -66,11 +66,11 @@ class MatriculaController extends Controller
         }
     }
 
-    public function update(Request $request, int $matricula): JsonResponse
+    public function update(UpdateMatriculaRequest $request, int $matricula): JsonResponse
     {
         try {
             $matricula = Matricula::where('id', $matricula)->first();
-            $request = new UpdateMatriculaRequest($request->toArray());
+            //$request = new UpdateMatriculaRequest($request->toArray());
             $matricula->fkOrganizacionRUCE = $request->fkOrganizacionRUCE ?: $matricula->fkOrganizacionRUCE;
             $matricula->periodoLectivo = $request->periodoLectivo ?: $matricula->periodoLectivo;
             $matricula->matricula = $request->matricula ?: $matricula->matricula;

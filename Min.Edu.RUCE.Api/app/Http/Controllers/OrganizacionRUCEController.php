@@ -30,8 +30,9 @@ class OrganizacionRUCEController extends Controller
     }
 
 
-    public function store(Request $request): JsonResponse
+    public function store(StoreOrganizacionRUCERequest $request): JsonResponse
     {
+        
         $request = new StoreOrganizacionRUCERequest($request->toArray());
         try {
             OrganizacionRUCE::create([
@@ -71,11 +72,11 @@ class OrganizacionRUCEController extends Controller
         }
     }
 
-    public function update(Request $request, int $organizacionRUCE): JsonResponse
+    public function update(UpdateOrganizacionRUCERequest $request, int $organizacionRUCE): JsonResponse
     {
         try {
             $organizacionRUCE = OrganizacionRUCE::where('id', $organizacionRUCE)->first();
-            $request = new UpdateOrganizacionRUCERequest($request->toArray());
+            //$request = new UpdateOrganizacionRUCERequest($request->toArray());
             $organizacionRUCE->organizacionDesc = $request->organizacionDesc ?: $organizacionRUCE->organizacionDesc;
             $organizacionRUCE->cue = $request->cue ?: $organizacionRUCE->cue;
             $organizacionRUCE->anexo = $request->anexo ?: $organizacionRUCE->anexo;
@@ -171,3 +172,20 @@ class OrganizacionRUCEController extends Controller
     //     return new CompetenciaCollection($competencias);
     // }
 }
+
+/* public function storeUser(UserStoreRequest $request)
+{
+    // Llama al método storePersona del controlador de personas para almacenar los datos de persona
+    $person = $personController->storePersona($request);
+
+    // Crea un nuevo usuario relacionado con la persona
+    $user = User::create([
+        'name' => $request->input('name'),
+        'email' => $request->input('email'),
+        'password' => bcrypt($request->input('password')),
+        'person_id' => $person->id,
+    ]);
+
+    // Redirecciona a alguna ruta después de guardar el usuario y persona
+    return redirect()->route('users.index')->with('success', 'Usuario y persona creados exitosamente.');
+} */

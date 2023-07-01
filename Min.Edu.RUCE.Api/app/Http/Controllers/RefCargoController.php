@@ -31,9 +31,9 @@ class RefCargoController extends Controller
     }
 
 
-    public function store(Request $request): JsonResponse
+    public function store(StoreRefCargoRequest $request): JsonResponse
     {
-        $request = new StoreRefCargoRequest($request->toArray());
+        //$request = new StoreRefCargoRequest($request->toArray());
         try {
             RefCargo::create([
                 'cargoDesc' => $request->cargoDesc,
@@ -62,11 +62,11 @@ class RefCargoController extends Controller
         }
     }
 
-    public function update(Request $request, int $refCargo): JsonResponse
+    public function update(UpdateRefCargoRequest $request, int $refCargo): JsonResponse
     {
         try {
             $refCargo = RefCargo::where('id', $refCargo)->first();
-            $request = new UpdateRefCargoRequest($request->toArray());
+            //$request = new UpdateRefCargoRequest($request->toArray());
             $refCargo->cargoDesc = $request->cargoDesc ?: $refCargo->cargoDesc;
             if ($refCargo->isClean()) {
                 return response()->json([

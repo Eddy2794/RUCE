@@ -32,11 +32,11 @@ class PersonaRUCEController extends Controller
     }
 
 
-    public function store(Request $request): JsonResponse
+    public function store(StorePersonaRUCERequest $request): JsonResponse
     {
-        $request = new StorePersonaRUCERequest($request->toArray());
+        //$request = new StorePersonaRUCERequest($request->toArray());
         try {
-            PersonaRUCE::create([
+            $persona = PersonaRUCE::create([
                 'fkRefTipoDocumentoRUCE' => $request->fkRefTipoDocumentoRUCE,
                 'documento' => $request->documento,
                 'cuil' => $request->cuil,
@@ -45,10 +45,13 @@ class PersonaRUCEController extends Controller
                 'telefono' => $request->telefono,
                 'email' => $request->email,
                 'idUsuarioAlta' => $request->idUsuarioAlta,
+                'idUsuarioModificacion' => $request->idUsuarioModificacion,
             ]);
+            
             return response()->json([
                 'message' => 'Persona registrada con Exito',
-                'succeeded' => true
+                'succeeded' => true,
+                'id' => $persona->id
             ], Response::HTTP_OK);
         } catch (\Throwable $th) {
             return response()->json([
@@ -70,11 +73,11 @@ class PersonaRUCEController extends Controller
         }
     }
 
-    public function update(Request $request, int $personaRUCE): JsonResponse
+    public function update(UpdatePersonaRUCERequest $request, int $personaRUCE): JsonResponse
     {
         try {
             $personaRUCE = PersonaRUCE::where('id', $personaRUCE)->first();
-            $request = new UpdatePersonaRUCERequest($request->toArray());
+            //$request = new UpdatePersonaRUCERequest($request->toArray());
             $personaRUCE->fkRefTipoDocumentoRUCE = $request->fkRefTipoDocumentoRUCE ?: $personaRUCE->fkRefTipoDocumentoRUCE;
             $personaRUCE->documento = $request->documento ?: $personaRUCE->documento;
             $personaRUCE->cuil = $request->cuil ?: $personaRUCE->cuil;

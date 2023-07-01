@@ -33,9 +33,9 @@ class AtencionSeguimientoController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(StoreAtencionSeguimientoRequest $request)
     {
-        $request = new StoreAtencionSeguimientoRequest($request->toArray());
+        //$request = new StoreAtencionSeguimientoRequest($request->toArray());
                 try {
             AtencionSeguimiento::create([
                 'fkCooperadora' => $request->fkCooperadora,
@@ -86,11 +86,11 @@ class AtencionSeguimientoController extends Controller
      * @param  \App\Models\AtencionSeguimiento  $atencionSeguimiento
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, int $atencionSeguimiento)
+    public function update(UpdateAtencionSeguimientoRequest $request, int $atencionSeguimiento)
     {
         try {
             $organizacionRUCE = AtencionSeguimiento::where('id', $atencionSeguimiento)->first();
-            $request = new UpdateAtencionSeguimientoRequest($request->toArray());
+            //$request = new UpdateAtencionSeguimientoRequest($request->toArray());
             $atencionSeguimiento->fkCooperadora = $request->fkCooperadora ?: $atencionSeguimiento->fkCooperadora;
             $atencionSeguimiento->fkPersonaRUCE = $request->fkPersonaRUCE ?: $atencionSeguimiento->fkPersonaRUCE;
             $atencionSeguimiento->llamadas = $request->llamadas ?: $atencionSeguimiento->llamadas;

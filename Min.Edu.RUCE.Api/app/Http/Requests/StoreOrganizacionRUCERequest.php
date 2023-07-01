@@ -25,10 +25,10 @@ class StoreOrganizacionRUCERequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => [
+/*             'id' => [
                 'required',
                 'exists:OrganizacionRUCE,id'
-            ],
+            ], */
             'organizacionDesc' => [
                 'required',
                 'string',

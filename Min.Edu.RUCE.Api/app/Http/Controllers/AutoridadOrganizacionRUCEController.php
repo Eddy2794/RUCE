@@ -9,10 +9,13 @@ use App\Http\Requests\UpdateAutoridadOrganizacionRUCERequest;
 use App\Http\Resources\AutoridadOrganizacionRUCEResourse;
 use App\Http\Resources\ModelResourse;
 use App\Models\AutoridadOrganizacionRUCE;
+use App\Models\PersonaRUCE;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Http\Controllers\PersonaRUCEController;
+use App\Http\Requests\StorePersonaRUCERequest;
 
 class AutoridadOrganizacionRUCEController extends Controller
 {
@@ -62,16 +65,36 @@ class AutoridadOrganizacionRUCEController extends Controller
     //     }
     // }
 
-    public function store(Request $request): JsonResponse
+    public function store(StoreAutoridadOrganizacionRUCERequest $request): JsonResponse
     {
-        $request = new StoreAutoridadOrganizacionRUCERequest($request->toArray());
+        //$request = new StoreAutoridadOrganizacionRUCERequest($request->toArray());
+        
+/*         $persona = PersonaRUCE::create([
+            'fkRefTipoDocumentoRUCE' => $request->fkRefTipoDocumentoRUCE,
+            'documento' => $request->documento,
+            'cuil' => $request->cuil,
+            'nombre' => $request->nombre,
+            'apellido' => $request->apellido,
+            'telefono' => $request->telefono,
+            'email' => $request->email,
+            'idUsuarioAlta' => $request->idUsuarioAlta,
+            'idUsuarioModificacion' => $request->idUsuarioModificacion
+        ]); */
+        
         try {
+            $persona = new PersonaRUCEController();
+            $requestPersona = new StorePersonaRUCERequest($request->toArray());
+            $persona = json_decode($persona->store($requestPersona)->getContent())->id;
+            //$idPersona = json_decode($persona->getContent())->id;
+
             AutoridadOrganizacionRUCE::create([
                 'fkRefCargo' => $request->fkRefCargo,
-                'fkPersonaRUCE' => $request->fkPersonaRUCE,
+                'fkPersonaRUCE' => $persona,
                 'fkOrganizacionRUCE' => $request->fkOrganizacionRUCE,
-                'inicioCargo' => $request->inicioCargo,
-                'finCargo' => $request->finCargo,
+                'inicioCargo' => date_create($request->inicioCargo),
+                'finCargo' => date_create($request->finCargo),
+                'idUsuarioAlta'=>$request->idUsuarioAlta,
+                'idUsuarioModificacion' => $request->idUsuarioModificacion
             ]);
             return response()->json([
                 'message' => 'Autoridad Organización registrado con Exito',
@@ -110,11 +133,11 @@ class AutoridadOrganizacionRUCEController extends Controller
      * @param  \App\Models\AutoridadOrganizacionRUCE  $autoridadOrganizacionRUCE
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, int $autoridadOrganizacionRUCE): JsonResponse
+    public function update(UpdateAutoridadOrganizacionRUCERequest $request, int $autoridadOrganizacionRUCE): JsonResponse
     {
         try {
-                        $organizacionRUCE = AutoridadOrganizacionRUCE::where('id', $autoridadOrganizacionRUCE)->first();
-            $request = new UpdateAutoridadOrganizacionRUCERequest($request->toArray());
+            $organizacionRUCE = AutoridadOrganizacionRUCE::where('id', $autoridadOrganizacionRUCE)->first();
+            //$request = new UpdateAutoridadOrganizacionRUCERequest($request->toArray());
             $autoridadOrganizacionRUCE->fkRefCargo = $request->fkRefCargo ?: $autoridadOrganizacionRUCE->fkRefCargo;
             $autoridadOrganizacionRUCE->fkPersonaRUCE = $request->fkPersonaRUCE ?: $autoridadOrganizacionRUCE->fkRefCargo;
             $autoridadOrganizacionRUCE->fkOrganizacionRUCE = $request->fkOrganizacionRUCE ?: $autoridadOrganizacionRUCE->fkOrganizacionRUCE;

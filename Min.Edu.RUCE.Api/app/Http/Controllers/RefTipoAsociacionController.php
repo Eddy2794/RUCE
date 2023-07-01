@@ -30,7 +30,7 @@ class RefTipoAsociacionController extends Controller
     }
 
 
-    public function store(Request $request): JsonResponse
+    public function store(StoreRefTipoAsociacionRequest $request): JsonResponse
     {
         $request = new StoreRefTipoAsociacionRequest($request->toArray());
         try {
@@ -61,11 +61,11 @@ class RefTipoAsociacionController extends Controller
         }
     }
 
-    public function update(Request $request, int $refTipoFondo): JsonResponse
+    public function update(UpdateRefTipoAsociacionRequest $request, int $refTipoFondo): JsonResponse
     {
         try {
             $refTipoFondo = RefTipoAsociacion::where('id', $refTipoFondo)->first();
-            $request = new UpdateRefTipoAsociacionRequest($request->toArray());
+            //$request = new UpdateRefTipoAsociacionRequest($request->toArray());
             $refTipoFondo->tipoAsociacionDesc = $request->tipoAsociacionDesc ?: $refTipoFondo->tipoAsociacionDesc;
 
             if ($refTipoFondo->isClean()) {

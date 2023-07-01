@@ -29,22 +29,23 @@ class StoreAutoridadOrganizacionRUCERequest extends FormRequest
                 'exists:RefCargo,id'
             ],
             'fkPersonaRUCE' => [
-                'required',
+                'nulleable',
                 'exists:PersonaRUCE,id'
             ],
+            
             'fkOrganizacionRUCE' => [
                 'required',
                 'exists:OrganizacionRUCE,id'
             ],
             'inicioCargo' => [
                 'required',
-                'dateTime'
+                'date'
             ],
             'finCargo' => [
                 'required',
-                'dateTime'
+                'date'
             ],
-            'estaActivo' => [
+/*             'estaActivo' => [
                 'required',
                 'boolean'
             ],
@@ -59,7 +60,7 @@ class StoreAutoridadOrganizacionRUCERequest extends FormRequest
             'idUsuarioModificacion' => [
                 'required',
                 'integer'
-            ]
+            ] */
         ];
     }
 

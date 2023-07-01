@@ -29,9 +29,9 @@ class ExpedienteController extends Controller
         }
     }
 
-    public function store(Request $request): JsonResponse
+    public function store(StoreExpedienteRequest $request): JsonResponse
     {
-        $request = new StoreExpedienteRequest($request->toArray());
+        //$request = new StoreExpedienteRequest($request->toArray());
         try {
             Expediente::create([
                 'fkCooperadora' => $request->fkCooperadora,
@@ -65,11 +65,11 @@ class ExpedienteController extends Controller
         }
     }
 
-    public function update(Request $request, int $expediente): JsonResponse
+    public function update(UpdateExpedienteRequest $request, int $expediente): JsonResponse
     {
         try {
             $expediente = Expediente::where('id', $expediente)->first();
-            $request = new UpdateExpedienteRequest($request->toArray());
+            //$request = new UpdateExpedienteRequest($request->toArray());
             $expediente->fkCooperadora = $request->fkCooperadora ?: $expediente->fkCooperadora;
             $expediente->nroExpediente = $request->nroExpediente ?: $expediente->nroExpediente;
             $expediente->cantObservaciones = $request->cantObservaciones ?: $expediente->cantObservaciones;

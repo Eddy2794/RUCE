@@ -31,9 +31,9 @@ class RefTipoDocumentoRUCEController extends Controller
     }
 
 
-    public function store(Request $request): JsonResponse
+    public function store(StoreRefTipoDocumentoRUCERequest $request): JsonResponse
     {
-        $request = new StoreRefTipoDocumentoRUCERequest($request->toArray());
+        //$request = new StoreRefTipoDocumentoRUCERequest($request->toArray());
         try {
             RefTipoDocumentoRUCE::create([
                 'tipoDocumentoDesc' => $request->tipoDocumentoDesc,
@@ -62,11 +62,11 @@ class RefTipoDocumentoRUCEController extends Controller
         }
     }
 
-    public function update(Request $request, int $refTipoDocumentoRUCE): JsonResponse
+    public function update(UpdateRefTipoDocumentoRUCERequest $request, int $refTipoDocumentoRUCE): JsonResponse
     {
         try {
             $refTipoDocumentoRUCE = RefTipoDocumentoRUCE::where('id', $refTipoDocumentoRUCE)->first();
-            $request = new UpdateRefTipoDocumentoRUCERequest($request->toArray());
+            //$request = new UpdateRefTipoDocumentoRUCERequest($request->toArray());
             $refTipoDocumentoRUCE->tipoDocumentoDesc = $request->tipoDocumentoDesc ?: $refTipoDocumentoRUCE->tipoDocumentoDesc;
 
             if ($refTipoDocumentoRUCE->isClean()) {

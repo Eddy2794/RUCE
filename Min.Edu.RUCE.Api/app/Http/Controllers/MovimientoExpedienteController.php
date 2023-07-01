@@ -30,7 +30,7 @@ class MovimientoExpedienteController extends Controller
     }
 
 
-    public function store(Request $request): JsonResponse
+    public function store(StoreMovimientoExpedienteRequest $request): JsonResponse
     {
         $request = new StoreMovimientoExpedienteRequest($request->toArray());
         try {
@@ -63,7 +63,7 @@ class MovimientoExpedienteController extends Controller
         }
     }
 
-    public function update(Request $request, int $movimientoExpediente): JsonResponse
+    public function update(UpdateMovimientoExpedienteRequest $request, int $movimientoExpediente): JsonResponse
     {
         try {
             $movimientoExpediente = MovimientoExpediente::where('id', $movimientoExpediente)->first();

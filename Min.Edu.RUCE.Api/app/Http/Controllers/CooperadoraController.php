@@ -29,9 +29,9 @@ class CooperadoraController extends Controller
         }
     }
 
-    public function store(Request $request): JsonResponse
+    public function store(StoreCooperadoraRequest $request): JsonResponse
     {
-        $request = new StoreCooperadoraRequest($request->toArray());
+        //$request = new StoreCooperadoraRequest($request->toArray());
         try {
             Cooperadora::create([
                 'fkRefTipoAsociacion' => $request->fkRefTipoAsociacion,
@@ -70,11 +70,11 @@ class CooperadoraController extends Controller
         }
     }
 
-    public function update(Request $request, int $cooperadora): JsonResponse
+    public function update(UpdateCooperadoraRequest $request, int $cooperadora): JsonResponse
     {
         try {
             $cooperadora = Cooperadora::where('id', $cooperadora)->first();
-            $request = new UpdateCooperadoraRequest($request->toArray());
+            //$request = new UpdateCooperadoraRequest($request->toArray());
             $cooperadora->fkRefTipoAsociacion = $request->fkRefTipoAsociacion ?: $cooperadora->fkRefTipoAsociacion;
             $cooperadora->fkOrganizacionRUCE = $request->fkOrganizacionRUCE ?: $cooperadora->fkOrganizacionRUCE;
             $cooperadora->cuit = $request->cuit ?: $cooperadora->cuit;

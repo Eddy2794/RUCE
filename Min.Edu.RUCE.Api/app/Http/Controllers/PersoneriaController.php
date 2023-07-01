@@ -30,9 +30,9 @@ class PersoneriaController extends Controller
     }
 
 
-    public function store(Request $request): JsonResponse
+    public function store(StorePersoneriaRequest $request): JsonResponse
     {
-        $request = new StorePersoneriaRequest($request->toArray());
+        //$request = new StorePersoneriaRequest($request->toArray());
         try {
             Personeria::create([
                 'fkExpediente' => $request->fkExpediente,
@@ -66,11 +66,11 @@ class PersoneriaController extends Controller
         }
     }
 
-    public function update(Request $request, int $personeria): JsonResponse
+    public function update(UpdatePersoneriaRequest $request, int $personeria): JsonResponse
     {
         try {
             $personeria = Personeria::where('id', $personeria)->first();
-            $request = new UpdatePersoneriaRequest($request->toArray());
+            //$request = new UpdatePersoneriaRequest($request->toArray());
             $personeria->fkExpediente = $request->fkExpediente ?: $personeria->fkExpediente;
             $personeria->fkCooperadora = $request->fkCooperadora ?: $personeria->fkCooperadora;
             $personeria->decreto = $request->decreto ?: $personeria->decreto;

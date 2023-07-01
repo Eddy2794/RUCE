@@ -64,8 +64,9 @@
                 <br>
                 <mat-radio-group aria-label="Seleccione una opción" formControlName="inscripcion_afip">
                     <br>
-                    <mat-radio-button [value]=true>SI</mat-radio-button>
-                    <mat-radio-button [value]=false>NO</mat-radio-button>
+                    <!-- <mat-radio-button [value]=true>SI</mat-radio-button>
+                    <mat-radio-button [value]=false>NO</mat-radio-button> -->
+                    <mat-slide-toggle color="accent" [checked]="false" class="p-4"></mat-slide-toggle>
                     <br>
                 </mat-radio-group>
 

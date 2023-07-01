@@ -31,9 +31,9 @@ class RefTipoFondoController extends Controller
     }
 
 
-    public function store(Request $request): JsonResponse
+    public function store(StoreRefTipoFondoRequest $request): JsonResponse
     {
-        $request = new StoreRefTipoFondoRequest($request->toArray());
+        //$request = new StoreRefTipoFondoRequest($request->toArray());
         try {
             RefTipoFondo::create([
                 'tipoFondoDesc' => $request->tipoFondoDesc,
@@ -69,11 +69,11 @@ class RefTipoFondoController extends Controller
      * @param  \App\Models\RefTipoFondo  $refTipoFondo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, int $refTipoFondo): JsonResponse
+    public function update(UpdateRefTipoFondoRequest $request, int $refTipoFondo): JsonResponse
     {
         try {
             $refTipoFondo = RefTipoFondo::where('id', $refTipoFondo)->first();
-            $request = new UpdateRefTipoFondoRequest($request->toArray());
+            //$request = new UpdateRefTipoFondoRequest($request->toArray());
             $refTipoFondo->tipoFondoDesc = $request->tipoFondoDesc ?: $refTipoFondo->tipoFondoDesc;
 
             if ($refTipoFondo->isClean()) {

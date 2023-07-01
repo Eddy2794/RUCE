@@ -31,9 +31,9 @@ class RefInstanciaInstrumentoController extends Controller
     }
 
 
-    public function store(Request $request): JsonResponse
+    public function store(StoreRefInstanciaInstrumentoRequest $request): JsonResponse
     {
-        $request = new StoreRefInstanciaInstrumentoRequest($request->toArray());
+        //$request = new StoreRefInstanciaInstrumentoRequest($request->toArray());
         try {
             RefInstanciaInstrumento::create([
                 'instrumentoDesc' => $request->instrumentoDesc,
@@ -62,11 +62,11 @@ class RefInstanciaInstrumentoController extends Controller
         }
     }
 
-    public function update(Request $request, int $refInstanciaInstrumento): JsonResponse
+    public function update(UpdateRefInstanciaInstrumentoRequest $request, int $refInstanciaInstrumento): JsonResponse
     {
         try {
             $refInstanciaInstrumento = RefInstanciaInstrumento::where('id', $refInstanciaInstrumento)->first();
-            $request = new UpdateRefInstanciaInstrumentoRequest($request->toArray());
+            //$request = new UpdateRefInstanciaInstrumentoRequest($request->toArray());
             $refInstanciaInstrumento->instrumentoDesc = $request->instrumentoDesc ?: $refInstanciaInstrumento->instrumentoDesc;
 
             if ($refInstanciaInstrumento->isClean()) {

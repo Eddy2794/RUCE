@@ -29,7 +29,7 @@ class FondoController extends Controller
         }
     }
     
-    public function store(Request $request): JsonResponse
+    public function store(StoreFondoRequest $request): JsonResponse
     {
         $request = new StoreFondoRequest($request->toArray());
         try {
@@ -68,11 +68,11 @@ class FondoController extends Controller
         }
     }
     
-    public function update(Request $request, int $fondo): JsonResponse
+    public function update(UpdateFondoRequest $request, int $fondo): JsonResponse
     {
         try {
             $fondo = Fondo::where('id', $fondo)->first();
-            $request = new UpdateFondoRequest($request->toArray());
+            //$request = new UpdateFondoRequest($request->toArray());
             $fondo->fkTipoFondo = $request->fkTipoFondo ?: $fondo->fkTipoFondo;
             $fondo->fkCooperadora = $request->fkCooperadora ?: $fondo->fkCooperadora;
             $fondo->fondoRecibido = $request->fondoRecibido ?: $fondo->fondoRecibido;

@@ -31,9 +31,9 @@ class ComisionController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(StoreComisionRequest $request)
     {
-        $request = new StoreComisionRequest($request->toArray());
+        //$request = new StoreComisionRequest($request->toArray());
         try {
             Comision::create([
                 'fkCooperadora' => $request->fkCooperadora,
@@ -81,11 +81,11 @@ class ComisionController extends Controller
      * @param  \App\Models\Comision  $comision
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, int $comision)
+    public function update(UpdateComisionRequest $request, int $comision)
     {
         try {
             $comision = Comision::where('id', $comision)->first();
-            $request = new UpdateComisionRequest($request->toArray());
+            //$request = new UpdateComisionRequest($request->toArray());
             $comision->fkCooperadora = $request->fkCooperadora ?: $comision->fkCooperadora;
             $comision->fkRefTipoComision = $request->fkRefTipoComision ?: $comision->fkRefTipoComision;
             $comision->periodoInicio = $request->periodoInicio ?: $comision->periodoInicio;

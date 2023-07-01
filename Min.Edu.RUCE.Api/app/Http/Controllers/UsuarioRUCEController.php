@@ -30,9 +30,9 @@ class UsuarioRUCEController extends Controller
     }
 
 
-    public function store(Request $request): JsonResponse
+    public function store(StoreUsuarioRUCERequest $request): JsonResponse
     {
-        $request = new StoreUsuarioRUCERequest($request->toArray());
+        //$request = new StoreUsuarioRUCERequest($request->toArray());
         try {
             UsuarioRUCE::create([
                 'fkPersonaRUCE' => $request->fkPersonaRUCE,
@@ -64,11 +64,11 @@ class UsuarioRUCEController extends Controller
         }
     }
 
-    public function update(Request $request, int $usuarioRUCE): JsonResponse
+    public function update(UpdateUsuarioRUCERequest $request, int $usuarioRUCE): JsonResponse
     {
         try {
             $usuarioRUCE = UsuarioRUCE::where('id', $usuarioRUCE)->first();
-            $request = new UpdateUsuarioRUCERequest($request->toArray());
+            //$request = new UpdateUsuarioRUCERequest($request->toArray());
             $usuarioRUCE->fkPersonaRUCE = $request->fkPersonaRUCE ?: $usuarioRUCE->fkPersonaRUCE;
             $usuarioRUCE->password = $request->password ?: $usuarioRUCE->password;
             $usuarioRUCE->username = $request->username ?: $usuarioRUCE->username;

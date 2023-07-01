@@ -31,9 +31,9 @@ class BalanceController extends Controller
     }
 
 
-    public function store(Request $request): JsonResponse
+    public function store(StoreBalanceRequest $request): JsonResponse
     {
-        $request = new StoreBalanceRequest($request->toArray());
+        //$request = new StoreBalanceRequest($request->toArray());
         try {
             Balance::create([
                 'organizacionDesc' => $request->organizacionDesc,
@@ -78,11 +78,11 @@ class BalanceController extends Controller
      * @param  \App\Models\Balance  $balance
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, int $balance): JsonResponse
+    public function update(UpdateBalanceRequest $request, int $balance): JsonResponse
     {
         try {
             $balance = Balance::where('id', $balance)->first();
-            $request = new UpdateBalanceRequest($request->toArray());
+            //$request = new UpdateBalanceRequest($request->toArray());
             $balance->fkCooperadora = $request->fkCooperadora ?: $balance->fkCooperadora;
             $balance->estadoBalance = $request->estadoBalance ?: $balance->estadoBalance;
 

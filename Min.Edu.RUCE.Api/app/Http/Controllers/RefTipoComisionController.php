@@ -31,9 +31,9 @@ class RefTipoComisionController extends Controller
     }
 
 
-    public function store(Request $request): JsonResponse
+    public function store(StoreRefTipoComisionRequest $request): JsonResponse
     {
-        $request = new StoreRefTipoComisionRequest($request->toArray());
+        //$request = new StoreRefTipoComisionRequest($request->toArray());
         try {
             RefTipoComision::create([
                 'tipoComisionDesc' => $request->tipoComisionDesc,
@@ -62,11 +62,11 @@ class RefTipoComisionController extends Controller
         }
     }
 
-    public function update(Request $request, int $refInstanciaInstrumento): JsonResponse
+    public function update(UpdateRefTipoComisionRequest $request, int $refInstanciaInstrumento): JsonResponse
     {
         try {
             $refInstanciaInstrumento = RefTipoComision::where('id', $refInstanciaInstrumento)->first();
-            $request = new UpdateRefTipoComisionRequest($request->toArray());
+            //$request = new UpdateRefTipoComisionRequest($request->toArray());
             $refInstanciaInstrumento->tipoComisionDesc = $request->tipoComisionDesc ?: $refInstanciaInstrumento->tipoComisionDesc;
 
             if ($refInstanciaInstrumento->isClean()) {

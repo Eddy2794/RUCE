@@ -29,7 +29,7 @@ class KioscoController extends Controller
         }
     }
 
-    public function store(Request $request): JsonResponse
+    public function store(StoreKioscoRequest $request): JsonResponse
     {
         $request = new StoreKioscoRequest($request->toArray());
         try {
@@ -66,11 +66,11 @@ class KioscoController extends Controller
         }
     }
 
-    public function update(Request $request, int $kiosco): JsonResponse
+    public function update(UpdateKioscoRequest $request, int $kiosco): JsonResponse
     {
         try {
             $kiosco = Kiosco::where('id', $kiosco)->first();
-            $request = new UpdateKioscoRequest($request->toArray());
+            //$request = new UpdateKioscoRequest($request->toArray());
             $kiosco->fkCooperadora = $request->fkCooperadora ?: $kiosco->fkCooperadora;
             $kiosco->fkPersonaRUCE = $request->fkPersonaRUCE ?: $kiosco->fkPersonaRUCE;
             $kiosco->accesoLicitacion = $request->accesoLicitacion ?: $kiosco->accesoLicitacion;

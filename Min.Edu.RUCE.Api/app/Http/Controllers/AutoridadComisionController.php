@@ -32,9 +32,9 @@ class AutoridadComisionController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(StoreAutoridadComisionRequest $request)
     {
-        $request = new StoreAutoridadComisionRequest($request->toArray());
+        //$request = new StoreAutoridadComisionRequest($request->toArray());
         try {
             AutoridadComision::create([
                 'fkPersonaRUCE' => $request->fkPersonaRUCE,
@@ -80,11 +80,11 @@ class AutoridadComisionController extends Controller
      * @param  \App\Models\AutoridadComision  $autoridadComision
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, int $autoridadComision)
+    public function update(UpdateAutoridadComisionRequest $request, int $autoridadComision)
     {
         try {
             $autoridadComision = AutoridadComision::where('id', $autoridadComision)->first();
-            $request = new UpdateAutoridadComisionRequest($request->toArray());
+            //$request = new UpdateAutoridadComisionRequest($request->toArray());
             $autoridadComision->fkPersonaRUCE = $request->fkPersonaRUCE ?: $autoridadComision->fkRefCargo;
             $autoridadComision->fkRefCargo = $request->fkRefCargo ?: $autoridadComision->fkRefCargo;
             $autoridadComision->fkComision = $request->fkComision ?: $autoridadComision->fkComision;
