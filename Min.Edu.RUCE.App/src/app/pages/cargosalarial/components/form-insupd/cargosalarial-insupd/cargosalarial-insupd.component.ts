@@ -93,7 +93,7 @@ export class CargosalarialInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Cargo Salarial Creado", false)
         this.router.navigate(['/pages/cargosalarial']);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.errors, false)
+        this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)
       });
     }
     else {
@@ -101,7 +101,7 @@ export class CargosalarialInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Cargo Salarial Modificado", false)
         this.router.navigate(['/pages/cargosalarial']);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.errors, false)
+        this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)
       }
       );
     }
@@ -123,7 +123,7 @@ export class CargosalarialInsupdComponent implements OnInit {
           this.mostrarDialogMsj("Mensaje", "Cargo Salarial Eliminado", false)
           this.router.navigate(['/pages/cargosalarial']);
         }, err => {
-          this.mostrarDialogMsj("Atención", err.error.errors, false)
+          this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)
         });
       }
     })

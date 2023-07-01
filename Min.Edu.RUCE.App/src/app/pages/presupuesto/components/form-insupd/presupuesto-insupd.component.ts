@@ -216,7 +216,7 @@ export class PresupuestoInsUpdComponent implements OnInit {
           this.mostrarDialogMsj("Mensaje", "Presupuesto Eliminado", false)
           this.router.navigate(['/pages/presupuesto']);
         }, err => {
-          this.mostrarDialogMsj("Atención", err.error.errors, false)
+          this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)
         }
         );
       }
@@ -244,7 +244,7 @@ export class PresupuestoInsUpdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Presupuesto creado", false)
         this.router.navigate(['/pages/presupuesto']);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.errors, false)
+        this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)
       }
       );
     } else {
@@ -252,7 +252,7 @@ export class PresupuestoInsUpdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Presupuesto modificado", false)
         this.router.navigate(['/pages/presupuesto']);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.errors, false)
+        this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)
       });
     }
   }

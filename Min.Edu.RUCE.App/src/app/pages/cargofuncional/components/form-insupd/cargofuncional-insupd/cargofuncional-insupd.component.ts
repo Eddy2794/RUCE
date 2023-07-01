@@ -134,7 +134,7 @@ export class CargofuncionalInsupdComponent implements OnInit {
           this.mensaje("Mensaje", "Cargo Funcional Eliminado", false)
           this.router.navigate(['/pages/cargofuncional']);
         }, err => {
-          this.mensaje("Atención", err.error.errors, false)
+          this.mensaje("Atención", JSON.stringify(err.error.errors), false)
         });
       }
     })

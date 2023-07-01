@@ -29,8 +29,7 @@ class StoreAutoridadOrganizacionRUCERequest extends FormRequest
                 'exists:RefCargo,id'
             ],
             'fkPersonaRUCE' => [
-                'nulleable',
-                'exists:PersonaRUCE,id'
+                // 'exists:PersonaRUCE,id'
             ],
             
             'fkOrganizacionRUCE' => [

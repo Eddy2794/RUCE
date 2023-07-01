@@ -14,6 +14,7 @@ import { filter } from 'rxjs';
 import { RefTipoDocumentoModel } from '@app/pages/ruce/ref-ruce/Model/reftipodocumento-model';
 import { RefCargoModel } from '@app/pages/ruce/ref-ruce/Model/refcargo-model';
 import { PersonaruceService } from '@app/pages/ruce/ref-ruce/Services/personaruce-service';
+import { DateTime } from 'luxon';
 @Component({
   selector: 'app-autoridades-form',
   templateUrl: './insupd.component.html',
@@ -98,8 +99,8 @@ export class AutoridadInsupdComponent implements OnInit {
       id: null,
       fkOrganizacionRUCE: this.idOrganizacion,
       fkRefCargo: [null, {validators: [ Validators.required, ]}],
-      fkPersonaRUCE: [null, {validators: [ Validators.required, ]}],
-      tipoDocumento: [null, {validators: [ Validators.required, ]}],
+      fkPersonaRUCE: null,
+      fkRefTipoDocumentoRUCE: [null, {validators: [ Validators.required, ]}],
       documento: [null, {validators: [ Validators.required, ]}],
       cuil: [null, {validators: [ Validators.required, ]}],
       nombre: [null, {validators: [ Validators.required, ]}],
@@ -122,21 +123,24 @@ export class AutoridadInsupdComponent implements OnInit {
   }
 
   save() {
+    console.log(this.formularioAutoridad.invalid);
     if (this.formularioAutoridad.invalid) {
       this.formularioAutoridad.markAllAsTouched();
       return;
     }
-    if (this.id == 0) {
-      this.formularioAutoridad.markAllAsTouched();
-      return;
-    }
+    // if (this.id == 0) {
+    //   this.formularioAutoridad.markAllAsTouched();
+    //   return;
+    // }
     if (this.id == 0) {
       this.formularioAutoridad.removeControl('id');
+      this.formularioAutoridad.value['inicioCargo'] = this.formularioAutoridad.value['inicioCargo']?.toString()
+      this.formularioAutoridad.value['finCargo'] = this.formularioAutoridad.value['finCargo']?.toString()
       this.autoridadOrganizacionRUCEService.create(this.formularioAutoridad.value).subscribe((resp: any) => {
-        this.mostrarDialogMsj("Mensaje", "OrganizacionRUCE Creado", false)
-        this.router.navigate(['/pages/establecimientos']);
+        this.mostrarDialogMsj("Mensaje", "Autoridadd Creada", false)
+        this.router.navigate(['/pages/establecimientos/view/'+this.idOrganizacion]);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.errors, false)
+        this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)
       }
       );
     } else {
@@ -144,7 +148,7 @@ export class AutoridadInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Autoridad Modificado", false)
         this.router.navigate(['/pages/establecimientos/view/'+this.idOrganizacion]);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.errors, false)
+        this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)
       }
       );
     }
@@ -165,7 +169,7 @@ export class AutoridadInsupdComponent implements OnInit {
           this.mostrarDialogMsj("Mensaje", "Autoridad Eliminado", false)
           this.router.navigate(['/pages/establecimientos/view/'+this.idOrganizacion]);
         }, err => {
-          this.mostrarDialogMsj("Atención", err.error.errors, false)
+          this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)
         }
         );
       }

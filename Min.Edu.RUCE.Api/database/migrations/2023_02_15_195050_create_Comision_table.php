@@ -18,8 +18,8 @@ return new class extends Migration
             $table->unsignedInteger('fkRefTipoComision');
             $table->foreign('fkRefTipoComision')->references('id')->on('RefTipoComision')->onDelete('cascade');
 
-            $table->dateTime('periodoInicio')->nullable(false);
-            $table->dateTime('periodoFin')->nullable(false);
+            $table->date('periodoInicio')->nullable(false);
+            $table->date('periodoFin')->nullable(false);
             $table->integer('nroSocios')->default(1);
             $table->boolean('estadoResolucion')->default(false);
             

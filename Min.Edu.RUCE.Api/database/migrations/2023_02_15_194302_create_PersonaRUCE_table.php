@@ -29,8 +29,8 @@ return new class extends Migration
             
             $table->dateTime('fechaEliminacion')->nullable(true);
             $table->boolean('estaActivo')->default(true)->nullable(false);
-            $table->integer('idUsuarioAlta')->default(null);
-            $table->integer('idUsuarioModificacion')->default(null);
+            $table->integer('idUsuarioAlta')->default(null)->nullable();
+            $table->integer('idUsuarioModificacion')->default(null)->nullable();
             $table->timestamps();
         });
         

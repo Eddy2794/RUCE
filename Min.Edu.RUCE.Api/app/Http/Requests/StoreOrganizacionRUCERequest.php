@@ -75,7 +75,7 @@ class StoreOrganizacionRUCERequest extends FormRequest
                 Rule::unique('OrganizacionRUCE','domicilio')->where('domicilio', $this->domicilio)->withoutTrashed()
             ],
             'idUsuarioAlta' => [
-                'required',
+                // 'required',
                 'integer'
             ]
         ];

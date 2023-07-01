@@ -80,32 +80,40 @@ class AutoridadOrganizacionRUCEController extends Controller
             'idUsuarioAlta' => $request->idUsuarioAlta,
             'idUsuarioModificacion' => $request->idUsuarioModificacion
         ]); */
-        
-        try {
-            $persona = new PersonaRUCEController();
-            $requestPersona = new StorePersonaRUCERequest($request->toArray());
-            $persona = json_decode($persona->store($requestPersona)->getContent())->id;
-            //$idPersona = json_decode($persona->getContent())->id;
 
-            AutoridadOrganizacionRUCE::create([
-                'fkRefCargo' => $request->fkRefCargo,
-                'fkPersonaRUCE' => $persona,
-                'fkOrganizacionRUCE' => $request->fkOrganizacionRUCE,
-                'inicioCargo' => date_create($request->inicioCargo),
-                'finCargo' => date_create($request->finCargo),
-                'idUsuarioAlta'=>$request->idUsuarioAlta,
-                'idUsuarioModificacion' => $request->idUsuarioModificacion
-            ]);
-            return response()->json([
-                'message' => 'Autoridad Organización registrado con Exito',
-                'succeeded' => true
-            ], Response::HTTP_OK);
-        } catch (\Throwable $th) {
-            return response()->json([
-                'succeeded' => false,
-                'message' => $th->getMessage()
-            ], Response::HTTP_NOT_FOUND);
+        $persona = new PersonaRUCEController();
+        $requestPersona = new StorePersonaRUCERequest($request->toArray());
+        $created = json_decode($persona->store($requestPersona)->getContent());
+        $idPersona = PersonaRUCE::max('id');
+        // continuar con la eliminacion de persona en caso de que ocurra un error al crear una autoridad
+        $persona = $persona->show($idPersona);
+        if($created->succeeded){
+            try {
+                AutoridadOrganizacionRUCE::create([
+                    'fkRefCargo' => $request->fkRefCargo,
+                    'fkPersonaRUCE' => $idPersona,
+                    'fkOrganizacionRUCE' => $request->fkOrganizacionRUCE,
+                    'inicioCargo' => date_create($request->inicioCargo),
+                    'finCargo' => date_create($request->finCargo),
+                    'idUsuarioAlta'=>$request->idUsuarioAlta,
+                    'idUsuarioModificacion' => $request->idUsuarioModificacion
+                ]);
+                return response()->json([
+                    'message' => 'Autoridad Organización registrado con Exito',
+                    'succeeded' => true
+                ], Response::HTTP_OK);
+            } catch (\Throwable $th) {
+                $requestPersona->delete();
+                return response()->json([
+                    'succeeded' => false,
+                    'message' => $th->getMessage()
+                ], Response::HTTP_BAD_REQUEST);
+            }
         }
+        return response()->json([
+            'message' => $created->message,
+            'succeeded' => $created->succeeded
+        ], Response::HTTP_BAD_REQUEST);
     }
 
     /**

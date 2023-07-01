@@ -25,13 +25,13 @@ return new class extends Migration
             $table->unsignedInteger('fkOrganizacionRUCE');
             $table->foreign('fkOrganizacionRUCE')->references('id')->on('OrganizacionRUCE')->onDelete('cascade');
 
-            $table->dateTime('inicioCargo')->nullable(true);
-            $table->dateTime('finCargo')->nullable(true);
+            $table->date('inicioCargo')->nullable(true);
+            $table->date('finCargo')->nullable(true);
 
             $table->boolean('estaActivo')->default(true);
             $table->dateTime('fechaEliminacion')->nullable(true);
-            $table->integer('idUsuarioAlta')->default(null);
-            $table->integer('idUsuarioModificacion')->default(null);
+            $table->integer('idUsuarioAlta')->default(null)->nullable();
+            $table->integer('idUsuarioModificacion')->default(null)->nullable();
             $table->timestamps();
         });
         

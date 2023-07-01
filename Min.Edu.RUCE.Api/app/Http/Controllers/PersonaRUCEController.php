@@ -50,8 +50,7 @@ class PersonaRUCEController extends Controller
             
             return response()->json([
                 'message' => 'Persona registrada con Exito',
-                'succeeded' => true,
-                'id' => $persona->id
+                'succeeded' => true
             ], Response::HTTP_OK);
         } catch (\Throwable $th) {
             return response()->json([

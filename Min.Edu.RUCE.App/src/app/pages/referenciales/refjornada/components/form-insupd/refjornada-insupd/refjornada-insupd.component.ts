@@ -84,7 +84,7 @@ export class RefjornadaInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Jornada Creada", false)
         this.router.navigate(['/pages/refjornada']);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.errors, false)
+        this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)
       }
       );
     } else {
@@ -92,7 +92,7 @@ export class RefjornadaInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Jornada Modificada", false)
         this.router.navigate(['/pages/refjornada']);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.errors, false)
+        this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)
       }
       );
     }
@@ -113,7 +113,7 @@ export class RefjornadaInsupdComponent implements OnInit {
           this.mostrarDialogMsj("Mensaje", "Jornada Eliminada", false)
           this.router.navigate(['/pages/refjornada']);
         }, err => {
-          this.mostrarDialogMsj("Atención", err.error.errors, false)
+          this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)
         }
         );
       }
