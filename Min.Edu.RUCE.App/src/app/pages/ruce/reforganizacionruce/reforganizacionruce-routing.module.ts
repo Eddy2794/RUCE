@@ -20,8 +20,8 @@ const routes: Routes = [
       //     { path: 'listar', component: AutoridadListComponent},
       //     // { path: 'listar', component: AutoridadFormListComponent},
           { path: 'add-edit/:idAutoridad', component: AutoridadInsupdComponent },
-      //     { path: 'delete/:id', component: AutoridadInsupdComponent },
-      //     { path: 'view/:id', component: DetallesComponent },
+          { path: 'delete/:idAutoridad', component: AutoridadInsupdComponent },
+          { path: 'view/:idAutoridad', component: DetallesComponent },
       //     { path: '**', redirectTo: 'listar' }
         ]},
       { path: '**', redirectTo: 'listar' }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Exception;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ModelResourse extends JsonResource
@@ -26,21 +27,28 @@ class ModelResourse extends JsonResource
         }
     }
 
-    public function addFkData(Object $datos, $completo=true){
-        //obtiene los datos de cada clave foranea que contenga cualquier modelo
-        foreach ($datos as $registro) {
+    private function recFkData(mixed $registro){
+        try{
             foreach ($registro->getAttributes() as $clave => $valor) {
                 if(str_contains($clave,'fk')){
                     $modelo = 'App\Models'.'\\'.substr($clave,2);
                     $modelo = new $modelo;
                     $valor = $modelo::where('id',$valor)->get()[0];
                     if($valor!=[])
-                        $registro[$clave]=$valor;
-                    // if(!$completo){
-                    //     $registro->delete()
-                    // }
+                        $registro[$clave]=$this->recFkData($valor);
                 }
             }
+            return $registro;
+        }
+        catch(Exception){
+            return $registro;
+        }
+    }
+
+    public function addFkData(Object $datos){
+        //obtiene los datos de cada clave foranea que contenga cualquier modelo
+        foreach ($datos as $registro) {
+            $registro = $this->recFkData($registro);
 }       return $datos;
     }
 

@@ -10,6 +10,7 @@ use App\Models\PersonaRUCE;
 use ArrayObject;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -107,6 +108,21 @@ class PersonaRUCEController extends Controller
         }
     }
 
+    protected function delete(int $id): JsonResponse {
+        try {
+            PersonaRUCE::where("id",$id)->forceDelete();
+            return response()->json([
+                'succeeded' => true,
+                'message' => ''
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
+    }
+    
     public function destroy(int $id): JsonResponse
     {
         try {

@@ -38,18 +38,18 @@ class UpdateAutoridadOrganizacionRUCERequest extends FormRequest
             ],
             'inicioCargo' => [
                 'required',
-                'dateTime'
+                'date'
             ],
             'finCargo' => [
                 'required',
-                'dateTime'
+                'date'
             ],
             'estaActivo' => [
                 'required',
                 'boolean'
             ],
             'idUsuarioModificacion' => [
-                'required',
+                // 'required',
                 'integer'
             ]
         ];

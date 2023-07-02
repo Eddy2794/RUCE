@@ -58,7 +58,7 @@ export class OrganizacionRUCEInsupdComponent implements OnInit {
         if (this.id !== 0) {
           if (this.accion !== 'delete'){this.accion = 'edit'}
           this.organizacionRUCEService.findOne(this.id).subscribe((resp: any) => {
-            this.formularioOrganizacionRUCE.patchValue(resp.entities[0]);
+            this.formularioOrganizacionRUCE.patchValue(resp.entities);
           });
         }
       });
