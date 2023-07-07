@@ -31,14 +31,13 @@ class UpdateMatriculaRequest extends FormRequest
             ],
             'periodoLectivo' => [
                 'required',
-                'date',
+                'integer',
             ],
             'matricula' => [
                 'required',
                 'integer',
             ],
             'idUsuarioModificacion' => [
-                'required',
                 'integer',
             ],
         ];

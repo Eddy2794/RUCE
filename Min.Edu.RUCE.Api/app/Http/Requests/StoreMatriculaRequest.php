@@ -30,14 +30,13 @@ class StoreMatriculaRequest extends FormRequest
             ],
             'periodoLectivo' => [
                 'required',
-                'date',
+                'integer',
             ],
             'matricula' => [
                 'required',
                 'integer',
             ],
             'idUsuarioAlta' => [
-                'required',
                 'integer',
             ],
         ];

@@ -110,7 +110,7 @@ export class AutoridadInsupdComponent implements OnInit {
       fkRefCargo: [null, {validators: [ Validators.required, ]}],
       fkPersonaRUCE: null,
       fkRefTipoDocumentoRUCE: [null, {validators: [ Validators.required, ]}],
-      documento: [null, {validators: [ Validators.required, ]}],
+      documento: [null, {validators: [ Validators.required, Validators.min(1000000) ]}],
       cuil: [null, {validators: [ Validators.required, ]}],
       nombre: [null, {validators: [ Validators.required, ]}],
       apellido: [null, {validators: [ Validators.required, ]}],
@@ -145,7 +145,7 @@ export class AutoridadInsupdComponent implements OnInit {
       this.formularioAutoridad.value['inicioCargo'] = this.formularioAutoridad.value['inicioCargo']?.toString()
       this.formularioAutoridad.value['finCargo'] = this.formularioAutoridad.value['finCargo']?.toString()
       this.autoridadOrganizacionRUCEService.create(this.formularioAutoridad.value).subscribe((resp: any) => {
-        this.mostrarDialogMsj("Mensaje", "Autoridadd Creada", false)
+        this.mostrarDialogMsj("Mensaje", "Autoridad Creada", false)
         this.router.navigate(['/pages/establecimientos/view/'+this.idOrganizacion]);
       }, err => {
         this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)

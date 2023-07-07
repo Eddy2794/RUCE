@@ -18,6 +18,8 @@ import { DetallesComponent } from './organizacion/Components/detalles/detalles.c
 import { EncabezadoOrganizacionruceComponent } from './organizacion/Components/encabezado-organizacionruce/encabezado-organizacionruce.component';
 import { AutoridadInsupdComponent } from './autoridades/Components/form-insupd/insupd.component';
 import { AutoridadListComponent } from './autoridades/Components/autoridad-list/autoridad-list.component';
+import { MatriculaListComponent } from './matricula/Components/form-list/matricula-list/matricula-list.component';
+import { MatriculaInsupdComponent } from './matricula/Components/form-insupd/matricula-insupd/matricula-insupd.component';
 
 // import { VexAioTableModule } from 'vex-aio-table';
 
@@ -28,7 +30,9 @@ import { AutoridadListComponent } from './autoridades/Components/autoridad-list/
     DetallesComponent,
     EncabezadoOrganizacionruceComponent,
     AutoridadInsupdComponent,
-    AutoridadListComponent
+    AutoridadListComponent,
+    MatriculaListComponent,
+    MatriculaInsupdComponent
   ],
   imports: [
     CommonModule,

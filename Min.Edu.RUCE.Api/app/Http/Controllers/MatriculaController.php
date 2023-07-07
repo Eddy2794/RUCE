@@ -36,7 +36,7 @@ class MatriculaController extends Controller
         //$request = new StoreMatriculaRequest($request->toArray());
         try {
             Matricula::create([
-                'fkmatricula' => $request->fkmatricula,
+                'fkOrganizacionRUCE' => $request->fkOrganizacionRUCE,
                 'periodoLectivo' => $request->periodoLectivo,
                 'matricula' => $request->matricula,
                 'idUsuarioAlta' => $request->idUsuarioAlta,
@@ -49,7 +49,7 @@ class MatriculaController extends Controller
             return response()->json([
                 'succeeded' => false,
                 'message' => $th->getMessage()
-            ], Response::HTTP_NOT_FOUND);
+            ], Response::HTTP_BAD_REQUEST);
         }
     }
 
