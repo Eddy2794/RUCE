@@ -21,7 +21,7 @@ return new class extends Migration
             $table->boolean('administrador')->default(false);
 
             $table->unsignedInteger('fkPersonaRUCE');
-            $table->foreign('fkPersonaRUCE')->references('id')->on('PersonaRuce')->onDelete('cascade');
+            $table->foreign('fkPersonaRUCE')->references('id')->on('PersonaRUCE')->onDelete('cascade');
 
             $table->boolean('estaActivo')->default(true)->nullable(false);
             $table->dateTime('fechaEliminacion')->nullable(true);
