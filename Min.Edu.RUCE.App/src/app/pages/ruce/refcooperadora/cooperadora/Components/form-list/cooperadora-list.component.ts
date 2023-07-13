@@ -40,17 +40,16 @@ export class CooperadoraListComponent implements OnInit {
   private setColumns() {
     this.columnasVex = [
       { label: "ACCIONES", property: "actions", type: "button", visible: true },
-      { label: "CÓDIGO", property: "id", type: "text", visible: false },
-      { label: "CUE INSTITUCIÓN", property: "fkOrganizaciónRUCE", type: "text", visible: true, },
+      //{ label: "CÓDIGO", property: "id", type: "text", visible: false },
+      { label: "CUE INSTITUCIÓN", property: "fkOrganizacionRUCE.cue", type: "object", visible: true, },
       { label: "DENOMINACION", property: "denominacion", type: "text", visible: true, },
       { label: "ESTADO", property: "estado", type: "text", visible: true },
       { label: "LEGAJO", property: "legajo", type: "text", visible: true },
-      { label: "DECRETO", property: "decreto", type: "text", visible: true },
       { label: "CONVENIO SC ECONOMICAS", property: "convenioScEconomicas", type: "boolean", visible: true },
       { label: "INSCRIPCION AFIP", property: "inscripcion_afip", type: "boolean", visible: true },
       { label: "INSCRIPCION RENTAS", property: "inscripcion_rentas", type: "boolean", visible: true },
       { label: "INSCRIPCION RENACOPES", property: "inscripcion_renacopes", type: "boolean", visible: true },
-      { label: "FK_KIOSCO", property: "fk_kiosco", type: "text", visible: false },
+      { label: "KIOSCO", property: "fkKiosco", type: "object", visible: false },
     ];
   }
 

@@ -50,7 +50,7 @@ class StoreCooperadoraRequest extends FormRequest
             ],
             'estado' => [
                 'required',
-                'string'
+                'integer'
             ],
             'convenioCsEconomicas' => [
                 'required',
@@ -73,7 +73,6 @@ class StoreCooperadoraRequest extends FormRequest
                 'boolean'
             ],
             'idUsuarioAlta' => [
-                'required',
                 'integer'
             ],
         ];

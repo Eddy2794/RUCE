@@ -13,7 +13,6 @@ import { AutoridadCooperadoraService } from './cooperadora/Services/AutoridadCoo
 import { KioscoService } from './Services/Kiosco/kiosco.service';
 import { FondoCooperarService } from './cooperadora/Services/FondoCooperar/fondo-cooperar.service';
 import { HistorialEstadoCooperadoraService } from './cooperadora/Services/Historial_Estado_Cooperadora/historial-estado-cooperadora.service';
-import { TipoAsociacionService } from './Services/TipoAsociacion/tipo-asociacion.service';
 import { ExpedienteService } from './Services/Expediente/expediente.service';
 import { PersoneriaService } from './Services/Personeria/personeria.service';
 
@@ -22,6 +21,9 @@ import { PageLayoutModule } from 'src/@vex/components/page-layout/page-layout.mo
 import { BreadcrumbsModule } from 'src/@vex/components/breadcrumbs/breadcrumbs.module';
 import { SecondaryToolbarModule } from 'src/@vex/components/secondary-toolbar/secondary-toolbar.module';
 import { RefCooperadoraRoutingModule } from './refcooperadora-routing.module';
+import { RefTipoAsociacionService } from '../ref-ruce/Services/reftipoasociacion.service';
+import { AutoridadListComponent } from './autoridades/Components/autoridad-list/autoridad-list/autoridad-list.component';
+import { InsupdComponent } from './autoridades/Components/frm-insupd/insupd/insupd.component';
 
 
 @NgModule({
@@ -30,6 +32,8 @@ import { RefCooperadoraRoutingModule } from './refcooperadora-routing.module';
     CooperadoraFormInsupdComponent,
     CooperadoraListComponent,
     PrincipalComponent,
+    AutoridadListComponent,
+    InsupdComponent,
   ],
   imports: [
     CommonModule,
@@ -45,9 +49,9 @@ import { RefCooperadoraRoutingModule } from './refcooperadora-routing.module';
     KioscoService,
     AtencionSeguimientoService,
     FondoCooperarService,
+    RefTipoAsociacionService,
 
     HistorialEstadoCooperadoraService,
-    TipoAsociacionService,
     ExpedienteService,
     PersoneriaService,
     SelectService

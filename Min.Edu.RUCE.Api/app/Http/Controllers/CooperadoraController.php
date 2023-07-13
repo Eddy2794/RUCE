@@ -18,7 +18,7 @@ class CooperadoraController extends Controller
     {
         try {
             if ($request->has('PageNumber')&&$request->has('PageSize')) {
-                return new RequestCollection(Cooperadora::paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']));
+                return new RequestCollection(Cooperadora::paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']), json_decode($request['filtros'],true));
             }
             return new RequestCollection(Cooperadora::paginate(10, ['*'], 'page', 1));
         } catch (\Throwable $th) {
@@ -54,7 +54,7 @@ class CooperadoraController extends Controller
             return response()->json([
                 'succeeded' => false,
                 'message' => $th->getMessage()
-            ], Response::HTTP_NOT_FOUND);
+            ], Response::HTTP_BAD_REQUEST);
         }
     }
 
@@ -66,7 +66,7 @@ class CooperadoraController extends Controller
             return response()->json([
                 'succeeded' => false,
                 'message' => $th->getMessage()
-            ], Response::HTTP_NOT_FOUND);
+            ], Response::HTTP_BAD_REQUEST);
         }
     }
 

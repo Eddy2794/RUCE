@@ -16,7 +16,9 @@ export class EncabezadoCooperadoraComponent implements OnInit {
   constructor(
     private route:ActivatedRoute, 
     private cooperadoraService:CooperadoraService
-  ) { }
+  ) {
+    this.cooperadora={}
+   }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
@@ -25,8 +27,7 @@ export class EncabezadoCooperadoraComponent implements OnInit {
 
   private obtenerData(id:any){
     this.cooperadoraService.findOne(id).subscribe((res:any) => {
-      this.cooperadora = Object.assign({}, res.entities[0], this.cooperadora);
-      console.log(this.cooperadora);
+      this.cooperadora = Object.assign( this.cooperadora, res.entities);
     });
   }
 

@@ -1,16 +1,17 @@
 import { BaseModel } from '@app/_models/base.model';
 import { CooperadoraModel } from '../Cooperadora/cooperadora-model';
 import { PersonaRUCEModel } from '../../../../ref-ruce/Model/persona-ruce-model';
+import { RefCargoModel } from '@app/pages/ruce/ref-ruce/Model/refcargo-model';
 
 export class AutoridadCooperadoraModel extends BaseModel {
-    static className: string = 'autoridades_cooperadoras';
+    static className: string = 'autoridad_cooperadora';
     constructor(
-        public fk_persona?: PersonaRUCEModel,
-        public fk_cooperadora?: CooperadoraModel,
-        public cargo?: string,
-        public inicio_cargo?: Date,
-        public fin_cargo?: Date,
-        public tipo_comision?: string,
+        public id?: number,
+        public fkPersonaRUCE?: PersonaRUCEModel,
+        public fkCooperadora?: CooperadoraModel,
+        public fkRefCargo?: RefCargoModel,
+        public inicioCargo?: Date,
+        public finCargo?: Date,
 
     ) {
         super();

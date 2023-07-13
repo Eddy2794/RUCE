@@ -9,7 +9,9 @@ import { CooperadoraService } from '../../Services/Cooperadora/cooperadora.servi
 import { OrganizacionRUCEModel } from '@app/pages/ruce/reforganizacionruce/organizacion/Models/OrganizacionRUCE/organizacionruce-model';
 import { ModalSelectOrganizacionComponent } from '@app/components/modal-select-organizacion/modal-select-organizacion.component';
 import { IBaseService } from '@app/shared/services/interface/i-base.service';
-import { FilterOptions } from '@app/shared/utils';
+import { DataPage, FilterOptions } from '@app/shared/utils';
+import { RefTipoAsociacionService } from '@app/pages/ruce/ref-ruce/Services/reftipoasociacion.service';
+import { RefTipoAsociacionModel } from '@app/pages/ruce/ref-ruce/Model/reftipoasociacion-model';
 
 @Component({
   selector: 'cooperadora-form-insupd',
@@ -19,6 +21,9 @@ import { FilterOptions } from '@app/shared/utils';
 export class CooperadoraFormInsupdComponent implements OnInit {
   formularioCooperadora!: FormGroup;
   id: number = 0;
+  filtro: FilterOptions = { estaActivo: true, PageSize: 10,};
+  tiposAsociaciones = new Array<RefTipoAsociacionModel>;
+
   public accion: string = '';
 
   organizaciones: Array<OrganizacionRUCEModel>;
@@ -27,6 +32,7 @@ export class CooperadoraFormInsupdComponent implements OnInit {
     private fb: FormBuilder,
     private cooperadoraService: CooperadoraService,
     protected organizacionService: OrganizacionRUCEService,
+    private refTipoAsociacionService: RefTipoAsociacionService,
     private activatedRoute: ActivatedRoute,
     private validadorServicio: ValidatorService,
     private router: Router,
@@ -50,13 +56,16 @@ export class CooperadoraFormInsupdComponent implements OnInit {
         }
       });
       
+      this.loadRefs();
       this.createForm();
       this.activatedRoute.params.subscribe((param: any) => {
         this.id = parseInt(param.id);
         if (this.id !== 0) {
           if (this.accion !== 'delete'){this.accion = 'edit'}
           this.cooperadoraService.findOne(this.id).subscribe((resp: any) => {
-            this.formularioCooperadora.patchValue(resp.entities[0]);
+            this.formularioCooperadora.patchValue(resp.entities);
+            this.formularioCooperadora.controls.fkRefTipoAsociacion.patchValue(resp.entities.fkRefTipoAsociacion.id);
+            this.formularioCooperadora.controls.organizacionDesc.patchValue(resp.entities.fkOrganizacionRUCE.organizacionDesc);
           });
         }
       });
@@ -69,6 +78,12 @@ export class CooperadoraFormInsupdComponent implements OnInit {
     
   }
 
+  loadRefs() {
+    this.refTipoAsociacionService.filter(this.filtro).subscribe((data: DataPage<RefTipoAsociacionModel>) => {
+      this.tiposAsociaciones = Object.assign([],data.entities,this.tiposAsociaciones);
+    })
+  }
+
   obtenerOrganizaciones(){
     this.organizacionService.filter().subscribe((res: any) => {
       res.entities.forEach((org: any) => this.organizaciones.push(Object.assign({}, org, this)));
@@ -78,47 +93,17 @@ export class CooperadoraFormInsupdComponent implements OnInit {
   createForm() {
     this.formularioCooperadora = this.fb.group({
       id: null,
-      denominacion: [
-        null, { 
-          validators: [
-            Validators.required,
-            Validators.minLength(3),
-            this.validadorServicio.validarCaracteresDescripcion(),
-            this.validadorServicio.validarEspaciosInicioFin(),
-            Validators.max(255),
-          ] 
-        }
-      ],
-      estado: [
-        null, { 
-          validators: [ Validators.required, ] 
-        }
-      ],
-      legajo: [
-        null, { 
-          validators: [
-            Validators.required,
-            Validators.minLength(3),
-            this.validadorServicio.validarEspaciosInicioFin(),
-            Validators.max(100),
-          ] 
-        }
-      ],
-      decreto: [
-        null, { 
-          validators: [
-            Validators.required, 
-            Validators.minLength(3),
-            this.validadorServicio.validarEspaciosInicioFin(),
-            Validators.max(100),
-          ] 
-        }
-      ],
-      convenioScEconomicas: false,
-      inscripcion_afip: false,
-      inscripcion_rentas: false,
-      inscripcion_renacopes: false,
-      organizacion_ruce: false,
+      fkRefTipoAsociacion:[null, {validators: [Validators.required]}],
+      fkOrganizacionRUCE: null,
+      cuit: [null, {validators: [Validators.required, Validators.minLength(9), Validators.maxLength(11), this.validadorServicio.validarEspaciosInicioFin() ]}],
+      legajo: [null, { validators: [Validators.required, Validators.minLength(3), this.validadorServicio.validarEspaciosInicioFin(), Validators.maxLength(100),] }],
+      denominacion: [null, {validators: [Validators.required, Validators.minLength(3), this.validadorServicio.validarCaracteresDescripcion(), this.validadorServicio.validarEspaciosInicioFin(), Validators.max(255), ]}],
+      estado: [null, { validators: [ Validators.required, ]}],
+      convenioCsEconomicas: false,
+      estadoAfip: false,
+      estadoRentas: false,
+      inscripcionRenacopes: false,
+      organizacionDesc: "",
       estaActivo: true,
     },
       {
@@ -130,6 +115,7 @@ export class CooperadoraFormInsupdComponent implements OnInit {
   }
 
   save() {
+    console.log(this.formularioCooperadora);
     if (this.formularioCooperadora.invalid) {
       this.formularioCooperadora.markAllAsTouched();
       return;
@@ -206,15 +192,8 @@ export class CooperadoraFormInsupdComponent implements OnInit {
         switch (nombreEntidad) {
           case 'Organizacion':
             this.formularioCooperadora.patchValue({
-              organismoPadre: resp.organizacionDesc != null ? resp.organizacionDesc : '',
-              idOrganizacionPadre: resp.organizacionDesc != null ? resp.id : 0,
-            });
-            break;
-          case 'RefTipoOrganizacion':
-            this.formularioCooperadora.patchValue({
-              tipoOrganizacionDesc: resp.tipoOrganizacionDesc != null ? resp.tipoOrganizacionDesc : '',
-              idRefTipoOrganizacion: resp.tipoOrganizacionDesc != null ? resp.id : 0,
-              esEducativa: resp.esEducativa,
+              organizacionDesc: resp.organizacionDesc != null ? resp.organizacionDesc : '',
+              fkOrganizacionRUCE: resp.organizacionDesc != null ? resp.id : 0,
             });
             break;
           default:
@@ -225,13 +204,8 @@ export class CooperadoraFormInsupdComponent implements OnInit {
 
   }
 
-  eliminarTipoOrg() {
-    this.formularioCooperadora.controls["tipoOrganizacionDesc"].setValue(null);
-    this.formularioCooperadora.controls["idRefTipoOrganizacion"].setValue(null);
-  }
-
   eliminarOrgPadre() {
-    this.formularioCooperadora.controls["organismoPadre"].setValue(null);
-    this.formularioCooperadora.controls["idOrganizacionPadre"].setValue(null);
+    this.formularioCooperadora.controls["organizacionDesc"].setValue(null);
+    this.formularioCooperadora.controls["fkOrganizacionRUCE"].setValue(null);
   }
 }
