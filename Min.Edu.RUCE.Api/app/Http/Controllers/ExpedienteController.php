@@ -2,114 +2,143 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreExpedienteRequest;
+use App\Http\Requests\UpdateExpedienteRequest;
+use App\Http\Resources\ModelResourse;
+use App\Http\Resources\RequestCollection;
 use App\Models\Expediente;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class ExpedienteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(Request $request)
     {
-        return response(Expediente::all());
+        try {
+            if ($request->has('PageNumber')&&$request->has('PageSize')) {
+                return new RequestCollection(Expediente::paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']));
+            }
+            return new RequestCollection(Expediente::paginate(10, ['*'], 'page', 1));
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(StoreExpedienteRequest $request): JsonResponse
     {
-        $request->validate([
-            'nro_expediente' => 'required',
-            'observaciones' => 'required',
-            'observaciones_respondidas' => 'required',
-            'instrumento_publico' => 'required',
-        ]);
-
-        $expediente = new Expediente();
-
-        $expediente->nro_expediente = $request->nro_expediente;
-        
-        if($request->observaciones)
-            $expediente->observaciones = $request->observaciones;
-        if($request->observaciones_respondidas)
-            $expediente->observaciones_respondidas = $request->observaciones_respondidas;
-        if($request->instrumento_publico)
-            $expediente->instrumento_publico = $request->instrumento_publico;
-
-        if($request->fiscalia_estado)
-            $expediente->fiscalia_estado = $request->fiscalia_estado;
-        if($request->nro_resolucion)
-            $expediente->nro_resolucion = $request->nro_resolucion;
-            
-        if ($request->decreto)
-            $expediente->decreto = $request->decreto;
-
-        $expediente->save();
-
-        return response($expediente);
+        //$request = new StoreExpedienteRequest($request->toArray());
+        try {
+            Expediente::create([
+                'fkCooperadora' => $request->fkCooperadora,
+                'nroExpediente' => $request->nroExpediente,
+                'cantObservaciones' => $request->cantObservaciones,
+                'observacionesDesc' => $request->observacionesDesc,
+                'observacionesRespondidas' => $request->observacionesRespondidas,
+                'idUsuarioAlta' => $request->idUsuarioAlta,
+            ]);
+            return response()->json([
+                'message' => 'Expediente registrada con Exito',
+                'succeeded' => true
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
+    }
+    
+    public function show(int $expediente): JsonResponse
+    {
+        try {
+            return response()->json(new ModelResourse($expediente,'Expediente'));
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Expediente  $expediente
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Expediente $expediente)
+    public function update(UpdateExpedienteRequest $request, int $expediente): JsonResponse
     {
-        return response($expediente);
+        try {
+            $expediente = Expediente::where('id', $expediente)->first();
+            //$request = new UpdateExpedienteRequest($request->toArray());
+            $expediente->fkCooperadora = $request->fkCooperadora ?: $expediente->fkCooperadora;
+            $expediente->nroExpediente = $request->nroExpediente ?: $expediente->nroExpediente;
+            $expediente->cantObservaciones = $request->cantObservaciones ?: $expediente->cantObservaciones;
+            $expediente->observacionesDesc = $request->observacionesDesc ?: $expediente->observacionesDesc;
+            $expediente->observacionesRespondidas = $request->observacionesRespondidas ?: $expediente->observacionesRespondidas;
+            // $expediente->idUsuarioModificacion = $request->idUsuarioModificacion ?: $expediente->idUsuarioModificacion;
+
+            if ($expediente->isClean()) {
+                return response()->json([
+                    'message' => 'No se modifico ningun valor',
+                    'succeeded' => false
+                ], 422);
+            }
+            $expediente->updated_at= Carbon::now();
+            $expediente->save();
+
+            return response()->json([
+                'succeeded' => true,
+                'message' => 'Expediente Modificada con exito',
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
+    }
+    
+    public function destroy(int $id): JsonResponse
+    {
+        try {
+            Expediente::where('id', $id)->update(['estaActivo'=>false,]);
+            Expediente::where('id', $id)->delete();
+            return response()->json([
+                'succeeded' => true,
+                'message' => 'Expediente eliminada con exito'
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Expediente  $expediente
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Expediente $expediente)
+    public function search(Request $request, Expediente $expediente)
     {
-        $request->validate([
-            'nro_expediente' => 'required',
-            'observaciones' => 'required',
-            'observaciones_respondidas' => 'required',
-            'instrumento_publico' => 'required',
-            'decreto' => 'required',
-        ]);
+        /*
+        Seguramente se puede refactorizar y optimizar
+        por ahora es la forma que da resultados esperados
+        */
 
-        $expediente->update([
-            'nro_expediente' => $request->nro_expediente,
-            'observaciones' => $request->observaciones,
-            'observaciones_respondidas' => $request->observaciones_respondidas,
-            'instrumento_publico' => $request->instrumento_publico,
+        $query = $expediente->newQuery();
 
-            'fiscalida_estado' => $request->fiscalida_estado,
-            'nro_resolucion' => $request->fiscalida_estado,
+        if ($request->id) {
+            $query->where('id', $request->id)
+                ->where(function ($q) use ($request) {
+                    if ($request->q) {
+                        $q->where('cue', 'like', '%' . $request->q . '%')
+                            ->orWhere('organizacionDesc', 'like', '%' . $request->q . '%');
+                    }
+                });
+        } else {
+            if ($request->q) {
+                $query->where('cue', 'like', '%' . $request->q . '%')
+                    ->orWhere('organizacionDesc', 'like', '%' . $request->q . '%');
+            }
+        }
 
-            'decreto' => $request->decreto,
-            'fecha' => Carbon::createFromFormat('Y-m-d H:i:s',Carbon::now())->format('d-m-Y'),
-        ]);
-
-        return response($expediente);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Expediente  $expediente
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Expediente $expediente)
-    {
-        $expediente->delete();
-        return response()->noContent();
+        // return new RequestCollection($query->orderBy('organizacionDesc')->paginate()->appends(['q' => $request->q, 'id' => $request->id]));
     }
 }

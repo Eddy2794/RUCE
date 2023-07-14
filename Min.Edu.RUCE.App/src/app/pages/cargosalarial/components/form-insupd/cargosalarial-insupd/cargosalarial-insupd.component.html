@@ -1,0 +1,71 @@
+<vex-secondary-toolbar current="Detalle Cargo Salarial">
+    <vex-breadcrumbs *ngIf="accion==='add'" [crumbs]="['Motivo de Creación', 'Nuevo']" class="flex-auto">
+    </vex-breadcrumbs>
+    <vex-breadcrumbs *ngIf="accion==='edit'" [crumbs]="['Motivo de Creación', 'Modificar']" class="flex-auto">
+    </vex-breadcrumbs>
+    <vex-breadcrumbs *ngIf="accion==='delete'" [crumbs]="['Motivo de Creación', 'Eliminar']" class="flex-auto">
+    </vex-breadcrumbs>
+
+    <button class="ml-2" color="primary" mat-icon-button type="button">
+        <mat-icon svgIcon="mat:more_vert"></mat-icon>
+    </button>
+</vex-secondary-toolbar>
+<div [@stagger]="true" class="p-gutter container">
+    <form autocomplete="off" [formGroup]="formCargoSalarial" (ngSubmit)="save()">
+        <div class="flex flex-col sm:flex-row gap-4">
+            <div @fadeInUp class="card flex-auto">
+                <div class="px-6 py-4 border-b flex items-center">
+                    <h2 class="title m-0" *ngIf="accion==='add'">Formulario Alta de Cargo Salarial</h2>
+                    <h2 class="title m-0" *ngIf="accion==='edit'">Formulario Modificación de Cargo Salarial</h2>
+                    <h2 class="title m-0" *ngIf="accion==='delete'">Formulario Eliminación de Cargo Salarial</h2>
+                </div>
+
+                <div class="px-6 py-4 flex flex-col">
+                    <mat-form-field>
+                        <mat-label>Cargo Salarial</mat-label>
+                        <input matInput formControlName="cargoSalarialDesc" minlength="3" type="text" max="100" mayus
+                            espacios>
+                        <mat-error>
+                            <app-ver-error [control]="this.formCargoSalarial.controls['cargoSalarialDesc']">
+                            </app-ver-error>
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="legacy">
+                        <mat-label>Jornada</mat-label>
+                        <mat-select formControlName="idRefJornada">
+                            <mat-option>Seleccione</mat-option>
+                            <mat-option *ngFor="let item of refJornada" [value]="item.id">{{item.jornadaDesc}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error>
+                            <app-ver-error [control]="this.formCargoSalarial.controls['idRefJornada']"></app-ver-error>
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="legacy">
+                        <mat-label>Equivalencia Horaria</mat-label>
+                        <input matInput formControlName="equivalenciaHoraria" type="number" min="1" max="24" maxlength="2">
+                        <mat-error>
+                            <app-ver-error [control]="this.formCargoSalarial.controls['equivalenciaHoraria']">
+                            </app-ver-error>
+                        </mat-error>
+
+                    </mat-form-field>
+
+                    <mat-form-field appearance="legacy">
+                        <mat-label>Orden Visual</mat-label>
+                        <input matInput formControlName="ordenVisual" type="text" maxlength="3" solonum>
+                        <mat-error>
+                            <app-ver-error [control]="this.formCargoSalarial.controls['ordenVisual']">
+                            </app-ver-error>
+                        </mat-error>
+
+                    </mat-form-field>
+                    <app-button-group (cancel)="cancel()" (delete)="eliminar()" (submit)="save()" [accion]="accion">
+                    </app-button-group>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

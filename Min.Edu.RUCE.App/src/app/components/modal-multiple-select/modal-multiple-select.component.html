@@ -1,0 +1,8 @@
+<div>
+    <h3>{{data.label}}</h3>
+    <app-input-search [filter]="filtroAux">
+    </app-input-search>
+    <vex-tablemultipleselect [sourceService]="entitieService" [listaIdsSelect]="listIds"
+        [columnDefinition]="displayedColumns" [columns]="columns" [columnHeader]="displayedColumns" [filter]="filtroAux">
+    </vex-tablemultipleselect>
+</div>

@@ -2,125 +2,153 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCooperadoraRequest;
+use App\Http\Requests\UpdateCooperadoraRequest;
+use App\Http\Resources\ModelResourse;
+use App\Http\Resources\RequestCollection;
 use App\Models\Cooperadora;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class CooperadoraController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(Request $request)
     {
-        return response(Cooperadora::all());
+        try {
+            if ($request->has('PageNumber')&&$request->has('PageSize')) {
+                return new RequestCollection(Cooperadora::paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']), json_decode($request['filtros'],true));
+            }
+            return new RequestCollection(Cooperadora::paginate(10, ['*'], 'page', 1));
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(StoreCooperadoraRequest $request): JsonResponse
     {
-        //visualiza los datos que se estan mandando en el requiest de la peticion
-        // dd($request->all());
-        $request->validate([
-            'fk_kiosco' => 'required',
-            'fk_establecimiento_educativo' => 'required',
-            'denominacion' => 'required',
-            'decreto' => 'required',
-            'estado' => 'required',
-            'legajo' => 'required',
-        ]);
-
-        $cooperadora = new Cooperadora();
-
-        $cooperadora->fk_kiosco = $request->fk_kiosco;
-        $cooperadora->fk_establecimiento_educativo = $request->fk_establecimiento_educativo;
-        $cooperadora->denominacion = $request->denominacion;
-        if($request->estado)
-            $cooperadora->estado = $request->estado;
-        if($request->convenio_sc_economicas)
-            $cooperadora->convenio_sc_economicas = $request->convenio_sc_economicas;
-        if($request->inscripcion_afip)
-            $cooperadora->inscripcion_afip = $request->inscripcion_afip;
-        if($request->inscripcion_rentas)
-            $cooperadora->inscripcion_rentas = $request->inscripcion_rentas;
-        if($request->inscripcion_renacopes)
-            $cooperadora->inscripcion_renacopes = $request->inscripcion_renacopes;
-        if($request->legajo)
-            $cooperadora->legajo = $request->legajo;
-        if($request->decreto)
-            $cooperadora->decreto = $request->decreto;
-        if($request->fecha_creacion)
-            $cooperadora->fecha_creacion = $request->fecha_creacion;
-
-        $cooperadora->save();
-
-        return response($cooperadora);
+        //$request = new StoreCooperadoraRequest($request->toArray());
+        try {
+            Cooperadora::create([
+                'fkRefTipoAsociacion' => $request->fkRefTipoAsociacion,
+                'fkOrganizacionRUCE' => $request->fkOrganizacionRUCE,
+                'cuit' => $request->cuit,
+                'legajo' => $request->legajo,
+                'denominacion' => $request->denominacion,
+                'estado' => $request->estado,
+                'convenioCsEconomicas' => $request->convenioCsEconomicas,
+                'estadoAfip' => $request->estadoAfip,
+                'estadoRentas' => $request->estadoRentas,
+                'inscripcionRenacopes' => $request->inscripcionRenacopes,
+                'idUsuarioAlta' => $request->idUsuarioAlta,
+            ]);
+            return response()->json([
+                'message' => 'Cooperadora registrada con Exito',
+                'succeeded' => true
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_BAD_REQUEST);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Cooperadora  $cooperadora
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Cooperadora $cooperadora)
+    public function show(int $cooperadora): JsonResponse
     {
-        return response($cooperadora);
+        try {
+            return response()->json(new ModelResourse($cooperadora,'Cooperadora'));
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_BAD_REQUEST);
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Cooperadora  $cooperadora
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Cooperadora $cooperadora)
+    public function update(UpdateCooperadoraRequest $request, int $cooperadora): JsonResponse
     {
-        $request->validate([
-            'fk_kiosco' => 'required',
-            'fk_establecimiento_educativo' => 'required',
-            'denominacion' => 'required',
-            'estado' => 'required',
-            'convenio_sc_economicas' => 'required',
-            'inscripcion_afip' => 'required',
-            'inscripcion_rentas' => 'required',
-            'inscripcion_renacopes' => 'required',
-            'legajo' => 'required',
-            'decreto' => 'required',
-        ]);
+        try {
+            $cooperadora = Cooperadora::where('id', $cooperadora)->first();
+            //$request = new UpdateCooperadoraRequest($request->toArray());
+            $cooperadora->fkRefTipoAsociacion = $request->fkRefTipoAsociacion ?: $cooperadora->fkRefTipoAsociacion;
+            $cooperadora->fkOrganizacionRUCE = $request->fkOrganizacionRUCE ?: $cooperadora->fkOrganizacionRUCE;
+            $cooperadora->cuit = $request->cuit ?: $cooperadora->cuit;
+            $cooperadora->legajo = $request->legajo ?: $cooperadora->legajo;
+            $cooperadora->denominacion = $request->denominacion ?: $cooperadora->denominacion;
+            $cooperadora->estado = $request->estado ?: $cooperadora->estado;
+            $cooperadora->convenioCsEconomicas = $request->convenioCsEconomicas ?: $cooperadora->convenioCsEconomicas;
+            $cooperadora->estadoAfip = $request->estadoAfip ?: $cooperadora->estadoAfip;
+            $cooperadora->estadoRentas = $request->estadoRentas ?: $cooperadora->estadoRentas;
+            $cooperadora->inscripcionRenacopes = $request->inscripcionRenacopes ?: $cooperadora->inscripcionRenacopes;
+            // $cooperdora->idUsuarioModificacion = $request->idUsuarioModificacion ?: $cooperadora->idUsuarioModificacion;
 
-        $cooperadora->update([
-            'fk_kiosco' => $request->fk_kiosco,
-            'fk_establecimiento_educativo' => $request->fk_establecimiento_educativo,
-            'denominacion' => $request->denominacion,
-            'estado' => $request->estado,
-            'convenio_sc_economicas' => $request->convenio_sc_economicas,
-            'inscripcion_afip' => $request->iscripcion_afip,
-            'inscripcion_rentas' => $request->inscripcion_rentas,
-            'inscripcion_renacopes' => $request->inscripcion_renacopes,
-            'legajo' => $request->legajo,
-            'decreto' => $request->decreto,
-        ]);
+            if ($cooperadora->isClean()) {
+                return response()->json([
+                    'message' => 'No se modifico ningun valor',
+                    'succeeded' => false
+                ], 422);
+            }
+            $cooperadora->updated_at= Carbon::now();
+            $cooperadora->save();
 
-        return response($cooperadora);
+            return response()->json([
+                'succeeded' => true,
+                'message' => 'Cooperadora Modificada con exito',
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Cooperadora  $cooperadora
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Cooperadora $cooperadora)
+    public function destroy(int $id): JsonResponse
     {
-        $cooperadora->delete();
-        return response()->noContent();
+        try {
+            Cooperadora::where('id', $id)->update(['estaActivo'=>false,]);
+            Cooperadora::where('id', $id)->delete();
+            return response()->json([
+                'succeeded' => true,
+                'message' => 'Cooperadora eliminada con exito'
+            ], Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
+    }
+
+    public function search(Request $request, Cooperadora $cooperadora)
+    {
+        /*
+        Seguramente se puede refactorizar y optimizar
+        por ahora es la forma que da resultados esperados
+        */
+
+        $query = $cooperadora->newQuery();
+
+        if ($request->id) {
+            $query->where('id', $request->id)
+                ->where(function ($q) use ($request) {
+                    if ($request->q) {
+                        $q->where('cuit', 'like', '%' . $request->q . '%')
+                            ->orWhere('denominacion', 'like', '%' . $request->q . '%');
+                    }
+                });
+        } else {
+            if ($request->q) {
+                $query->where('cuit', 'like', '%' . $request->q . '%')
+                    ->orWhere('denominacion', 'like', '%' . $request->q . '%');
+            }
+        }
+
+        // return new RequestCollection($query->orderBy('organizacionDesc')->paginate()->appends(['q' => $request->q, 'id' => $request->id]));
     }
 }

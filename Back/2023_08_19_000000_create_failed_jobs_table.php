@@ -32,5 +32,8 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('failed_jobs');
+        Schema::table('OrganizacionRUCE', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

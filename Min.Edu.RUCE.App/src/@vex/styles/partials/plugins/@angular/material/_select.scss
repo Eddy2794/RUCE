@@ -1,0 +1,40 @@
+:root {
+  .mat-select-panel {
+    @apply rounded shadow p-2;
+  }
+
+  .mat-option {
+    @apply rounded text-sm font-medium h-10 transition duration-100 ease-out;
+
+    &:hover, &.mat-active {
+      @apply bg-primary/10;
+
+      .mat-icon {
+        @apply text-primary;
+      }
+    }
+
+    .mat-icon {
+      @apply transition duration-100 ease-out;
+      font-size: 1.25rem;
+      height: 1.25rem;
+      width: 1.25rem;
+    }
+
+    &.mat-selected:not(.mat-option-multiple) {
+      @apply bg-primary/20;
+    }
+  }
+
+  .mat-menu-item-submenu-trigger {
+    @apply pr-12;
+  }
+  .mat-select-disabled .mat-select-value {
+    color: rgba(0, 0, 0, 0.9);
+  }
+  .mat-radio-button.mat-radio-disabled .mat-radio-ripple .mat-ripple-element,
+  .mat-radio-button.mat-radio-disabled .mat-radio-inner-circle {
+    background-color: rgba(0, 0, 0, 0.7);
+    white-space: normal;
+  }
+}

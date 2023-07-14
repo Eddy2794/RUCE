@@ -5,24 +5,35 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Expediente extends Model
 {
     use HasFactory;
-    protected $table = 'lib_expediente';
-    protected $primary_key = 'id';
+    use SoftDeletes;
+    protected $table = 'Expediente';
+    protected $primaryKey = 'id';
+    protected $dates = ['deleted_at'];
     protected $fillable = [
-        'nro_expediente',
-        'observaciones',
-        'observaciones_respondidas',
-        'instrumento_publico',
-        'fiscalia_estado',
-        'nro_resolucion',
-        'decreto',
+        'fkCooperadora',
+        'nroExpediente',
+        'cantObservaciones',
+        'observacionesDesc',
+        'observacionesRespondidas',
+        'estaActivo',
+        'idUsuarioAlta',
+        'idUsuarioModificacion'
     ];
-    public function fromDateTime($value){
-        return Carbon::parse(parent::fromDateTime($value))->format('Y-d-m H:i:s');
+
+    /*
+public function fromDateTime($value){
+        return Carbon::parse(parent::fromDateTime($value))->format('d-m-Y H:i:s');
     }
+    
+    public function toDateTime($value){
+        return parent::toDateTime(Carbon::createFromFormat('d/m/Y H:i:s', $value)->format('d-m-Y H:i:s'));
+    }
+*/
 
     //public $timestamps = false;
 }

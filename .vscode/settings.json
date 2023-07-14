@@ -1,20 +1,4 @@
 {
-    "sqltools.connections": [
-        {
-            "mssqlOptions": {
-                "appName": "SQLTools",
-                "useUTC": true,
-                "encrypt": true,
-                "instanceName": "sqlsrv"
-            },
-            "previewLimit": 50,
-            "server": "localhost",
-            "port": 1433,
-            "driver": "MSSQL",
-            "name": "sqlsrv",
-            "database": "db_ruce",
-            "username": "sa",
-            "password": "Sampar.10"
-        }
-    ]
+    "sqltools.connections": [],
+    "svn.ignoreMissingSvnWarning": true
 }

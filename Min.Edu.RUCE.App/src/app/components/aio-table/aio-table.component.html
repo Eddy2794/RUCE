@@ -1,0 +1,200 @@
+<vex-page-layout class="pb-16 flex flex-col items-start justify-center">
+</vex-page-layout>
+<vex-page-layout-content [class.container]="layoutCtrl.value === 'boxed'"
+                        [class.px-gutter]="layoutCtrl.value === 'fullwidth'" class="-mt-6">
+  <div [class.container]="layoutCtrl.value === 'boxed'" 
+        [class.px-gutter]="layoutCtrl.value === 'fullwidth'"
+        class="w-full flex flex-col sm:flex-row justify-end">
+    <div class="hidden sm:block ">
+      <mat-button-toggle-group [formControl]="layoutCtrl" class="mt-4 sm:mt-0 ">
+        <mat-button-toggle value="boxed"><mat-icon svgIcon="mat:fullscreen_exit"></mat-icon></mat-button-toggle>
+        <mat-button-toggle value="fullwidth"><mat-icon svgIcon="mat:zoom_out_map"></mat-icon></mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+  </div>
+  <div class="card overflow-auto -mt-16">
+
+<vex-page-layout>
+  <vex-page-layout-header class="pb-16 flex flex-col items-start justify-center -mb-16"
+    *ngIf="cabecera || cabecera===undefined">
+    <div class="w-full flex flex-col sm:flex-row justify-between">
+      <div>
+        <h1 class="title mt-0 mb-1">{{ nombreTabla }}</h1>
+        <vex-breadcrumbs [crumbs]="path"></vex-breadcrumbs>
+      </div>
+
+    </div>
+  </vex-page-layout-header>
+
+  <div class="card overflow-auto ">
+    <div class="bg-app-bar px-6 h-16 border-b sticky left-0 flex items-center">
+      <h2 class="title my-0 ltr:pr-4 rtl:pl-4 ltr:mr-4 rtl:ml-4 ltr:border-r rtl:border-l hidden sm:block flex-none">
+        <span *ngIf="selection.isEmpty()">{{ nombreTabla }}</span>
+      </h2>
+
+      <ng-content select="[espacio1]"></ng-content>
+      <ng-content select="[espacio2]"></ng-content>
+
+      <span class="flex-1"></span>
+
+      <button [matMenuTriggerFor]="columnFilterMenu" class="ml-4 flex-none" mat-icon-button
+        matTooltip="Filtrar Columnas" type="button">
+        <mat-icon svgIcon="mat:filter_list"></mat-icon>
+      </button>
+
+      <ng-content select="[bordederecho]" class="ml-4 flex-none"></ng-content>
+
+    </div>
+    <div *ngIf="textSearchList.length > 0" class="mt-4 flex flex-col sm:flex-row gap-6">
+      <mat-chip-list *ngFor="let text of textSearchList" aria-label="Elementos de Búsqueda" class="example-chip">
+        <mat-chip (removed)="removeBusqueda()" class="example-box">
+          {{text.name}}
+          <button matChipRemove>
+            <mat-icon svgIcon="mat:cancel"></mat-icon>
+          </button>
+        </mat-chip>
+
+      </mat-chip-list>
+    </div>
+
+    <div *ngIf="!isLoadingResults && dataSource.data.length === 0" style="text-align:center">
+      <h2 class="title mt-0 mb-1">Sin información</h2>
+    </div>
+
+    <table @stagger [dataSource]="dataSource" class="w-full" mat-table matSort
+      *ngIf="!isLoadingResults && dataSource.data.length != 0">
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+
+      <!-- Checkbox Column -->
+      <ng-container matColumnDef="checkbox">
+        <th *matHeaderCellDef mat-header-cell>
+          <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()" color="primary">
+          </mat-checkbox>
+        </th>
+        <td *matCellDef="let row" class="w-4" mat-cell>
+          <mat-checkbox (change)="$event ? selection.toggle(row) : null" (click)="$event.stopPropagation()"
+            [checked]="selection.isSelected(row)" color="primary">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+
+      <!-- Image Column -->
+      <ng-container matColumnDef="image">
+        <th *matHeaderCellDef mat-header-cell></th>
+        <td *matCellDef="let row" class="w-8 min-w-8 pr-0" mat-cell>
+          <img [src]="row['imageSrc']" class="avatar h-8 w-8 align-middle">
+        </td>
+      </ng-container>
+
+      <!-- Text Columns -->
+      <ng-container *ngFor="let column of columns; trackBy: trackByProperty">
+        <ng-container *ngIf="column.type === 'text'" [matColumnDef]="column.property">
+          <th *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header> {{ column.label }}</th>
+          <td *matCellDef="let row" [ngClass]="column.cssClasses" mat-cell>{{ row[column.property] }}</td>
+        </ng-container>
+        <ng-container *ngIf="column.type === 'object'" [matColumnDef]="column.property">
+          <th *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header> {{ column.label }}</th>
+          <td *matCellDef="let row" [ngClass]="column.cssClasses" mat-cell>{{ row | mapingObject:column.property }}</td>
+        </ng-container>
+        <ng-container *ngIf="column.type === 'boolean'" [matColumnDef]="column.property">
+          <th *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header> {{ column.label }}</th>
+          <td *matCellDef="let row" [ngClass]="column.cssClasses" mat-cell>{{ row[column.property] === true? "SI":"NO"
+            }}</td>
+        </ng-container>
+        <ng-container *ngIf="column.type === 'date'" [matColumnDef]="column.property">
+          <th *matHeaderCellDef mat-header-cell mat-sort-header> {{ column.label }}</th>
+          <td *matCellDef="let row" [ngClass]="column.cssClasses" mat-cell>{{ row[column.property] | date : 'dd/MM/yyyy'
+            }}</td>
+        </ng-container>
+      </ng-container>
+
+      <!-- Contact Column -->
+      <ng-container matColumnDef="contact">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header></th>
+        <td *matCellDef="let row" mat-cell>
+          <div class="flex">
+            <a (click)="$event.stopPropagation()"
+              class="w-8 h-8 leading-none flex items-center justify-center hover:bg-hover text-primary bg-primary/10"
+              mat-icon-button>
+              <mat-icon class="icon-sm" svgIcon="mat:phone"></mat-icon>
+            </a>
+
+            <a (click)="$event.stopPropagation()"
+              class="w-8 h-8 leading-none flex items-center justify-center ml-1 hover:bg-hover text-teal bg-teal-light"
+              mat-icon-button>
+              <mat-icon class="icon-sm" svgIcon="mat:mail"></mat-icon>
+            </a>
+
+            <a (click)="$event.stopPropagation()"
+              class="w-8 h-8 leading-none flex items-center justify-center ml-1 hover:bg-hover text-green bg-green-light"
+              mat-icon-button>
+              <mat-icon class="icon-sm" svgIcon="mat:map"></mat-icon>
+            </a>
+          </div>
+        </td>
+      </ng-container>
+
+      <!-- Action Column -->
+      <ng-container matColumnDef="actions">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header></th>
+        <td *matCellDef="let row" class="w-10 text-secondary" mat-cell>
+          <button (click)="$event.stopPropagation()" [matMenuTriggerData]="{ fila: row }"
+            [matMenuTriggerFor]="actionsMenu" mat-icon-button type="button">
+            <mat-icon svgIcon="mat:more_horiz"></mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <!-- Selection Column -->
+      <ng-container matColumnDef="selection">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header></th>
+        <td *matCellDef="let row" class="w-10 text-secondary" mat-cell>
+          <button (click)="seleccionar(row)" matTooltip="Seleccionar" color="primary"
+             mat-icon-button type="button">
+            <mat-icon svgIcon="mat:playlist_add_check"></mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr *matHeaderRowDef="visibleColumns" mat-header-row></tr>
+      <tr *matRowDef="let row; columns: visibleColumns;" @fadeInUp class="hover:bg-hover trans-ease-out cursor-pointer"
+        mat-row></tr>
+    </table>
+
+    <mat-paginator (page)="pageChanged($event)" [pageSize]="pageProperties.pageSize" [length]="pageProperties.length"
+      [pageSizeOptions]="pageSizeOptions" class="mat-paginator-sticky" showFirstLastButtons="true"></mat-paginator>
+  </div>
+</vex-page-layout>
+
+
+<mat-menu #columnFilterMenu="matMenu" xPosition="before" yPosition="below">
+  <button (click)="toggleColumnVisibility(column, $event)" *ngFor="let column of columns"
+    class="checkbox-item mat-menu-item">
+    <mat-checkbox (click)="$event.stopPropagation()" [(ngModel)]="column.visible" color="primary">
+      {{ column.label }}
+    </mat-checkbox>
+  </button>
+</mat-menu>
+
+<mat-menu #actionsMenu="matMenu" xPosition="before" yPosition="below">
+  <ng-template let-fila="fila" matMenuContent>
+    <button mat-menu-item (click)="ver(fila)">
+      <mat-icon svgIcon="mat:visibility"></mat-icon>
+      <span>Ver</span>
+    </button>
+    <button mat-menu-item (click)="modificar(fila)">
+      <mat-icon svgIcon="mat:edit"></mat-icon>
+      <span>Modificar</span>
+    </button>
+    <button mat-menu-item (click)="eliminar(fila)">
+      <mat-icon svgIcon="mat:delete"></mat-icon>
+      <span>Eliminar</span>
+    </button>
+    <button mat-menu-item (click)="confirmar(fila)" *ngIf="specialButton?.includes('confirmar')">
+      <mat-icon svgIcon="mat:check_circle_outline"></mat-icon>
+      <span>Confirmar</span>
+    </button>
+  </ng-template>
+</mat-menu>

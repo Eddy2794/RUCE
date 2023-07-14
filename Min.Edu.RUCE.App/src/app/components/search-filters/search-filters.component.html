@@ -1,0 +1,39 @@
+<ng-container [formGroup]="formulario">
+    <div *ngIf="!opBuscar">
+        <mat-form-field style="width: 100%">
+            <mat-label style="color:darkslategray">{{nombreTabla}}</mat-label>
+            <div (click)="buscar()">
+                <input matInput type="text" readonly="true" formControlName="desc">
+            </div>
+
+            <mat-error>
+                <app-ver-error [control]="this.formulario.controls['desc']">
+                </app-ver-error>
+            </mat-error>
+
+            <button mat-icon-button matTooltip="Búsqueda" color="primary" type="button" *ngIf="!this.formulario.controls['desc'].value"
+                Style="font-size:28px; position: absolute; right: 2rem; bottom: 0.01rem;" (click)="buscar()">
+                <mat-icon svgIcon="mat:search"></mat-icon>
+            </button>
+
+            <button mat-icon-button matTooltip="Eliminar" color="primary" type="button" (click)="limpiar()" *ngIf="this.formulario.controls['desc'].value"
+                Style="font-size:28px; position: absolute; right: 0.1rem; bottom: 0.01rem;">
+                <mat-icon svgIcon="mat:clear"></mat-icon>
+            </button>
+        </mat-form-field>
+    </div>
+
+    <div *ngIf="opBuscar">
+        <vex-aio-table [columns]="columnasVex" [sourceService]="sourceService" [filter]="filtro"
+            (seleccion)="changeId($event)" [nombreTabla]="'Búsqueda de ' + nombreTabla" [cabecera]="false">
+            <app-input-search espacio1></app-input-search>
+            <app-search-button-generic espacio2 [searchOptions]="searchOptions">
+            </app-search-button-generic>
+        </vex-aio-table>
+        <br>
+        <div ngClass="dvBotones">
+            <button mat-raised-button color="warn" type="button" (click)="cancelar()">Cancelar</button>
+        </div>
+        <br>
+    </div>
+</ng-container>

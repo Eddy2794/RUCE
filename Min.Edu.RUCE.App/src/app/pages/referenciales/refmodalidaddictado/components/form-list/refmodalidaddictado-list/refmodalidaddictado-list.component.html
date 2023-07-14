@@ -1,0 +1,12 @@
+<mat-label class="mat-14">
+    <h2>Administrar Modalidades de Dictado</h2>
+</mat-label>
+    <app-button-nuevo [routerLink]="'refmodalidaddictado'" [addRowText]="'Agregar Modalidad de Dictado'"></app-button-nuevo>
+
+    <app-table [sourceService]="refmodalidaddictadoService" [columnDefinition]="displayedColumns" [columns]="columns"
+    [searchOptions]="searchOptions" [columnHeader]="displayedColumns" [filter]="filtro" [routerLink]="'refmodalidaddictado'">
+    <app-input-search>
+        <app-search-button-generic [searchOptions]="searchOptions" >
+        </app-search-button-generic>
+    </app-input-search>
+</app-table>
