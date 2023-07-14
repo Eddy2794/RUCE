@@ -41,7 +41,7 @@ import { InsupdComponent } from './autoridades/Components/frm-insupd/insupd/insu
     SharedModule,
     PageLayoutModule,
     BreadcrumbsModule,
-    SecondaryToolbarModule
+    SecondaryToolbarModule,
   ],
   providers: [
     CooperadoraService,

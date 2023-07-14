@@ -4,7 +4,7 @@ import { PersonaRUCEModel } from '../../../../ref-ruce/Model/persona-ruce-model'
 import { RefCargoModel } from '@app/pages/ruce/ref-ruce/Model/refcargo-model';
 
 export class AutoridadCooperadoraModel extends BaseModel {
-    static className: string = 'autoridad_cooperadora';
+    static className: string = 'autoridad_comision';
     constructor(
         public id?: number,
         public fkPersonaRUCE?: PersonaRUCEModel,

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\RefCargo;
+use App\Models\RefInstanciaInstrumento;
 use App\Models\RefTipoAsociacion;
 use App\Models\RefTipoComision;
 use App\Models\RefTipoDocumentoRUCE;
@@ -19,44 +20,64 @@ class RefSeeder extends Seeder
     public function run()
     {
         // Tipos de Documento
-        $refTipoDocumento = new RefTipoDocumentoRUCE();
-        $refTipoDocumento->tipoDocumentoDesc = 'DNI';
+        $refTipoDocumento = new RefTipoDocumentoRUCE(['tipoDocumentoDesc' => 'DNI']);
+        $refTipoDocumento->save();
+        $refTipoDocumento = new RefTipoDocumentoRUCE(['tipoDocumentoDesc' => 'PASAPORTE']);
         $refTipoDocumento->save();
 
 
 
 
+
         // Tipos de Cargo
-        $refCargo = new RefCargo();
-        $refCargo->cargoDesc = 'DIRECTOR';
+        $refCargo = new RefCargo(['cargoDesc' => 'DIRECTOR']);
+        $refCargo->save();
+        $refCargo = new RefCargo(['cargoDesc' => 'PRESIDENTE']);
+        $refCargo->save();
+        $refCargo = new RefCargo(['cargoDesc' => 'SECRETARIO']);
+        $refCargo->save();
+        $refCargo = new RefCargo(['cargoDesc' => 'TESORERO']);
         $refCargo->save();
 
 
 
 
+        
+        // Tipo de Fondo
+        $refTipoComision = new RefTipoComision(['tipoComisionDesc'=>'COMISION DIRECTIVA']);
+        $refTipoComision->save();
+        $refTipoComision = new RefTipoComision(['tipoComisionDesc'=>'COMISION REGULARIZADORA']);
+        $refTipoComision->save();
+
+
+
+
+        
         // Tipos de Asociacion
-        // $refTipoAsociacion = new RefTipoAsociacion();
-        // $refTipoAsociacion->tipoAsociacionDesc = "Asociacion Simple";
-        // $refTipoAsociacion->save();
-
-        // $refTipoAsociacion = new RefTipoAsociacion();
-        // $refTipoAsociacion->tipoAsociacionDesc = "Asociacion Civil";
-        // $refTipoAsociacion->save();
+        $refTipoAsociacion = new RefTipoAsociacion(['tipoAsociacionDesc' => "SIMPLE"]);
+        $refTipoAsociacion->save();
+        $refTipoAsociacion = new RefTipoAsociacion(['tipoAsociacionDesc' => "CIVIL"]);
+        $refTipoAsociacion->save();
 
 
 
 
-        // Tipos de Comision
-        // $refTipoComision = new RefTipoComision();
-        // $refTipoComision->tipoComisionDesc = '';
-        // $refTipoComision->save();
-
-
-
-
+        
         // Tipos de Fondo
-        // $refTipoFondo = new RefTipoFondo();
-        // $refTipoFondo->tipoFondoDesc = '';
-        // $refTipoFondo->save();
+        $refTipoFondo = new RefTipoFondo(['tipoFondoDesc'=>'COOPERAR']);
+        $refTipoFondo->save();
+
+
+
+
+        
+        
+        // Tipo Instancia Instrumento
+        $refInstanInstr = new RefInstanciaInstrumento(['instrumentoDesc'=>'SECRETARIA DE BIENESTAR']);
+        $refInstanInstr->save();
+        $refInstanInstr = new RefInstanciaInstrumento(['instrumentoDesc'=>'FISCALIA']);
+        $refInstanInstr->save();
+        $refInstanInstr = new RefInstanciaInstrumento(['instrumentoDesc'=>'SECRETARIA DE EQUIDAD']);
+        $refInstanInstr->save();
     }
 }

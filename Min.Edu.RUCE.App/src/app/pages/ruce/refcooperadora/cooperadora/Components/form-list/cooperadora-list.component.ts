@@ -45,10 +45,10 @@ export class CooperadoraListComponent implements OnInit {
       { label: "DENOMINACION", property: "denominacion", type: "text", visible: true, },
       { label: "ESTADO", property: "estado", type: "text", visible: true },
       { label: "LEGAJO", property: "legajo", type: "text", visible: true },
-      { label: "CONVENIO SC ECONOMICAS", property: "convenioScEconomicas", type: "boolean", visible: true },
-      { label: "INSCRIPCION AFIP", property: "inscripcion_afip", type: "boolean", visible: true },
-      { label: "INSCRIPCION RENTAS", property: "inscripcion_rentas", type: "boolean", visible: true },
-      { label: "INSCRIPCION RENACOPES", property: "inscripcion_renacopes", type: "boolean", visible: true },
+      { label: "CONVENIO SC ECONOMICAS", property: "convenioCsEconomicas", type: "boolean", visible: true },
+      { label: "INSCRIPCION AFIP", property: "estadoAfip", type: "boolean", visible: true },
+      { label: "INSCRIPCION RENTAS", property: "estadoRentas", type: "boolean", visible: true },
+      { label: "INSCRIPCION RENACOPES", property: "inscripcionRenacopes", type: "boolean", visible: true },
       { label: "KIOSCO", property: "fkKiosco", type: "object", visible: false },
     ];
   }

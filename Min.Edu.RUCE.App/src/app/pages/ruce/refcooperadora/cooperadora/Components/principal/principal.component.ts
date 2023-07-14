@@ -11,7 +11,7 @@ import { CooperadoraService } from '../../Services/Cooperadora/cooperadora.servi
 export class PrincipalComponent implements OnInit {
 
   cooperadora?: CooperadoraModel;
-  id?: string;
+  id?: number;
 
   constructor(
     private route:ActivatedRoute,
@@ -22,12 +22,10 @@ export class PrincipalComponent implements OnInit {
     this.id = this.route.snapshot.params['id'];
     this.obtenerData(this.id)
   }
-  obtenerData(id: any) {
+  obtenerData(id: number) {
     this.cooperadoraService.findOne(id).subscribe((res:any)=>{
-      this.cooperadora = Object.assign({},res.entities[0],this.cooperadora);
-      console.log(this.cooperadora);
+      this.cooperadora = Object.assign(res.entities,this.cooperadora);
     })
-    throw new Error('Method not implemented.');
   }
 
 }

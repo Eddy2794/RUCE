@@ -11,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 export class EncabezadoCooperadoraComponent implements OnInit {
 
   cooperadora?: CooperadoraModel;
-  id?: string;
+  id?: number;
 
   constructor(
     private route:ActivatedRoute, 
@@ -27,7 +27,7 @@ export class EncabezadoCooperadoraComponent implements OnInit {
 
   private obtenerData(id:any){
     this.cooperadoraService.findOne(id).subscribe((res:any) => {
-      this.cooperadora = Object.assign( this.cooperadora, res.entities);
+      this.cooperadora = Object.assign({}, this.cooperadora, res.entities);
     });
   }
 

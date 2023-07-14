@@ -176,7 +176,7 @@ export class CooperadoraFormInsupdComponent implements OnInit {
     const filter: FilterOptions = { estaActivo: true };
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = '750px';
+    dialogConfig.width = '75%';
 
     dialogConfig.data = {
       dataSource,

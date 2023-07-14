@@ -1,30 +1,20 @@
 <div class="card border-b">
     <div class="px-gutter py-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div class="py-1 flex items-center">
-            <div
-                class="w-10 h-10 rounded-full bg-primary/10 text-primary ltr:mr-3 rtl:ml-3 flex items-center justify-center">
+            <div class="w-10 h-10 rounded-full bg-primary/10 text-primary ltr:mr-3 rtl:ml-3 flex items-center justify-center">
                 <mat-icon class="icon-sm" svgIcon="mat:event_note"></mat-icon>
             </div>
-
             <div>
-                <p class="m-0 body-0 ">
-                    <label><b></b></label>
-                </p>
                 <p class="m-0 caption text-hint">LEGAJO: {{cooperadora.legajo}}</p>
             </div>
         </div>
 
         <div class="py-1 flex items-center">
-            <div
-                class="w-10 h-10 rounded-full bg-primary/10 text-primary ltr:mr-3 rtl:ml-3 flex items-center justify-center">
+            <div class="w-10 h-10 rounded-full bg-primary/10 text-primary ltr:mr-3 rtl:ml-3 flex items-center justify-center">
                 <mat-icon class="icon-sm" svgIcon="mat:business"></mat-icon>
             </div>
-
             <div>
-                <p class="m-0 body-1">
-                    <label><b></b></label>
-                </p>
-                <p class="m-0 caption text-hint">INSTITUCIÓN: {{cooperadora.fkOrganizacionRUCE.organizacionDesc}}</p>
+                <p class="m-0 caption text-hint">INSTITUCIÓN: {{cooperadora.fkOrganizacionRUCE?.organizacionDesc}}</p>
             </div>
         </div>
 
@@ -32,8 +22,7 @@
     </div>
     <div class="px-gutter py-4 grid grid-cols-4 sm:grid-cols-4 gap-4">
         <div class="py-1 flex items-center">
-            <div
-                class="w-10 h-10 rounded-full bg-primary/10 text-primary ltr:mr-3 rtl:ml-3 flex items-center justify-center">
+            <div class="w-10 h-10 rounded-full bg-primary/10 text-primary ltr:mr-3 rtl:ml-3 flex items-center justify-center">
                 <mat-icon class="icon-sm" svgIcon="mat:event_note"></mat-icon>
             </div>
 
@@ -43,8 +32,7 @@
             </div>
         </div>
         <div class="py-1 flex items-center">
-            <div
-                class="w-10 h-10 rounded-full bg-primary/10 text-primary ltr:mr-3 rtl:ml-3 flex items-center justify-center">
+            <div class="w-10 h-10 rounded-full bg-primary/10 text-primary ltr:mr-3 rtl:ml-3 flex items-center justify-center">
                 <mat-icon class="icon-sm" svgIcon="mat:event_note"></mat-icon>
             </div>
 
@@ -54,19 +42,17 @@
             </div>
         </div>
         <div class="py-1 flex items-center">
-            <div
-                class="w-10 h-10 rounded-full bg-primary/10 text-primary ltr:mr-3 rtl:ml-3 flex items-center justify-center">
+            <div class="w-10 h-10 rounded-full bg-primary/10 text-primary ltr:mr-3 rtl:ml-3 flex items-center justify-center">
                 <mat-icon class="icon-sm" svgIcon="mat:business"></mat-icon>
             </div>
     
             <div>
                 <p class="m-0 body-1"><label><b></b></label></p>
-                <p class="m-0 caption text-hint">TIPO DE ASOCIACIÓN: {{cooperadora.fkRefTipoAsociacion.tipoAsociacionDesc}}</p>
+                <p class="m-0 caption text-hint">TIPO DE ASOCIACIÓN: {{cooperadora.fkRefTipoAsociacion?.tipoAsociacionDesc}}</p>
             </div>
         </div>
         <div class="py-1 flex items-center">
-            <div
-            class="w-10 h-10 rounded-full bg-primary/10 text-primary ltr:mr-3 rtl:ml-3 flex items-center justify-center">
+            <div class="w-10 h-10 rounded-full bg-primary/10 text-primary ltr:mr-3 rtl:ml-3 flex items-center justify-center">
             <mat-icon class="icon-sm" svgIcon="mat:business"></mat-icon>
         </div>
         

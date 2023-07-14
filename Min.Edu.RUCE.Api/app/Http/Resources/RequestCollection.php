@@ -29,16 +29,17 @@ class RequestCollection extends ResourceCollection
                     return $item[$clave] == $valor;
                 });
             }
-            //agrega informacion de las claves foraneas
-            $addFkData = new ModelResourse(null,'');
-            $datos=$addFkData->addFkData($datos);
-
             $paginaActual = $this->data->currentPage();
             $porPagina = $this->data->perPage();
             $total = $datos->count();
             $items = $datos->forPage($paginaActual, $porPagina)->values();        
             $this->data = new LengthAwarePaginator($items, $total, $porPagina, $paginaActual);
         }
+
+        //agrega informacion de las claves foraneas
+        $addFkData = new ModelResourse(null,'');
+        $datos=$addFkData->addFkData($datos);
+        
         return $datos->values()->toArray();
     }
 
