@@ -13,7 +13,7 @@
         <h2 class="title m-0" *ngIf="accion==='edit'">Formulario Modificación de Cooperadora</h2>
         <h2 class="title m-0" *ngIf="accion==='delete'">Formulario Eliminación de Cooperadora</h2>
     </div>
-    <form autocomplete="off" [formGroup]="formularioCooperadora" (ngSubmit)="save()">
+    <form autocomplete="off" [formGroup]="formularioCooperadora"> <!-- (ngSubmit)="save()" -->
         <div @fadeInUp class="formuario">
             <div class="flex flex-col md:flex-row gap-3">
                 <mat-form-field>
@@ -37,7 +37,7 @@
                         <app-ver-error [control]="this.formularioCooperadora.controls['organizacionDesc']"></app-ver-error>
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field *ngIf="this.formularioCooperadora.controls['organizacionDesc'].value !== ''">
+                <mat-form-field>
                     <mat-label>Tipo Asociación</mat-label>
                     <mat-select formControlName="fkRefTipoAsociacion">
                         <mat-option>Seleccione</mat-option>
@@ -49,7 +49,7 @@
                 </mat-form-field>
             </div>
             <div class="flex flex-col md:flex-row gap-3">
-                <mat-form-field *ngIf="this.formularioCooperadora.controls['organizacionDesc'].value !== ''">
+                <mat-form-field>
                     <mat-label>CUIT</mat-label>
                     <input matInput formControlName="cuit" type="text" mayus espacios>
                     <mat-error>
@@ -57,7 +57,7 @@
                         </app-ver-error>
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field *ngIf="this.formularioCooperadora.controls['organizacionDesc'].value !== ''">
+                <mat-form-field>
                     <mat-label>Legajo</mat-label>
                     <input matInput formControlName="legajo" type="text" mayus espacios>
                     <mat-error>
@@ -67,7 +67,7 @@
                 </mat-form-field>
             </div>
             <div class="flex flex-col md:flex-row gap-3">
-                <mat-form-field *ngIf="this.formularioCooperadora.controls['organizacionDesc'].value !== ''">
+                <mat-form-field>
                     <mat-label>Denominacion</mat-label>
                     <input matInput formControlName="denominacion" type="text" mayus espacios>
                     <mat-error>
@@ -75,7 +75,7 @@
                         </app-ver-error>
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field *ngIf="this.formularioCooperadora.controls['organizacionDesc'].value !== ''">
+                <mat-form-field>
                     <mat-label>Estado</mat-label>
                     <mat-select formControlName="estado">
                         <mat-option>Seleccione</mat-option>
@@ -88,7 +88,7 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-            <div class="flex flex-col sm:flex-row gap-3" *ngIf="this.formularioCooperadora.controls['organizacionDesc'].value !== ''">
+            <div class="flex flex-col sm:flex-row gap-3">
                 <div class="slide-group">
                     <mat-slide-toggle color="accent" formControlName="convenioCsEconomicas" [checked]="false" class="p-4"></mat-slide-toggle>
                     <mat-label>Convenio Cs. Económicas</mat-label>
@@ -98,7 +98,7 @@
                     <mat-label>Inscripcion Afip</mat-label>
                 </div>
             </div>
-            <div class="flex flex-col sm:flex-row gap-3" *ngIf="this.formularioCooperadora.controls['organizacionDesc'].value !== ''">
+            <div class="flex flex-col sm:flex-row gap-3">
                 <div class="slide-group">
                     <mat-slide-toggle color="accent" formControlName="estadoRentas" [checked]="false" class="p-4"></mat-slide-toggle>
                     <mat-label>Inscripcion Rentas</mat-label>
