@@ -7,6 +7,7 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 use App\Http\Resources\ModelResourse;
+use Illuminate\Support\Facades\Schema;
 
 class RequestCollection extends ResourceCollection
 {
@@ -18,6 +19,18 @@ class RequestCollection extends ResourceCollection
     {
         $this->data = new LengthAwarePaginator($data->items(), $data->total(), $data->perPage(), $data->currentPage());
         $this->filtros = $filtros;
+    }
+
+    protected function getBoolean(mixed $registros){
+        foreach($registros as $registro){
+            foreach ($registro->getAttributes() as $clave => $valor){
+                $fieldType = Schema::getColumnType(class_basename($registro), $clave);
+                if ($fieldType === 'boolean') {
+                    ($valor==0)?$registro[$clave]=false:$registro[$clave]=true;
+                }
+            }
+        }
+        return $registros;
     }
 
     public function toArray($data){
@@ -35,6 +48,8 @@ class RequestCollection extends ResourceCollection
             $items = $datos->forPage($paginaActual, $porPagina)->values();        
             $this->data = new LengthAwarePaginator($items, $total, $porPagina, $paginaActual);
         }
+
+        $datos = $this->getBoolean($datos);
 
         //agrega informacion de las claves foraneas
         $addFkData = new ModelResourse(null,'');

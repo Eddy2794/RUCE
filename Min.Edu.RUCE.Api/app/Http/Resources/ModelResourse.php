@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use Exception;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+use Illuminate\Support\Facades\Schema;
 class ModelResourse extends JsonResource
 {
     public static $wrap = 'entities';
@@ -27,9 +28,22 @@ class ModelResourse extends JsonResource
         }
     }
 
+
+    protected function getBoolean(mixed $registros){
+        foreach($registros as $registro){
+            foreach ($registro->getAttributes() as $clave => $valor){
+                $fieldType = Schema::getColumnType(class_basename($registro), $clave);
+                if ($fieldType === 'boolean') {
+                    ($valor==0)?$registro[$clave]=false:$registro[$clave]=true;
+                }
+            }
+        }
+        return $registros;
+    }
+
     private function recFkData(mixed $registro){
         try{
-            foreach ($registro->getAttributes() as $clave => $valor)
+            foreach ($registro->getAttributes() as $clave => $valor){                
                 if(str_contains($clave,'fk')){
                     $modelo = 'App\Models'.'\\'.substr($clave,2);
                     $modelo = new $modelo;
@@ -41,6 +55,7 @@ class ModelResourse extends JsonResource
                         $registro[$clave]=$this->recFkData($valor);
                     }
                 }
+            }
             return $registro;
         }
         catch(Exception){
