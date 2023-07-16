@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { KioscoModel } from '../../Models/Kiosco/kiosco-model';
+import { KioscoModel } from '../Models/kiosco-model';
 
 import { environment } from '@environments/environment';
 

@@ -1,5 +1,5 @@
 import { CooperadoraModel } from '../Cooperadora/cooperadora-model';
-import { ExpedienteModel } from '../../../Models/Expediente/expediente-model';
+import { ExpedienteModel } from '../../../expediente/Models/expediente-model';
 import { BaseModel } from '@app/_models/base.model';
 import { RefTipoAsociacionModel } from '@app/pages/ruce/ref-ruce/Model/reftipoasociacion-model';
 

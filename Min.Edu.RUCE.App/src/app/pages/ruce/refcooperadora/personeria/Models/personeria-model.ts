@@ -1,5 +1,5 @@
 import { BaseModel } from '@app/_models/base.model';
-import { ExpedienteModel } from './../Expediente/expediente-model';
+import { ExpedienteModel } from '../../expediente/Models/expediente-model';
 
 export class PersoneriaModel extends BaseModel {
     static className: string = 'personerias';

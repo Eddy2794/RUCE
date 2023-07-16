@@ -10,11 +10,11 @@ import { EncabezadoCooperadoraComponent } from './cooperadora/Components/encabez
 import { AtencionSeguimientoService } from './cooperadora/Services/AtencionSeguimiento/atencion-seguimiento.service';
 import { CooperadoraService } from './cooperadora/Services/Cooperadora/cooperadora.service';
 import { AutoridadCooperadoraService } from './cooperadora/Services/AutoridadCooperadora/autoridad-cooperadora.service';
-import { KioscoService } from './Services/Kiosco/kiosco.service';
+import { KioscoService } from './kiosco/Services/kiosco.service';
 import { FondoCooperarService } from './cooperadora/Services/FondoCooperar/fondo-cooperar.service';
 import { HistorialEstadoCooperadoraService } from './cooperadora/Services/Historial_Estado_Cooperadora/historial-estado-cooperadora.service';
-import { ExpedienteService } from './Services/Expediente/expediente.service';
-import { PersoneriaService } from './Services/Personeria/personeria.service';
+import { ExpedienteService } from './expediente/Services/expediente.service';
+import { PersoneriaService } from './personeria/Services/personeria.service';
 
 import { SharedModule } from '@app/shared/shared.module';
 import { PageLayoutModule } from 'src/@vex/components/page-layout/page-layout.module';
@@ -24,6 +24,8 @@ import { RefCooperadoraRoutingModule } from './refcooperadora-routing.module';
 import { RefTipoAsociacionService } from '../ref-ruce/Services/reftipoasociacion.service';
 import { AutoridadListComponent } from './autoridades/Components/autoridad-list/autoridad-list/autoridad-list.component';
 import { InsupdComponent } from './autoridades/Components/frm-insupd/insupd/insupd.component';
+import { ExpedienteListComponent } from './expediente/Components/frm-list/expediente-list/expediente-list.component';
+import { MovimientoExpedienteListComponent } from './expediente/Components/frm-list/movimiento-expediente-list/movimiento-expediente-list.component';
 
 
 @NgModule({
@@ -34,6 +36,8 @@ import { InsupdComponent } from './autoridades/Components/frm-insupd/insupd/insu
     PrincipalComponent,
     AutoridadListComponent,
     InsupdComponent,
+    ExpedienteListComponent,
+    MovimientoExpedienteListComponent,
   ],
   imports: [
     CommonModule,

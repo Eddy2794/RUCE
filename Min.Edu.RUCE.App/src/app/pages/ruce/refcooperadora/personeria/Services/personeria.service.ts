@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { PersoneriaModel } from '../../Models/Personeria/personeria-model';
+import { PersoneriaModel } from '../Models/personeria-model';
 
 import { environment } from '@environments/environment';
 
