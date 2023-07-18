@@ -26,18 +26,22 @@ import { AutoridadListComponent } from './autoridades/Components/autoridad-list/
 import { InsupdComponent } from './autoridades/Components/frm-insupd/insupd/insupd.component';
 import { ExpedienteListComponent } from './expediente/Components/frm-list/expediente-list/expediente-list.component';
 import { MovimientoExpedienteListComponent } from './expediente/Components/frm-list/movimiento-expediente-list/movimiento-expediente-list.component';
+import { EncabezadoComisionComponent } from './comision/Components/encabezado/encabezado-comision.component';
+import { ComisionInsupdComponent } from './comision/frm-insupd/insupd/insupd.component';
 
 
 @NgModule({
   declarations: [
     EncabezadoCooperadoraComponent,
     CooperadoraFormInsupdComponent,
+    ComisionInsupdComponent,
     CooperadoraListComponent,
     PrincipalComponent,
     AutoridadListComponent,
     InsupdComponent,
     ExpedienteListComponent,
     MovimientoExpedienteListComponent,
+    EncabezadoComisionComponent,
   ],
   imports: [
     CommonModule,
