@@ -27,7 +27,7 @@ import { InsupdComponent } from './autoridades/Components/frm-insupd/insupd/insu
 import { ExpedienteListComponent } from './expediente/Components/frm-list/expediente-list/expediente-list.component';
 import { MovimientoExpedienteListComponent } from './expediente/Components/frm-list/movimiento-expediente-list/movimiento-expediente-list.component';
 import { EncabezadoComisionComponent } from './comision/Components/encabezado/encabezado-comision.component';
-import { ComisionInsupdComponent } from './comision/frm-insupd/insupd/insupd.component';
+import { ComisionInsupdComponent } from './comision/Components/frm-insupd/comision-insupd.component';
 
 
 @NgModule({

@@ -13,8 +13,8 @@ import { ComisionService } from '../../Services/comision.service';
 
 @Component({
   selector: 'vex-insupd-comision',
-  templateUrl: './insupd.component.html',
-  styleUrls: ['./insupd.component.scss']
+  templateUrl: './comision-insupd.component.html',
+  styleUrls: ['./comision-insupd.component.scss']
 })
 export class ComisionInsupdComponent implements OnInit {
   formularioComision!: FormGroup;

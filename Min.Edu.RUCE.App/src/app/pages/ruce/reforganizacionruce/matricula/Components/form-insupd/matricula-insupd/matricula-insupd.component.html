@@ -32,7 +32,7 @@
 
                 <mat-form-field>
                     <mat-label>Periodo Lectivo</mat-label>
-                    <input matInput formControlName="periodoLectivo" type="number">
+                    <input matInput formControlName="periodoLectivo" type="number" solonum>
                     <mat-error>
                         <app-ver-error [control]="this.formularioMatricula.controls['inicioCargo']">
                         </app-ver-error>
@@ -40,7 +40,7 @@
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Matrícula</mat-label>
-                    <input matInput formControlName="matricula" type="number">
+                    <input matInput formControlName="matricula" type="number" solonum>
                     <mat-error>
                         <app-ver-error [control]="this.formularioMatricula.controls['finCargo']"></app-ver-error>
                     </mat-error>
