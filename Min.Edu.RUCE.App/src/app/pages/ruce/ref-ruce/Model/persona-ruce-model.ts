@@ -11,6 +11,9 @@ export class PersonaRUCEModel extends BaseModel {
         public apellido?: string,
         public telefono?: string,
         public email?: string,
+        public estaActivo?: boolean,
+        public idUsuarioAlta?: number,
+        public idUsuarioModificacion?: number,
     ) {
         super();
     }

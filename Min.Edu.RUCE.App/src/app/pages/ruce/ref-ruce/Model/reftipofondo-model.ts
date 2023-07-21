@@ -5,6 +5,9 @@ export class RefTipoFondoModel extends BaseModel {
     constructor(
         public id?: number,
         public tipoFondoDesc?: string,
+        public estaActivo?: boolean,
+        public idUsuarioAlta?: number,
+        public idUsuarioModificacion?: number,
     ){
         super();
     }

@@ -5,6 +5,9 @@ export class RefTipoDocumentoModel extends BaseModel {
     constructor(
         public id?: number,
         public tipoDocumentoDesc?: string,
+        public estaActivo?: boolean,
+        public idUsuarioAlta?: number,
+        public idUsuarioModificacion?: number,
     ){
         super();
     }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CooperadoraModel } from '../../Models/Cooperadora/cooperadora-model';
+import { CooperadoraModel } from '../../Models/cooperadora-model';
 import { ActivatedRoute } from '@angular/router';
-import { CooperadoraService } from '../../Services/Cooperadora/cooperadora.service';
+import { CooperadoraService } from '../../Services/cooperadora.service';
 
 @Component({
   selector: 'vex-principal',

@@ -1,5 +1,5 @@
-import { CooperadoraService } from "../../Services/Cooperadora/cooperadora.service";
-import { CooperadoraModel } from "../../Models/Cooperadora/cooperadora-model";
+import { CooperadoraService } from "../../Services/cooperadora.service";
+import { CooperadoraModel } from "../../Models/cooperadora-model";
 import { Component, OnInit } from "@angular/core";
 
 import { Router } from "@angular/router";

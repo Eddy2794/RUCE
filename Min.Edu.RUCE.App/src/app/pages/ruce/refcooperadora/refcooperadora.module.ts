@@ -7,12 +7,12 @@ import { CooperadoraListComponent } from './cooperadora/Components/form-list/coo
 import { PrincipalComponent } from './cooperadora/Components/principal/principal.component';
 import { EncabezadoCooperadoraComponent } from './cooperadora/Components/encabezado-cooperadora/encabezado-cooperadora.component';
 
-import { AtencionSeguimientoService } from './cooperadora/Services/AtencionSeguimiento/atencion-seguimiento.service';
-import { CooperadoraService } from './cooperadora/Services/Cooperadora/cooperadora.service';
-import { AutoridadCooperadoraService } from './cooperadora/Services/AutoridadCooperadora/autoridad-cooperadora.service';
+import { AtencionSeguimientoService } from './atencion-seguimiento/Service/atencion-seguimiento.service';
+import { CooperadoraService } from './cooperadora/Services/cooperadora.service';
+import { AutoridadComisionService } from './autoridades/Service/autoridad-comision.service';
 import { KioscoService } from './kiosco/Services/kiosco.service';
-import { FondoCooperarService } from './cooperadora/Services/FondoCooperar/fondo-cooperar.service';
-import { HistorialEstadoCooperadoraService } from './cooperadora/Services/Historial_Estado_Cooperadora/historial-estado-cooperadora.service';
+import { FondoService } from './fondo/Services/fondo.service';
+import { MovimientoExpedienteService } from './expediente/Services/movimiento-expediente.service';
 import { ExpedienteService } from './expediente/Services/expediente.service';
 import { PersoneriaService } from './personeria/Services/personeria.service';
 
@@ -23,7 +23,7 @@ import { SecondaryToolbarModule } from 'src/@vex/components/secondary-toolbar/se
 import { RefCooperadoraRoutingModule } from './refcooperadora-routing.module';
 import { RefTipoAsociacionService } from '../ref-ruce/Services/reftipoasociacion.service';
 import { AutoridadListComponent } from './autoridades/Components/autoridad-list/autoridad-list/autoridad-list.component';
-import { InsupdComponent } from './autoridades/Components/frm-insupd/insupd/insupd.component';
+import { AutoridadInsupdComponent } from './autoridades/Components/frm-insupd/insupd/autoridad-insupd.component';
 import { ExpedienteListComponent } from './expediente/Components/frm-list/expediente-list/expediente-list.component';
 import { MovimientoExpedienteListComponent } from './expediente/Components/frm-list/movimiento-expediente-list/movimiento-expediente-list.component';
 import { EncabezadoComisionComponent } from './comision/Components/encabezado/encabezado-comision.component';
@@ -38,7 +38,7 @@ import { ComisionInsupdComponent } from './comision/Components/frm-insupd/comisi
     CooperadoraListComponent,
     PrincipalComponent,
     AutoridadListComponent,
-    InsupdComponent,
+    AutoridadInsupdComponent,
     ExpedienteListComponent,
     MovimientoExpedienteListComponent,
     EncabezadoComisionComponent,
@@ -53,13 +53,13 @@ import { ComisionInsupdComponent } from './comision/Components/frm-insupd/comisi
   ],
   providers: [
     CooperadoraService,
-    AutoridadCooperadoraService,
+    AutoridadComisionService,
     KioscoService,
     AtencionSeguimientoService,
-    FondoCooperarService,
+    FondoService,
     RefTipoAsociacionService,
 
-    HistorialEstadoCooperadoraService,
+    MovimientoExpedienteService,
     ExpedienteService,
     PersoneriaService,
     SelectService

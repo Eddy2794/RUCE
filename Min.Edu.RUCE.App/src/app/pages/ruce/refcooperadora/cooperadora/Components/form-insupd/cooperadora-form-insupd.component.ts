@@ -5,7 +5,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogComponent, DialogData } from '@app/components/dialog/dialog.component';
 import { ValidatorService } from '@app/shared/validators/validator.service';
-import { CooperadoraService } from '../../Services/Cooperadora/cooperadora.service';
+import { CooperadoraService } from '../../Services/cooperadora.service';
 import { OrganizacionRUCEModel } from '@app/pages/ruce/reforganizacionruce/organizacion/Models/OrganizacionRUCE/organizacionruce-model';
 import { ModalSelectOrganizacionComponent } from '@app/components/modal-select-organizacion/modal-select-organizacion.component';
 import { IBaseService } from '@app/shared/services/interface/i-base.service';

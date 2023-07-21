@@ -1,23 +1,25 @@
-import { RefcargoService } from '@app/pages/ruce/ref-ruce/Services/refcargo-service';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DialogComponent, DialogData } from '@app/components/dialog/dialog.component';
+import { RefCargoModel } from '@app/pages/ruce/ref-ruce/Model/refcargo-model';
+import { RefTipoDocumentoModel } from '@app/pages/ruce/ref-ruce/Model/reftipodocumento-model';
+import { PersonaruceService } from '@app/pages/ruce/ref-ruce/Services/personaruce-service';
+import { RefcargoService } from '@app/pages/ruce/ref-ruce/Services/refcargo-service';
+import { RefTipoDocumentoService } from '@app/pages/ruce/ref-ruce/Services/reftipodocumento.service';
+import { AutoridadComisionService } from '@app/pages/ruce/refcooperadora/autoridades/Service/autoridad-comision.service';
+import { ComisionModel } from '@app/pages/ruce/refcooperadora/comision/Models/comision-model';
+import { ComisionService } from '@app/pages/ruce/refcooperadora/comision/Services/comision.service';
+import { DataPage, FilterOptions } from '@app/shared/utils';
 import { ValidatorService } from '@app/shared/validators/validator.service';
 import { fadeInUp400ms } from 'src/@vex/animations/fade-in-up.animation';
 import { stagger60ms } from 'src/@vex/animations/stagger.animation';
-import { AutoridadOrganizacionRUCEService } from './../../Services/AutoridadOrganizacionRUCE/autoridad-organizacionruce.service';
-import { RefTipoDocumentoService } from '@app/pages/ruce/ref-ruce/Services/reftipodocumento.service';
-import { DataPage, FilterOptions } from '@app/shared/utils';
-import { filter } from 'rxjs';
-import { RefTipoDocumentoModel } from '@app/pages/ruce/ref-ruce/Model/reftipodocumento-model';
-import { RefCargoModel } from '@app/pages/ruce/ref-ruce/Model/refcargo-model';
-import { PersonaruceService } from '@app/pages/ruce/ref-ruce/Services/personaruce-service';
+
 @Component({
-  selector: 'app-autoridades-form',
-  templateUrl: './insupd.component.html',
-  styleUrls: ['./insupd.component.scss'],
+  selector: 'vex-autoridad-insupd',
+  templateUrl: './autoridad-insupd.component.html',
+  styleUrls: ['./autoridad-insupd.component.scss'],
   animations: [
     stagger60ms,
     fadeInUp400ms
@@ -27,69 +29,68 @@ export class AutoridadInsupdComponent implements OnInit {
 
   formularioAutoridad!: FormGroup;
   id: number = 0;
-  idOrganizacion!: number;
+  idComision!: number;
   filtro: FilterOptions = { estaActivo: true, PageSize: 10,};
   tiposDocumentos = new Array<RefTipoDocumentoModel>;
   cargos = new Array<RefCargoModel>;
-
+  tipoComision = new Array<ComisionModel>;
 
   public accion: string = '';
-
-/*   regiones: string[]= ['I','II','III','IV',"V",'VI','VII'];
-  niveles: string[]= ['INICIAL','PRIMARIO','SECUNDARIO','SUPERIOR']; */
 
   constructor(
     private fb: FormBuilder,
     private personaRUCEService: PersonaruceService,
-    private autoridadOrganizacionRUCEService: AutoridadOrganizacionRUCEService,
+    private autoridadComisionService: AutoridadComisionService,
+    private comisionService: ComisionService,
     private refTipoDocumentoService: RefTipoDocumentoService,
     private refCargoService: RefcargoService,
     private activatedRoute: ActivatedRoute,
     private validadorServicio: ValidatorService,
     private router: Router,
     private route:ActivatedRoute,
-    private matDialog: MatDialog)
-    {
-      this.activatedRoute.url.subscribe((parameter: any) => {
-        this.accion = (parameter[0].path);
-        switch (parameter[0].path) {
-          case 'delete': {
-            this.accion = 'delete'
-            break;
-          }
-          case 'add-edit': {
-            this.accion = 'add'
-            break;
-          }
-          case 'view': {
-            this.accion = 'view'
-            break;
-          }
+    private matDialog: MatDialog
+  ) {
+    this.activatedRoute.url.subscribe((parameter: any) => {
+      this.accion = (parameter[0].path);
+      switch (parameter[0].path) {
+        case 'delete': {
+          this.accion = 'delete'
+          break;
         }
-      });
-      this.loadRefs();
-      this.idOrganizacion = this.route.snapshot.params['id'];
-      this.createForm();
-      this.activatedRoute.params.subscribe((param: any) => {
-        this.id = parseInt(param.idAutoridad);
-        if (this.id !== 0) {
-          if (this.accion !== 'delete'){
-            this.accion = 'edit'
-          }
-          this.autoridadOrganizacionRUCEService.findOne(this.id).subscribe((resp: any) => {
-            this.formularioAutoridad.patchValue(resp.entities);
-            this.formularioAutoridad.controls.documento.patchValue(resp.entities.fkPersonaRUCE.documento);
-            this.formularioAutoridad.controls.cuil.patchValue(resp.entities.fkPersonaRUCE.cuil);
-            this.formularioAutoridad.controls.nombre.patchValue(resp.entities.fkPersonaRUCE.nombre);
-            this.formularioAutoridad.controls.apellido.patchValue(resp.entities.fkPersonaRUCE.apellido);
-            this.formularioAutoridad.controls.telefono.patchValue(resp.entities.fkPersonaRUCE.telefono);
-            this.formularioAutoridad.controls.email.patchValue(resp.entities.fkPersonaRUCE.email);
-            this.formularioAutoridad.controls.fkRefCargo.patchValue(resp.entities.fkRefCargo.id);
-            this.formularioAutoridad.controls.fkRefTipoDocumentoRUCE.patchValue(resp.entities.fkPersonaRUCE.fkRefTipoDocumentoRUCE.id);
-          });
+        case 'add-edit': {
+          this.accion = 'add'
+          break;
         }
-      });
-    }
+        case 'view': {
+          this.accion = 'view'
+          break;
+        }
+      }
+    });
+    this.loadRefs();
+    this.idComision = this.route.snapshot.params['id'];
+    this.createForm();
+    this.activatedRoute.params.subscribe((param: any) => {
+      this.id = parseInt(param.idAutoridad);
+      if (this.id !== 0) {
+        if (this.accion !== 'delete'){
+          this.accion = 'edit'
+        }
+        this.autoridadComisionService.findOne(this.id).subscribe((resp: any) => {
+          this.formularioAutoridad.patchValue(resp.entities);
+          this.formularioAutoridad.controls.documento.patchValue(resp.entities.fkPersonaRUCE.documento);
+          this.formularioAutoridad.controls.cuil.patchValue(resp.entities.fkPersonaRUCE.cuil);
+          this.formularioAutoridad.controls.nombre.patchValue(resp.entities.fkPersonaRUCE.nombre);
+          this.formularioAutoridad.controls.apellido.patchValue(resp.entities.fkPersonaRUCE.apellido);
+          this.formularioAutoridad.controls.telefono.patchValue(resp.entities.fkPersonaRUCE.telefono);
+          this.formularioAutoridad.controls.email.patchValue(resp.entities.fkPersonaRUCE.email);
+          this.formularioAutoridad.controls.fkRefCargo.patchValue(resp.entities.fkRefCargo.id);
+          this.formularioAutoridad.controls.fkRefComision.patchValue(resp.entities.fkRefComision.id);
+          this.formularioAutoridad.controls.fkRefTipoDocumentoRUCE.patchValue(resp.entities.fkPersonaRUCE.fkRefTipoDocumentoRUCE.id);
+        });
+      }
+    });
+  }
 
   ngOnInit(): void {
   }
@@ -101,12 +102,15 @@ export class AutoridadInsupdComponent implements OnInit {
     this.refCargoService.filter(this.filtro).subscribe((data: DataPage<RefCargoModel>) => {
       this.cargos = Object.assign([],data.entities,this.cargos);
     })
+    this.comisionService.filter(this.filtro).subscribe((data: DataPage<ComisionModel>) => {
+       this.tipoComision = Object.assign([],data.entities,this.tipoComision);
+    })
   }
 
   createForm() {
     this.formularioAutoridad = this.fb.group({
       id: null,
-      fkOrganizacionRUCE: this.idOrganizacion,
+      fkComision: this.idComision,
       fkRefCargo: [null, {validators: [ Validators.required, ]}],
       fkPersonaRUCE: null,
       fkRefTipoDocumentoRUCE: [null, {validators: [ Validators.required, ]}],
@@ -116,6 +120,7 @@ export class AutoridadInsupdComponent implements OnInit {
       apellido: [null, {validators: [ Validators.required, ]}],
       telefono: [null, {validators: [ Validators.required, ]}],
       email: [null, {validators: [ Validators.required,]}],
+      fkcomision:[null,{validators: [ Validators.required]}],
       inicioCargo: [null, {validators: [ Validators.required]}],
       finCargo: [null, {validators: [ Validators.required]} ],
       estaActivo: true,
@@ -142,21 +147,21 @@ export class AutoridadInsupdComponent implements OnInit {
       this.formularioAutoridad.removeControl('id');
       this.formularioAutoridad.value['inicioCargo'] = this.formularioAutoridad.value['inicioCargo']?.toString()
       this.formularioAutoridad.value['finCargo'] = this.formularioAutoridad.value['finCargo']?.toString()
-      this.autoridadOrganizacionRUCEService.create(this.formularioAutoridad.value).subscribe((resp: any) => {
+      this.autoridadComisionService.create(this.formularioAutoridad.value).subscribe((resp: any) => {
         this.mostrarDialogMsj("Mensaje", "Autoridad Creada", false)
-        this.router.navigate(['/pages/establecimientos/view/'+this.idOrganizacion]);
+        this.router.navigate(['/pages/establecimientos/view/'+this.idComision]);
       }, err => {
         this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)
       }
       );
     } else {
-      this.formularioAutoridad.value.fkOrganizacionRUCE = this.formularioAutoridad.value.fkOrganizacionRUCE?.id;
+      this.formularioAutoridad.value.fkcomision = this.formularioAutoridad.value.fkComision?.id;
       this.formularioAutoridad.value.fkRefTipoDocumentoRUCE = this.formularioAutoridad.value.fkPersonaRUCE.fkRefTipoDocumentoRUCE?.id;
       this.formularioAutoridad.value.fkPersonaRUCE = this.formularioAutoridad.value.fkPersonaRUCE?.id;
       
-      this.autoridadOrganizacionRUCEService.update(this.formularioAutoridad.value.id, this.formularioAutoridad.value).subscribe((resp: any) => {
+      this.autoridadComisionService.update(this.formularioAutoridad.value.id, this.formularioAutoridad.value).subscribe((resp: any) => {
         this.mostrarDialogMsj("Mensaje", "Autoridad Modificado", false)
-        this.router.navigate(['/pages/establecimientos/view/'+this.idOrganizacion]);
+        this.router.navigate(['/pages/establecimientos/view/'+this.idComision]);
       }, err => {
         this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)
       }
@@ -164,7 +169,7 @@ export class AutoridadInsupdComponent implements OnInit {
     }
   }
   cancel() {
-    this.router.navigate(['/pages/establecimientos/view/'+this.idOrganizacion]);
+    this.router.navigate(['/pages/establecimientos/view/'+this.idComision]);
   }
   eliminar() {
     let datos: DialogData = { titulo: "Confirmacion", msj: "¿Esta seguro que desea eliminar?", cancelVisible: true }
@@ -175,9 +180,9 @@ export class AutoridadInsupdComponent implements OnInit {
 
     dialog.afterClosed().subscribe(result => {
       if (result === "Aceptar") {
-        this.autoridadOrganizacionRUCEService.delete(this.formularioAutoridad.value.id).subscribe((resp: any) => {
+        this.autoridadComisionService.delete(this.formularioAutoridad.value.id).subscribe((resp: any) => {
           this.mostrarDialogMsj("Mensaje", "Autoridad Eliminado", false)
-          this.router.navigate(['/pages/establecimientos/view/'+this.idOrganizacion]);
+          this.router.navigate(['/pages/establecimientos/view/'+this.idComision]);
         }, err => {
           this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)
         }

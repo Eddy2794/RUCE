@@ -5,6 +5,9 @@ export class RefInstanciaInstrumentoModel extends BaseModel {
     constructor(
         public id?: number,
         public instrumentoDesc?: string,
+        public estaActivo?: boolean,
+        public idUsuarioAlta?: number,
+        public idUsuarioModificacion?: number,
     ){
         super();
     }

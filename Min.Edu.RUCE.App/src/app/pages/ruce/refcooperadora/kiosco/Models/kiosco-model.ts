@@ -1,13 +1,19 @@
 import { BaseModel } from "@app/_models/base.model";
+import { PersonaRUCEModel } from "@app/pages/ruce/ref-ruce/Model/persona-ruce-model";
+import { CooperadoraModel } from "../../cooperadora/Models/cooperadora-model";
 
 export class KioscoModel extends BaseModel {
     static className: string = 'kioscos';
     constructor(
-        public responsable?: string,
-        public acceso_licitacion?: boolean,
-        public documentacion_presentada?: boolean,
-        public periodo_inicio?: Date,
-        public periodo_fin?: Date,
+        public fkCooperadora?: CooperadoraModel,
+        public fkPersonaRUCE?: PersonaRUCEModel,
+        public accesoLicitacion?: boolean,
+        public documentacionPresentada?: boolean,
+        public periodoInicio?: Date,
+        public periodoFin?: Date,
+        public estaActivo?: boolean,
+        public idUsuarioAlta?: number,
+        public idUsuarioModificacion?: number,
 
     ) {
         super();

@@ -8,12 +8,12 @@ import { FormBuilder } from '@angular/forms';
 import { fadeInUp400ms } from 'src/@vex/animations/fade-in-up.animation';
 import { stagger60ms } from 'src/@vex/animations/stagger.animation';
 import { Subscription } from 'rxjs';
-import { CooperadoraModel } from '@app/pages/ruce/refcooperadora/cooperadora/Models/Cooperadora/cooperadora-model';
-import { AutoridadCooperadoraModel } from '@app/pages/ruce/refcooperadora/cooperadora/Models/AutoridadCooperadora/autoridad-cooperadora-model';
+import { CooperadoraModel } from '@app/pages/ruce/refcooperadora/cooperadora/Models/cooperadora-model';
+import { AutoridadComisionModel } from '@app/pages/ruce/refcooperadora/autoridades/Model/autoridad-comision-model';
 import { PersonaRUCEModel } from '@app/pages/ruce/ref-ruce/Model/persona-ruce-model';
 import { RefCargoModel } from '@app/pages/ruce/ref-ruce/Model/refcargo-model';
-import { CooperadoraService } from '@app/pages/ruce/refcooperadora/cooperadora/Services/Cooperadora/cooperadora.service';
-import { AutoridadCooperadoraService } from '@app/pages/ruce/refcooperadora/cooperadora/Services/AutoridadCooperadora/autoridad-cooperadora.service';
+import { CooperadoraService } from '@app/pages/ruce/refcooperadora/cooperadora/Services/cooperadora.service';
+import { AutoridadComisionService } from '@app/pages/ruce/refcooperadora/autoridades/Service/autoridad-comision.service';
 import { RefcargoService } from '@app/pages/ruce/ref-ruce/Services/refcargo-service';
 import { PersonaruceService } from '@app/pages/ruce/ref-ruce/Services/personaruce-service';
 
@@ -36,9 +36,9 @@ export class AutoridadListComponent implements OnInit {
   searchOptions!: SearchOptionsGeneric[];
   filtros!: {};
   filtro: FilterOptions = { estaActivo: true, filtros: null};
-  columnasVex: TableColumn<AutoridadCooperadoraModel>[];
+  columnasVex: TableColumn<AutoridadComisionModel>[];
 
-  autoridadesCooperadora: AutoridadCooperadoraModel[] = [];
+  autoridadesCooperadora: AutoridadComisionModel[] = [];
   personaRUCE: PersonaRUCEModel[] = [];
   refCargo: RefCargoModel[] = [];
 
@@ -46,7 +46,7 @@ export class AutoridadListComponent implements OnInit {
 
   constructor(
     public cooperadoraService: CooperadoraService,
-    public autoridadService: AutoridadCooperadoraService,
+    public autoridadService: AutoridadComisionService,
     public refCargoService: RefcargoService,
     public personaRUCEService: PersonaruceService,
   ) { }

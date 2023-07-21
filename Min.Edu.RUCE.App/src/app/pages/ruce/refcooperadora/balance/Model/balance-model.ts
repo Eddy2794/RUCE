@@ -1,17 +1,16 @@
 import { BaseModel } from "@app/_models/base.model";
 import { CooperadoraModel } from "../../cooperadora/Models/cooperadora-model";
 
-export class ExpedienteModel extends BaseModel {
-    static className: string = 'expediente';
+export class BalanceModel extends BaseModel {
+    static className: string = 'balance';
     constructor(
+        public id?: number,
         public fkCooperadora?: CooperadoraModel,
-        public nroExpediente?: string,
-        public cantObservaciones?: number,
-        public observacionesDesc?: string,
-        public observacionesRespondidas?: boolean,
+        public estadoBalance?: boolean,
         public estaActivo?: boolean,
         public idUsuarioAlta?: number,
         public idUsuarioModificacion?: number,
+
     ) {
         super();
     }

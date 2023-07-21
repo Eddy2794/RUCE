@@ -5,6 +5,9 @@ export class ReftipocomisionModel extends BaseModel {
     constructor(
         public id?: number,
         public tipoComisionDesc?: string,
+        public estaActivo?: boolean,
+        public idUsuarioAlta?: number,
+        public idUsuarioModificacion?: number,
     ){
         super();
     }

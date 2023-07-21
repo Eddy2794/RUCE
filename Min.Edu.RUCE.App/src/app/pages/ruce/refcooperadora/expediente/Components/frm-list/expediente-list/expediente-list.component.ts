@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FilterOptions } from '@app/shared/utils';
 import { SearchOptionsGeneric } from '@app/shared/utils/search-options-generic';
 import { TableColumn } from 'src/@vex/interfaces/table-column.interface';
-import { AutoridadCooperadoraModel } from '../../../../cooperadora/Models/AutoridadCooperadora/autoridad-cooperadora-model';
+import { AutoridadComisionModel } from '../../../../autoridades/Model/autoridad-comision-model';
 
 @Component({
   selector: 'vex-expediente-list',
@@ -18,7 +18,7 @@ export class ExpedienteListComponent implements OnInit {
   searchOptions!: SearchOptionsGeneric[];
   filtros!: {};
   filtro: FilterOptions = { estaActivo: true, filtros: null};
-  columnasVex: TableColumn<AutoridadCooperadoraModel>[];
+  columnasVex: TableColumn<AutoridadComisionModel>[];
 
   constructor(private route:ActivatedRoute,
               private expedienteService: ExpedienteService

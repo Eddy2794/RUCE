@@ -1,7 +1,7 @@
 import { MovimientoExpedienteService } from './../../../Services/movimiento-expediente.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AutoridadCooperadoraModel } from '@app/pages/ruce/refcooperadora/cooperadora/Models/AutoridadCooperadora/autoridad-cooperadora-model';
+import { AutoridadComisionModel } from '@app/pages/ruce/refcooperadora/autoridades/Model/autoridad-comision-model';
 import { FilterOptions } from '@app/shared/utils';
 import { SearchOptionsGeneric } from '@app/shared/utils/search-options-generic';
 import { TableColumn } from 'src/@vex/interfaces/table-column.interface';
@@ -17,7 +17,7 @@ export class MovimientoExpedienteListComponent implements OnInit {
   searchOptions!: SearchOptionsGeneric[];
   filtros!: {};
   filtro: FilterOptions = { estaActivo: true, filtros: null};
-  columnasVex: TableColumn<AutoridadCooperadoraModel>[];
+  columnasVex: TableColumn<AutoridadComisionModel>[];
 
   constructor(private route:ActivatedRoute,
               protected movimientoExpedienteService: MovimientoExpedienteService

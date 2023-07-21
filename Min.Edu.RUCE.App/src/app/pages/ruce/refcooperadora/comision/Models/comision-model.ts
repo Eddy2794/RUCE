@@ -1,6 +1,6 @@
 import { BaseModel } from '@app/_models/base.model';
 import { ReftipocomisionModel } from '@app/pages/ruce/ref-ruce/Model/reftipocomision-model';
-import { CooperadoraModel } from '../../cooperadora/Models/Cooperadora/cooperadora-model';
+import { CooperadoraModel } from '../../cooperadora/Models/cooperadora-model';
 
 export class ComisionModel extends BaseModel {
     public static className: string = "comision";

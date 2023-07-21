@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { PersoneriaModel } from '../Models/personeria-model';
+import { AutoridadComisionModel } from '../Model/autoridad-comision-model';
 
 import { environment } from '@environments/environment';
 import { BaseService } from '@app/shared/services';
@@ -8,8 +8,8 @@ import { BaseService } from '@app/shared/services';
 @Injectable({
   providedIn: 'root'
 })
-export class PersoneriaService extends BaseService<PersoneriaModel> {
+export class AutoridadComisionService extends BaseService<AutoridadComisionModel> {
   constructor(http: HttpClient){
-    super(http, environment.apiRuceUrl, PersoneriaModel.className);
+    super(http, environment.apiRuceUrl, AutoridadComisionModel.className);
   }
 }

@@ -6,6 +6,9 @@ export class RefTipoAsociacionModel extends BaseModel {
     constructor(
         public id?: number,
         public tipoAsociacionDesc?: string,
+        public estaActivo?: boolean,
+        public idUsuarioAlta?: number,
+        public idUsuarioModificacion?: number,
     ){
         super();
     }

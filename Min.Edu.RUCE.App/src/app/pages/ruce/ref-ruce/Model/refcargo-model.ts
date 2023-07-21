@@ -5,6 +5,9 @@ export class RefCargoModel extends BaseModel {
     constructor(
         public id?: number,
         public cargoDesc?: string,
+        public estaActivo?: boolean,
+        public idUsuarioAlta?: number,
+        public idUsuarioModificacion?: number,
     ){
         super();
     }
