@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedInteger('fkPersonaRUCE');
             $table->foreign('fkPersonaRUCE')->references('id')->on('PersonaRUCE')->onDelete('cascade');
 
-            $table->unsignedInteger('fkCooperadora');
+            $table->unsignedInteger('fkCooperadora')->unique();
             $table->foreign('fkCooperadora')->references('id')->on('Cooperadora')->onDelete('cascade');
             
             $table->boolean('accesoLicitacion')->default(false);

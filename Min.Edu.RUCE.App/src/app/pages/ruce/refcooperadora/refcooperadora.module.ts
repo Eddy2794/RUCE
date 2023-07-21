@@ -22,7 +22,7 @@ import { BreadcrumbsModule } from 'src/@vex/components/breadcrumbs/breadcrumbs.m
 import { SecondaryToolbarModule } from 'src/@vex/components/secondary-toolbar/secondary-toolbar.module';
 import { RefCooperadoraRoutingModule } from './refcooperadora-routing.module';
 import { RefTipoAsociacionService } from '../ref-ruce/Services/reftipoasociacion.service';
-import { AutoridadListComponent } from './autoridades/Components/autoridad-list/autoridad-list/autoridad-list.component';
+import { AutoridadListComponent } from './autoridades/Components/autoridad-list/autoridad-list.component';
 import { AutoridadInsupdComponent } from './autoridades/Components/frm-insupd/insupd/autoridad-insupd.component';
 import { ExpedienteListComponent } from './expediente/Components/frm-list/expediente-list/expediente-list.component';
 import { MovimientoExpedienteListComponent } from './expediente/Components/frm-list/movimiento-expediente-list/movimiento-expediente-list.component';

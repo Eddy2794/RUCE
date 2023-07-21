@@ -56,16 +56,19 @@ class ComisionController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Comision  $comision
-     * @return \Illuminate\Http\Response
-     */
-    public function show(int $comision): JsonResponse
+    public function show(int $fk_cooperadora): JsonResponse
     {
         try {
-            return response()->json(new ModelResourse($comision,'Comision'));
+            $comision = Comision::where('fkCooperadora', $fk_cooperadora)->first();
+
+        if ($comision) {
+            return response()->json(new ModelResourse($comision['id'], 'Comision'));
+        } else {
+            return response()->json([
+                'succeeded' => false,
+                'message' => 'Comision not found'
+            ], Response::HTTP_NOT_FOUND);
+        }
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,

@@ -17,10 +17,10 @@ return new class extends Migration
         Schema::create('Personeria', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->unsignedInteger('fkExpediente');
+            $table->unsignedInteger('fkExpediente')->unique();
             $table->foreign('fkExpediente')->references('id')->on('Expediente')->onDelete('cascade'); 
 
-            $table->unsignedInteger('fkCooperadora');
+            $table->unsignedInteger('fkCooperadora')->unique();
             $table->foreign('fkCooperadora')->references('id')->on('Cooperadora');
 
             $table->string('decreto')->nullable();

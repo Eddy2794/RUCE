@@ -52,6 +52,8 @@ class ModelResourse extends JsonResource
                         unset($valor['created_at']);
                         unset($valor['updated_at']);
                         unset($valor['deleted_at']);
+                        // unset($valor['idUsuarioAlta']);
+                        // unset($valor['idUsuarioModificacion']);
                         $registro[$clave]=$this->recFkData($valor);
                     }
                 }
@@ -73,10 +75,17 @@ class ModelResourse extends JsonResource
     public function toArray($request)
     {
         if ($this->model != ''){
+            // crea una instancia del modelo dianmico
             $modelo = new $this->model();
+
+            // obtiene los datos del modelo dianmico
             $datos = $modelo::where('id',$this->id)->get();
 
+            // agrega los datos de las claves foraneas
             $datos=$this->addFkData($datos);
+
+            // cambia los 0 y 1 de los campos booleanos por true o false
+            $datos=$this->getBoolean($datos);
 
             return ['entities'=>$datos[0]];
         }

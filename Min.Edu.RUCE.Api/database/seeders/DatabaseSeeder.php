@@ -27,6 +27,7 @@ use App\Models\RefTipoFondo;
 use App\Models\UsuarioRUCE;
 use Illuminate\Database\Seeder;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -39,14 +40,14 @@ class DatabaseSeeder extends Seeder
         //Ejecucion de Seeders
 
         $this->call([
-            RefSeeder::class,
-            PersonaRUCESeeder::class,
+            // RefSeeder::class,
+            // PersonaRUCESeeder::class,
             // UsuarioAdministradorSeeder::class,
         ]);
 
         //Ejecucion de Factories
 
-        $cant_registros = 40;
+        $cant_registros = 100;
 
         // PersonaRUCE::factory($cant_registros)->create();
         
@@ -54,11 +55,13 @@ class DatabaseSeeder extends Seeder
 
         // Kiosco::factory($cant_registros)->create();
 
-        OrganizacionRUCE::factory($cant_registros)->create();
+        // OrganizacionRUCE::factory($cant_registros)->create();
 
-        AutoridadOrganizacionRUCE::factory(2)->create();
+        // AutoridadOrganizacionRUCE::factory(2)->create();
 
         // Cooperadora::factory($cant_registros)->create();
+
+        // Comision::factory(2)->create();
 
         // AutoridadComision::factory($cant_registros)->create();
 

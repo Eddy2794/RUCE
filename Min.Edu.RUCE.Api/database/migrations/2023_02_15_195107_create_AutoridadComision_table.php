@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('AutoridadComision', function (Blueprint $table) {
             $table->increments('id');
             
-            $table->unsignedInteger('fkPersonaRUCE');
+            $table->unsignedInteger('fkPersonaRUCE')->unique();
             $table->foreign('fkPersonaRUCE')->references('id')->on('PersonaRUCE')->onDelete('cascade');
 
             $table->unsignedInteger('fkRefCargo');

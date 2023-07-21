@@ -43,6 +43,7 @@ export class AutoridadListComponent implements OnInit {
   refCargo: RefCargoModel[] = [];
 
   @Input() idCooperadora!: number;
+  @Input() idComision!: number
 
   constructor(
     public cooperadoraService: CooperadoraService,
@@ -56,7 +57,7 @@ export class AutoridadListComponent implements OnInit {
   }
 
   obtenerBusqueda() {
-    this.filtro = { estaActivo: true, PageSize: 10, filtros:'{"fkCooperadora":"'+this.idCooperadora+'"}'};
+    this.filtro = { estaActivo: true, PageSize: 10, filtros:'{"fkComision":"'+this.idComision+'"}'};
     this.cargarList();
   }
 

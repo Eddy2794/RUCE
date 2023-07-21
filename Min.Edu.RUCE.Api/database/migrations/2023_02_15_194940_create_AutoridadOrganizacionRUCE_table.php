@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedInteger('fkRefCargo');
             $table->foreign('fkRefCargo')->references('id')->on('RefCargo')->onDelete('cascade');
 
-            $table->unsignedInteger('fkPersonaRUCE');
+            $table->unsignedInteger('fkPersonaRUCE')->unique();
             $table->foreign('fkPersonaRUCE')->references('id')->on('PersonaRUCE')->onDelete('cascade');
 
             $table->unsignedInteger('fkOrganizacionRUCE');

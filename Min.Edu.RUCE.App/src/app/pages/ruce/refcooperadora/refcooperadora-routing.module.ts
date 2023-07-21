@@ -5,6 +5,7 @@ import { CooperadoraFormInsupdComponent } from './cooperadora/Components/form-in
 import { PrincipalComponent } from './cooperadora/Components/principal/principal.component';
 import { TabsEjemploComponent } from '../../tabs-ejemplo/tabs-ejemplo.component';
 import { EncabezadoCooperadoraComponent } from './cooperadora/Components/encabezado-cooperadora/encabezado-cooperadora.component';
+import { AutoridadInsupdComponent } from './autoridades/Components/frm-insupd/insupd/autoridad-insupd.component';
 
 
 const routes: Routes = [
@@ -15,6 +16,15 @@ const routes: Routes = [
       { path: 'add-edit/:id', component: CooperadoraFormInsupdComponent },
       { path: 'delete/:id', component: CooperadoraFormInsupdComponent },
       { path: 'view/:id', component: PrincipalComponent },
+      { path: ':id/autoridades',
+        children: [
+      //     { path: 'listar', component: AutoridadListComponent},
+      //     // { path: 'listar', component: AutoridadFormListComponent},
+          { path: 'add-edit/:idAutoridad', component: AutoridadInsupdComponent },
+          { path: 'delete/:idAutoridad', component: AutoridadInsupdComponent },
+          { path: 'view/:idAutoridad', component: PrincipalComponent },
+      //     { path: '**', redirectTo: 'listar' }
+        ]},
       { path: 'principal', component: PrincipalComponent },
       { path: '**', redirectTo: 'listar' }
     ]

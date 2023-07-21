@@ -79,5 +79,14 @@ class RefSeeder extends Seeder
         $refInstanInstr->save();
         $refInstanInstr = new RefInstanciaInstrumento(['instrumentoDesc'=>'SECRETARIA DE EQUIDAD']);
         $refInstanInstr->save();
+
+
+
+
+        // Tipo Comision
+        $refTipoComision = new RefTipoComision(['tipoComisionDesc' => 'DIRECTIVA']);
+        $refTipoComision->save();
+        $refTipoComision = new RefTipoComision(['tipoComisionDesc' => 'REGULARIZADORA']);
+        $refTipoComision->save();
     }
 }

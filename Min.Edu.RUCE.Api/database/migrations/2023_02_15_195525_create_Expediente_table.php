@@ -17,7 +17,7 @@ return new class extends Migration
         Schema::create('Expediente', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->unsignedInteger('fkCooperadora');
+            $table->unsignedInteger('fkCooperadora')->unique();
             $table->foreign('fkCooperadora')->references('id')->on('Cooperadora')->onDelete('cascade');
 
             $table->string('nroExpediente',100)->nullable(true);

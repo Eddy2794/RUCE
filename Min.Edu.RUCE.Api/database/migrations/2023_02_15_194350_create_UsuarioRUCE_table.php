@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('username');
             $table->boolean('administrador')->default(false);
 
-            $table->unsignedInteger('fkPersonaRUCE');
+            $table->unsignedInteger('fkPersonaRUCE')->unique();
             $table->foreign('fkPersonaRUCE')->references('id')->on('PersonaRUCE')->onDelete('cascade');
 
             $table->boolean('estaActivo')->default(true)->nullable(false);

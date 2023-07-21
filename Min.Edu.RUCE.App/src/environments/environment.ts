@@ -9,7 +9,8 @@ export const environment = {
   apiConfigUrl: 'https://192.168.22.14:8101/api',
   apiPersonasUrl: 'https://192.168.22.14:8091/api',
   apiOrganizacionUrl: 'https://192.168.22.14:4301/api',
-  apiRuceUrl: 'http://localhost:8000/api'
+  // apiRuceUrl: 'http://localhost:8000/api'
+  apiRuceUrl: 'http://localhost:80/api'
 };
 /*
  * For easier debugging in development mode, you can import the following file

@@ -9,7 +9,7 @@ use App\Models\RefTipoComision;
 use App\Models\UsuarioRUCE;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Comision>
  */
 class ComisionFactory extends Factory
 {
@@ -22,15 +22,15 @@ class ComisionFactory extends Factory
     {
         $valor = $this->faker->randomElement([true,false]);
         return [
-            'fkCooperadora' => $this->faker->randomElement(Cooperadora::all()->getQueueableIds()),
+            'fkCooperadora' => $this->faker->unique()->randomElement(Cooperadora::all()->getQueueableIds()),
             'fkRefTipoComision' => $this->faker->randomElement(RefTipoComision::all()->getQueueableIds()),
             'periodoInicio' => $this->faker->dateTime(),
             'periodoFin' => $this->faker->dateTime(),
             'nroSocios' => $this->faker->numerify('###'),
             'estadoResolucion' => $this->faker->randomElement([true,false]),
 
-            'estadoActivo' => $valor,
-            'fechaEliminacion' => $valor?null:$this->faker->date(),
+            // 'estadoActivo' => $valor,
+            'deleted_at' => $valor?null:$this->faker->date(),
 
             'idUsuarioAlta' => $this->faker->randomElement(UsuarioRUCE::all()->getQueueableIds()),
             'idUsuarioModificacion' => $this->faker->randomElement(UsuarioRUCE::all()->getQueueableIds()),

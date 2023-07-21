@@ -24,6 +24,7 @@ class CooperadoraFactory extends Factory
             'fkRefTipoAsociacion' => $this->faker->randomElement(RefTipoAsociacion::all()->getQueueableIds()),
             'fkOrganizacionRUCE' => $this->faker->randomElement(OrganizacionRUCE::all()->getQueueableIds()),
 
+            'cuit' => $this->faker->unique()->numerify("###########"),
             'legajo' => "legajo ".$this->faker->unique()->numerify("###"),
             'denominacion' => $this->faker->domainName,
             'estado' => $this->faker->randomElement(["verde","amarillo","rojo"]),
@@ -37,7 +38,7 @@ class CooperadoraFactory extends Factory
             'idUsuarioModificacion' => $this->faker->randomElement(PersonaRUCE::all()->getQueueableIds()),
 
             'estaActivo' => !$valor,
-            'fechaEliminacion' => $valor?$this->faker->date():null,
+            'deleted_at' => $valor?$this->faker->date():null,
         ];
     }
 }
