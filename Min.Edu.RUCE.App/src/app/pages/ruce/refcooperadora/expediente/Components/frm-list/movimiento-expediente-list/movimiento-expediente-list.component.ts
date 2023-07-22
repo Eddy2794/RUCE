@@ -1,7 +1,7 @@
 import { MovimientoExpedienteService } from './../../../Services/movimiento-expediente.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AutoridadComisionModel } from '@app/pages/ruce/refcooperadora/autoridades/Model/autoridad-comision-model';
+import { AutoridadComisionModel } from '@app/pages/ruce/refcooperadora/comision/Models/autoridad-comision-model';
 import { FilterOptions } from '@app/shared/utils';
 import { SearchOptionsGeneric } from '@app/shared/utils/search-options-generic';
 import { TableColumn } from 'src/@vex/interfaces/table-column.interface';

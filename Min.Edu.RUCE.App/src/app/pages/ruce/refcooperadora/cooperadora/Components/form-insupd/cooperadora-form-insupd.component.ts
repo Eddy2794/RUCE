@@ -124,7 +124,7 @@ export class CooperadoraFormInsupdComponent implements OnInit {
       this.formularioCooperadora.removeControl('id');
       this.cooperadoraService.create(this.formularioCooperadora.value).subscribe((resp: any) => {
         this.mostrarDialogMsj("Mensaje", "Cooperadora Creada", false)
-        this.router.navigate(['/pages/refcooperadora']);
+        this.router.navigate(['/pages/cooperadoras']);
       }, err => {
         this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)
       }
@@ -132,7 +132,7 @@ export class CooperadoraFormInsupdComponent implements OnInit {
     } else {
       this.cooperadoraService.update(this.formularioCooperadora.value.id, this.formularioCooperadora.value).subscribe((resp: any) => {
         this.mostrarDialogMsj("Mensaje", "Cooperadora Modificada", false)
-        this.router.navigate(['/pages/refcooperadora']);
+        this.router.navigate(['/pages/cooperadoras']);
       }, err => {
         this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)
       }
@@ -140,7 +140,7 @@ export class CooperadoraFormInsupdComponent implements OnInit {
     }
   }
   cancel() {
-    this.router.navigate(['/pages/refcooperadora']);
+    this.router.navigate(['/pages/cooperadoras']);
   }
   eliminar() {
     let datos: DialogData = { titulo: "Confirmacion", msj: "¿Esta seguro que desea eliminar?", cancelVisible: true }
@@ -153,7 +153,7 @@ export class CooperadoraFormInsupdComponent implements OnInit {
       if (result === "Aceptar") {
         this.cooperadoraService.delete(this.formularioCooperadora.value.id).subscribe((resp: any) => {
           this.mostrarDialogMsj("Mensaje", "Cooperadora Eliminado", false)
-          this.router.navigate(['/pages/refcooperadora']);
+          this.router.navigate(['/pages/cooperadoras']);
         }, err => {
           this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)
         }

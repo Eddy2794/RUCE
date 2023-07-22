@@ -64,7 +64,7 @@ const routes: VexRoutes = [
             }
           }, 
           {
-            path: 'refcooperadora',
+            path: 'cooperadoras',
             loadChildren: () => import('./pages/ruce/refcooperadora/refcooperadora.module').then(m=> m.RefCooperadoraModule),
             data:{
               toolbarShadowEnabled: true,       

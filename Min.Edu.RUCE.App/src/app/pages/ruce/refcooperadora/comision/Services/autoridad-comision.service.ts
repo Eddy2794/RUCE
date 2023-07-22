@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AutoridadComisionModel } from '../Model/autoridad-comision-model';
+import { AutoridadComisionModel } from '../../comision/Models/autoridad-comision-model';
 
 import { environment } from '@environments/environment';
 import { BaseService } from '@app/shared/services';

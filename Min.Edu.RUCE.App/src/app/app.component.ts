@@ -211,7 +211,7 @@ export class AppComponent {
           {
             type: 'link',
             label: 'Cooperadora',
-            route: '/pages/refcooperadora',
+            route: '/pages/cooperadoras',
             icon: 'mat:diversity_2',
             routerLinkActiveOptions: { exact: true }
           }

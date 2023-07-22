@@ -9,7 +9,6 @@ import { EncabezadoCooperadoraComponent } from './cooperadora/Components/encabez
 
 import { AtencionSeguimientoService } from './atencion-seguimiento/Service/atencion-seguimiento.service';
 import { CooperadoraService } from './cooperadora/Services/cooperadora.service';
-import { AutoridadComisionService } from './autoridades/Service/autoridad-comision.service';
 import { KioscoService } from './kiosco/Services/kiosco.service';
 import { FondoService } from './fondo/Services/fondo.service';
 import { MovimientoExpedienteService } from './expediente/Services/movimiento-expediente.service';
@@ -23,11 +22,12 @@ import { SecondaryToolbarModule } from 'src/@vex/components/secondary-toolbar/se
 import { RefCooperadoraRoutingModule } from './refcooperadora-routing.module';
 import { RefTipoAsociacionService } from '../ref-ruce/Services/reftipoasociacion.service';
 import { AutoridadListComponent } from './autoridades/Components/autoridad-list/autoridad-list.component';
-import { AutoridadInsupdComponent } from './autoridades/Components/frm-insupd/insupd/autoridad-insupd.component';
+import { AutoridadInsupdComponent } from './comision/Components/frm-insupd/autoridad-insupd/autoridad-insupd.component';
 import { ExpedienteListComponent } from './expediente/Components/frm-list/expediente-list/expediente-list.component';
 import { MovimientoExpedienteListComponent } from './expediente/Components/frm-list/movimiento-expediente-list/movimiento-expediente-list.component';
 import { EncabezadoComisionComponent } from './comision/Components/encabezado/encabezado-comision.component';
-import { ComisionInsupdComponent } from './comision/Components/frm-insupd/comision-insupd.component';
+import { ComisionInsupdComponent } from './comision/Components/frm-insupd/comision-insupd/comision-insupd.component';
+import { AutoridadComisionService } from './comision/Services/autoridad-comision.service';
 
 
 @NgModule({

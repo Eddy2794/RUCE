@@ -2,14 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReftipocomisionModel } from '@app/pages/ruce/ref-ruce/Model/reftipocomision-model';
 import { DataPage, FilterOptions } from '@app/shared/utils';
-import { CooperadoraModel } from '../../../cooperadora/Models/cooperadora-model';
 import { ReftipocomisionService } from '@app/pages/ruce/ref-ruce/Services/reftipocomision.service';
-import { CooperadoraService } from '../../../cooperadora/Services/cooperadora.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ValidatorService } from '@app/shared/validators/validator.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent, DialogData } from '@app/components/dialog/dialog.component';
-import { ComisionService } from '../../Services/comision.service';
+import { ComisionService } from '../../../Services/comision.service';
 
 @Component({
   selector: 'vex-insupd-comision',
@@ -104,7 +102,7 @@ export class ComisionInsupdComponent implements OnInit {
       this.formularioComision.removeControl('id');
       this.comisionService.create(this.formularioComision.value).subscribe((resp: any) => {
         this.mostrarDialogMsj("Mensaje", "Comision Creada", false)
-        this.router.navigate(['/pages/refcooperadora']);
+        this.router.navigate(['/pages/cooperadoras']);
       }, err => {
         this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)
       }
@@ -112,7 +110,7 @@ export class ComisionInsupdComponent implements OnInit {
     } else {
       this.comisionService.update(this.formularioComision.value.id, this.formularioComision.value).subscribe((resp: any) => {
         this.mostrarDialogMsj("Mensaje", "COmision Modificada", false)
-        this.router.navigate(['/pages/refcooperadora']);
+        this.router.navigate(['/pages/cooperadoras']);
       }, err => {
         this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)
       }
@@ -121,7 +119,7 @@ export class ComisionInsupdComponent implements OnInit {
   }
 
   cancel() {
-    this.router.navigate(['/pages/refcooperadora']);
+    this.router.navigate(['/pages/cooperadoras']);
   }
   eliminar() {
     let datos: DialogData = { titulo: "Confirmacion", msj: "¿Esta seguro que desea eliminar?", cancelVisible: true }
@@ -133,7 +131,7 @@ export class ComisionInsupdComponent implements OnInit {
       if (result === "Aceptar") {
         this.comisionService.delete(this.formularioComision.value.id).subscribe((resp: any) => {
           this.mostrarDialogMsj("Mensaje", "Comision Eliminado", false)
-          this.router.navigate(['/pages/refcooperadora']);
+          this.router.navigate(['/pages/cooperadoras']);
         }, err => {
           this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)
         }

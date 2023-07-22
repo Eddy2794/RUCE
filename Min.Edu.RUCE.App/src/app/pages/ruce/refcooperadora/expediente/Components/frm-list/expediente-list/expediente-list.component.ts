@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FilterOptions } from '@app/shared/utils';
 import { SearchOptionsGeneric } from '@app/shared/utils/search-options-generic';
 import { TableColumn } from 'src/@vex/interfaces/table-column.interface';
-import { AutoridadComisionModel } from '../../../../autoridades/Model/autoridad-comision-model';
+import { AutoridadComisionModel } from '../../../../comision/Models/autoridad-comision-model';
 
 @Component({
   selector: 'vex-expediente-list',
