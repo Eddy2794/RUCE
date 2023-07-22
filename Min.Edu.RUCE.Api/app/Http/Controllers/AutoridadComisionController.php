@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePersonaRUCERequest;
 use App\Http\Resources\RequestCollection;
 
 use App\Http\Requests\StoreAutoridadComisionRequest;
@@ -9,6 +10,7 @@ use App\Http\Requests\UpdateAutoridadComisionRequest;
 use App\Http\Resources\AutoridadComisionResourse;
 use App\Http\Resources\ModelResourse;
 use App\Models\AutoridadComision;
+use App\Models\PersonaRUCE;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,7 +21,7 @@ class AutoridadComisionController extends Controller
     {
         try {
             if ($request->has('PageNumber')&&$request->has('PageSize')) {
-                return new RequestCollection(AutoridadComision::paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']));
+                return new RequestCollection(AutoridadComision::paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']), json_decode($request['filtros']));
             }
 
             return new RequestCollection(AutoridadComision::paginate(10, ['*'], 'page', 1));
@@ -34,25 +36,36 @@ class AutoridadComisionController extends Controller
 
     public function store(StoreAutoridadComisionRequest $request)
     {
-        //$request = new StoreAutoridadComisionRequest($request->toArray());
-        try {
-            AutoridadComision::create([
-                'fkPersonaRUCE' => $request->fkPersonaRUCE,
-                'fkRefCargo' => $request->fkRefCargo,
-                'fkComision' => $request->fkComision,
-                'inicioCargo' => $request->inicioCargo,
-                'finCargo' => $request->finCargo,
-            ]);
-            return response()->json([
-                'message' => 'Organizacion registrada con Exito',
-                'succeeded' => true
-            ], Response::HTTP_OK);
-        } catch (\Throwable $th) {
-            return response()->json([
-                'succeeded' => false,
-                'message' => $th->getMessage()
-            ], Response::HTTP_NOT_FOUND);
+        $persona = new PersonaRUCEController();
+        $requestPersona = new StorePersonaRUCERequest($request->toArray());
+        $created = json_decode($persona->store($requestPersona)->getContent());
+        $idPersona = PersonaRUCE::max('id');
+        if($created->succeeded){
+            try {
+                AutoridadComision::create([
+                    'fkPersonaRUCE' => $idPersona,
+                    'fkRefCargo' => $request->fkRefCargo,
+                    'fkComision' => $request->fkComision,
+                    'inicioCargo' => date_create($request->inicioCargo),
+                    'finCargo' => date_create($request->finCargo),
+                    'idUsuarioAlta'=>$request->idUsuarioAlta,
+                    'idUsuarioModificacion' => $request->idUsuarioModificacion
+                ]);
+                return response()->json([
+                    'message' => 'Autoridad de Comision registrada con Exito',
+                    'succeeded' => true
+                ], Response::HTTP_OK);
+            } catch (\Throwable $th) {
+                return response()->json([
+                    'succeeded' => false,
+                    'message' => $th->getMessage()
+                ], Response::HTTP_NOT_FOUND);
+            }
         }
+        return response()->json([
+            'message' => $created->message,
+            'succeeded' => $created->succeeded
+        ], Response::HTTP_BAD_REQUEST);
     }
 
     /**

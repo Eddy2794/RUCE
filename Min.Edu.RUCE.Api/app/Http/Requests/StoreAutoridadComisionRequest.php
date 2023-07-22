@@ -25,39 +25,39 @@ class StoreAutoridadComisionRequest extends FormRequest
     {
         return [
             'fkPersonaRUCE'=>[
-                'required',
-                'exists:PersonaRUCE,id'
+                // 'required',
+                // 'exists:PersonaRUCE,id'
             ],
             'fkRefCargo' => [
-                'required',
+                // 'required',
                 'exists:RefCargo,id'
             ],
             'fkComision' => [
-                'required',
+                // 'required',
                 'exists:Comision,id'
             ],
             'inicioCargo' => [
                 'required',
-                'dateTime'
+                'date'
             ],
             'finCargo' => [
                 'required',
-                'dateTime'
+                'date'
             ],
             'estaActivo' => [
                 'required',
                 'boolean'
             ],
             'fechaEliminacion' => [
-                'required',
-                'dateTime'
+                // 'required',
+                'date'
             ],
             'idUsuarioAlta' => [
-                'required',
+                // 'required',
                 'integer'
             ],
             'idUsuarioModificacion' => [
-                'required',
+                // 'required',
                 'integer'
             ]
         ];
