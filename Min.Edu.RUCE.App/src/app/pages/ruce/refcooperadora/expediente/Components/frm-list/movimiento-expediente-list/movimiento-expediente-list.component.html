@@ -5,8 +5,8 @@
         [columns]="columnasVex"
         [sourceService]="movimientoExpedienteService"
         [filter]="filtro"
-        [ruta]="'cooperadora/' + idCooperadora + '/autoridades'"
-        [nombreTabla]="'Autoridades de la comisión'"
+        [ruta]="'cooperadora/' + idCooperadora + '/expediente'"
+        [nombreTabla]="'Movimiento Expediente'"
         [cabecera]="false"
       >
         <app-input-search espacio1></app-input-search>
@@ -16,11 +16,11 @@
           [searchOptions]="searchOptions"
         ></app-search-button-generic>
 
-        <app-button-nuevo
+        <!-- <app-button-nuevo
           bordederecho
           [routerLink]="'cooperadora/' + idCooperadora + '/autoridades'"
           [addRowText]="'Agregar Autoridad'"
-        ></app-button-nuevo>
+        ></app-button-nuevo> -->
       </vex-aio-table>
     </div>
   </div>

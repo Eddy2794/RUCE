@@ -27,7 +27,7 @@ export class MovimientoExpedienteListComponent implements OnInit {
   }
 
   obtenerBusqueda() {
-    this.filtro = { estaActivo: true, PageSize: 10, filtros:'{"fkCooperadora":"'+this.idCooperadora+'"}'};
+    this.filtro = { estaActivo: true, PageSize: 10, filtros:'{"fkExpediente":"'+this.idCooperadora+'"}'};
     this.cargarList();
   }
 
@@ -38,10 +38,10 @@ export class MovimientoExpedienteListComponent implements OnInit {
   private setColumns() {
     this.columnasVex = [
       { label: 'ACCIONES', property: 'actions', type: 'button', visible: true },
-      { label: 'NRO EXPEDIENTE', property: 'nroExpediente', type: 'object', visible: true },
-      { label: 'INSTANCIA INSTRUMENTO', property: 'fkPersonaRUCE.documento', type: 'object', visible: true },
-      { label: 'OBSERVACIUONES', property: 'fkPersonaRUCE.nombre', type: 'object', visible: true },
-      { label: 'OBSERVACIUONES RESPODNDIDAS', property: 'fkPersonaRUCE.apellido', type: 'object', visible: true },      
+      { label: 'NRO EXPEDIENTE', property: 'nroExpediente', type: 'text', visible: true },
+      { label: 'INSTANCIA INSTRUMENTO', property: 'fkInstanciaInstrumento.instrumentoDesc', type: 'object', visible: true },
+      { label: 'OBSERVACIONES', property: 'cantObservaciones', type: 'text', visible: true },
+      { label: 'OBSERVACIUONES RESPODNDIDAS', property: 'observacionesRespondidas', type: 'text', visible: true },
     ]
   }
 }
