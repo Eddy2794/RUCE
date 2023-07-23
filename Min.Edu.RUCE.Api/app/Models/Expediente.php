@@ -16,6 +16,7 @@ class Expediente extends Model
     protected $dates = ['deleted_at'];
     protected $fillable = [
         'fkCooperadora',
+        'fkRefInstanciaInstrumento',
         'nroExpediente',
         'cantObservaciones',
         'observacionesDesc',

@@ -16,6 +16,10 @@ class MovimientoExpediente extends Model
     protected $dates = ['deleted_at'];
     protected $fillable = [
         'fkExpediente',
+        'nroExpediente',
+        'cantObservaciones',
+        'observacionesDesc',
+        'observacionesRespondidas',
         'fkRefInstanciaInstrumento',
         'estaActivo',
         'idUsuarioAlta',

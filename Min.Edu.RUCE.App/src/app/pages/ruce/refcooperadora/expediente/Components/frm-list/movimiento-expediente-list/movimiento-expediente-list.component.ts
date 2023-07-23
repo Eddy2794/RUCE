@@ -1,3 +1,4 @@
+import { ExpedienteService } from './../../../Services/expediente.service';
 import { MovimientoExpedienteService } from './../../../Services/movimiento-expediente.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -5,6 +6,10 @@ import { AutoridadComisionModel } from '@app/pages/ruce/refcooperadora/comision/
 import { FilterOptions } from '@app/shared/utils';
 import { SearchOptionsGeneric } from '@app/shared/utils/search-options-generic';
 import { TableColumn } from 'src/@vex/interfaces/table-column.interface';
+import { MovimientoExpedienteModel } from '../../../Models/movimiento-expediente-model';
+import { ExpedienteModel } from '../../../Models/expediente-model';
+import { DialogComponent, DialogData } from '@app/components/dialog/dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'vex-movimiento-expediente-list',
@@ -14,20 +19,47 @@ import { TableColumn } from 'src/@vex/interfaces/table-column.interface';
 export class MovimientoExpedienteListComponent implements OnInit {
   @Input() idCooperadora!: number;
 
+
+  protected idExpediente!: number;
+  movimientosExpediente: Array<MovimientoExpedienteModel> = [];
+
+
   searchOptions!: SearchOptionsGeneric[];
   filtros!: {};
-  filtro: FilterOptions = { estaActivo: true, filtros: null};
+  filtro: FilterOptions = { estaActivo: true, filtros: ""};
   columnasVex: TableColumn<AutoridadComisionModel>[];
 
   constructor(private route:ActivatedRoute,
-              protected movimientoExpedienteService: MovimientoExpedienteService
+              protected movimientoExpedienteService: MovimientoExpedienteService,
+              private expedienteService: ExpedienteService,
+              private matDialog: MatDialog
   ) { }
 
   ngOnInit(): void {
+    this.obtenerExpediente(this.idCooperadora);
   }
 
-  obtenerBusqueda() {
-    this.filtro = { estaActivo: true, PageSize: 10, filtros:'{"fkExpediente":"'+this.idCooperadora+'"}'};
+  obtenerExpediente(id: number): void {
+    this.expedienteService.findOne(id).subscribe(
+      (res:ExpedienteModel)=>{
+        this.idExpediente=res?.id;
+        this.obtenerBusqueda(this.idExpediente)
+      },(error)=>{
+        // this.mostrarDialogMsj("Conflicto","No posee un expediente",false)
+      }
+    );
+  }
+
+  mostrarDialogMsj(titulo: string, msj: string, cancelVisible: boolean) {
+    let datos: DialogData = { titulo, msj, cancelVisible }
+    this.matDialog.open(DialogComponent, {
+      width: '200px',
+      data: datos
+    });
+  }
+
+  obtenerBusqueda(id:number) {
+    this.filtro = { estaActivo: true, PageSize: 10, filtros:'{"fkExpediente":"'+id+'"}'};
     this.cargarList();
   }
 

@@ -28,6 +28,7 @@ import { MovimientoExpedienteListComponent } from './expediente/Components/frm-l
 import { EncabezadoComisionComponent } from './comision/Components/encabezado/encabezado-comision.component';
 import { ComisionInsupdComponent } from './comision/Components/frm-insupd/comision-insupd/comision-insupd.component';
 import { AutoridadComisionService } from './comision/Services/autoridad-comision.service';
+import { ExpedienteInsupdComponent } from './expediente/Components/expediente-insupd/expediente-insupd.component';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import { AutoridadComisionService } from './comision/Services/autoridad-comision
     ExpedienteListComponent,
     MovimientoExpedienteListComponent,
     EncabezadoComisionComponent,
+    ExpedienteInsupdComponent,
   ],
   imports: [
     CommonModule,

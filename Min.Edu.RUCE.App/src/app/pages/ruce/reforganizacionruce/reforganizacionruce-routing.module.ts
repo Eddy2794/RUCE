@@ -6,6 +6,7 @@ import { OrganizacionRUCEInsupdComponent } from './organizacion/Components/form-
 import { AutoridadInsupdComponent } from './autoridades/Components/form-insupd/insupd.component';
 import { AutoridadListComponent } from './autoridades/Components/autoridad-list/autoridad-list.component';
 import { MatriculaInsupdComponent } from './matricula/Components/form-insupd/matricula-insupd/matricula-insupd.component';
+import { ExpedienteInsupdComponent } from '../refcooperadora/expediente/Components/expediente-insupd/expediente-insupd.component';
 
 
 const routes: Routes = [
@@ -25,14 +26,20 @@ const routes: Routes = [
           { path: 'view/:idAutoridad', component: DetallesComponent },
       //     { path: '**', redirectTo: 'listar' }
         ]},
-      {path : ':id/matricula',
-      children:[
-        { path: 'add-edit/:idMatricula', component: MatriculaInsupdComponent },
-        { path: 'delete/:idMatricula', component: MatriculaInsupdComponent },
-        { path: 'view/:idMatricula', component: DetallesComponent },
-      ]
-    
-    },
+      { path : ':id/matricula',
+        children:[
+          { path: 'add-edit/:idMatricula', component: MatriculaInsupdComponent },
+          { path: 'delete/:idMatricula', component: MatriculaInsupdComponent },
+          { path: 'view/:idMatricula', component: DetallesComponent },
+        ]
+      },
+      { path : ':id/expediente',
+        children:[
+          { path: 'add-edit/:idExpediente', component: ExpedienteInsupdComponent },
+          { path: 'delete/:idExpediente', component: ExpedienteInsupdComponent },
+          { path: 'view/:idExpediente', component: ExpedienteInsupdComponent },
+        ]
+      },
       { path: '**', redirectTo: 'listar' }
     ]
   },

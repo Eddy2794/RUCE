@@ -113,6 +113,15 @@ Route::group(['prefix' => '/expediente'],function () {
     Route::put('/{id}',[ExpedienteController::class,'update'])->name('expediente.update');
 });
 
+Route::group(['prefix' => '/movimiento_expediente'],function () {
+    // Route::get('/', [OrganizacionRUCEController::class, 'index'])->name('organizacion.index');
+    Route::get('/Filter', [MovimientoExpedienteController::class, 'index'])->name('movimiento_expediente.index');
+    // Route::post('/', [MovimientoExpedienteController::class, 'store'])->name('movimiento_expediente.store');
+    Route::get('/{id}', [MovimientoExpedienteController::class, 'show'])->name('movimiento_expediente.show');
+    Route::delete('/{id}', [MovimientoExpedienteController::class, 'destroy'])->name('movimiento_expediente.destroy');
+    // Route::put('/{id}',[MovimientoExpedienteController::class,'update'])->name('movimiento_expediente.update');
+});
+
 Route::group(['prefix' => '/fondo'],function () {
     // Route::get('/', [OrganizacionRUCEController::class, 'index'])->name('organizacion.index');
     Route::get('/Filter', [FondoController::class, 'index'])->name('fondo.index');
@@ -138,15 +147,6 @@ Route::group(['prefix' => '/matricula'],function () {
     Route::get('/{id}', [MatriculaController::class, 'show'])->name('matricula.show');
     Route::delete('/{id}', [MatriculaController::class, 'destroy'])->name('matricula.destroy');
     Route::put('/{id}',[MatriculaController::class,'update'])->name('matricula.update');
-});
-
-Route::group(['prefix' => '/movimiento_expediente'],function () {
-    // Route::get('/', [OrganizacionRUCEController::class, 'index'])->name('organizacion.index');
-    Route::get('/Filter', [MovimientoExpedienteController::class, 'index'])->name('movimiento_expediente.index');
-    Route::post('/', [MovimientoExpedienteController::class, 'store'])->name('movimiento_expediente.store');
-    Route::get('/{id}', [MovimientoExpedienteController::class, 'show'])->name('movimiento_expediente.show');
-    Route::delete('/{id}', [MovimientoExpedienteController::class, 'destroy'])->name('movimiento_expediente.destroy');
-    Route::put('/{id}',[MovimientoExpedienteController::class,'update'])->name('movimiento_expediente.update');
 });
 
 Route::group(['prefix' => '/persona_ruce'],function () {

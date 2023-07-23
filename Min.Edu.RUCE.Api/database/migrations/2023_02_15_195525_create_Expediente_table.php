@@ -20,9 +20,12 @@ return new class extends Migration
             $table->unsignedInteger('fkCooperadora')->unique();
             $table->foreign('fkCooperadora')->references('id')->on('Cooperadora')->onDelete('cascade');
 
+            $table->unsignedInteger('fkRefInstanciaInstrumento');
+            $table->foreign('fkRefInstanciaInstrumento')->references('id')->on('RefInstanciaInstrumento')->onDelete('cascade');
+
             $table->string('nroExpediente',100)->nullable(true);
             $table->integer('cantObservaciones')->default(0);
-            $table->boolean('observacionesDesc')->default(false);
+            $table->string('observacionesDesc')->nullable(true);
             $table->boolean('observacionesRespondidas')->default(false);
 
             $table->boolean('estaActivo')->default(true)->nullable(false);

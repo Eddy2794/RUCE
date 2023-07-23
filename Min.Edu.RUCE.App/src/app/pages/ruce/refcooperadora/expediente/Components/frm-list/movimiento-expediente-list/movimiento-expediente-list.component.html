@@ -1,6 +1,5 @@
 <vex-page-layout>
-  <div [@stagger]="true">
-    <div @fadeInUp class="card flex-auto">
+    <div class="card flex-auto">
       <vex-aio-table
         [columns]="columnasVex"
         [sourceService]="movimientoExpedienteService"
@@ -16,12 +15,11 @@
           [searchOptions]="searchOptions"
         ></app-search-button-generic>
 
-        <!-- <app-button-nuevo
+        <app-button-nuevo
           bordederecho
-          [routerLink]="'cooperadora/' + idCooperadora + '/autoridades'"
-          [addRowText]="'Agregar Autoridad'"
-        ></app-button-nuevo> -->
+          [routerLink]="'cooperadora/' + idCooperadora + '/expediente'"
+          [addRowText]="'Agregar Expediente'"
+        ></app-button-nuevo>
       </vex-aio-table>
     </div>
-  </div>
 </vex-page-layout>

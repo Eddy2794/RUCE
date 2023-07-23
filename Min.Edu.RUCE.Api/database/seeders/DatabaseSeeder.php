@@ -40,14 +40,14 @@ class DatabaseSeeder extends Seeder
         //Ejecucion de Seeders
 
         $this->call([
-            // RefSeeder::class,
+            RefSeeder::class,
             // PersonaRUCESeeder::class,
             // UsuarioAdministradorSeeder::class,
         ]);
 
         //Ejecucion de Factories
 
-        $cant_registros = 100;
+        $cant_registros = 32*6;
 
         // PersonaRUCE::factory($cant_registros)->create();
         
@@ -55,15 +55,15 @@ class DatabaseSeeder extends Seeder
 
         // Kiosco::factory($cant_registros)->create();
 
-        // OrganizacionRUCE::factory($cant_registros)->create();
+        OrganizacionRUCE::factory($cant_registros)->create();
 
-        // AutoridadOrganizacionRUCE::factory(2)->create();
+        // AutoridadOrganizacionRUCE::factory($cant_registros/4)->create();
 
-        // Cooperadora::factory($cant_registros)->create();
+        Cooperadora::factory($cant_registros)->create();
 
-        // Comision::factory(2)->create();
+        // Comision::factory($cant_registros/16)->create();
 
-        // AutoridadComision::factory($cant_registros)->create();
+        // AutoridadComision::factory($cant_registros/32)->create();
 
         // AtencionSeguimiento::factory($cant_registros)->create();
 
