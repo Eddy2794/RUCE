@@ -1,0 +1,14 @@
+<vex-page-layout>
+    <div [@stagger]="true">
+        <div @fadeInUp class="card flex-auto">
+  
+            <vex-aio-table [columns]="columnasVex" [sourceService]="fondoService" [filter]="filtro" [ruta]="'cooperadora/'+idCooperadora+'/fondo'" [nombreTabla]="'Fondos'" [cabecera]="false">
+              <app-input-search espacio1></app-input-search>
+  
+              <app-search-button-generic espacio2 [searchOptions]="searchOptions"></app-search-button-generic>
+  
+              <app-button-nuevo bordederecho [routerLink]="'cooperadora/'+idCooperadora+'/fondo'" [addRowText]="'Agregar Fondo'"></app-button-nuevo>
+            </vex-aio-table>
+          </div>
+        </div>
+  </vex-page-layout>

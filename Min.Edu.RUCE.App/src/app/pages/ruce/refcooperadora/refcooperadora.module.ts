@@ -29,6 +29,16 @@ import { EncabezadoComisionComponent } from './comision/Components/encabezado/en
 import { ComisionInsupdComponent } from './comision/Components/frm-insupd/comision-insupd/comision-insupd.component';
 import { AutoridadComisionService } from './comision/Services/autoridad-comision.service';
 import { ExpedienteInsupdComponent } from './expediente/Components/expediente-insupd/expediente-insupd.component';
+import { AtencionSeguimientoListComponent } from './atencion-seguimiento/Components/form-list/atencion-seguimiento-list.component';
+import { AtencionSeguimientoInsupdComponent } from './atencion-seguimiento/Components/form-insupd/atencion-seguimiento-insupd.component';
+import { BalanceListComponent } from './balance/Components/balance-list/balance-list.component';
+import { BalanceInsupdComponent } from './balance/Components/balance-insupd/balance-insupd.component';
+import { FondoListComponent } from './fondo/Components/fondo-list/fondo-list.component';
+import { FondoInsupdComponent } from './fondo/Components/fondo-insupd/fondo-insupd.component';
+import { KioscoListComponent } from './kiosco/Components/kiosco-list/kiosco-list.component';
+import { KioscoInsupdComponent } from './kiosco/Components/kiosco-insupd/kiosco-insupd.component';
+import { PersoneriaListComponent } from './personeria/Components/personeria-list/personeria-list.component';
+import { PersoneriaInsupdComponent } from './personeria/Components/personeria-insupd/personeria-insupd.component';
 
 
 @NgModule({
@@ -44,6 +54,16 @@ import { ExpedienteInsupdComponent } from './expediente/Components/expediente-in
     MovimientoExpedienteListComponent,
     EncabezadoComisionComponent,
     ExpedienteInsupdComponent,
+    AtencionSeguimientoListComponent,
+    AtencionSeguimientoInsupdComponent,
+    BalanceListComponent,
+    BalanceInsupdComponent,
+    FondoListComponent,
+    FondoInsupdComponent,
+    KioscoListComponent,
+    KioscoInsupdComponent,
+    PersoneriaListComponent,
+    PersoneriaInsupdComponent,
   ],
   imports: [
     CommonModule,
