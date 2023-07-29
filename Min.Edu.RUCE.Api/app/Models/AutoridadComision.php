@@ -5,9 +5,12 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class AutoridadComision extends Model
+class AutoridadComision extends Model  implements Auditable
 {
     use HasFactory;
     use SoftDeletes;
@@ -24,6 +27,21 @@ class AutoridadComision extends Model
         'idUsuarioAlta',
         'idUsuarioModificacion'
     ];
+
+    public function RefCargo(): HasMany
+    {
+        return $this->hasMany(RefCargo::class, 'id', 'fkRefCargo');
+    }
+
+    public function PersonaRuce()
+    {
+        return $this->belongsTo(PersonaRUCE::class, 'id', 'fkPersonaRUCE');
+    }
+
+    public function Comision()
+    {
+        return $this->belongsTo(Comision::class, 'id', 'fkComision');
+    }
 
     /*
 public function fromDateTime($value){

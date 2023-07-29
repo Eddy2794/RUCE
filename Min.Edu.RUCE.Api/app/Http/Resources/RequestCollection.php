@@ -21,18 +21,6 @@ class RequestCollection extends ResourceCollection
         $this->filtros = $filtros;
     }
 
-    protected function getBoolean(mixed $registros){
-        foreach($registros as $registro){
-            foreach ($registro->getAttributes() as $clave => $valor){
-                $fieldType = Schema::getColumnType(class_basename($registro), $clave);
-                if ($fieldType === 'boolean') {
-                    ($valor==0)?$registro[$clave]=false:$registro[$clave]=true;
-                }
-            }
-        }
-        return $registros;
-    }
-
     public function toArray($data){
         $datos = $this->data;
         
@@ -45,15 +33,22 @@ class RequestCollection extends ResourceCollection
             $paginaActual = $this->data->currentPage();
             $porPagina = $this->data->perPage();
             $total = $datos->count();
-            $items = $datos->forPage($paginaActual, $porPagina)->values();        
+            $items = $datos->forPage($paginaActual, $porPagina)->values();
             $this->data = new LengthAwarePaginator($items, $total, $porPagina, $paginaActual);
         }
-
-        $datos = $this->getBoolean($datos);
-
+        
         //agrega informacion de las claves foraneas
-        $addFkData = new ModelResourse(null,'');
-        $datos=$addFkData->addFkData($datos);
+        foreach($datos as $dato){
+            foreach($dato->getAttributes() as $clave=>$valor){
+                if(str_contains($clave,'fk')){
+                    $foraneo=substr($clave,2);
+                    $datos[$clave]=$dato->$foraneo;
+                }
+            }
+        }
+        
+        // $addFkData = new ModelResourse(null,'');
+        // $datos=$addFkData->addFkData($datos);
         
         return $datos->values()->toArray();
     }

@@ -5,9 +5,12 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Expediente extends Model
+class Expediente extends Model  implements Auditable
 {
     use HasFactory;
     use SoftDeletes;
@@ -25,6 +28,21 @@ class Expediente extends Model
         'idUsuarioAlta',
         'idUsuarioModificacion'
     ];
+
+    protected $casts = [
+        'observacionesRespondidas' => 'boolean',
+    ];
+
+    public function Cooperadora()
+    {
+        return $this->belongsTo(Cooperadora::class, 'id', 'fkCooperadora');
+    }
+
+    public function RefInstanciaInstrumento(): HasMany
+    {
+        return $this->hasMany(RefCargo::class, 'id', 'fkRefInstanciaInstrumento');
+    }
+
 
     /*
 public function fromDateTime($value){

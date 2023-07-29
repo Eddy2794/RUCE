@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^14.0.0",
-    "@angular/cli": "^14.0.0",
+    "@angular/cli": "^14.1.1",
     "@angular/compiler-cli": "^14.0.0",
     "@angular/language-service": "^14.0.0",
     "@faker-js/faker": "^7.1.0",

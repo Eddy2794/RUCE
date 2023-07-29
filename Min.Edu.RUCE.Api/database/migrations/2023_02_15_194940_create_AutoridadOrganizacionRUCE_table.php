@@ -29,9 +29,9 @@ return new class extends Migration
             $table->date('finCargo')->nullable(true);
 
             $table->boolean('estaActivo')->default(true);
-            $table->dateTime('fechaEliminacion')->nullable(true);
-            $table->integer('idUsuarioAlta')->default(null)->nullable();
-            $table->integer('idUsuarioModificacion')->default(null)->nullable();
+            $table->date('fechaEliminacion')->nullable(true);
+            $table->integer('idUsuarioAlta')->nullable(true);
+            $table->integer('idUsuarioModificacion')->nullable(true);
             $table->timestamps();
         });
         

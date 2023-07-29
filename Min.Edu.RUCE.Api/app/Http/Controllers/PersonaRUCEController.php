@@ -108,7 +108,7 @@ class PersonaRUCEController extends Controller
         }
     }
 
-    protected function delete(int $id): JsonResponse {
+    public function delete(int $id): JsonResponse {
         try {
             PersonaRUCE::where("id",$id)->forceDelete();
             return response()->json([

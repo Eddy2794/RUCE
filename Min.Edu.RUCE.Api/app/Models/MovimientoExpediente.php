@@ -5,9 +5,11 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class MovimientoExpediente extends Model
+class MovimientoExpediente extends Model  implements Auditable
 {
     use HasFactory;
     use SoftDeletes;
@@ -16,15 +18,21 @@ class MovimientoExpediente extends Model
     protected $dates = ['deleted_at'];
     protected $fillable = [
         'fkExpediente',
-        'nroExpediente',
-        'cantObservaciones',
-        'observacionesDesc',
-        'observacionesRespondidas',
         'fkRefInstanciaInstrumento',
         'estaActivo',
         'idUsuarioAlta',
         'idUsuarioModificacion'
     ];
+
+    public function Expediente()
+    {
+        return $this->belongsTo(Expediente::class, 'id', 'fkExpediente');
+    }
+
+    public function RefInstanciaInstrumento(): HasMany
+    {
+        return $this->hasMany(RefInstanciaInstrumento::class, 'id', 'fkRefInstanciaInstrumento');
+    }
 
     /*
 public function fromDateTime($value){

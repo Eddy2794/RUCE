@@ -5,9 +5,12 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class PersonaRUCE extends Model
+class PersonaRUCE extends Model  implements Auditable
 {
     use HasFactory;
     use SoftDeletes;
@@ -28,6 +31,26 @@ class PersonaRUCE extends Model
         'idUsuarioAlta',
         'idUsuarioModificacion'
     ];
+
+    public function AtencionSeguimiento(): HasMany
+    {
+        return $this->hasMany(AtencionSeguimiento::class);
+    }
+
+    public function UsuarioRUCE(): HasOne
+    {
+        return $this->hasOne(autoridadOrganizacionRUCE::class);
+    }
+
+    public function AutoridadComision(): HasMany
+    {
+        return $this->hasMany(AutoridadComision::class);
+    }
+
+    public function AutoridadOrganizacionRUCE(): HasMany
+    {
+        return $this->hasMany(AutoridadOrganizacionRUCE::class);
+    }
 
     /*
 public function fromDateTime($value){

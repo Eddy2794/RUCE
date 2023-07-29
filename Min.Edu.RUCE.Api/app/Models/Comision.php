@@ -5,9 +5,11 @@ use Carbon\Carbon;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Comision extends Model
+class Comision extends Model  implements Auditable
 {
     use HasFactory;
     use SoftDeletes;
@@ -26,6 +28,20 @@ class Comision extends Model
         'idUsuarioAlta',
         'idUsuarioModificacion'
     ];
+
+    protected $casts = [
+        'estadoResolucion' => 'boolean',
+    ];
+
+    public function Cooperadora()
+    {
+        return $this->belongsTo(Cooperadora::class, 'id', 'fkCooperadora');
+    }
+
+    public function RefTipoComision()
+    {
+        return $this->hasMany(RefTipoComision::class, 'id', 'fkRefTipoComision');
+    }
 
     /*
 public function fromDateTime($value){

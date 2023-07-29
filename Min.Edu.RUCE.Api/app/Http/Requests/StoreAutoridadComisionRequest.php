@@ -25,15 +25,14 @@ class StoreAutoridadComisionRequest extends FormRequest
     {
         return [
             'fkPersonaRUCE'=>[
-                // 'required',
                 // 'exists:PersonaRUCE,id'
             ],
             'fkRefCargo' => [
-                // 'required',
+                'required',
                 'exists:RefCargo,id'
             ],
             'fkComision' => [
-                // 'required',
+                'required',
                 'exists:Comision,id'
             ],
             'inicioCargo' => [

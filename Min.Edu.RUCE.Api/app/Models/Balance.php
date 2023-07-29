@@ -6,8 +6,9 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Balance extends Model
+class Balance extends Model  implements Auditable
 {
     use HasFactory;
     use SoftDeletes;
@@ -22,6 +23,15 @@ class Balance extends Model
         'idUsuarioAlta',
         'idUsuarioModificacion'
     ];
+
+    protected $casts = [
+        'estadoBalance' => 'boolean',
+    ];
+
+    public function Cooperadora()
+    {
+        return $this->belongsTo(Cooperadora::class, 'id', 'fkCooperadora');
+    }
 
     /*
 public function fromDateTime($value){

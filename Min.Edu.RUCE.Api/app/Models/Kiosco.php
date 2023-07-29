@@ -5,9 +5,11 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Kiosco extends Model
+class Kiosco extends Model  implements Auditable
 {
     use HasFactory;
     use SoftDeletes;
@@ -25,6 +27,22 @@ class Kiosco extends Model
         'idUsuarioAlta',
         'idUsuarioModificacion'
     ];
+
+    protected $casts = [
+        'accesoLicitacion' => 'boolean',
+        'documentacionPresentada' => 'boolean',
+    ];
+
+    public function Cooperadora()
+    {
+        return $this->belongsTo(Cooperadora::class, 'id', 'fkCooperadora');
+    }
+
+    public function PersonaRuce()
+    {
+        return $this->belongsTo(PersonaRUCE::class, 'id', 'fkPersonaRUCE');
+    }
+
 
     /*
 public function fromDateTime($value){

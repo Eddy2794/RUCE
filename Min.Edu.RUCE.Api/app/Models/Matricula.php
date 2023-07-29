@@ -6,8 +6,9 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Matricula extends Model
+class Matricula extends Model  implements Auditable
 {
     use HasFactory;
     use SoftDeletes;
@@ -24,9 +25,9 @@ class Matricula extends Model
         'idUsuarioModificacion'
     ];
 
-    public function organizacionRuce()
+    public function OrganizacionRuce()
     {
-        return $this->belongsTo(OrganizacionRUCE::class, 'fkOrganizacionRUCE');
+        return $this->belongsTo(OrganizacionRUCE::class, 'id', 'fkOrganizacionRUCE');
     }
 
     /*

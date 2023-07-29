@@ -5,9 +5,11 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Cooperadora extends Model
+class Cooperadora extends Model  implements Auditable
 {
     use HasFactory;
     use SoftDeletes;
@@ -29,6 +31,24 @@ class Cooperadora extends Model
         'idUsuarioAlta',
         'idUsuarioModificacion'
     ];
+
+    protected $casts = [
+        'convenioCsEconomicas' => 'boolean',
+        'estadoAfip' => 'boolean',
+        'estadoRentas' => 'boolean',
+        'inscripcionRenacopes' => 'boolean',
+        'estaActivo' => 'boolean',
+    ];
+
+    public function OrganizacionRUCE()
+    {
+        return $this->hasOne(OrganizacionRUCE::class, 'id', 'fkOrganizacionRUCE');
+    }
+    
+    public function RefTipoAsociacion()
+    {
+        return $this->hasMany(RefTipoAsociacion::class, 'id', 'fkRefTipoAsociacion');
+    }
 
     /*
 public function fromDateTime($value){

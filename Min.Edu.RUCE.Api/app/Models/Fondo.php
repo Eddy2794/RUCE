@@ -5,9 +5,11 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Fondo extends Model
+class Fondo extends Model  implements Auditable
 {
     use HasFactory;
     use SoftDeletes;
@@ -28,6 +30,22 @@ class Fondo extends Model
         'idUsuarioAlta',
         'idUsuarioModificacion'
     ];
+
+    protected $casts = [
+        'fondoRecibido' => 'boolean',
+        'fondoRendido' => 'boolean',
+    ];
+
+    public function RefTipoFondo(): HasMany
+    {
+        return $this->hasMany(RefTipoFondo::class, 'id', 'fkTipoFondo');
+    }
+
+    public function Cooperadora()
+    {
+        return $this->belongsTo(Cooperadora::class, 'id', 'fkCooperadora');
+    }
+
 
     /*
 public function fromDateTime($value){

@@ -118,6 +118,8 @@ export class AutoridadInsupdComponent implements OnInit {
       email: [null, {validators: [ Validators.required,]}],
       inicioCargo: [null, {validators: [ Validators.required]}],
       finCargo: [null, {validators: [ Validators.required]} ],
+      idUsuarioAlta: null,
+      idUsuarioModificacion: null,
       estaActivo: true,
     },
     {

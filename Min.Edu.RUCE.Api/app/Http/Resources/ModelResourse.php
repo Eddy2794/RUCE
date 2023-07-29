@@ -28,19 +28,6 @@ class ModelResourse extends JsonResource
         }
     }
 
-
-    protected function getBoolean(mixed $registros){
-        foreach($registros as $registro){
-            foreach ($registro->getAttributes() as $clave => $valor){
-                $fieldType = Schema::getColumnType(class_basename($registro), $clave);
-                if ($fieldType === 'boolean') {
-                    ($valor==0)?$registro[$clave]=false:$registro[$clave]=true;
-                }
-            }
-        }
-        return $registros;
-    }
-
     private function recFkData(mixed $registro){
         try{
             foreach ($registro->getAttributes() as $clave => $valor){                
@@ -83,9 +70,6 @@ class ModelResourse extends JsonResource
 
             // agrega los datos de las claves foraneas
             $datos=$this->addFkData($datos);
-
-            // cambia los 0 y 1 de los campos booleanos por true o false
-            $datos=$this->getBoolean($datos);
 
             return ['entities'=>$datos[0]];
         }

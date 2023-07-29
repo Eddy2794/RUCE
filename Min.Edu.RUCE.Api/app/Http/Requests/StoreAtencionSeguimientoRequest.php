@@ -30,51 +30,39 @@ class StoreAtencionSeguimientoRequest extends FormRequest
                 'exists:Cooperadora,id'
             ],
             'fkPersonaRUCE'=>[
-                'required',
                 'exists:PersonaRUCE,id'
             ],
             'llamadas'=>[
-                'required',
                 'integer'
             ],
             'mesajes'=>[
-                'required',
                 'integer'
             ],
             'emailEnviados'=>[
-                'required',
                 'integer'
             ],
             'atencionOficina'=>[
-                'required',
                 'integer'
             ],
             'atencionTerritorial'=>[
-                'required',
                 'integer'
             ],
             'observacion'=>[
-                'required',
                 'text'
             ],
             'fecha'=>[
-                'required',
-                'dateTime'
+                'date'
             ],
             'estaActivo'=>[
-                'required',
                 'boolean'
             ],
             'fechaEliminacion'=>[
-                'required',
                 'dateTime'
             ],
             'idUsuarioAlta'=>[
-                'required',
                 'integer'
             ],
             'idUsuarioModificacion'=>[
-                'required',
                 'integer'
             ]
         ];

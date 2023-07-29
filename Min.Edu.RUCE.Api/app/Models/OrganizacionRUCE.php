@@ -5,9 +5,12 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class OrganizacionRUCE extends Model
+class OrganizacionRUCE extends Model  implements Auditable
 {
     use HasFactory;
     use SoftDeletes;
@@ -30,6 +33,21 @@ class OrganizacionRUCE extends Model
         'idUsuarioAlta',
         'idUsuarioModificacion'
     ];
+
+    public function AutoridadOrganizacionRUCE(): HasMany
+    {
+        return $this->hasMany(AutoridadOrganizacionRUCE::class);
+    }
+
+    public function Matricula(): HasMany
+    {
+        return $this->hasMany(Matricula::class);
+    }
+
+    public function Cooperadora(): HasOne
+    {
+        return $this->hasOne(Cooperadora::class);
+    }
 
     /*
 public function fromDateTime($value){

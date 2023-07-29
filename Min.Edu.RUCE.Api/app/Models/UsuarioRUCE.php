@@ -6,8 +6,9 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class UsuarioRUCE extends Model
+class UsuarioRUCE extends Model  implements Auditable
 {
     use HasFactory;
     use SoftDeletes;
@@ -23,6 +24,11 @@ class UsuarioRUCE extends Model
         'idUsuarioModificacion',
         'administrador',
     ];
+
+    public function PersonaRuce()
+    {
+        return $this->belongsTo(PersonaRUCE::class, 'id', 'fkPersonaRUCE');
+    }
 
     /*
 public function fromDateTime($value){
