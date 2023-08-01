@@ -10,6 +10,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 class Personeria extends Model  implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
     use HasFactory;
     use SoftDeletes;
     protected $table = 'Personeria';
@@ -25,6 +26,20 @@ class Personeria extends Model  implements Auditable
         'idUsuarioAlta',
         'idUsuarioModificacion'
     ];
+
+    /**
+     * Attributes to include in the Audit.
+     *
+     * @var array
+     */
+    protected $auditInclude = [];
+
+    /**
+     * Attributes to exclude from the Audit.
+     *
+     * @var array
+     */
+    protected $auditExclude = [];
 
     public function Cooperadora()
     {

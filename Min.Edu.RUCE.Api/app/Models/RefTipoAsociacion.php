@@ -10,6 +10,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 class RefTipoAsociacion extends Model  implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
     use HasFactory;
     use SoftDeletes;
     protected $table = 'RefTipoAsociacion';
@@ -18,6 +19,20 @@ class RefTipoAsociacion extends Model  implements Auditable
     protected $fillable = [
         'tipoAsociacionDesc'
     ];
+
+        /**
+     * Attributes to include in the Audit.
+     *
+     * @var array
+     */
+    protected $auditInclude = [];
+
+    /**
+     * Attributes to exclude from the Audit.
+     *
+     * @var array
+     */
+    protected $auditExclude = [];
 
     /*
 public function fromDateTime($value){

@@ -12,6 +12,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 class AutoridadOrganizacionRUCE extends Model  implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
     use HasFactory;
     use SoftDeletes;
     protected $table = 'AutoridadOrganizacionRUCE';
@@ -28,19 +29,33 @@ class AutoridadOrganizacionRUCE extends Model  implements Auditable
         'idUsuarioModificacion'
     ];
 
-    public function RefCargo(): HasMany
+    /**
+     * Attributes to include in the Audit.
+     *
+     * @var array
+     */
+    protected $auditInclude = [];
+
+    /**
+     * Attributes to exclude from the Audit.
+     *
+     * @var array
+     */
+    protected $auditExclude = [];
+
+    public function RefCargo()
     {
-        return $this->hasMany(RefCargo::class, 'id', 'fkRefCargo');
+        return $this->belongsTo(RefCargo::class, 'fkRefCargo');
     }
 
     public function PersonaRuce()
     {
-        return $this->belongsTo(PersonaRUCE::class, 'id', 'fkPersonaRUCE');
+        return $this->belongsTo(PersonaRUCE::class, 'id');
     }
 
     public function OrganizacionRuce()
     {
-        return $this->belongsTo(OrganizacionRUCE::class, 'id', 'fkOrganizacionRUCE');
+        return $this->belongsTo(OrganizacionRUCE::class, 'id');
     }
 
     

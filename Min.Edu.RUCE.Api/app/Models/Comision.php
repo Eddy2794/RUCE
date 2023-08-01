@@ -11,6 +11,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 class Comision extends Model  implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
     use HasFactory;
     use SoftDeletes;
 
@@ -28,6 +29,20 @@ class Comision extends Model  implements Auditable
         'idUsuarioAlta',
         'idUsuarioModificacion'
     ];
+
+    /**
+     * Attributes to include in the Audit.
+     *
+     * @var array
+     */
+    protected $auditInclude = [];
+
+    /**
+     * Attributes to exclude from the Audit.
+     *
+     * @var array
+     */
+    protected $auditExclude = [];
 
     protected $casts = [
         'estadoResolucion' => 'boolean',

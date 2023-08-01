@@ -10,6 +10,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 class RefInstanciaInstrumento extends Model  implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
     use HasFactory;
     use SoftDeletes;
 
@@ -19,6 +20,20 @@ class RefInstanciaInstrumento extends Model  implements Auditable
     protected $fillable = [
         'instrumentoDesc'
     ];
+
+        /**
+     * Attributes to include in the Audit.
+     *
+     * @var array
+     */
+    protected $auditInclude = [];
+
+    /**
+     * Attributes to exclude from the Audit.
+     *
+     * @var array
+     */
+    protected $auditExclude = [];
 
     /*
 public function fromDateTime($value){

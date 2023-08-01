@@ -12,6 +12,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 class AutoridadComision extends Model  implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
     use HasFactory;
     use SoftDeletes;
     protected $table = 'AutoridadComision';
@@ -28,19 +29,33 @@ class AutoridadComision extends Model  implements Auditable
         'idUsuarioModificacion'
     ];
 
+    /**
+     * Attributes to include in the Audit.
+     *
+     * @var array
+     */
+    protected $auditInclude = [];
+
+    /**
+     * Attributes to exclude from the Audit.
+     *
+     * @var array
+     */
+    protected $auditExclude = [];
+
     public function RefCargo(): HasMany
     {
-        return $this->hasMany(RefCargo::class, 'id', 'fkRefCargo');
+        return $this->hasMany(RefCargo::class);
     }
 
     public function PersonaRuce()
     {
-        return $this->belongsTo(PersonaRUCE::class, 'id', 'fkPersonaRUCE');
+        return $this->belongsTo(PersonaRUCE::class, 'fkPersonaRUCE', 'id');
     }
 
     public function Comision()
     {
-        return $this->belongsTo(Comision::class, 'id', 'fkComision');
+        return $this->belongsTo(Comision::class, 'fkComision', 'id');
     }
 
     /*

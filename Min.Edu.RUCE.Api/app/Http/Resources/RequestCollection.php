@@ -21,9 +21,10 @@ class RequestCollection extends ResourceCollection
         $this->filtros = $filtros;
     }
 
-    public function toArray($data){
-        $datos = $this->data;
-        
+    private function filterData($data)
+    {
+        $datos = $data;
+
         if($this->filtros!=[]){
             foreach($this->filtros as $clave => $valor) {
                 $datos = $datos->filter(function ($item) use ($clave, $valor) {
@@ -36,20 +37,30 @@ class RequestCollection extends ResourceCollection
             $items = $datos->forPage($paginaActual, $porPagina)->values();
             $this->data = new LengthAwarePaginator($items, $total, $porPagina, $paginaActual);
         }
-        
-        //agrega informacion de las claves foraneas
-        foreach($datos as $dato){
-            foreach($dato->getAttributes() as $clave=>$valor){
-                if(str_contains($clave,'fk')){
-                    $foraneo=substr($clave,2);
-                    $datos[$clave]=$dato->$foraneo;
+        return $datos;
+    }
+
+    private function adjustForeignKeys($data)
+    {
+        $data->transform(function ($item) {
+            foreach ($item->getAttributes() as $clave => $valor) {
+                if (str_contains($clave, 'fk')) {
+                    $foraneo = substr($clave, 2);
+                    $item[$clave] = $item->$foraneo->toArray();
                 }
             }
-        }
-        
-        // $addFkData = new ModelResourse(null,'');
-        // $datos=$addFkData->addFkData($datos);
-        
+            return $item;
+        });
+
+        return $data;
+    }
+
+    public function toArray($data){
+        $datos = $this->filterData($this->data);
+
+        //agrega informacion de las claves foraneas
+        $datos = $this->adjustForeignKeys($datos);
+
         return $datos->values()->toArray();
     }
 

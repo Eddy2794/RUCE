@@ -10,6 +10,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 class UsuarioRUCE extends Model  implements Auditable
 {
+    use \OwenIt\Auditing\Auditable;
     use HasFactory;
     use SoftDeletes;
     protected $table = 'UsuarioRUCE';
@@ -24,6 +25,20 @@ class UsuarioRUCE extends Model  implements Auditable
         'idUsuarioModificacion',
         'administrador',
     ];
+
+        /**
+     * Attributes to include in the Audit.
+     *
+     * @var array
+     */
+    protected $auditInclude = [];
+
+    /**
+     * Attributes to exclude from the Audit.
+     *
+     * @var array
+     */
+    protected $auditExclude = [];
 
     public function PersonaRuce()
     {

@@ -49,12 +49,12 @@ class AtencionSeguimiento extends Model implements Auditable
 
     public function Cooperadora()
     {
-        return $this->belongsTo(Cooperadora::class, 'id', 'fkCooperadora');
+        return $this->belongsTo(Cooperadora::class, 'id');
     }
 
     public function PersonaRuce()
     {
-        return $this->belongsTo(PersonaRUCE::class, 'id', 'fkPersonaRUCE');
+        return $this->belongsTo(PersonaRUCE::class. 'id');
     }
 
     /*

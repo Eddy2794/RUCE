@@ -84,7 +84,7 @@ return [
     |
     */
 
-    'exclude' => ['created_at', 'updated_at', 'deleted_at'],
+    'exclude' => [],
 
     /*
     |--------------------------------------------------------------------------
@@ -165,5 +165,5 @@ return [
     |
     */
 
-    'console' => true,
+    'console' => false,
 ];
