@@ -57,12 +57,32 @@ class Cooperadora extends Model  implements Auditable
 
     public function OrganizacionRUCE()
     {
-        return $this->hasOne(OrganizacionRUCE::class, 'id', 'fkOrganizacionRUCE');
+        return $this->belongsTo(OrganizacionRUCE::class, 'id');
     }
     
     public function RefTipoAsociacion()
     {
         return $this->hasMany(RefTipoAsociacion::class, 'id', 'fkRefTipoAsociacion');
+    }
+
+    public function AtencionSeguimiento()
+    {
+        return $this->hasMany(AtencionSeguimiento::class, 'fkCooperadora');
+    }
+
+    public function Comision()
+    {
+        return $this->hasMany(Comision::class, 'fkCooperadora');
+    }
+
+    public function Balance()
+    {
+        return $this->hasMany(Balance::class, 'fkCooperadora');
+    }
+
+    public function Expediente()
+    {
+        return $this->hasOne(Expediente::class, 'fkCooperadora');
     }
 
     /*

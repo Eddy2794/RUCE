@@ -47,24 +47,24 @@ class PersonaRUCE extends Model  implements Auditable
      */
     protected $auditExclude = [];
 
-    public function AtencionSeguimiento(): HasMany
+    public function AtencionSeguimiento()
     {
-        return $this->hasMany(AtencionSeguimiento::class);
+        return $this->belongsTo(AtencionSeguimiento::class,'fkPersonaRUCE');
     }
 
-    public function UsuarioRUCE(): HasOne
+    public function UsuarioRUCE()
     {
-        return $this->hasOne(autoridadOrganizacionRUCE::class);
+        return $this->belongsTo(autoridadOrganizacionRUCE::class, 'fkPersonaRUCE');
     }
 
-    public function AutoridadComision(): HasMany
+    public function AutoridadComision()
     {
-        return $this->hasMany(AutoridadComision::class);
+        return $this->belongsTo(AutoridadComision::class, 'fkPersonaRUCE');
     }
 
-    public function AutoridadOrganizacionRUCE(): HasMany
+    public function AutoridadOrganizacionRUCE()
     {
-        return $this->hasMany(AutoridadOrganizacionRUCE::class);
+        return $this->belongsTo(AutoridadOrganizacionRUCE::class, 'fkPersonaRUCE');
     }
 
     /*

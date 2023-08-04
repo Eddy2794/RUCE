@@ -59,7 +59,7 @@ class OrganizacionRUCE extends Model  implements Auditable
         return $this->hasMany(Matricula::class);
     }
 
-    public function Cooperadora(): HasOne
+    public function Cooperadora()
     {
         return $this->hasOne(Cooperadora::class);
     }

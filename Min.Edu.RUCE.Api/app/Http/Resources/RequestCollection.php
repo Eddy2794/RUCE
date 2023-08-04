@@ -46,12 +46,13 @@ class RequestCollection extends ResourceCollection
             foreach ($item->getAttributes() as $clave => $valor) {
                 if (str_contains($clave, 'fk')) {
                     $foraneo = substr($clave, 2);
-                    $item[$clave] = $item->$foraneo->toArray();
+                    //$item[$clave] = $item->$foraneo->toArray();
+                    $item->$foraneo->toArray();
+                    //dd($item->toArray());
                 }
             }
             return $item;
         });
-
         return $data;
     }
 
@@ -60,7 +61,6 @@ class RequestCollection extends ResourceCollection
 
         //agrega informacion de las claves foraneas
         $datos = $this->adjustForeignKeys($datos);
-
         return $datos->values()->toArray();
     }
 

@@ -203,4 +203,5 @@ class AutoridadOrganizacionRUCEController extends Controller
 
         // return new RequestCollection($query->orderBy('organizacionDesc')->paginate()->appends(['q' => $request->q, 'id' => $request->id]));
     }
+
 }

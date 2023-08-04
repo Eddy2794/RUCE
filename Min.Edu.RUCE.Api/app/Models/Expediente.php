@@ -51,12 +51,12 @@ class Expediente extends Model  implements Auditable
 
     public function Cooperadora()
     {
-        return $this->belongsTo(Cooperadora::class, 'id', 'fkCooperadora');
+        return $this->belongsTo(Cooperadora::class, 'id');
     }
 
-    public function RefInstanciaInstrumento(): HasMany
+    public function RefInstanciaInstrumento()
     {
-        return $this->hasMany(RefCargo::class, 'id', 'fkRefInstanciaInstrumento');
+        return $this->hasMany(RefInstanciaInstrumento::class, 'id', 'fkRefInstanciaInstrumento');
     }
 
 

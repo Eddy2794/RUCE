@@ -48,6 +48,11 @@ class Comision extends Model  implements Auditable
         'estadoResolucion' => 'boolean',
     ];
 
+        public function AutoridadesComision()
+    {
+        return $this->hasMany(AutoridadComision::class, 'fkRefTipoComision', 'id');
+    }
+
     public function Cooperadora()
     {
         return $this->belongsTo(Cooperadora::class, 'id', 'fkCooperadora');

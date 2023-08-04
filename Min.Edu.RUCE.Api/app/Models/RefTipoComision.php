@@ -35,6 +35,11 @@ class RefTipoComision extends Model  implements Auditable
      */
     protected $auditExclude = [];
 
+    public function Comision()
+    {
+        return $this->belongsTo(Comision::class, 'fkRefTipoComision', 'id');
+    }
+
     /*
 public function fromDateTime($value){
         return Carbon::parse(parent::fromDateTime($value))->format('d-m-Y H:i:s');

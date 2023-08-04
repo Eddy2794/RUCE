@@ -50,7 +50,7 @@ class AutoridadComision extends Model  implements Auditable
 
     public function PersonaRuce()
     {
-        return $this->belongsTo(PersonaRUCE::class, 'fkPersonaRUCE', 'id');
+        return $this->hasMany(PersonaRUCE::class, 'id', 'fkPersonaRUCE');
     }
 
     public function Comision()

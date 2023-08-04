@@ -35,6 +35,8 @@ class RefTipoFondo extends Model  implements Auditable
      */
     protected $auditExclude = [];
 
+    
+
     /*
 public function fromDateTime($value){
         return Carbon::parse(parent::fromDateTime($value))->format('d-m-Y H:i:s');
