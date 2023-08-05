@@ -55,7 +55,7 @@ class AutoridadOrganizacionRUCE extends Model  implements Auditable
 
     public function OrganizacionRUCE()
     {
-        return $this->belongsTo(OrganizacionRUCE::class, 'id');
+        return $this->belongsTo(OrganizacionRUCE::class, 'fkOrganizacionRUCE');
     }
 
     

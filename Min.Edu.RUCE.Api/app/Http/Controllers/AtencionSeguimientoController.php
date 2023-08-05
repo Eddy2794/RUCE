@@ -20,7 +20,7 @@ class AtencionSeguimientoController extends Controller
         // return typeOf($request->page);
         try {
             if ($request->has('PageNumber')&&$request->has('PageSize')) {
-                return new RequestCollection(AtencionSeguimiento::paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']));
+                return new RequestCollection(AtencionSeguimiento::paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']), json_decode($request['filtros']));
             }
 
             return new RequestCollection(AtencionSeguimiento::paginate(10, ['*'], 'page', 1));

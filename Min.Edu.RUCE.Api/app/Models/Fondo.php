@@ -53,7 +53,7 @@ class Fondo extends Model  implements Auditable
 
     public function RefTipoFondo()
     {
-        return $this->hasMany(RefTipoFondo::class, 'id', 'fkTipoFondo');
+        return $this->hasMany(RefTipoFondo::class, 'id', 'fkRefTipoFondo');
     }
 
     public function Cooperadora()

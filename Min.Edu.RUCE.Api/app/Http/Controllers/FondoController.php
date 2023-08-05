@@ -18,7 +18,7 @@ class FondoController extends Controller
     {
         try {
             if ($request->has('PageNumber')&&$request->has('PageSize')) {
-                return new RequestCollection(Fondo::paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']));
+                return new RequestCollection(Fondo::paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']), json_decode($request['filtros']));
             }
             return new RequestCollection(Fondo::paginate(10, ['*'], 'page', 1));
         } catch (\Throwable $th) {

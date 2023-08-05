@@ -45,7 +45,7 @@ class Balance extends Model  implements Auditable
 
     public function Cooperadora()
     {
-        return $this->belongsTo(Cooperadora::class, 'id', 'fkCooperadora');
+        return $this->belongsTo(Cooperadora::class, 'id');
     }
 
     /*

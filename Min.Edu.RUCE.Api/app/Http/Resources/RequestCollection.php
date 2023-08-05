@@ -47,7 +47,7 @@ class RequestCollection extends ResourceCollection
                 if (str_contains($clave, 'fk')) {
                     $foraneo = substr($clave, 2);
                     //$item[$clave] = $item->$foraneo->toArray();
-                    $item->$foraneo->toArray();
+                    $item->$foraneo;
                     //dd($item->toArray());
                 }
             }

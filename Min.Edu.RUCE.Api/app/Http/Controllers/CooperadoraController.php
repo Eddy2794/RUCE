@@ -18,7 +18,7 @@ class CooperadoraController extends Controller
     {
         try {
             if ($request->has('PageNumber')&&$request->has('PageSize')) {
-                return new RequestCollection(Cooperadora::paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']), json_decode($request['filtros'],true));
+                return new RequestCollection(Cooperadora::paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']), json_decode($request['filtros']));
             }
             return new RequestCollection(Cooperadora::paginate(10, ['*'], 'page', 1));
         } catch (\Throwable $th) {

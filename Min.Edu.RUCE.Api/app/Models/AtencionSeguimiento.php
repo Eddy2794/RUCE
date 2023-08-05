@@ -22,7 +22,7 @@ class AtencionSeguimiento extends Model implements Auditable
         'fkCooperadora',
         'fkPersonaRUCE',
         'llamadas',
-        'mesajes',
+        'mensajes',
         'emailEnviados',
         'atencionOficina',
         'atencionTerritorial',

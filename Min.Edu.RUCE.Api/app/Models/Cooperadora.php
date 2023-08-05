@@ -85,6 +85,11 @@ class Cooperadora extends Model  implements Auditable
         return $this->hasOne(Expediente::class, 'fkCooperadora');
     }
 
+    public function Fondo()
+    {
+        return $this->hasMany(Fondo::class, 'fkCooperadora');
+    }
+
     /*
 public function fromDateTime($value){
         return Carbon::parse(parent::fromDateTime($value))->format('d-m-Y H:i:s');
