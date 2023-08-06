@@ -7,116 +7,115 @@
         <mat-icon svgIcon="mat:more_vert"></mat-icon>
     </button>
 </vex-secondary-toolbar>
-<div [@stagger]="true" class="p-gutter container">
+<div class="p-gutter container">
     <div class="flex flex-col sm:flex-row gap-4">
-        <div @fadeInUp class="card flex-auto">
+        <div class="card flex-auto">
             <div class="px-6 py-4 border-b flex items-center justify-center">
                 <h2 class="title m-0" *ngIf="accion==='add'">Formulario Alta de Cooperadora</h2>
                 <h2 class="title m-0" *ngIf="accion==='edit'">Formulario Modificación de Cooperadora</h2>
                 <h2 class="title m-0" *ngIf="accion==='delete'">Formulario Eliminación de Cooperadora</h2>
             </div>
-        <div class="px-6 py-4 flex flex-col">
-    <form autocomplete="off" [formGroup]="formularioCooperadora"> <!-- (ngSubmit)="save()" -->
-        <div @fadeInUp class="formuario">
-            <div class="flex flex-col md:flex-row gap-3">
-                <mat-form-field>
-                    <mat-label>Organizaciones</mat-label>
-                    <input matInput formControlName="organizacionDesc" readonly="true" type="text" maxlength="250" mayus
-                        espacios>
-                    <button class="btn-busqueda" mat-icon-button matTooltip="Búsqueda" color="primary"
-                        (click)="openDialogSingle(organizacionService,'organizacionDesc','Organizacion','Organización')">
-                        <mat-icon svgIcon="mat:search"></mat-icon>
-                    </button>
-                    <button mat-icon-button matTooltip="Eliminar" color="primary" type="button"
-                        (click)="eliminarOrgPadre()"
-                        Style="font-size:28px; position: absolute; right: 0.1rem; bottom: 0.01rem;">
-                        <mat-icon svgIcon="mat:clear"></mat-icon>
-                    </button>
-                    <!-- <mat-select formControlName="organizacion_ruce">
-                        <mat-option>Seleccione</mat-option>
-                        <mat-option *ngFor="let item of organizaciones" [value]="item">{{item.cue}} - {{item.organizacionDesc}} </mat-option>
-                    </mat-select> -->
-                    <mat-error>
-                        <app-ver-error [control]="this.formularioCooperadora.controls['organizacionDesc']"></app-ver-error>
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field>
-                    <mat-label>Tipo Asociación</mat-label>
-                    <mat-select formControlName="fkRefTipoAsociacion">
-                        <mat-option>Seleccione</mat-option>
-                        <mat-option *ngFor="let item of tiposAsociaciones" [value]="item?.id">{{item?.tipoAsociacionDesc}}</mat-option>
-                    </mat-select>
-                    <mat-error>
-                        <app-ver-error [control]="this.formularioCooperadora.controls['fkRefTipoAsociacion']"></app-ver-error>
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <div class="flex flex-col md:flex-row gap-3">
-                <mat-form-field>
-                    <mat-label>CUIT</mat-label>
-                    <input matInput formControlName="cuit" type="text" solonum espacios>
-                    <mat-error>
-                        <app-ver-error [control]="this.formularioCooperadora.controls['cuit']">
-                        </app-ver-error>
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field>
-                    <mat-label>Legajo</mat-label>
-                    <input matInput formControlName="legajo" type="text" mayus espacios>
-                    <mat-error>
-                        <app-ver-error [control]="this.formularioCooperadora.controls['legajo']">
-                        </app-ver-error>
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <div class="flex flex-col md:flex-row gap-3">
-                <mat-form-field>
-                    <mat-label>Denominacion</mat-label>
-                    <input matInput formControlName="denominacion" type="text" mayus espacios>
-                    <mat-error>
-                        <app-ver-error [control]="this.formularioCooperadora.controls['denominacion']">
-                        </app-ver-error>
-                    </mat-error>
-                </mat-form-field>
-                <mat-form-field>
-                    <mat-label>Estado</mat-label>
-                    <mat-select formControlName="estado">
-                        <mat-option>Seleccione</mat-option>
-                        <mat-option [value]="-1">Rojo</mat-option>
-                        <mat-option [value]="0">Amarillo</mat-option>
-                        <mat-option [value]="1">Verde</mat-option>
-                    </mat-select>
-                    <mat-error>
-                        <app-ver-error [control]="this.formularioCooperadora.controls['estado']"></app-ver-error>
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <div class="flex flex-col sm:flex-row gap-3">
-                <div class="slide-group">
-                    <mat-slide-toggle color="accent" formControlName="convenioCsEconomicas" [checked]="false" class="p-4"></mat-slide-toggle>
-                    <mat-label>Convenio Cs. Económicas</mat-label>
-                </div>
-                <div class="slide-group">
-                    <mat-slide-toggle color="accent" formControlName="estadoAfip" [checked]="false" class="p-4"></mat-slide-toggle>
-                    <mat-label>Inscripcion Afip</mat-label>
-                </div>
-            </div>
-            <div class="flex flex-col sm:flex-row gap-3">
-                <div class="slide-group">
-                    <mat-slide-toggle color="accent" formControlName="estadoRentas" [checked]="false" class="p-4"></mat-slide-toggle>
-                    <mat-label>Inscripcion Rentas</mat-label>
-                </div>
-                <div class="slide-group">
-                    <mat-slide-toggle color="accent" formControlName="inscripcionRenacopes" [checked]="false" class="p-4"></mat-slide-toggle>
-                    <mat-label>Inscripcion Renacopes</mat-label>
-                </div>
+            <div class="px-6 py-4 flex flex-col">
+                <form autocomplete="off" [formGroup]="formularioCooperadora"> <!-- (ngSubmit)="save()" -->
+                    <div class="formuario">
+                        <div class="flex flex-col md:flex-row gap-3">
+                            <mat-form-field>
+                                <mat-label>Organizaciones</mat-label>
+                                <input matInput formControlName="organizacionDesc" readonly="true" type="text" maxlength="250" mayus
+                                    espacios>
+                                <button class="btn-busqueda" mat-icon-button matTooltip="Búsqueda" color="primary"
+                                    (click)="openDialogSingle(organizacionService,'organizacionDesc','Organizacion','Organización')">
+                                    <mat-icon svgIcon="mat:search"></mat-icon>
+                                </button>
+                                <button mat-icon-button matTooltip="Eliminar" color="primary" type="button"
+                                    (click)="eliminarOrgPadre()"
+                                    Style="font-size:28px; position: absolute; right: 0.1rem; bottom: 0.01rem;">
+                                    <mat-icon svgIcon="mat:clear"></mat-icon>
+                                </button>
+                                <!-- <mat-select formControlName="organizacion_ruce">
+                                    <mat-option>Seleccione</mat-option>
+                                    <mat-option *ngFor="let item of organizaciones" [value]="item">{{item.cue}} - {{item.organizacionDesc}} </mat-option>
+                                </mat-select> -->
+                                <mat-error>
+                                    <app-ver-error [control]="this.formularioCooperadora.controls['organizacionDesc']"></app-ver-error>
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Tipo Asociación</mat-label>
+                                <mat-select formControlName="fkRefTipoAsociacion">
+                                    <mat-option>Seleccione</mat-option>
+                                    <mat-option *ngFor="let item of tiposAsociaciones" [value]="item?.id">{{item?.tipoAsociacionDesc}}</mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    <app-ver-error [control]="this.formularioCooperadora.controls['fkRefTipoAsociacion']"></app-ver-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex flex-col md:flex-row gap-3">
+                            <mat-form-field>
+                                <mat-label>CUIT</mat-label>
+                                <input matInput formControlName="cuit" type="text" solonum espacios>
+                                <mat-error>
+                                    <app-ver-error [control]="this.formularioCooperadora.controls['cuit']">
+                                    </app-ver-error>
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Legajo</mat-label>
+                                <input matInput formControlName="legajo" type="text" mayus espacios>
+                                <mat-error>
+                                    <app-ver-error [control]="this.formularioCooperadora.controls['legajo']">
+                                    </app-ver-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex flex-col md:flex-row gap-3">
+                            <mat-form-field>
+                                <mat-label>Denominacion</mat-label>
+                                <input matInput formControlName="denominacion" type="text" mayus espacios>
+                                <mat-error>
+                                    <app-ver-error [control]="this.formularioCooperadora.controls['denominacion']">
+                                    </app-ver-error>
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Estado</mat-label>
+                                <mat-select formControlName="estado">
+                                    <mat-option>Seleccione</mat-option>
+                                    <mat-option [value]="-1">Rojo</mat-option>
+                                    <mat-option [value]="0">Amarillo</mat-option>
+                                    <mat-option [value]="1">Verde</mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    <app-ver-error [control]="this.formularioCooperadora.controls['estado']"></app-ver-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <div class="slide-group">
+                                <mat-slide-toggle color="accent" formControlName="convenioCsEconomicas" [checked]="false" class="p-4"></mat-slide-toggle>
+                                <mat-label>Convenio Cs. Económicas</mat-label>
+                            </div>
+                            <div class="slide-group">
+                                <mat-slide-toggle color="accent" formControlName="estadoAfip" [checked]="false" class="p-4"></mat-slide-toggle>
+                                <mat-label>Inscripcion Afip</mat-label>
+                            </div>
+                        </div>
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <div class="slide-group">
+                                <mat-slide-toggle color="accent" formControlName="estadoRentas" [checked]="false" class="p-4"></mat-slide-toggle>
+                                <mat-label>Inscripcion Rentas</mat-label>
+                            </div>
+                            <div class="slide-group">
+                                <mat-slide-toggle color="accent" formControlName="inscripcionRenacopes" [checked]="false" class="p-4"></mat-slide-toggle>
+                                <mat-label>Inscripcion Renacopes</mat-label>
+                            </div>
+                        </div>
+                    </div>
+                    <br>       
+                    <app-button-group type="button" (cancel)="cancel()" (delete)="eliminar()" (click)="save()" [accion]="accion"></app-button-group>
+                </form>
             </div>
         </div>
-        <br>       
-            <app-button-group type="button" (cancel)="cancel()" (delete)="eliminar()" (click)="save()" [accion]="accion"></app-button-group>
-
-    </form>
     </div>
-    </div>
-</div>
 </div>

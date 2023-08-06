@@ -18,6 +18,9 @@ class CooperadoraController extends Controller
     {
         try {
             if ($request->has('PageNumber')&&$request->has('PageSize')) {
+                if($request->has('descContains')) 
+                    return new RequestCollection($this->search($request, new Cooperadora));
+                    // return new RequestCollection(Cooperadora::paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']), [$request['descContains']=>['denominacion','cuit']]);
                 return new RequestCollection(Cooperadora::paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']), json_decode($request['filtros']));
             }
             return new RequestCollection(Cooperadora::paginate(10, ['*'], 'page', 1));
@@ -125,30 +128,13 @@ class CooperadoraController extends Controller
         }
     }
 
-    public function search(Request $request, Cooperadora $cooperadora)
-    {
-        /*
-        Seguramente se puede refactorizar y optimizar
-        por ahora es la forma que da resultados esperados
-        */
-
-        $query = $cooperadora->newQuery();
-
-        if ($request->id) {
-            $query->where('id', $request->id)
-                ->where(function ($q) use ($request) {
-                    if ($request->q) {
-                        $q->where('cuit', 'like', '%' . $request->q . '%')
-                            ->orWhere('denominacion', 'like', '%' . $request->q . '%');
-                    }
-                });
-        } else {
-            if ($request->q) {
-                $query->where('cuit', 'like', '%' . $request->q . '%')
-                    ->orWhere('denominacion', 'like', '%' . $request->q . '%');
-            }
+    public function search(Request $request, $model){
+        $query = $model::query();
+        if($request->has('descContains')){
+            $query->where('denominacion', 'LIKE', '%'.$request->descContains.'%')
+            ->orWhere('cuit', 'LIKE', '%'.$request->descContains.'%');
         }
-
-        // return new RequestCollection($query->orderBy('organizacionDesc')->paginate()->appends(['q' => $request->q, 'id' => $request->id]));
+        return $query->paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']);
     }
+    
 }
