@@ -49,12 +49,12 @@ class Kiosco extends Model
 
     public function Cooperadora()
     {
-        return $this->belongsTo(Cooperadora::class, 'id', 'fkCooperadora');
+        return $this->belongsTo(Cooperadora::class, 'fkCooperadora', 'id');
     }
 
     public function PersonaRuce()
     {
-        return $this->belongsTo(PersonaRUCE::class, 'id', 'fkPersonaRUCE');
+        return $this->belongsTo(PersonaRUCE::class, 'fkPersonaRUCE', 'id');
     }
 
 

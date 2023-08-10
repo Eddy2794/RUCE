@@ -19,8 +19,8 @@ return new class extends Migration
             $table->unsignedInteger('fkExpediente');
             $table->foreign('fkExpediente')->references('id')->on('Expediente')->onDelete('cascade');
 
-            $table->unsignedInteger('fkRefInstanciaInstrumento');
-            $table->foreign('fkRefInstanciaInstrumento')->references('id')->on('RefInstanciaInstrumento');
+            // $table->unsignedInteger('fkRefInstanciaInstrumento');
+            // $table->foreign('fkRefInstanciaInstrumento')->references('id')->on('RefInstanciaInstrumento');
             
             $table->boolean('estaActivo')->default(true);
             $table->dateTime('fechaEliminacion')->nullable(true);

@@ -35,6 +35,11 @@ class RefTipoDocumentoRUCE extends Model  implements Auditable
      */
     protected $auditExclude = [];
 
+    public function PersonaRUCE()
+    {
+        return $this->belongsTo(PersonaRUCE::class, 'id', 'fkPersonaRUCE');
+    }
+
     /*public function fromDateTime($value){
         return Carbon::parse(parent::fromDateTime($value))->format('d-m-Y H:i:s');
     }

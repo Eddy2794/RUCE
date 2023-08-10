@@ -50,7 +50,7 @@ class Comision extends Model  implements Auditable
 
         public function AutoridadesComision()
     {
-        return $this->hasMany(AutoridadComision::class, 'fkRefTipoComision', 'id');
+        return $this->hasMany(AutoridadComision::class, 'id', 'fkRefTipoComision',);
     }
 
     public function Cooperadora()

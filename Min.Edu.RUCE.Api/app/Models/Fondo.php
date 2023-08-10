@@ -58,7 +58,7 @@ class Fondo extends Model  implements Auditable
 
     public function Cooperadora()
     {
-        return $this->belongsTo(Cooperadora::class, 'id');
+        return $this->belongsTo(Cooperadora::class, 'fkCooperadora', 'id');
     }
 
 

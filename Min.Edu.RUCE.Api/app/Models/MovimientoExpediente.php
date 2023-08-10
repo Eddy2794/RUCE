@@ -41,7 +41,7 @@ class MovimientoExpediente extends Model  implements Auditable
 
     public function Expediente()
     {
-        return $this->belongsTo(Expediente::class, 'id', 'fkExpediente');
+        return $this->belongsTo(Expediente::class, 'fkExpediente', 'id');
     }
 
     public function RefInstanciaInstrumento(): HasMany

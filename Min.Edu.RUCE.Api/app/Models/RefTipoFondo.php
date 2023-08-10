@@ -35,6 +35,11 @@ class RefTipoFondo extends Model  implements Auditable
      */
     protected $auditExclude = [];
 
+    public function Fondo()
+    {
+        return $this->belongsTo(Fondo::class, 'id');
+    }
+
     
 
     /*

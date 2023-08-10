@@ -35,6 +35,11 @@ class RefInstanciaInstrumento extends Model  implements Auditable
      */
     protected $auditExclude = [];
 
+    public function Expediente()
+    {
+        return $this->belongsTo(Expediente::class, 'id', 'fkRefInstanciaInstrumento');
+    }
+
     /*
 public function fromDateTime($value){
         return Carbon::parse(parent::fromDateTime($value))->format('d-m-Y H:i:s');

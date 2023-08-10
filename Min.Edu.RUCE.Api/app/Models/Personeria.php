@@ -43,12 +43,12 @@ class Personeria extends Model  implements Auditable
 
     public function Cooperadora()
     {
-        return $this->belongsTo(Cooperadora::class, 'id', 'fkCooperadora');
+        return $this->belongsTo(Cooperadora::class, 'fkCooperadora', 'id');
     }
 
     public function Expediente()
     {
-        return $this->belongsTo(Expediente::class, 'id', 'fkExpediente');
+        return $this->belongsTo(Expediente::class, 'fkExpediente', 'id');
     }
 
 

@@ -49,22 +49,22 @@ class PersonaRUCE extends Model  implements Auditable
 
     public function AtencionSeguimiento()
     {
-        return $this->belongsTo(AtencionSeguimiento::class,'fkPersonaRUCE');
+        return $this->belongsTo(AtencionSeguimiento::class,'fkPersonaRUCE', 'id');
     }
 
     public function UsuarioRUCE()
     {
-        return $this->belongsTo(autoridadOrganizacionRUCE::class, 'fkPersonaRUCE');
+        return $this->belongsTo(autoridadOrganizacionRUCE::class, 'fkPersonaRUCE', 'id');
     }
 
     public function AutoridadComision()
     {
-        return $this->belongsTo(AutoridadComision::class, 'fkPersonaRUCE');
+        return $this->belongsTo(AutoridadComision::class, 'fkPersonaRUCE', 'id');
     }
 
     public function AutoridadOrganizacionRUCE()
     {
-        return $this->belongsTo(AutoridadOrganizacionRUCE::class);
+        return $this->belongsTo(AutoridadOrganizacionRUCE::class, 'fkAutoridadOrganizacionRUCE' ,'id');
     }
     /*
 public function fromDateTime($value){

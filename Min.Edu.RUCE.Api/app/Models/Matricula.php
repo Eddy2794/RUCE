@@ -42,7 +42,7 @@ class Matricula extends Model  implements Auditable
 
     public function OrganizacionRuce()
     {
-        return $this->belongsTo(OrganizacionRUCE::class, 'id', 'fkOrganizacionRUCE');
+        return $this->belongsTo(OrganizacionRUCE::class, 'fkOrganizacionRUCE', 'id');
     }
 
     /*
