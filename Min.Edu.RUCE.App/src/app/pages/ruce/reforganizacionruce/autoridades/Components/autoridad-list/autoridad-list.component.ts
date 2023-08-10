@@ -141,7 +141,7 @@ export class AutoridadListComponent implements OnInit, OnDestroy {
   private setColumns() {
     this.columnasVex = [
       { label: 'ACCIONES', property: 'actions', type: 'button', visible: true },
-      { label: 'CUIL', property: 'fkPersonaRUCE.cuil', type: 'object', visible: true },
+      { label: 'CUIL', property: 'persona_r_u_c_e.cuil', type: 'object', visible: true },
       { label: 'DNI', property: 'fkPersonaRUCE.documento', type: 'object', visible: true },
       { label: 'NOMBRE', property: 'fkPersonaRUCE.nombre', type: 'object', visible: true },
       { label: 'APELLIDO', property: 'fkPersonaRUCE.apellido', type: 'object', visible: true },

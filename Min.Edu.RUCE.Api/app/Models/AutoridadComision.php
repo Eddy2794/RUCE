@@ -43,9 +43,9 @@ class AutoridadComision extends Model  implements Auditable
      */
     protected $auditExclude = [];
 
-    public function RefCargo(): HasMany
+    public function RefCargo()
     {
-        return $this->hasMany(RefCargo::class, '');
+        return $this->hasMany(RefCargo::class, 'id', 'fkRefCargo');
     }
 
     public function PersonaRuce()

@@ -24,7 +24,7 @@ class Comision extends Model  implements Auditable
         'periodoInicio',
         'periodoFin',
         'nroSocios',
-        'estadoResolucion',
+        'estadoResolucion', //acefala(no vigente), vigente, con resolucion(con comision regularizadora)
         'estaActivo',
         'idUsuarioAlta',
         'idUsuarioModificacion'
@@ -55,7 +55,7 @@ class Comision extends Model  implements Auditable
 
     public function Cooperadora()
     {
-        return $this->belongsTo(Cooperadora::class, 'id', 'fkCooperadora');
+        return $this->belongsTo(Cooperadora::class, 'fkCooperadora', 'id');
     }
 
     public function RefTipoComision()
