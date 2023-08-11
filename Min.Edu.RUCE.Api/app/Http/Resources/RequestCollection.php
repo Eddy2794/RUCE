@@ -17,13 +17,13 @@ class RequestCollection extends ResourceCollection
     private $desc;
     private $campos;
     
-    public function __construct($data, $filtros=[], $busqueda=[])
+    public function __construct($data, $filtros=[], $descContain="")
     {
         $this->data = new LengthAwarePaginator($data->items(), $data->total(), $data->perPage(), $data->currentPage());
         $this->filtros = $filtros;
-        if ($busqueda!==[]) {
-            $this->desc = array_keys($busqueda)[0];
-            $this->campos = array_values($busqueda)[0];
+        if ($descContain!==[]) {
+            $this->desc = $descContain;
+            $this->campos = $this->data->items()[0]->getFillable();
         }
     }
 
@@ -62,18 +62,14 @@ class RequestCollection extends ResourceCollection
         return $data;
     }
 
-    // private function busqueda($datos, $campos, $desc)
-    // {
-    //     $query = get_class($datos->first())::query();
-    //     for ($i=0; $i<count($campos); $i++){
-    //         if($i==0)
-    //             $query->where($campos[$i], 'LIKE', '%'.$desc.'%');
-    //         else {
-    //             $query->orwhere($campos[$i], 'LIKE', '%'.$desc.'%');
-    //         }
-    //     }
-    //     return  new LengthAwarePaginator($query, $this->data->total(), $this->data->perPage(), $this->data->currentPage());
-    // }
+    private function busqueda($datos, $campos, $desc)
+    {
+        $query = get_class($datos->first())::query();
+        foreach ($campos as $campo) {
+            $query->orWhere($campo, 'LIKE', '%' . $desc . '%');
+        }
+        return  new LengthAwarePaginator($query->get, $this->data->total(), $this->data->perPage(), $this->data->currentPage());
+    }
 
     public function toArray($data){
         $datos = $this->filterData($this->data);

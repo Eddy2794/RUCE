@@ -41,8 +41,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             RefSeeder::class,
-            // PersonaRUCESeeder::class,
-            // UsuarioAdministradorSeeder::class,
+            PersonaRUCESeeder::class,
+            UsuarioAdministradorSeeder::class,
         ]);
 
         //Ejecucion de Factories

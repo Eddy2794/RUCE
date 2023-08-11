@@ -69,8 +69,9 @@ export class BaseService<T extends BaseModel> implements IBaseService<T> {
             // if (filterOptions.desc != '' && filterOptions.desc !== undefined) {
             //     queryFilter = queryFilter + `${this.endPoint}desc${filterOptions.descConstains}`
             // }
-            // if (filterOptions.descConstains !== '' && filterOptions.descConstains !== undefined) {
-            //     let descConstains = encodeURIComponent(filterOptions.descConstains ? filterOptions.descConstains.toString() : '');
+
+            // if (filterOptions.descContains !== '' && filterOptions.descContains !== undefined) {
+            //     let descConstains = encodeURIComponent(filterOptions.descContains ? filterOptions.descContains.toString() : '');
             //     queryFilter = queryFilter ? queryFilter + `&${this.endPoint}DescContains=${descConstains}` : `${this.endPoint}DescContains=${descConstains}`;
             // }
 
@@ -82,6 +83,9 @@ export class BaseService<T extends BaseModel> implements IBaseService<T> {
                 }
                 //console.log(key, value, index);
             });
+            // if (filterOptions.filtros) {
+            //     queryFilter = queryFilter ? queryFilter + `&filtros=${filterOptions.filtros}` : `filtros=${filterOptions.filtros}`;
+            // }
             if (filterOptions.includeIds && filterOptions.includeIds.length !== 0) {
                 filterOptions.includeIds.forEach(id => {
                     queryFilter = queryFilter ? queryFilter + `&IncludesIds=${id}` : `IncludesIds=${id}`;

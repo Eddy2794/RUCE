@@ -33,7 +33,8 @@ export class MatriculaListComponent implements OnInit {
   }
 
   obtenerBusqueda() {
-    this.filtro = { estaActivo: true, PageSize: 10, filtros:'{"fkOrganizacionRUCE":"'+this.idOrganizacion+'"}'};
+    this.filtro = { estaActivo: true, PageSize: 10};
+    // this.filtro = { estaActivo: true, PageSize: 10, filtros:'{"fkOrganizacionRUCE":"'+this.idOrganizacion+'"}'};
     this.cargarList();
   }
 
