@@ -13,16 +13,22 @@ class RequestCollection extends ResourceCollection
 {
     public static $wrap = 'entities';
     private $data;
+    private $paginaActual;
+    private $porPagina;
+    private $total;
     private $filtros;
     private $desc;
     private $campos;
     
-    public function __construct($data, $filtros=[], $descContain="")
+    public function __construct($data, $filtros=[], $descContains="")
     {
         $this->data = new LengthAwarePaginator($data->items(), $data->total(), $data->perPage(), $data->currentPage());
+        $this->paginaActual = $data->currentPage();
+        $this->porPagina = $data->perPage();
+        $this->total = $data->total();
         $this->filtros = $filtros;
-        if ($descContain!==[]) {
-            $this->desc = $descContain;
+        if ($descContains!="" && $descContains!=null) {
+            $this->desc = $descContains;
             $this->campos = $this->data->items()[0]->getFillable();
         }
     }
@@ -37,11 +43,9 @@ class RequestCollection extends ResourceCollection
                     return $item[$clave] == $valor;
                 });
             }
-            $paginaActual = $this->data->currentPage();
-            $porPagina = $this->data->perPage();
-            $total = $datos->count();
-            $items = $datos->forPage($paginaActual, $porPagina)->values();
-            $this->data = new LengthAwarePaginator($items, $total, $porPagina, $paginaActual);
+            $this->total = $datos->count();
+            $items = $datos->forPage($this->paginaActual, $this->porPagina)->values();
+            $this->data = new LengthAwarePaginator($items, $this->total, $this->porPagina, $this->paginaActual);
         }
         return $datos;
     }
@@ -68,14 +72,24 @@ class RequestCollection extends ResourceCollection
         foreach ($campos as $campo) {
             $query->orWhere($campo, 'LIKE', '%' . $desc . '%');
         }
-        return  new LengthAwarePaginator($query->get, $this->data->total(), $this->data->perPage(), $this->data->currentPage());
+        
+        $datos = $query->get();
+
+        $this->total = $datos->count();
+        $this->porPagina = $this->total;
+        
+        $items = $datos->forPage($this->paginaActual, $this->porPagina)->values();
+
+        $this->data = new LengthAwarePaginator($items, $this->total, $this->porPagina, $this->paginaActual);
+
+        return $this->data;
     }
 
     public function toArray($data){
         $datos = $this->filterData($this->data);
 
-        // if($this->campos != [])
-        //     $datos = $this->busqueda($datos,$this->campos,$this->desc);
+        if($this->campos != [])
+            $datos = $this->busqueda($datos,$this->campos,$this->desc);
         
         //agrega informacion de las claves foraneas
         $datos = $this->adjustForeignKeys($datos);

@@ -18,10 +18,7 @@ class CooperadoraController extends Controller
     {
         try {
             if ($request->has('PageNumber')&&$request->has('PageSize')) {
-                if($request->has('descContains')) 
-                    return new RequestCollection($this->search($request, new Cooperadora));
-                    // return new RequestCollection(Cooperadora::paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']), [$request['descContains']=>['denominacion','cuit']]);
-                return new RequestCollection(Cooperadora::paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']), json_decode($request['filtros']));
+                return new RequestCollection(Cooperadora::paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']), json_decode($request['filtros']), descContains:$request['descContains']);
             }
             return new RequestCollection(Cooperadora::paginate(10, ['*'], 'page', 1));
         } catch (\Throwable $th) {
@@ -128,13 +125,13 @@ class CooperadoraController extends Controller
         }
     }
 
-    public function search(Request $request, $model){
-        $query = $model::query();
-        if($request->has('descContains')){
-            $query->where('denominacion', 'LIKE', '%'.$request->descContains.'%')
-            ->orWhere('cuit', 'LIKE', '%'.$request->descContains.'%');
-        }
-        return $query->paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']);
-    }
+    // public function search(Request $request, $model){
+    //     $query = $model::query();
+    //     if($request->has('descContains')){
+    //         $query->where('denominacion', 'LIKE', '%'.$request->descContains.'%')
+    //         ->orWhere('cuit', 'LIKE', '%'.$request->descContains.'%');
+    //     }
+    //     return $query->paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']);
+    // }
     
 }
