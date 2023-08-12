@@ -110,12 +110,12 @@ export class AutoridadInsupdComponent implements OnInit {
       fkRefCargo: [null, {validators: [ Validators.required, ]}],
       fkPersonaRUCE: null,
       fkRefTipoDocumentoRUCE: [null, {validators: [ Validators.required, ]}],
-      documento: [null, {validators: [ Validators.required, Validators.min(1000000) ]}],
-      cuil: [null, {validators: [ Validators.required, ]}],
-      nombre: [null, {validators: [ Validators.required, ]}],
-      apellido: [null, {validators: [ Validators.required, ]}],
-      telefono: [null, {validators: [ Validators.required, ]}],
-      email: [null, {validators: [ Validators.required,]}],
+      documento: [null, {validators: [ Validators.required, Validators.minLength(7), Validators.maxLength(8), this.validadorServicio.validarEspaciosInicioFin() ]}],
+      cuil: [null, {validators: [ Validators.required, Validators.minLength(11), Validators.maxLength(12), this.validadorServicio.validarEspaciosInicioFin() ]}],
+      nombre: [null, {validators: [ Validators.required, this.validadorServicio.validarSoloLetras(), this.validadorServicio.validarEspaciosInicioFin() ]}],
+      apellido: [null, {validators: [ Validators.required,  this.validadorServicio.validarSoloLetras(), this.validadorServicio.validarEspaciosInicioFin() ]}],
+      telefono: [null, {validators: [ Validators.required, this.validadorServicio.validarEspaciosInicioFin() ]}],
+      email: [null, {validators: [ Validators.required, Validators.email, this.validadorServicio.validarEspaciosInicioFin() ]}],
       inicioCargo: [null, {validators: [ Validators.required]}],
       finCargo: [null, {validators: [ Validators.required]} ],
       idUsuarioAlta: null,
@@ -128,7 +128,6 @@ export class AutoridadInsupdComponent implements OnInit {
     if (this.accion === 'delete'|| this.accion === 'view') {
       this.formularioAutoridad.disable();
     }
-    console.log(this.formularioAutoridad);
   }
 
   save() {

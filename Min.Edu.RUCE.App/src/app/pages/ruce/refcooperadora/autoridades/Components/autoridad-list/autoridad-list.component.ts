@@ -69,16 +69,71 @@ export class AutoridadListComponent implements OnInit {
   private setColumns() {
     this.columnasVex = [
       { label: 'ACCIONES', property: 'actions', type: 'button', visible: true },
-      { label: 'CUIL', property: 'fkPersonaRUCE.cuil', type: 'object', visible: true },
-      { label: 'DNI', property: 'fkPersonaRUCE.documento', type: 'object', visible: true },
-      { label: 'NOMBRE', property: 'fkPersonaRUCE.nombre', type: 'object', visible: true },
-      { label: 'APELLIDO', property: 'fkPersonaRUCE.apellido', type: 'object', visible: true },
-      { label: 'EMAIL', property: 'fkPersonaRUCE.email', type: 'object', visible: true },
-      { label: 'TELEFONO', property: 'fkPersonaRUCE.telefono', type: 'object', visible: true },
-      { label: 'CARGO', property: 'fkRefCargo.cargoDesc', type: 'object', visible: true },
+      { label: 'CUIL', property: 'persona_r_u_c_e.0.cuil', type: 'object', visible: true },
+      { label: 'DNI', property: 'persona_r_u_c_e.0.documento', type: 'object', visible: true },
+      { label: 'NOMBRE', property: 'persona_r_u_c_e.0.nombre', type: 'object', visible: true },
+      { label: 'APELLIDO', property: 'persona_r_u_c_e.0.apellido', type: 'object', visible: true },
+      { label: 'EMAIL', property: 'persona_r_u_c_e.0.email', type: 'object', visible: true },
+      { label: 'TELEFONO', property: 'persona_r_u_c_e.0.telefono', type: 'object', visible: true },
+      { label: 'CARGO', property: 'ref_cargo.0.cargoDesc', type: 'object', visible: true },
       { label: 'INICIO DE CARGO', property: 'inicioCargo', type: 'date', visible: true },
       { label: 'FIN DE CARGO', property: 'finCargo', type: 'date', visible: true },
       
+    ]
+  }
+
+  private setSearchOptions() {
+    this.searchOptions = [
+      new SearchOptionsGeneric({
+        typeControl: TypeControl.INPUT,
+        typeData: TypeData.NUMBER,
+        name: 'id',
+        label: 'Codigo',
+        readonly: false,
+      }),
+      new SearchOptionsGeneric({
+        typeControl: TypeControl.INPUT,
+        typeData: TypeData.TEXT,
+        name: 'planEstudioDescContains',
+        label: 'Plan Estudio',
+        readonly: false,
+      }),
+      // new SearchOptionsGeneric({
+      //   typeControl: TypeControl.SELECT,
+      //   typeData: TypeData.TEXT,
+      //   name: 'idPropuestaFormativa',
+      //   label: 'Propuesta Formativa',
+      //   readonly: false,
+      //   value: this.propFormModel,
+      //   property: 'propuestaFormativaDesc'
+      // }),
+      new SearchOptionsGeneric({
+        typeControl: TypeControl.SELECT,
+        typeData: TypeData.TEXT,
+        name: 'idRefNivelEducativo',
+        label: 'Nivel Educativo',
+        readonly: false,
+        value: this.autoridadesCooperadora,
+        property: 'nivelEducativoDesc'
+      }),
+      // new SearchOptionsGeneric({
+      //   typeControl: TypeControl.SELECT,
+      //   typeData: TypeData.TEXT,
+      //   name: 'idRefEspecialidad',
+      //   label: 'Orientacion',
+      //   readonly: false,
+      //   value: this.refEspecialidad,
+      //   property: 'especialidadDesc'
+      // }),
+      // new SearchOptionsGeneric({
+      //   typeControl: TypeControl.SELECT,
+      //   typeData: TypeData.TEXT,
+      //   name: 'idRefEstadoPlanUnidad',
+      //   label: 'Estado',
+      //   readonly: false,
+      //   value: this.refEstadoPlanUnidad,
+      //   property: 'estadoPlanUnidadDesc'
+      // }),
     ]
   }
 

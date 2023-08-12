@@ -65,13 +65,13 @@ export class EncabezadoComisionComponent implements OnInit {
   private setColumns(): void {
     this.columnasVex = [
       { label: 'ACCIONES', property: 'actions', type: 'button', visible: true },
-      { label: 'CUIL', property: 'persona_r_u_c_e.cuil', type: 'object', visible: true },
-      { label: 'DNI', property: 'persona_r_u_c_e.documento', type: 'object', visible: true },
-      { label: 'NOMBRE', property: 'persona_r_u_c_e.nombre', type: 'object', visible: true },
-      { label: 'APELLIDO', property: 'persona_r_u_c_e.apellido', type: 'object', visible: true },
-      { label: 'EMAIL', property: 'persona_r_u_c_e.email', type: 'object', visible: true },
-      { label: 'TELEFONO', property: 'persona_r_u_c_e.telefono', type: 'object', visible: true },
-      { label: 'CARGO', property: 'ref_cargo.cargoDesc', type: 'object', visible: true },
+      { label: 'CUIL', property: 'persona_r_u_c_e.0.cuil', type: 'object', visible: true },
+      { label: 'DNI', property: 'persona_r_u_c_e.0.documento', type: 'object', visible: true },
+      { label: 'NOMBRE', property: 'persona_r_u_c_e.0.nombre', type: 'object', visible: true },
+      { label: 'APELLIDO', property: 'persona_r_u_c_e.0.apellido', type: 'object', visible: true },
+      { label: 'EMAIL', property: 'persona_r_u_c_e.0.email', type: 'object', visible: true },
+      { label: 'TELEFONO', property: 'persona_r_u_c_e.0.telefono', type: 'object', visible: true },
+      { label: 'CARGO', property: 'ref_cargo.0.cargoDesc', type: 'object', visible: true },
       { label: 'INICIO DE CARGO', property: 'inicioCargo', type: 'date', visible: true },
       { label: 'FIN DE CARGO', property: 'finCargo', type: 'date', visible: true },
     ]

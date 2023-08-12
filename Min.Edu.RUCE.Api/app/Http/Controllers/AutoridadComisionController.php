@@ -21,7 +21,7 @@ class AutoridadComisionController extends Controller
     {
         try {
             if ($request->has('PageNumber')&&$request->has('PageSize')) {
-                return new RequestCollection(AutoridadComision::paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']), json_decode($request['filtros']));
+                return new RequestCollection(AutoridadComision::paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']), json_decode($request['filtros']), descContains:$request['descContains']);
             }
 
             return new RequestCollection(AutoridadComision::paginate(10, ['*'], 'page', 1));

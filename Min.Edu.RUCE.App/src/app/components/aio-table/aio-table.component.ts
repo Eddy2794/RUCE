@@ -187,7 +187,7 @@ export class AioTableComponent implements OnInit, AfterViewInit, OnDestroy {
 
   pageChanged(pageEvent: PageEvent) {
     this.paginate = new PaginateOptions(this.paginator.pageIndex == 0 ? 1 : (this.paginator.pageIndex + 1), this.paginator.pageSize);
-    this.sourceService.filter(this.filter, this.paginate).subscribe((resp: any) => {
+    this.sourceService.filter(this.filterAio, this.paginate).subscribe((resp: any) => {
       this.dataSource.data = resp.entities || [];
       this.dataSource.sort = this.sort;
       this.pageProperties.length = resp.paged.entityCount;
