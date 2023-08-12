@@ -19,7 +19,7 @@ class RefTipoDocumentoRUCEController extends Controller
     {
         try {
             if ($request->has('PageNumber')&&$request->has('PageSize')) {
-                return new RequestCollection(RefTipoDocumentoRUCE::paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']));
+                return new RequestCollection(RefTipoDocumentoRUCE::all(),$request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
             }
             return new RequestCollection(RefTipoDocumentoRUCE::paginate(10, ['*'], 'page', 1));
         } catch (\Throwable $th) {

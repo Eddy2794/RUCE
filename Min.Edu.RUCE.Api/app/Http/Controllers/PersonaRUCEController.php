@@ -20,7 +20,7 @@ class PersonaRUCEController extends Controller
     {
         try {
             if ($request->has('PageNumber')&&$request->has('PageSize')) {
-                return new RequestCollection(PersonaRUCE::paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']));
+                return new RequestCollection(PersonaRUCE::all(),$request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
             }
             // dd(PersonaRUCE::latest()->first()->toArray());
             return  response()->json(new ModelResourse(PersonaRUCE::latest()->first()->toArray(),'PersonaRUCE'));

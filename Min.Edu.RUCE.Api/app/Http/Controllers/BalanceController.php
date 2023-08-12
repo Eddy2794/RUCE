@@ -19,7 +19,7 @@ class BalanceController extends Controller
     {
         try {
             if ($request->has('PageNumber')&&$request->has('PageSize')) {
-                return new RequestCollection(Balance::paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']));
+                return new RequestCollection(Balance::all(),$request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
             }
             return new RequestCollection(Balance::paginate(10, ['*'], 'page', 1));
         } catch (\Throwable $th) {
