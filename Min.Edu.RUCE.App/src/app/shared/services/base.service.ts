@@ -74,15 +74,20 @@ export class BaseService<T extends BaseModel> implements IBaseService<T> {
             //     let descConstains = encodeURIComponent(filterOptions.descContains ? filterOptions.descContains.toString() : '');
             //     queryFilter = queryFilter ? queryFilter + `&${this.endPoint}DescContains=${descConstains}` : `${this.endPoint}DescContains=${descConstains}`;
             // }
-
+            let jsonFilter = JSON.stringify({})
             Object.entries(filterOptions).forEach(([key, value], index) => {
-                if (!key.includes('includesIds') && !key.includes('excludesIds') && !key.includes('estaActivo') && !(key === 'id')) {
+                if (!key.includes('includesIds') && !key.includes('excludesIds') && !key.includes('estaActivo') && !(key === 'id') && !(key === 'descContains')) {
                     if (value !== '' && value !== undefined) {
-                        queryFilter = queryFilter ? queryFilter + `&${key}=${value}` : `${key}=${value}`;
+                        jsonFilter = JSON.stringify({
+                          ...JSON.parse(jsonFilter),
+                            [key]: value
+                        })
                     }
                 }
                 //console.log(key, value, index);
             });
+            if (jsonFilter!="{}")
+                queryFilter = queryFilter ? queryFilter + `&filtros=${jsonFilter}` : `filtros=${jsonFilter}`;
             // if (filterOptions.filtros) {
             //     queryFilter = queryFilter ? queryFilter + `&filtros=${filterOptions.filtros}` : `filtros=${filterOptions.filtros}`;
             // }

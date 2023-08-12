@@ -18,9 +18,7 @@ class OrganizacionRUCEController extends Controller
     {
         try {
             if ($request->has('PageNumber')&&$request->has('PageSize')) {
-                if($request->has('descContains'))
-                    //return new RequestCollection(OrganizacionRUCE::paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']));
-                    return new RequestCollection($this->search($request, new OrganizacionRUCE()));
+                    return new RequestCollection(OrganizacionRUCE::all(),$request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
             }
             return new RequestCollection(OrganizacionRUCE::paginate(10, ['*'], 'page', 1));
         } catch (\Throwable $th) {
@@ -129,14 +127,14 @@ class OrganizacionRUCEController extends Controller
         }
     }
 
-    public function search(Request $request, $model){
+    /*public function search(Request $request, $model){
         $query = $model::query();
         if($request->has('descContains')){
             $query->where('organizacionDesc', 'LIKE', '%'.$request->descContains.'%')
             ->orWhere('cue', 'LIKE', '%'.$request->descContains.'%');
         }
         return $query->paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']);
-    }
+    }*/
 
     // public function competencias($id)
     // {

@@ -20,13 +20,14 @@ class RequestCollection extends ResourceCollection
     private $desc;
     private $campos;
     
-    public function __construct($data, $filtros=[], $descContains="")
+    public function __construct($data, $perPage=10, $currentPage=0, $filtros=[], $descContains="")
     {
-        $this->data = new LengthAwarePaginator($data->items(), $data->total(), $data->perPage(), $data->currentPage());
-        $this->paginaActual = $data->currentPage();
-        $this->porPagina = $data->perPage();
-        $this->total = $data->total();
-        $this->filtros = $filtros;
+        $this->data = new LengthAwarePaginator($data, $data->count(), $perPage, $currentPage);
+        $this->paginaActual = $currentPage;
+        $this->porPagina = $perPage;
+        if ($filtros!="" && $filtros!=null){
+            $this->filtros = $filtros;
+        }
         if ($descContains!="" && $descContains!=null) {
             $this->desc = $descContains;
             $this->campos = $this->data->items()[0]->getFillable();
@@ -47,7 +48,8 @@ class RequestCollection extends ResourceCollection
             $items = $datos->forPage($this->paginaActual, $this->porPagina)->values();
             $this->data = new LengthAwarePaginator($items, $this->total, $this->porPagina, $this->paginaActual);
         }
-        return $datos;
+        // dd($datos);
+        return $this->data;
     }
 
     private function adjustForeignKeys($data)
@@ -56,9 +58,7 @@ class RequestCollection extends ResourceCollection
             foreach ($item->getAttributes() as $clave => $valor) {
                 if (str_contains($clave, 'fk')) {
                     $foraneo = substr($clave, 2);
-                    //$item[$clave] = $item->$foraneo->toArray();
                     $item->$foraneo;
-                    //dd($item->toArray());
                 }
             }
             return $item;
@@ -69,6 +69,7 @@ class RequestCollection extends ResourceCollection
     private function busqueda($datos, $campos, $desc)
     {
         $query = get_class($datos->first())::query();
+
         foreach ($campos as $campo) {
             $query->orWhere($campo, 'LIKE', '%' . $desc . '%');
         }
@@ -76,7 +77,6 @@ class RequestCollection extends ResourceCollection
         $datos = $query->get();
 
         $this->total = $datos->count();
-        $this->porPagina = $this->total;
         
         $items = $datos->forPage($this->paginaActual, $this->porPagina)->values();
 
@@ -102,9 +102,9 @@ class RequestCollection extends ResourceCollection
             'message' => '',
             'succeeded' => true,
             'paged' => [
-                'entityCount' => $this->data->total(),
-                'pageSize' => $this->data->perPage(),
-                'pageNumber' => $this->data->currentPage()
+                'entityCount' => $this->total,
+                'pageSize' => $this->porPagina,
+                'pageNumber' => $this->paginaActual
             ]
         ];
     }
