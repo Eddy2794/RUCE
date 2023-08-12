@@ -57,7 +57,7 @@ export class AutoridadListComponent implements OnInit {
   }
 
   obtenerBusqueda() {
-    this.filtro = { estaActivo: true, PageSize: 10, filtros:'{"fkComision":"'+this.idComision+'"}'};
+    this.filtro = { estaActivo: true, PageSize: 10, fkComision: this.idComision};
     this.cargarList();
   }
 

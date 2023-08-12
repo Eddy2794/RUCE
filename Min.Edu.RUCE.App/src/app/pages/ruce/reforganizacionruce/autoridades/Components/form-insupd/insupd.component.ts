@@ -28,7 +28,7 @@ export class AutoridadInsupdComponent implements OnInit {
   formularioAutoridad!: FormGroup;
   id: number = 0;
   idOrganizacion!: number;
-  filtro: FilterOptions = { estaActivo: true, PageSize: 10,};
+  filtro: FilterOptions = { estaActivo: true, PageSize: 10 };
   tiposDocumentos = new Array<RefTipoDocumentoModel>;
   cargos = new Array<RefCargoModel>;
 
@@ -77,15 +77,16 @@ export class AutoridadInsupdComponent implements OnInit {
             this.accion = 'edit'
           }
           this.autoridadOrganizacionRUCEService.findOne(this.id).subscribe((resp: any) => {
+            console.log(resp)
             this.formularioAutoridad.patchValue(resp.entities);
-            this.formularioAutoridad.controls.documento.patchValue(resp.entities.fkPersonaRUCE.documento);
-            this.formularioAutoridad.controls.cuil.patchValue(resp.entities.fkPersonaRUCE.cuil);
-            this.formularioAutoridad.controls.nombre.patchValue(resp.entities.fkPersonaRUCE.nombre);
-            this.formularioAutoridad.controls.apellido.patchValue(resp.entities.fkPersonaRUCE.apellido);
-            this.formularioAutoridad.controls.telefono.patchValue(resp.entities.fkPersonaRUCE.telefono);
-            this.formularioAutoridad.controls.email.patchValue(resp.entities.fkPersonaRUCE.email);
+            this.formularioAutoridad.controls.documento.patchValue(resp.entities.persona_r_u_c_e[0].documento);
+            this.formularioAutoridad.controls.cuil.patchValue(resp.entities.persona_r_u_c_e[0].cuil);
+            this.formularioAutoridad.controls.nombre.patchValue(resp.entities.persona_r_u_c_e[0].nombre);
+            this.formularioAutoridad.controls.apellido.patchValue(resp.entities.persona_r_u_c_e[0].apellido);
+            this.formularioAutoridad.controls.telefono.patchValue(resp.entities.persona_r_u_c_e[0].telefono);
+            this.formularioAutoridad.controls.email.patchValue(resp.entities.persona_r_u_c_e[0].email);
             this.formularioAutoridad.controls.fkRefCargo.patchValue(resp.entities.fkRefCargo.id);
-            this.formularioAutoridad.controls.fkRefTipoDocumentoRUCE.patchValue(resp.entities.fkPersonaRUCE.fkRefTipoDocumentoRUCE.id);
+            this.formularioAutoridad.controls.fkRefTipoDocumentoRUCE.patchValue(resp.entities.persona_r_u_c_e[0].fkRefTipoDocumentoRUCE.id);
           });
         }
       });

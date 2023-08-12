@@ -68,6 +68,7 @@ export class AioTableComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() ruta!: string;
   @Input() nombreTabla!: string;
   @Input() cabecera!: boolean;
+  @Input() view!: boolean;
   @Input() specialButton!: string[];
   @ViewChild('etiqueta') etiquetaname: any;
   etiquetaShow: boolean = false;

@@ -23,7 +23,8 @@ class PersonaRUCEController extends Controller
                 return new RequestCollection(PersonaRUCE::all(),$request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
             }
             // dd(PersonaRUCE::latest()->first()->toArray());
-            return  response()->json(new ModelResourse(PersonaRUCE::latest()->first()->toArray(),'PersonaRUCE'));
+            return new RequestCollection(PersonaRUCE::all(),10, 1);
+            // return  response()->json(new ModelResourse(PersonaRUCE::latest()->first()->toArray(),'PersonaRUCE'));
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,

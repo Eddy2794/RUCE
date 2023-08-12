@@ -54,7 +54,8 @@ class PersonaRUCE extends Model  implements Auditable
 
     public function UsuarioRUCE()
     {
-        return $this->belongsTo(autoridadOrganizacionRUCE::class, 'fkPersonaRUCE', 'id');
+        $usuario = $this->belongsTo(autoridadOrganizacionRUCE::class, 'fkPersonaRUCE', 'id');
+        return $usuario;
     }
 
     public function AutoridadComision()
@@ -65,6 +66,11 @@ class PersonaRUCE extends Model  implements Auditable
     public function AutoridadOrganizacionRUCE()
     {
         return $this->belongsTo(AutoridadOrganizacionRUCE::class, 'fkAutoridadOrganizacionRUCE' ,'id');
+    }
+
+    public function TipoDocumentoRUCE()
+    {
+        return $this->hasMany(TipoDocumentoRUCE::class);
     }
     /*
 public function fromDateTime($value){

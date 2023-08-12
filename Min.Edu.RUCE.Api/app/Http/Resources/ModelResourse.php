@@ -58,9 +58,9 @@ class ModelResourse extends JsonResource
             foreach ($item->getAttributes() as $clave => $valor) {
                 if (str_contains($clave, 'fk')) {
                     $foraneo = substr($clave, 2);
-                    //$item[$clave] = $item->$foraneo->toArray();
+                    // $item[$clave] = $item->$foraneo->toArray();
+                    // dd($item[$clave]);
                     $item->$foraneo->toArray();
-                    //dd($item->toArray());
                 }
             }
             return $item;

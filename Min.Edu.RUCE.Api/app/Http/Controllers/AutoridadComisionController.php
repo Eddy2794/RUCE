@@ -24,7 +24,7 @@ class AutoridadComisionController extends Controller
                 return new RequestCollection(AutoridadComision::all(),$request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
             }
 
-            return new RequestCollection(AutoridadComision::paginate(10, ['*'], 'page', 1));
+            return new RequestCollection(AutoridadComision::all(),10, 1);
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,

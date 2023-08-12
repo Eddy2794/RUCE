@@ -5,7 +5,9 @@ export class FilterOptions {
     includeIds?: number[];
     excludeIds?: number[];
     id?: number;
-    idOrganizacion?: number;
+    fkOrganizacionRUCE?: number;
+    fkCooperadora?: number;
+    fkComision?: number;
     filtros?: string;
     estaActivo?: boolean;
     PageSize?: number;
@@ -37,12 +39,16 @@ export class FilterOptions {
         this.excludeIds = new Array<number>();
         this.filtros = JSON.parse("{}");
         this.id = 0;
-        this.idOrganizacion = 0;
+        this.fkOrganizacionRUCE = 0;
+        this.fkCooperadora = 0;
+        this.fkComision = 0;
     }
 }
 export interface IFilterOptions {
     id?: number;
-    idOrganizacion?: number;
+    fkOrganizacionRUCE?: number;
+    fkCooperadora?: number;
+    fkComision?: number;
     filtros?: JSON;
     descContains?: string;
     desc?: string;

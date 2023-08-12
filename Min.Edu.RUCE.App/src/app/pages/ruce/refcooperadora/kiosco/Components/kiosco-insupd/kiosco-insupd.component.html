@@ -8,9 +8,9 @@
         <mat-icon svgIcon="mat:more_vert"></mat-icon>
     </button>
 </vex-secondary-toolbar>
-<div [@stagger]="true" class="p-gutter container">
+<div class="p-gutter container">
     <div class="flex flex-col sm:flex-row gap-4">
-        <div @fadeInUp class="card flex-auto">
+        <div class="card flex-auto">
             <div class="px-6 py-4 border-b flex items-center justify-center">
                 <!-- <h2 class="title m-0">Formulario</h2> -->
                 <h2 class="title m-0" *ngIf="accion==='add'">Formulario Alta de Kiosco de la Cooperadora</h2>
@@ -19,7 +19,7 @@
             </div>
     <div class="px-6 py-4 flex flex-col">
     <form autocomplete="off" [formGroup]="formularioKiosco">
-        <div @fadeInUp class="formuario">
+        <div class="formuario">
             
             <div class="flex flex-col md:flex-row gap-3">
                 <div class="slide-group">

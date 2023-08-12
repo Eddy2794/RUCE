@@ -153,7 +153,7 @@ export class PlazaListComponent implements OnInit {
       this.frmPlaza.controls.categoriaOrganizacionDesc.setValue(resp.refCategoriaOrganizacion? resp.refCategoriaOrganizacion.categoriaOrganizacionDesc : 'SIN DATOS');
       this.observerValueService.sendIdOrgValue(resp.id);
       this.observerValueService.sendDescOrgValue(resp.organizacionDesc);
-      this.filtro = { estaActivo: true, idOrganizacion: resp.id };
+      // this.filtro = { estaActivo: true, idOrganizacion: resp.id };
       this.cargarList();
     }
     else {

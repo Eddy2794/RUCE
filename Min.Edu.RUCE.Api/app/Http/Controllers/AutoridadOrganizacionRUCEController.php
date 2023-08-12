@@ -26,7 +26,7 @@ class AutoridadOrganizacionRUCEController extends Controller
             if ($request->has('PageNumber')&&$request->has('PageSize')) {
                 return new RequestCollection(AutoridadOrganizacionRUCE::all(),$request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
             }
-            return new RequestCollection(AutoridadOrganizacionRUCE::paginate(10, ['*'], 'page', 1));
+            return new RequestCollection(AutoridadOrganizacionRUCE::all(),10, 1);
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,

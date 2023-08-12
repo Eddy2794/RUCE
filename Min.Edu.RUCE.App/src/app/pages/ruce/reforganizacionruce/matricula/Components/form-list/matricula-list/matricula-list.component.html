@@ -1,6 +1,6 @@
 <vex-page-layout>
-    <div [@stagger]="true">
-        <div @fadeInUp class="card flex-auto">
+    <div>
+        <div class="card flex-auto">
   
             <vex-aio-table [columns]="columnasVex" [sourceService]="matriculaService" [filter]="filtro" [ruta]="'establecimientos/'+idOrganizacion+'/matricula'" [nombreTabla]="'Matrículas'" [cabecera]="false">
               <app-input-search espacio1></app-input-search>

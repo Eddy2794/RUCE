@@ -74,59 +74,8 @@ export class AutoridadListComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
   }
 
-  private setSearchOptions2() {
-    this.searchOptionsBusqueda = [
-      new SearchOptionsGeneric({
-        typeControl: TypeControl.INPUT,
-        typeData: TypeData.NUMBER,
-        name: 'id',
-        label: 'Código',
-        readonly: false
-      }),
-      new SearchOptionsGeneric({
-        typeControl: TypeControl.INPUT,
-        typeData: TypeData.TEXT,
-        name: 'organizacionDescContains',
-        label: 'Organizacion',
-        readonly: false
-      }),
-      new SearchOptionsGeneric({
-        typeControl: TypeControl.INPUT,
-        typeData: TypeData.TEXT,
-        name: 'cue',
-        label: 'CUE',
-        readonly: false
-      }),
-      new SearchOptionsGeneric({
-        typeControl: TypeControl.INPUT,
-        typeData: TypeData.TEXT,
-        name: 'anexo',
-        label: 'Anexo',
-        readonly: false
-      }),
-      new SearchOptionsGeneric({
-        typeControl: TypeControl.SELECT,
-        typeData: TypeData.TEXT,
-        name: 'idRefJornada',
-        label: 'Jornada',
-        readonly: false,
-        value: this.refJornadaModel,
-        property: 'jornadaDesc'
-      }),
-      // new SearchOptionsGeneric({
-      //   typeControl: TypeControl.SELECT,
-      //   typeData: TypeData.TEXT,
-      //   name: 'idRefCategoriaOrganizacion',
-      //   label: 'Categoria',
-      //   readonly: false,
-      //   value: this.refCatModel,
-      //   property: 'categoriaOrganizacionDesc'
-      // }),
-    ];
-  }
-
   obtenerBusqueda() {
-    this.filtro = { estaActivo: true, PageSize: 10, filtros:'{"fkOrganizacionRUCE":"'+this.idOrganizacion+'"}'};
+    this.filtro = { estaActivo: true, PageSize: 10, fkOrganizacionRUCE:this.idOrganizacion};
     this.cargarList();
   }
 

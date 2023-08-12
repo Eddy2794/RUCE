@@ -21,7 +21,7 @@ class ComisionController extends Controller
             if ($request->has('PageNumber')&&$request->has('PageSize')) {
                 return new RequestCollection(Comision::all(),$request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
             }
-            return new RequestCollection(Comision::paginate(10, ['*'], 'page', 1));
+            return new RequestCollection(Comision::all(),10, 1);
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,

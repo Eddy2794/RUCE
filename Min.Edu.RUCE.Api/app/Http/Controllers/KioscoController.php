@@ -20,7 +20,7 @@ class KioscoController extends Controller
             if ($request->has('PageNumber')&&$request->has('PageSize')) {
                 return new RequestCollection(Kiosco::all(),$request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
             }
-            return new RequestCollection(Kiosco::paginate(10, ['*'], 'page', 1));
+            return new RequestCollection(Kiosco::all(),10, 1);
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,

@@ -23,7 +23,7 @@ class AtencionSeguimientoController extends Controller
                 return new RequestCollection(AtencionSeguimiento::all(),$request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
             }
 
-            return new RequestCollection(AtencionSeguimiento::paginate(10, ['*'], 'page', 1));
+            return new RequestCollection(AtencionSeguimiento::all(),10, 1);
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use ArrayObject;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -50,7 +51,11 @@ class AutoridadOrganizacionRUCE extends Model  implements Auditable
 
     public function PersonaRUCE()
     {
-        return $this->hasMany(PersonaRUCE::class, 'id', 'fkPersonaRUCE');
+        $persona = $this->hasMany(PersonaRUCE::class, 'id', 'fkPersonaRUCE');
+        // dd($persona->getParent()->toArray());
+        // dd($persona->getModels()[0]->getAttributes());
+        return $persona;
+        // return $persona->getModels()[0]->getAttributes();
     }
 
     public function OrganizacionRUCE()

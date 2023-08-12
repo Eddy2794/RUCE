@@ -180,7 +180,7 @@
 
 <mat-menu #actionsMenu="matMenu" xPosition="before" yPosition="below">
   <ng-template let-fila="fila" matMenuContent>
-    <button mat-menu-item (click)="ver(fila)">
+    <button *ngIf="view || view===undefined" mat-menu-item (click)="ver(fila)">
       <mat-icon svgIcon="mat:visibility"></mat-icon>
       <span>Ver</span>
     </button>

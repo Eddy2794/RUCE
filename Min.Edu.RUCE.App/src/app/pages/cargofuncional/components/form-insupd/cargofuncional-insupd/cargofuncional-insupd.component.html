@@ -10,10 +10,10 @@
     <mat-icon svgIcon="mat:more_vert"></mat-icon>
   </button>
 </vex-secondary-toolbar>
-<div [@stagger]="true" class="p-gutter container">
+<div class="p-gutter container">
   <form autocomplete="off" [formGroup]="formCargoFuncional" (ngSubmit)="save()">
     <div class="flex flex-col sm:flex-row gap-4">
-      <div @fadeInUp class="card flex-auto">
+      <div class="card flex-auto">
         <div class="px-6 py-4 border-b flex items-center">
           <h2 class="title m-0" *ngIf="accion==='add'">Formulario Alta de Cargo Funcional</h2>
           <h2 class="title m-0" *ngIf="accion==='edit'">Formulario Modificación de Cargo Funcional</h2>

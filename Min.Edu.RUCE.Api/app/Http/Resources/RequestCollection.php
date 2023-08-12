@@ -25,31 +25,26 @@ class RequestCollection extends ResourceCollection
         $this->data = new LengthAwarePaginator($data, $data->count(), $perPage, $currentPage);
         $this->paginaActual = $currentPage;
         $this->porPagina = $perPage;
-        if ($filtros!="" && $filtros!=null){
-            $this->filtros = $filtros;
-        }
+        $this->total = $data->count();
+        $this->filtros = $filtros?$filtros:[];
         if ($descContains!="" && $descContains!=null) {
             $this->desc = $descContains;
             $this->campos = $this->data->items()[0]->getFillable();
         }
     }
 
-    private function filterData($data)
+    private function filterData($datos)
     {
-        $datos = $data;
-
-        if($this->filtros!=[]){
-            foreach($this->filtros as $clave => $valor) {
-                $datos = $datos->filter(function ($item) use ($clave, $valor) {
-                    return $item[$clave] == $valor;
-                });
-            }
-            $this->total = $datos->count();
-            $items = $datos->forPage($this->paginaActual, $this->porPagina)->values();
-            $this->data = new LengthAwarePaginator($items, $this->total, $this->porPagina, $this->paginaActual);
+        foreach($this->filtros as $clave => $valor) {
+            $datos = $datos->filter(function ($item) use ($clave, $valor) {
+                return $item[$clave] == $valor;
+            });
         }
-        // dd($datos);
-        return $this->data;
+        $this->total = $datos->count();
+        $items = $datos->forPage($this->paginaActual, $this->porPagina)->values();
+        $this->data = new LengthAwarePaginator($items, $this->total, $this->porPagina, $this->paginaActual);
+        $datos = $this->data;
+        return $datos;
     }
 
     private function adjustForeignKeys($data)
@@ -90,7 +85,7 @@ class RequestCollection extends ResourceCollection
 
         if($this->campos != [])
             $datos = $this->busqueda($datos,$this->campos,$this->desc);
-        
+
         //agrega informacion de las claves foraneas
         $datos = $this->adjustForeignKeys($datos);
         return $datos->values()->toArray();
