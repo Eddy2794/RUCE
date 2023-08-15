@@ -81,7 +81,7 @@ export class RefcategoriaorganizacionInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Categoria Organizacion Creada", false)
         this.router.navigate(['/pages/refcategoriaorganizacion']);
       }, err => {
-        this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)
+        this.mostrarDialogMsj("Atención", err.error.message, false)
       }
       );
     } else {
@@ -89,7 +89,7 @@ export class RefcategoriaorganizacionInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Categoria Organizacion Modificada", false)
         this.router.navigate(['/pages/refcategoriaorganizacion']);
       }, err => {
-        this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)
+        this.mostrarDialogMsj("Atención", err.error.message, false)
       }
       );
     }
@@ -112,7 +112,7 @@ export class RefcategoriaorganizacionInsupdComponent implements OnInit {
           this.mostrarDialogMsj("Mensaje", "Categoria Organizacion Eliminada", false)
           this.router.navigate(['/pages/refcategoriaorganizacion']);
         }, err => {
-          this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)
+          this.mostrarDialogMsj("Atención", err.error.message, false)
         }
         );
       }

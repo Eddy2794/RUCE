@@ -101,17 +101,17 @@ export class MatriculaInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Matricula Creada", false)
         this.router.navigate(['/pages/establecimientos/view/'+this.idOrganizacion]);
       }, err => {
-        this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)
+        this.mostrarDialogMsj("Atención", err.error.message, false)
       }
       );
     } else {
-      this.formularioMatricula.value.fkOrganizacionRUCE = this.formularioMatricula.value.fkOrganizacionRUCE?.id;
+      this.formularioMatricula.value.fkOrganizacionRUCE = this.formularioMatricula.value.fkOrganizacionRUCE;
       
       this.matriculaService.update(this.formularioMatricula.value.id, this.formularioMatricula.value).subscribe((resp: any) => {
         this.mostrarDialogMsj("Mensaje", "Matricula Modificada", false)
         this.router.navigate(['/pages/establecimientos/view/'+this.idOrganizacion]);
       }, err => {
-        this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)
+        this.mostrarDialogMsj("Atención", err.error.message, false)
       }
       );
     }
@@ -133,7 +133,7 @@ export class MatriculaInsupdComponent implements OnInit {
           this.mostrarDialogMsj("Mensaje", "Matricula Eliminado", false)
           this.router.navigate(['/pages/establecimientos/view/'+this.idOrganizacion]);
         }, err => {
-          this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)
+          this.mostrarDialogMsj("Atención", err.error.message, false)
         }
         );
       }

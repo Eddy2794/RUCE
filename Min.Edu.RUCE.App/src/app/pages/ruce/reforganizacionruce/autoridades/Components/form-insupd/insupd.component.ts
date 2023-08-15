@@ -77,7 +77,6 @@ export class AutoridadInsupdComponent implements OnInit {
             this.accion = 'edit'
           }
           this.autoridadOrganizacionRUCEService.findOne(this.id).subscribe((resp: any) => {
-            console.log(resp)
             this.formularioAutoridad.patchValue(resp.entities);
             this.formularioAutoridad.controls.documento.patchValue(resp.entities.persona_r_u_c_e[0].documento);
             this.formularioAutoridad.controls.cuil.patchValue(resp.entities.persona_r_u_c_e[0].cuil);
@@ -85,8 +84,8 @@ export class AutoridadInsupdComponent implements OnInit {
             this.formularioAutoridad.controls.apellido.patchValue(resp.entities.persona_r_u_c_e[0].apellido);
             this.formularioAutoridad.controls.telefono.patchValue(resp.entities.persona_r_u_c_e[0].telefono);
             this.formularioAutoridad.controls.email.patchValue(resp.entities.persona_r_u_c_e[0].email);
-            this.formularioAutoridad.controls.fkRefCargo.patchValue(resp.entities.fkRefCargo.id);
-            this.formularioAutoridad.controls.fkRefTipoDocumentoRUCE.patchValue(resp.entities.persona_r_u_c_e[0].fkRefTipoDocumentoRUCE.id);
+            this.formularioAutoridad.controls.fkRefCargo.patchValue(resp.entities.ref_cargo[0].id);
+            this.formularioAutoridad.controls.fkRefTipoDocumentoRUCE.patchValue(Number(resp.entities.persona_r_u_c_e[0].fkRefTipoDocumentoRUCE));
           });
         }
       });
@@ -148,19 +147,20 @@ export class AutoridadInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Autoridad Creada", false)
         this.router.navigate(['/pages/establecimientos/view/'+this.idOrganizacion]);
       }, err => {
-        this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)
+        this.mostrarDialogMsj("Atención", err.error.message, false)
       }
       );
     } else {
-      this.formularioAutoridad.value.fkOrganizacionRUCE = this.formularioAutoridad.value.fkOrganizacionRUCE?.id;
-      this.formularioAutoridad.value.fkRefTipoDocumentoRUCE = this.formularioAutoridad.value.fkPersonaRUCE.fkRefTipoDocumentoRUCE?.id;
-      this.formularioAutoridad.value.fkPersonaRUCE = this.formularioAutoridad.value.fkPersonaRUCE?.id;
+      // console.log(this.formularioAutoridad.value.fkRefTipoDocumentoRUCE)
+      this.formularioAutoridad.value.fkOrganizacionRUCE = this.formularioAutoridad.value.fkOrganizacionRUCE;
+      // this.formularioAutoridad.value.fkRefTipoDocumentoRUCE = this.formularioAutoridad.value.fkRefTipoDocumentoRUCE;
+      this.formularioAutoridad.value.fkPersonaRUCE = this.formularioAutoridad.value.fkPersonaRUCE;
       
       this.autoridadOrganizacionRUCEService.update(this.formularioAutoridad.value.id, this.formularioAutoridad.value).subscribe((resp: any) => {
         this.mostrarDialogMsj("Mensaje", "Autoridad Modificado", false)
         this.router.navigate(['/pages/establecimientos/view/'+this.idOrganizacion]);
       }, err => {
-        this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)
+        this.mostrarDialogMsj("Atención", err.error.message, false)
       }
       );
     }
@@ -181,7 +181,7 @@ export class AutoridadInsupdComponent implements OnInit {
           this.mostrarDialogMsj("Mensaje", "Autoridad Eliminado", false)
           this.router.navigate(['/pages/establecimientos/view/'+this.idOrganizacion]);
         }, err => {
-          this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)
+          this.mostrarDialogMsj("Atención", err.error.message, false)
         }
         );
       }

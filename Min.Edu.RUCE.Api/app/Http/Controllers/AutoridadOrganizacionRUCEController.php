@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Controllers\PersonaRUCEController;
 use App\Http\Requests\StorePersonaRUCERequest;
+use App\Http\Requests\UpdatePersonaRUCERequest;
 
 class AutoridadOrganizacionRUCEController extends Controller
 {
@@ -127,35 +128,42 @@ class AutoridadOrganizacionRUCEController extends Controller
      */
     public function update( int $id, UpdateAutoridadOrganizacionRUCERequest $request): JsonResponse
     {
-        try {
-            $autoridadOrganizacionRUCE = AutoridadOrganizacionRUCE::find($id);
-            //$request = new UpdateAutoridadOrganizacionRUCERequest($request->toArray());
-            $autoridadOrganizacionRUCE->fkRefCargo = $request->fkRefCargo ?: $autoridadOrganizacionRUCE->fkRefCargo;
-            $autoridadOrganizacionRUCE->fkPersonaRUCE = $request->fkPersonaRUCE ?: $autoridadOrganizacionRUCE->fkRefCargo;
-            $autoridadOrganizacionRUCE->fkOrganizacionRUCE = $request->fkOrganizacionRUCE ?: $autoridadOrganizacionRUCE->fkOrganizacionRUCE;
-            $autoridadOrganizacionRUCE->inicioCargo = $request->inicioCargo ?: $autoridadOrganizacionRUCE->inicioCargo;
-            $autoridadOrganizacionRUCE->finCargo = $request->finCargo ?: $autoridadOrganizacionRUCE->finCargo;
-            $autoridadOrganizacionRUCE->idUsuarioModificacion = $request->idUsuarioModificacion ?: $autoridadOrganizacionRUCE->idUsuarioModificacion;
+        $persona = new PersonaRUCEController();
+        $requestPersona = new UpdatePersonaRUCERequest($request->toArray());
+        $personaUpdated = response()->json($persona->update($requestPersona,$request->fkPersonaRUCE));
+        if($personaUpdated->original->getStatusCode() != Response::HTTP_NOT_FOUND)
+            try {
+                $autoridadOrganizacionRUCE = AutoridadOrganizacionRUCE::find($id);
+                //$request = new UpdateAutoridadOrganizacionRUCERequest($request->toArray());
+                $autoridadOrganizacionRUCE->fkRefCargo = $request->fkRefCargo ?: $autoridadOrganizacionRUCE->fkRefCargo;
+                $autoridadOrganizacionRUCE->fkPersonaRUCE = $request->fkPersonaRUCE ?: $autoridadOrganizacionRUCE->fkRefCargo;
+                $autoridadOrganizacionRUCE->fkOrganizacionRUCE = $request->fkOrganizacionRUCE ?: $autoridadOrganizacionRUCE->fkOrganizacionRUCE;
+                $autoridadOrganizacionRUCE->inicioCargo = $request->inicioCargo ?: $autoridadOrganizacionRUCE->inicioCargo;
+                $autoridadOrganizacionRUCE->finCargo = $request->finCargo ?: $autoridadOrganizacionRUCE->finCargo;
+                $autoridadOrganizacionRUCE->idUsuarioModificacion = $request->idUsuarioModificacion ?: $autoridadOrganizacionRUCE->idUsuarioModificacion;
 
-            if ($autoridadOrganizacionRUCE->isClean()) {
+                if ($autoridadOrganizacionRUCE->isClean() && $personaUpdated->original->getStatusCode()== Response::HTTP_UNPROCESSABLE_ENTITY) {
+                    return response()->json([
+                        'message' => 'No se modifico ningun valor.',
+                        'succeeded' => false
+                    ], Response::HTTP_UNPROCESSABLE_ENTITY);
+                }
+                $autoridadOrganizacionRUCE->save();
+
                 return response()->json([
-                    'message' => 'No se modifico ningun valor',
-                    'succeeded' => false
-                ], 422);
+                    'succeeded' => true,
+                    'message' => 'Autoridad Organización Modificado con exito',
+                ], Response::HTTP_OK);
+            } catch (\Throwable $th) {
+                return response()->json([
+                    'succeeded' => false,
+                    'message' => $th->getMessage()
+                ], Response::HTTP_NOT_FOUND);
             }
-            $autoridadOrganizacionRUCE->updated_at= Carbon::now();
-            $autoridadOrganizacionRUCE->save();
-
-            return response()->json([
-                'succeeded' => true,
-                'message' => 'Autoridad Organización Modificado con exito',
-            ], Response::HTTP_OK);
-        } catch (\Throwable $th) {
-            return response()->json([
-                'succeeded' => false,
-                'message' => $th->getMessage()
-            ], Response::HTTP_NOT_FOUND);
-        }
+        return response()->json([
+            'message' => $personaUpdated->original->content->message,
+            'succeeded' => $personaUpdated->original->content->succeeded
+        ], $personaUpdated->original->getStatusCode());
     }
 
     public function destroy(int $id): JsonResponse

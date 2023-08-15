@@ -152,7 +152,7 @@ export class AutoridadInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Autoridad Creada", false)
         this.router.navigate(['/pages/cooperadoras/view/'+this.idCooperadora]);
       }, err => {
-        this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)
+        this.mostrarDialogMsj("Atención", err.error.message, false)
       }
       );
     } else {
@@ -163,7 +163,7 @@ export class AutoridadInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Autoridad Modificado", false)
         this.router.navigate(['/pages/cooperadoras/view/'+this.idCooperadora]);
       }, err => {
-        this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)
+        this.mostrarDialogMsj("Atención", err.error.message, false)
       }
       );
     }
@@ -184,7 +184,7 @@ export class AutoridadInsupdComponent implements OnInit {
           this.mostrarDialogMsj("Mensaje", "Autoridad Eliminado", false)
           this.router.navigate(['/pages/cooperadoras/view/'+this.idCooperadora]);
         }, err => {
-          this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)
+          this.mostrarDialogMsj("Atención", err.error.message, false)
         }
         );
       }

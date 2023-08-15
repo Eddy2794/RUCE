@@ -96,7 +96,7 @@ export class BalanceInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Balance Creada", false)
         this.router.navigate(['/pages/cooperadoras/view/'+this.idCooperadora]);
       }, err => {
-        this.mostrarDialogMsj("Balance", JSON.stringify(err.error.errors), false)
+        this.mostrarDialogMsj("Balance", err.error.message, false)
       }
       );
     } else {      
@@ -104,7 +104,7 @@ export class BalanceInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Balance Modificado", false)
         this.router.navigate(['/pages/cooperadoras/view/'+this.idCooperadora]);
       }, err => {
-        this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)
+        this.mostrarDialogMsj("Atención", err.error.message, false)
       }
       );
     }
@@ -125,7 +125,7 @@ export class BalanceInsupdComponent implements OnInit {
           this.mostrarDialogMsj("Mensaje", "Balance Eliminado", false)
           this.router.navigate(['/pages/cooperadoras/view/'+this.idCooperadora]);
         }, err => {
-          this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)
+          this.mostrarDialogMsj("Atención", err.error.message, false)
         }
         );
       }

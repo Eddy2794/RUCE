@@ -62,7 +62,7 @@ export class RefmodalidaddictadoInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Modalidad de dictado creada", false)
         this.router.navigate(['/pages/refmodalidaddictado']);
       },err => {
-        this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)
+        this.mostrarDialogMsj("Atención", err.error.message, false)
       }
       );
     } else {
@@ -70,7 +70,7 @@ export class RefmodalidaddictadoInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Modalidad de dictado modificada", false)
         this.router.navigate(['/pages/refmodalidaddictado']);
       },err => {
-        this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)
+        this.mostrarDialogMsj("Atención", err.error.message, false)
       }
       );
     }
@@ -93,7 +93,7 @@ export class RefmodalidaddictadoInsupdComponent implements OnInit {
           this.mostrarDialogMsj("Mensaje","Modalidad de dictado eliminada", false)
           this.router.navigate(['/pages/refmodalidaddictado']);
         },err => {
-          this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)
+          this.mostrarDialogMsj("Atención", err.error.message, false)
         }); 
       }
     })
