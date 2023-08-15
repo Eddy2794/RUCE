@@ -48,7 +48,8 @@ export class AutoridadInsupdComponent implements OnInit {
     private validadorServicio: ValidatorService,
     private router: Router,
     private route:ActivatedRoute,
-    private matDialog: MatDialog)
+    private matDialog: MatDialog
+    )
     {
       this.activatedRoute.url.subscribe((parameter: any) => {
         this.accion = (parameter[0].path);
