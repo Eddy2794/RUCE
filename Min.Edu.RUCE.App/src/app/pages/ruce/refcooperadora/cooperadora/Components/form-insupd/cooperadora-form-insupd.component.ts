@@ -126,7 +126,7 @@ export class CooperadoraFormInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Cooperadora Creada", false)
         this.router.navigate(['/pages/cooperadoras']);
       }, err => {
-        this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)
+        this.mostrarDialogMsj("Atención", err.error.message, false)
       }
       );
     } else {
@@ -134,7 +134,7 @@ export class CooperadoraFormInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Cooperadora Modificada", false)
         this.router.navigate(['/pages/cooperadoras']);
       }, err => {
-        this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)
+        this.mostrarDialogMsj("Atención", err.error.message, false)
       }
       );
     }
@@ -155,7 +155,7 @@ export class CooperadoraFormInsupdComponent implements OnInit {
           this.mostrarDialogMsj("Mensaje", "Cooperadora Eliminado", false)
           this.router.navigate(['/pages/cooperadoras']);
         }, err => {
-          this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)
+          this.mostrarDialogMsj("Atención", err.error.message, false)
         }
         );
       }
@@ -176,7 +176,7 @@ export class CooperadoraFormInsupdComponent implements OnInit {
     const filter: FilterOptions = { estaActivo: true };
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = '75%';
+    dialogConfig.width = '75em';
 
     dialogConfig.data = {
       dataSource,

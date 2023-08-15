@@ -1,14 +1,26 @@
 <vex-page-layout>
-    <div>
-        <div class="card flex-auto">
-  
-            <vex-aio-table [columns]="columnasVex" [sourceService]="matriculaService" [filter]="filtro" [ruta]="'establecimientos/'+idOrganizacion+'/matricula'" [nombreTabla]="'Matrículas'" [cabecera]="false">
-              <app-input-search espacio1></app-input-search>
-  
-              <app-search-button-generic espacio2 [searchOptions]="searchOptions"></app-search-button-generic>
-  
-              <app-button-nuevo bordederecho [routerLink]="'establecimientos/'+idOrganizacion+'/matricula'" [addRowText]="'Agregar Matrícula'"></app-button-nuevo>
-            </vex-aio-table>
-          </div>
-        </div>
-  </vex-page-layout>
+  <div class="card flex-auto">
+    <vex-aio-table
+      [columns]="columnasVex"
+      [sourceService]="matriculaService"
+      [filter]="filtro"
+      [ruta]="'establecimientos/' + idOrganizacion + '/matricula'"
+      [nombreTabla]="'Matrículas'"
+      [cabecera]="false"
+      [view]="false"
+    >
+      <app-input-search espacio1></app-input-search>
+
+      <app-search-button-generic
+        espacio2
+        [searchOptions]="searchOptions"
+      ></app-search-button-generic>
+
+      <app-button-nuevo
+        bordederecho
+        [routerLink]="'establecimientos/' + idOrganizacion + '/matricula'"
+        [addRowText]="'Agregar Matrícula'"
+      ></app-button-nuevo>
+    </vex-aio-table>
+  </div>
+</vex-page-layout>

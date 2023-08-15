@@ -106,7 +106,7 @@ export class PersoneriaInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Fondo Creado", false)
         this.router.navigate(['/pages/cooperadoras/view/'+this.idCooperadora]);
       }, err => {
-        this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)
+        this.mostrarDialogMsj("Atención", err.error.message, false)
       }
       );
     } else {
@@ -116,7 +116,7 @@ export class PersoneriaInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Fondo Modificado", false)
         this.router.navigate(['/pages/cooperadoras/view/'+this.idCooperadora]);
       }, err => {
-        this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)
+        this.mostrarDialogMsj("Atención", err.error.message, false)
       }
       );
     }
@@ -137,7 +137,7 @@ export class PersoneriaInsupdComponent implements OnInit {
           this.mostrarDialogMsj("Mensaje", "Fondo Eliminado", false)
           this.router.navigate(['/pages/cooperadoras/view/'+this.idCooperadora]);
         }, err => {
-          this.mostrarDialogMsj("Atención", JSON.stringify(err.error.errors), false)
+          this.mostrarDialogMsj("Atención", err.error.message, false)
         }
         );
       }

@@ -32,7 +32,7 @@ import { MatriculaInsupdComponent } from './matricula/Components/form-insupd/mat
     AutoridadInsupdComponent,
     AutoridadListComponent,
     MatriculaListComponent,
-    MatriculaInsupdComponent
+    MatriculaInsupdComponent,
   ],
   imports: [
     CommonModule,

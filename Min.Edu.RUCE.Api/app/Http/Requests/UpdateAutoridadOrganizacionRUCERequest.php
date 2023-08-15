@@ -48,10 +48,6 @@ class UpdateAutoridadOrganizacionRUCERequest extends FormRequest
                 'required',
                 'boolean'
             ],
-            'idUsuarioModificacion' => [
-                // 'required',
-                'integer'
-            ]
         ];
     }
 

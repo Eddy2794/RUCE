@@ -94,7 +94,6 @@ class PersonaRUCEController extends Controller
                     'succeeded' => false
                 ], 422);
             }
-            $personaRUCE->updated_at= Carbon::now();
             $personaRUCE->save();
 
             return response()->json([

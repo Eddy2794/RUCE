@@ -95,36 +95,43 @@ class AutoridadComisionController extends Controller
      */
     public function update(UpdateAutoridadComisionRequest $request, int $autoridadComision)
     {
-        try {
-            $autoridadComision = AutoridadComision::where('id', $autoridadComision)->first();
-            //$request = new UpdateAutoridadComisionRequest($request->toArray());
-            $autoridadComision->fkPersonaRUCE = $request->fkPersonaRUCE ?: $autoridadComision->fkRefCargo;
-            $autoridadComision->fkRefCargo = $request->fkRefCargo ?: $autoridadComision->fkRefCargo;
-            $autoridadComision->fkComision = $request->fkComision ?: $autoridadComision->fkComision;
-            $autoridadComision->inicioCargo = $request->inicioCargo ?: $autoridadComision->inicioCargo;
-            $autoridadComision->finCargo = $request->finCargo ?: $autoridadComision->finCargo;
-            $autoridadComision->estaActivo = $request->estaActivo ?: $autoridadComision->estaActivo;
-            $autoridadComision->idUsuarioModificacion = $request->idUsuarioModificacion ?: $autoridadComision->idUsuarioModificacion;
+        $persona = new PersonaRUCEController();
+        $requestPersona = new \App\Http\Requests\UpdatePersonaRUCERequest($request->toArray());
+        $personaUpdated = response()->json($persona->update($requestPersona,$request->fkPersonaRUCE));
+        if($personaUpdated->original->getStatusCode() != Response::HTTP_NOT_FOUND)
+            try {
+                $autoridadComision = AutoridadComision::where('id', $autoridadComision)->first();
+                //$request = new UpdateAutoridadComisionRequest($request->toArray());
+                $autoridadComision->fkPersonaRUCE = $request->fkPersonaRUCE ?: $autoridadComision->fkRefCargo;
+                $autoridadComision->fkRefCargo = $request->fkRefCargo ?: $autoridadComision->fkRefCargo;
+                $autoridadComision->fkComision = $request->fkComision ?: $autoridadComision->fkComision;
+                $autoridadComision->inicioCargo = $request->inicioCargo ?: $autoridadComision->inicioCargo;
+                $autoridadComision->finCargo = $request->finCargo ?: $autoridadComision->finCargo;
+                $autoridadComision->estaActivo = $request->estaActivo ?: $autoridadComision->estaActivo;
+                $autoridadComision->idUsuarioModificacion = $request->idUsuarioModificacion ?: $autoridadComision->idUsuarioModificacion;
 
-            if ($autoridadComision->isClean()) {
+                if ($autoridadComision->isClean() && $personaUpdated->original->getStatusCode()== Response::HTTP_UNPROCESSABLE_ENTITY) {
+                    return response()->json([
+                        'message' => 'No se modifico ningun valor',
+                        'succeeded' => false
+                    ], 422);
+                }
+                $autoridadComision->save();
+
                 return response()->json([
-                    'message' => 'No se modifico ningun valor',
-                    'succeeded' => false
-                ], 422);
+                    'succeeded' => true,
+                    'message' => 'Autoridad Modificado con exito',
+                ], Response::HTTP_OK);
+            } catch (\Throwable $th) {
+                return response()->json([
+                    'succeeded' => false,
+                    'message' => $th->getMessage()
+                ], Response::HTTP_NOT_FOUND);
             }
-            $autoridadComision->updated_at= Carbon::now();
-            $autoridadComision->save();
-
-            return response()->json([
-                'succeeded' => true,
-                'message' => 'Autoridad Modificado con exito',
-            ], Response::HTTP_OK);
-        } catch (\Throwable $th) {
-            return response()->json([
-                'succeeded' => false,
-                'message' => $th->getMessage()
-            ], Response::HTTP_NOT_FOUND);
-        }
+        return response()->json([
+            'message' => $personaUpdated->original->content->message,
+            'succeeded' => $personaUpdated->original->content->succeeded
+        ], $personaUpdated->original->getStatusCode());
     }
 
     /**

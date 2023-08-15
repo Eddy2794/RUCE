@@ -48,10 +48,6 @@ class UpdateAutoridadComisionRequest extends FormRequest
                 'required',
                 'boolean'
             ],
-            'idUsuarioModificacion' => [
-                'required',
-                'integer'
-            ]
         ];
     }
 

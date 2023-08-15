@@ -23,6 +23,7 @@ export class DetallesComponent implements OnInit {
 
   private obtenerData(id:any){
     this.organizacionRUCEService.findOne(id).subscribe((res:any) => {
+      console.log(res);
       this.data = Object.assign({}, res.entities[0], this.data);
     });
   }

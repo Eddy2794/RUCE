@@ -53,7 +53,7 @@ export class EncabezadoComisionComponent implements OnInit {
   }
   
   obtenerAutoridades(): void {
-    this.filtro = { estaActivo: true, PageSize: 10, filtros:'{"fkComision":"'+this.idComision+'"}'};
+    this.filtro = { estaActivo: true, PageSize: 10, fkComision:this.idComision};
     this.cargarList();
   }
 
