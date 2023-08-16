@@ -32,7 +32,7 @@
       </div>
       <div>
         <p class="m-0 caption text-hint">
-          PERIODO: {{ comision.periodoInicio }} - {{ comision.periodoFin }}
+          PERIODO: {{ comision.periodoInicio }} / {{ comision.periodoFin }}
         </p>
       </div>
     </div>
@@ -55,39 +55,4 @@
   </div>
 </div>
 
-<vex-page-layout>
-  <vex-aio-table
-    [columns]="columnasVex"
-    [sourceService]="autoridadService"
-    [filter]="filtro"
-    [ruta]="
-      'cooperadora/' +
-      idCooperadora +
-      '/comision/' +
-      idComision +
-      '/autoridades/'
-    "
-    [nombreTabla]="'Autoridades de la comisión'"
-    [cabecera]="false"
-    [view]="false"
-  >
-    <app-input-search espacio1></app-input-search>
-    <app-search-button-generic
-      espacio2
-      [searchOptions]="searchOptions"
-    ></app-search-button-generic>
-
-    <app-button-nuevo
-      *ngIf="!deshabilitarCarga"
-      bordederecho
-      [routerLink]="
-        'cooperadoras/' +
-        idCooperadora +
-        '/comision/' +
-        idComision +
-        '/autoridades/'
-      "
-      [addRowText]="'Agregar Autoridad'"
-    ></app-button-nuevo>
-  </vex-aio-table>
-</vex-page-layout>
+<vex-autoridad-list *ngIf="comisionShow"></vex-autoridad-list>

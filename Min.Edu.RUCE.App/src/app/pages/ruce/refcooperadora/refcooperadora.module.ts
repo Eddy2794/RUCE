@@ -22,7 +22,7 @@ import { SecondaryToolbarModule } from 'src/@vex/components/secondary-toolbar/se
 import { RefCooperadoraRoutingModule } from './refcooperadora-routing.module';
 import { RefTipoAsociacionService } from '../ref-ruce/Services/reftipoasociacion.service';
 import { AutoridadListComponent } from './autoridades/Components/autoridad-list/autoridad-list.component';
-import { AutoridadInsupdComponent } from './comision/Components/frm-insupd/autoridad-insupd/autoridad-insupd.component';
+//import { AutoridadInsupdComponentComision } from './comision/Components/frm-insupd/autoridad-insupd/autoridad-insupd.component';
 import { ExpedienteListComponent } from './expediente/Components/frm-list/expediente-list/expediente-list.component';
 import { MovimientoExpedienteListComponent } from './expediente/Components/frm-list/movimiento-expediente-list/movimiento-expediente-list.component';
 import { EncabezadoComisionComponent } from './comision/Components/encabezado/encabezado-comision.component';
@@ -39,6 +39,7 @@ import { KioscoListComponent } from './kiosco/Components/kiosco-list/kiosco-list
 import { KioscoInsupdComponent } from './kiosco/Components/kiosco-insupd/kiosco-insupd.component';
 import { PersoneriaListComponent } from './personeria/Components/personeria-list/personeria-list.component';
 import { PersoneriaInsupdComponent } from './personeria/Components/personeria-insupd/personeria-insupd.component';
+import { AutoridadInsupdComponent } from './autoridades/Components/autoridad-insupd/autoridad-insupd.component';
 
 
 @NgModule({
@@ -64,6 +65,7 @@ import { PersoneriaInsupdComponent } from './personeria/Components/personeria-in
     KioscoInsupdComponent,
     PersoneriaListComponent,
     PersoneriaInsupdComponent,
+//    AutoridadInsupdComponentComision
   ],
   imports: [
     CommonModule,
