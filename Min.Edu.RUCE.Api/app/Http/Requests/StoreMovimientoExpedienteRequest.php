@@ -32,10 +32,18 @@ class StoreMovimientoExpedienteRequest extends FormRequest
                 'required',
                 'exists:RefInstanciaInstrumento,id'
             ],
+            'estaActivo' => [
+                'required',
+                'boolean'
+            ],/*
             'idUsuarioAlta' => [
                 'required',
                 'integer',
             ],
+            'idUsuarioModificacion' => [
+                'required',
+                'integer',
+            ],*/
         ];
     }
 

@@ -60,6 +60,18 @@ class StorePersonaRUCERequest extends FormRequest
                 'string',
                 Rule::unique('PersonaRUCE','email')->where('email', $this->email)->withoutTrashed()
             ],
+            'estaActivo' => [
+                'required',
+                'boolean'
+            ],/*
+            'idUsuarioAlta' => [
+                'required',
+                'integer',
+            ],
+            'idUsuarioModificacion' => [
+                'required',
+                'integer',
+            ],*/
         ];
     }
 

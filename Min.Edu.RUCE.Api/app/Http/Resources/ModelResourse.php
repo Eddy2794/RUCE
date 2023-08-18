@@ -19,7 +19,7 @@ class ModelResourse extends JsonResource
             // Llama al constructor de la clase padre
             parent::__construct($resource);
 
-            // Añade aquí tu propio código personalizado
+            // 
             if (class_exists('App\Models'.'\\'.$nombre)) {
                 $this->model = 'App\Models'.'\\'.$nombre;
                 $this->nombre = $nombre;
@@ -70,10 +70,9 @@ class ModelResourse extends JsonResource
 
     public function toArray($request)
     {
-        if ($this->model != ''){
+        if ($this->model !== '' && $this->model !== 'App\Models\Cooperadora'){
             // crea una instancia del modelo dianmico
             $modelo = new $this->model();
-
             // obtiene los datos del modelo dianmico
             $datos = $modelo::where('id',$this->id)->get();
 
@@ -82,9 +81,17 @@ class ModelResourse extends JsonResource
 
             return ['entities'=>$datos[0]];
         }
-        else return [
+        else {
+            if($this->model == 'App\Models\Cooperadora'){
+                $cooperadora = new $this->model();
+                $datos = $cooperadora::with(['OrganizacionRUCE','RefTipoAsociacion','AtencionSeguimiento','Comision','Balance','Expediente','Fondo'])->find($this->id);
+
+                return ['entities'=>$datos->toArray()];
+            }
+            return [
             'entities'=>[]
         ];
+        }
     }
 
     public function with($request)

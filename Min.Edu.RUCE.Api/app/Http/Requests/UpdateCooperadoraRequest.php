@@ -68,10 +68,18 @@ class UpdateCooperadoraRequest extends FormRequest
                 'required',
                 'boolean'
             ],
+            'estaActivo' => [
+                'required',
+                'boolean'
+            ],/*
+            'idUsuarioAlta' => [
+                'required',
+                'integer',
+            ],
             'idUsuarioModificacion' => [
                 'required',
-                'integer'
-            ]
+                'integer',
+            ],*/
         ];
     }
 

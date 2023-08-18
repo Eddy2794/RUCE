@@ -37,9 +37,18 @@ class UpdateMatriculaRequest extends FormRequest
                 'required',
                 'integer',
             ],
-            'idUsuarioModificacion' => [
+            'estaActivo' => [
+                'required',
+                'boolean'
+            ],/*
+            'idUsuarioAlta' => [
+                'required',
                 'integer',
             ],
+            'idUsuarioModificacion' => [
+                'required',
+                'integer',
+            ],*/
         ];
     }
 

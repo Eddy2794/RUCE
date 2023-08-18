@@ -27,7 +27,19 @@ class UpdateRefTipoDocumentoRUCERequest extends FormRequest
             'tipoDocumentoDesc' => [
                 'required',
                 'string',
-            ]
+            ],
+            'estaActivo' => [
+                'required',
+                'boolean'
+            ],/*
+            'idUsuarioAlta' => [
+                'required',
+                'integer',
+            ],
+            'idUsuarioModificacion' => [
+                'required',
+                'integer',
+            ],*/
         ];
     }
 

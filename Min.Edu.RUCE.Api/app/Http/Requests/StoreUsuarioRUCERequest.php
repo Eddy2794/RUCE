@@ -36,14 +36,22 @@ class StoreUsuarioRUCERequest extends FormRequest
                 'required',
                 'string'
             ],
-            'idUsuarioAlta' => [
-                'required',
-                'integer'
-            ],
             'administrador' => [
                 'required',
                 'boolean'
             ],
+            'estaActivo' => [
+                'required',
+                'boolean'
+            ],/*
+            'idUsuarioAlta' => [
+                'required',
+                'integer',
+            ],
+            'idUsuarioModificacion' => [
+                'required',
+                'integer',
+            ],*/
         ];
     }
 

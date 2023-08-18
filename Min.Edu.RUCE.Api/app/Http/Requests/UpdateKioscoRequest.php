@@ -48,10 +48,18 @@ class UpdateKioscoRequest extends FormRequest
                 'required',
                 'date',
             ],
-            'idUsuarioModificacion' => [
+            'estaActivo' => [
+                'required',
+                'boolean'
+            ],/*
+            'idUsuarioAlta' => [
                 'required',
                 'integer',
             ],
+            'idUsuarioModificacion' => [
+                'required',
+                'integer',
+            ],*/
         ];
     }
 

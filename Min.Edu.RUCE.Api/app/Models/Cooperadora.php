@@ -72,7 +72,7 @@ class Cooperadora extends Model  implements Auditable
 
     public function Comision()
     {
-        return $this->hasMany(Comision::class, 'id' ,'fkCooperadora');
+        return $this->hasMany(Comision::class, 'fkCooperadora');
     }
 
     public function Balance()

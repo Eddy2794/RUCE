@@ -28,7 +28,19 @@ class StoreRefInstanciaInstrumentoRequest extends FormRequest
             'instrumentoDesc' => [
                 'required',
                 'string',
-            ]
+            ],
+            'estaActivo' => [
+                'required',
+                'boolean'
+            ],/*
+            'idUsuarioAlta' => [
+                'required',
+                'integer',
+            ],
+            'idUsuarioModificacion' => [
+                'required',
+                'integer',
+            ],*/
         ];
     }
 

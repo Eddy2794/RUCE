@@ -57,9 +57,10 @@ class ExpedienteController extends Controller
     {
         try {
             $expediente = Expediente::where('fkCooperadora', $fk_cooperadora)->first();
+            dd($expediente);
 
         if ($expediente) {
-            return response()->json(new ModelResourse($expediente['id'], 'Comision'));
+            return response()->json(new ModelResourse($expediente['id'], 'Expediente'));
         } else {
             return response()->json([
                 'succeeded' => false,

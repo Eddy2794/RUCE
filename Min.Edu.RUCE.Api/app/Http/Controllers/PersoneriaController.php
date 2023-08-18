@@ -54,10 +54,19 @@ class PersoneriaController extends Controller
         }
     }
 
-    public function show(int $personeria): JsonResponse
+    public function show(int $fk_cooperadora): JsonResponse
     {
         try {
-            return response()->json(new ModelResourse($personeria,'Personeria'));
+            $personeria = Personeria::where('fkCooperadora', $fk_cooperadora)->first();
+
+        if ($personeria) {
+            return response()->json(new ModelResourse($personeria['id'], 'Personeria'));
+        } else {
+            return response()->json([
+                'succeeded' => false,
+                'message' => 'Personeria not found'
+            ], Response::HTTP_NOT_FOUND);
+        }
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,

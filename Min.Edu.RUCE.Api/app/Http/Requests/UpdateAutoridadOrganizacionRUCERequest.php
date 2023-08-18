@@ -47,7 +47,15 @@ class UpdateAutoridadOrganizacionRUCERequest extends FormRequest
             'estaActivo' => [
                 'required',
                 'boolean'
+            ],/*
+            'idUsuarioAlta' => [
+                'required',
+                'integer',
             ],
+            'idUsuarioModificacion' => [
+                'required',
+                'integer',
+            ],*/
         ];
     }
 

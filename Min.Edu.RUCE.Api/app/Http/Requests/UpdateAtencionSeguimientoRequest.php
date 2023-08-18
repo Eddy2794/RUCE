@@ -60,14 +60,18 @@ class UpdateAtencionSeguimientoRequest extends FormRequest
                 'required',
                 'dateTime'
             ],
-            'estaActivo'=>[
+            'estaActivo' => [
                 'required',
                 'boolean'
-            ],
-            'idUsuarioModificacion'=>[
+            ],/*
+            'idUsuarioAlta' => [
                 'required',
-                'integer'
-            ]
+                'integer',
+            ],
+            'idUsuarioModificacion' => [
+                'required',
+                'integer',
+            ],*/
         ];
     }
 

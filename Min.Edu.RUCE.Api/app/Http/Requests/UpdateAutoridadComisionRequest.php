@@ -38,16 +38,24 @@ class UpdateAutoridadComisionRequest extends FormRequest
             ],
             'inicioCargo' => [
                 'required',
-                'dateTime'
+                'date'
             ],
             'finCargo' => [
                 'required',
-                'dateTime'
+                'date'
             ],
             'estaActivo' => [
                 'required',
                 'boolean'
+            ],/*
+            'idUsuarioAlta' => [
+                'required',
+                'integer',
             ],
+            'idUsuarioModificacion' => [
+                'required',
+                'integer',
+            ],*/
         ];
     }
 

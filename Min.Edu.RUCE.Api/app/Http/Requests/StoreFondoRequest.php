@@ -56,10 +56,18 @@ class StoreFondoRequest extends FormRequest
                 'required',
                 'date',
             ],
+            'estaActivo' => [
+                'required',
+                'boolean'
+            ],/*
             'idUsuarioAlta' => [
                 'required',
                 'integer',
             ],
+            'idUsuarioModificacion' => [
+                'required',
+                'integer',
+            ],*/
         ];
     }
 

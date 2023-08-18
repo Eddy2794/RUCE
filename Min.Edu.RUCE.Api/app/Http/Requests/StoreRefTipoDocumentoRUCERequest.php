@@ -27,7 +27,19 @@ class StoreRefTipoDocumentoRUCERequest extends FormRequest
             'RefTipoDocumentoRUCE' => [
                 'required',
                 'string',
-            ]
+            ],
+            'estaActivo' => [
+                'required',
+                'boolean'
+            ],/*
+            'idUsuarioAlta' => [
+                'required',
+                'integer',
+            ],
+            'idUsuarioModificacion' => [
+                'required',
+                'integer',
+            ],*/
         ];
     }
 

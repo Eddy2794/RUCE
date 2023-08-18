@@ -30,15 +30,15 @@ class StoreComisionRequest extends FormRequest
             ],
             'fkRefTipoComision' => [
                 'required',
-                'exists:RefTipoComision,idTipoComision'
+                'exists:RefTipoComision, id'
             ],
             'periodoInicio' => [
                 'required',
-                'dateTime'
+                'date'
             ],
             'periodoFin' => [
                 'required',
-                'dateTime'
+                'date'
             ],
             'nroSocios' => [
                 'required',
@@ -46,24 +46,20 @@ class StoreComisionRequest extends FormRequest
             ],
             'estadoResolucion' => [
                 'required',
-                'boolean'
+                'string'
             ],
             'estaActivo' => [
                 'required',
                 'boolean'
-            ],
-            'fechaEliminacion' => [
-                'required',
-                'dateTime'
-            ],
+            ],/*
             'idUsuarioAlta' => [
                 'required',
-                'integer'
+                'integer',
             ],
             'idUsuarioModificacion' => [
                 'required',
-                'integer'
-            ]
+                'integer',
+            ],*/
         ];
     }
 

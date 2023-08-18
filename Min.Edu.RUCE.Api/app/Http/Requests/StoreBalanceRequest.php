@@ -33,17 +33,17 @@ class StoreBalanceRequest extends FormRequest
                 'boolean'
             ],
             'estaActivo' => [
+                'required',
                 'boolean'
-            ],
-            'fechaEliminacion' => [
-                'date'
-            ],
+            ],/*
             'idUsuarioAlta' => [
-                'integer'
+                'required',
+                'integer',
             ],
             'idUsuarioModificacion' => [
-                'integer'
-            ]
+                'required',
+                'integer',
+            ],*/
         ];
     }
 

@@ -73,7 +73,19 @@ class UpdateOrganizacionRUCERequest extends FormRequest
             'nivel' => [
                 'required',
                 'string'
-            ]
+            ],
+            'estaActivo' => [
+                'required',
+                'boolean'
+            ],/*
+            'idUsuarioAlta' => [
+                'required',
+                'integer',
+            ],
+            'idUsuarioModificacion' => [
+                'required',
+                'integer',
+            ],*/
         ];
     }
 

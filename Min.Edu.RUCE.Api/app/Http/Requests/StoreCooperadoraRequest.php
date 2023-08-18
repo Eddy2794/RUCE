@@ -71,10 +71,15 @@ class StoreCooperadoraRequest extends FormRequest
             'estaActivo' => [
                 'required',
                 'boolean'
-            ],
+            ],/*
             'idUsuarioAlta' => [
-                'integer'
+                'required',
+                'integer',
             ],
+            'idUsuarioModificacion' => [
+                'required',
+                'integer',
+            ],*/
         ];
     }
 

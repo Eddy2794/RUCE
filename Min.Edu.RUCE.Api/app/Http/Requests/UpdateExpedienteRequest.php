@@ -38,15 +38,26 @@ class UpdateExpedienteRequest extends FormRequest
                 'required',
                 'integer',
             ],
-            'observacionesDesc',
+            'observacionesDesc' => [
+                'required',
+                'string',
+            ],
             'observacionesRespondidas' => [
                 'required',
                 'string',
             ],
-            'idUsuarioModificacion' => [
+            'estaActivo' => [
+                'required',
+                'boolean'
+            ],/*
+            'idUsuarioAlta' => [
                 'required',
                 'integer',
             ],
+            'idUsuarioModificacion' => [
+                'required',
+                'integer',
+            ],*/
         ];
     }
 

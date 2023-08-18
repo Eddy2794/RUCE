@@ -44,10 +44,6 @@ class Comision extends Model  implements Auditable
      */
     protected $auditExclude = [];
 
-    protected $casts = [
-        'estadoResolucion' => 'boolean',
-    ];
-
         public function AutoridadesComision()
     {
         return $this->hasMany(AutoridadComision::class, 'id', 'fkRefTipoComision',);

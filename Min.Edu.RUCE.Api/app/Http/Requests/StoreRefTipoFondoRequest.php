@@ -27,7 +27,19 @@ class StoreRefTipoFondoRequest extends FormRequest
             'RefTipoFondo' => [
                 'required',
                 'string',
-            ]
+            ],
+            'estaActivo' => [
+                'required',
+                'boolean'
+            ],/*
+            'idUsuarioAlta' => [
+                'required',
+                'integer',
+            ],
+            'idUsuarioModificacion' => [
+                'required',
+                'integer',
+            ],*/
         ];
     }
 

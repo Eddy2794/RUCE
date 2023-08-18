@@ -33,7 +33,19 @@ class UpdateOrganizacionRequest extends FormRequest
             'region' => 'required',
             'localidad' => 'required',
             'departamento' => 'required',
-            'nivel' => 'required'
+            'nivel' => 'required',
+            'estaActivo' => [
+                'required',
+                'boolean'
+            ],/*
+            'idUsuarioAlta' => [
+                'required',
+                'integer',
+            ],
+            'idUsuarioModificacion' => [
+                'required',
+                'integer',
+            ],*/
         ];
     }
 }

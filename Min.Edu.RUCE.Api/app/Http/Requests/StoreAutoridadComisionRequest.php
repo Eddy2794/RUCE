@@ -46,19 +46,15 @@ class StoreAutoridadComisionRequest extends FormRequest
             'estaActivo' => [
                 'required',
                 'boolean'
-            ],
-            'fechaEliminacion' => [
-                // 'required',
-                'date'
-            ],
+            ],/*
             'idUsuarioAlta' => [
-                // 'required',
-                'integer'
+                'required',
+                'integer',
             ],
             'idUsuarioModificacion' => [
-                // 'required',
-                'integer'
-            ]
+                'required',
+                'integer',
+            ],*/
         ];
     }
 

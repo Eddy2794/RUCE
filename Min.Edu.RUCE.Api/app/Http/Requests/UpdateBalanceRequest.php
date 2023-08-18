@@ -35,11 +35,15 @@ class UpdateBalanceRequest extends FormRequest
             'estaActivo' => [
                 'required',
                 'boolean'
+            ],/*
+            'idUsuarioAlta' => [
+                'required',
+                'integer',
             ],
             'idUsuarioModificacion' => [
                 'required',
-                'integer'
-            ]
+                'integer',
+            ],*/
         ];
     }
 

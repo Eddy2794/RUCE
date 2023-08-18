@@ -29,7 +29,19 @@ class StoreRefTipoAsociacionRequest extends FormRequest
             'tipoAsociacionDesc' => [
                 'required',
                 'string',
-            ]
+            ],
+            'estaActivo' => [
+                'required',
+                'boolean'
+            ],/*
+            'idUsuarioAlta' => [
+                'required',
+                'integer',
+            ],
+            'idUsuarioModificacion' => [
+                'required',
+                'integer',
+            ],*/
         ];
     }
 

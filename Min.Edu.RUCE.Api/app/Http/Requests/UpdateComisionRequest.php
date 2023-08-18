@@ -30,15 +30,15 @@ class UpdateComisionRequest extends FormRequest
             ],
             'fkRefTipoComision' => [
                 'required',
-                'exists:RefTipoComision,idTipoComision'
+                'exists:RefTipoComision,id'
             ],
             'periodoInicio' => [
                 'required',
-                'dateTime'
+                'date'
             ],
             'periodoFin' => [
                 'required',
-                'dateTime'
+                'date'
             ],
             'nroSocios' => [
                 'required',
@@ -46,16 +46,20 @@ class UpdateComisionRequest extends FormRequest
             ],
             'estadoResolucion' => [
                 'required',
-                'boolean'
+                'string'
             ],
             'estaActivo' => [
                 'required',
                 'boolean'
+            ],/*
+            'idUsuarioAlta' => [
+                'required',
+                'integer',
             ],
             'idUsuarioModificacion' => [
                 'required',
-                'integer'
-            ]
+                'integer',
+            ],*/
         ];
     }
 

@@ -53,18 +53,18 @@ class StoreAtencionSeguimientoRequest extends FormRequest
             'fecha'=>[
                 'date'
             ],
-            'estaActivo'=>[
+            'estaActivo' => [
+                'required',
                 'boolean'
+            ],/*
+            'idUsuarioAlta' => [
+                'required',
+                'integer',
             ],
-            'fechaEliminacion'=>[
-                'dateTime'
-            ],
-            'idUsuarioAlta'=>[
-                'integer'
-            ],
-            'idUsuarioModificacion'=>[
-                'integer'
-            ]
+            'idUsuarioModificacion' => [
+                'required',
+                'integer',
+            ],*/
         ];
     }
 

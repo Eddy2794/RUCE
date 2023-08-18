@@ -44,22 +44,18 @@ class StoreAutoridadOrganizacionRUCERequest extends FormRequest
                 'required',
                 'date'
             ],
-/*             'estaActivo' => [
+            'estaActivo' => [
                 'required',
                 'boolean'
-            ],
-            'fechaEliminacion' => [
-                'required',
-                'dateTime'
-            ],
+            ],/*
             'idUsuarioAlta' => [
                 'required',
-                'integer'
+                'integer',
             ],
             'idUsuarioModificacion' => [
                 'required',
-                'integer'
-            ] */
+                'integer',
+            ],*/
         ];
     }
 

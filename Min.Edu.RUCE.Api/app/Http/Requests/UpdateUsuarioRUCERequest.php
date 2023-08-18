@@ -36,14 +36,22 @@ class UpdateUsuarioRUCERequest extends FormRequest
                 'required',
                 'string'
             ],
-            'idUsuarioModificacion' => [
-                'required',
-                'integer'
-            ],
             'administrador' => [
                 'required',
                 'boolean'
             ],
+            'estaActivo' => [
+                'required',
+                'boolean'
+            ],/*
+            'idUsuarioAlta' => [
+                'required',
+                'integer',
+            ],
+            'idUsuarioModificacion' => [
+                'required',
+                'integer',
+            ],*/
         ];
     }
 
