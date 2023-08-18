@@ -54,6 +54,7 @@ export class EncabezadoComisionComponent implements OnInit, OnDestroy {
         this.idComision = this.comision.id;
         this.observerIdComision.enviarIdComision(this.idComision);
         this.comisionShow = true;
+        console.log(this.comision);
       },
     );
   }

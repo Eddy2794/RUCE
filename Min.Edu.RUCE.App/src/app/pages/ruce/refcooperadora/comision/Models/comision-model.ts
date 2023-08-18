@@ -13,7 +13,8 @@ export class ComisionModel extends BaseModel {
         public estadoResolucion?: boolean,
         public estaActivo?: boolean,
         public idUsuarioAlta?: number,
-        public idUsuarioModificacion?: number
+        public idUsuarioModificacion?: number,
+        public ref_tipo_comision?: ReftipocomisionModel
     ) {
         super();
     }
