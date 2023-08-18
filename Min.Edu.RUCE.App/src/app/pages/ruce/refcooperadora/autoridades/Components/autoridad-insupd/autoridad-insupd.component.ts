@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RefCargoModel } from '@app/pages/ruce/ref-ruce/Model/refcargo-model';
 import { RefTipoDocumentoModel } from '@app/pages/ruce/ref-ruce/Model/reftipodocumento-model';
@@ -11,23 +11,28 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ValidatorService } from '@app/shared/validators/validator.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent, DialogData } from '@app/components/dialog/dialog.component';
+import { Subscription } from 'rxjs';
+import { ObserverComisionService } from '../../../comision/Services/observer-comision.service';
 
 @Component({
   selector: 'vex-autoridad-insupd',
   templateUrl: './autoridad-insupd.component.html',
   styleUrls: ['./autoridad-insupd.component.scss']
 })
-export class AutoridadInsupdComponent implements OnInit {
+export class AutoridadInsupdComponent implements OnInit, OnDestroy {
 
   formularioAutoridad!: FormGroup;
   id: number = 0;
   idCooperadora!: number;
+  idComision!:number;
   filtro: FilterOptions = { estaActivo: true, PageSize: 10 };
   tiposDocumentos = new Array<RefTipoDocumentoModel>;
   cargos = new Array<RefCargoModel>;
 
 
   public accion: string = '';
+
+  suscriptionIdComision: Subscription;
 
   constructor(
     private fb: FormBuilder,
@@ -39,7 +44,8 @@ export class AutoridadInsupdComponent implements OnInit {
     private validadorServicio: ValidatorService,
     private router: Router,
     private route:ActivatedRoute,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    private observerIdComision: ObserverComisionService
   ) {
     this.activatedRoute.url.subscribe((parameter: any) => {
       this.accion = (parameter[0].path);
@@ -60,6 +66,9 @@ export class AutoridadInsupdComponent implements OnInit {
     });
     this.loadRefs();
     this.idCooperadora = this.route.snapshot.params['id'];
+    this.suscriptionIdComision = this.observerIdComision.castIdIdComision.subscribe((value)=>{
+      this.idComision = value;
+    });
     this.createForm();
     this.activatedRoute.params.subscribe((param: any) => {
       this.id = parseInt(param.idAutoridad);
@@ -81,6 +90,9 @@ export class AutoridadInsupdComponent implements OnInit {
       }
     });
   }
+  ngOnDestroy(): void {
+    this.suscriptionIdComision.unsubscribe();
+  }
 
   ngOnInit(): void {
   }
@@ -97,7 +109,7 @@ export class AutoridadInsupdComponent implements OnInit {
   createForm() {
     this.formularioAutoridad = this.fb.group({
       id: null,
-      fkComision: this.idCooperadora,
+      fkComision: this.idComision,
       fkRefCargo: [null, {validators: [ Validators.required, ]}],
       fkPersonaRUCE: null,
       fkRefTipoDocumentoRUCE: [null, {validators: [ Validators.required, ]}],
@@ -143,7 +155,7 @@ export class AutoridadInsupdComponent implements OnInit {
       );
     } else {
       // console.log(this.formularioAutoridad.value.fkRefTipoDocumentoRUCE)
-      this.formularioAutoridad.value.fkOrganizacionRUCE = this.formularioAutoridad.value.fkOrganizacionRUCE;
+      this.formularioAutoridad.value.fkComision = this.formularioAutoridad.value.fkComision;
       // this.formularioAutoridad.value.fkRefTipoDocumentoRUCE = this.formularioAutoridad.value.fkRefTipoDocumentoRUCE;
       this.formularioAutoridad.value.fkPersonaRUCE = this.formularioAutoridad.value.fkPersonaRUCE;
       

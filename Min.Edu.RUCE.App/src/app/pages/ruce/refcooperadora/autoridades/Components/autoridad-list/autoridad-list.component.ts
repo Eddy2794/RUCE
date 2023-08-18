@@ -16,6 +16,7 @@ import { CooperadoraService } from '@app/pages/ruce/refcooperadora/cooperadora/S
 import { AutoridadComisionService } from '@app/pages/ruce/refcooperadora/comision/Services/autoridad-comision.service';
 import { RefcargoService } from '@app/pages/ruce/ref-ruce/Services/refcargo-service';
 import { PersonaruceService } from '@app/pages/ruce/ref-ruce/Services/personaruce-service';
+import { ObserverComisionService } from '../../../comision/Services/observer-comision.service';
 
 @Component({
   selector: 'vex-autoridad-list',
@@ -26,7 +27,7 @@ import { PersonaruceService } from '@app/pages/ruce/ref-ruce/Services/personaruc
     fadeInUp400ms
   ]
 })
-export class AutoridadListComponent implements OnInit {
+export class AutoridadListComponent implements OnInit, OnDestroy {
 
   columnasBusqueda!: TableColumn<CooperadoraModel>[];
   filtroBusqueda: FilterOptions = { PageSize: 10 };
@@ -43,20 +44,33 @@ export class AutoridadListComponent implements OnInit {
   refCargo: RefCargoModel[] = [];
 
   @Input() idCooperadora!: number;
-  @Input() idComision!: number
+  @Input() idComision!: number;
+
+ 
+
+  suscriptionIdComision: Subscription;
 
   constructor(
     public cooperadoraService: CooperadoraService,
     public autoridadService: AutoridadComisionService,
     public refCargoService: RefcargoService,
     public personaRUCEService: PersonaruceService,
-  ) { }
+    protected observerIdComision: ObserverComisionService,
+  ) {
+    this.suscriptionIdComision = this.observerIdComision.castIdIdComision.subscribe((value)=>{
+      this.idComision = value;
+    });
+  }
+  ngOnDestroy(): void {
+    this.suscriptionIdComision.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.obtenerBusqueda()
   }
 
   obtenerBusqueda() {
+    console.log("comision"+this.idComision);
     this.filtro = { estaActivo: true, PageSize: 10, fkComision: this.idComision};
     this.cargarList();
   }

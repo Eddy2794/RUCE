@@ -5,8 +5,9 @@ import { CooperadoraFormInsupdComponent } from './cooperadora/Components/form-in
 import { PrincipalComponent } from './cooperadora/Components/principal/principal.component';
 import { TabsEjemploComponent } from '../../tabs-ejemplo/tabs-ejemplo.component';
 import { EncabezadoCooperadoraComponent } from './cooperadora/Components/encabezado-cooperadora/encabezado-cooperadora.component';
-import { AutoridadInsupdComponent } from './comision/Components/frm-insupd/autoridad-insupd/autoridad-insupd.component';
+//import { AutoridadInsupdComponentComision } from './comision/Components/frm-insupd/autoridad-insupd/autoridad-insupd.component';
 import { ComisionInsupdComponent } from './comision/Components/frm-insupd/comision-insupd/comision-insupd.component';
+import { AutoridadInsupdComponent } from './autoridades/Components/autoridad-insupd/autoridad-insupd.component';
 
 
 const routes: Routes = [
