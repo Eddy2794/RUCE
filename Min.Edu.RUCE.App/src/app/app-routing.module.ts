@@ -58,18 +58,25 @@ const routes: VexRoutes = [
           },
           {
             path: 'establecimientos',
-            loadChildren: () => import('./pages/ruce/reforganizacionruce/reforganizacionruce.module').then(m=> m.RefOrganizacionRUCEModule),
+            loadChildren: () => import('./pages/ruce/organizacionruce/reforganizacionruce.module').then(m=> m.RefOrganizacionRUCEModule),
             data:{
               toolbarShadowEnabled: true,       
             }
-          }, 
+          },
           {
-            path: 'cooperadoras',
-            loadChildren: () => import('./pages/ruce/refcooperadora/refcooperadora.module').then(m=> m.RefCooperadoraModule),
+            path: 'autoridad-establecimieto',
+            loadChildren: () => import('./pages/ruce/autoridadesorganizacion/autoridadesorganizacion.module').then(m=> m.AutoridadesorganizacionModule),
             data:{
               toolbarShadowEnabled: true,       
             }
           }, 
+          // {
+          //   path: 'cooperadoras',
+          //   loadChildren: () => import('./pages/ruce/cooperadora/refcooperadora.module').then(m=> m.RefCooperadoraModule),
+          //   data:{
+          //     toolbarShadowEnabled: true,       
+          //   }
+          // },
         ]
       }
     ]
