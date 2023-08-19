@@ -8,6 +8,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent, DialogData } from '@app/components/dialog/dialog.component';
 import { stagger60ms } from 'src/@vex/animations/stagger.animation';
 import { fadeInUp400ms } from 'src/@vex/animations/fade-in-up.animation';
+import { ObserverOrganizacionService } from '@app/pages/ruce/organizacionruce/Services/observer-organizacion.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'vex-matricula-insupd',
@@ -25,6 +27,8 @@ export class MatriculaInsupdComponent implements OnInit {
   idOrganizacion!: number;
   filtro: FilterOptions = { estaActivo: true, PageSize: 10,};
 
+  suscriptionIdOrganizacion: Subscription;
+
   public accion: string = '';
 
   constructor(
@@ -34,8 +38,13 @@ export class MatriculaInsupdComponent implements OnInit {
     private validadorServicio: ValidatorService,
     private router: Router,
     private route:ActivatedRoute,
-    private matDialog: MatDialog)
+    private matDialog: MatDialog,
+    private observerIdOrganizacion: ObserverOrganizacionService,
+    )
   { 
+    this.suscriptionIdOrganizacion = this.observerIdOrganizacion.castIdIdOrganizacion.subscribe((value)=>{
+      this.idOrganizacion = value;
+    });
     this.activatedRoute.url.subscribe((parameter: any) => {
       this.accion = (parameter[0].path);
       switch (parameter[0].path) {
@@ -53,11 +62,10 @@ export class MatriculaInsupdComponent implements OnInit {
         }
       }
     });
-    this.idOrganizacion = this.route.snapshot.params['id'];
     console.log(this.idOrganizacion);
     this.createForm();
     this.activatedRoute.params.subscribe((param: any) => {
-      this.id = parseInt(param.idMatricula);
+      this.id = parseInt(param.id);
       if (this.id !== 0) {
         if (this.accion !== 'delete'){
           this.accion = 'edit'
@@ -78,8 +86,8 @@ export class MatriculaInsupdComponent implements OnInit {
     this.formularioMatricula = this.fb.group({
       id: null,
       fkOrganizacionRUCE: this.idOrganizacion,
-      periodoLectivo: [null, {validators: [ Validators.required, Validators.min(1900) ]}],
-      matricula: [null, {validators: [ Validators.required, ]}],
+      periodoLectivo: [null, {validators: [ Validators.required, Validators.min(1900), Validators.maxLength(4) ]}],
+      matricula: [null, {validators: [ Validators.required ]}],
       estaActivo: true,
     },)
     if (this.accion === 'delete'|| this.accion === 'view') {
@@ -130,7 +138,7 @@ export class MatriculaInsupdComponent implements OnInit {
     dialog.afterClosed().subscribe(result => {
       if (result === "Aceptar") {
         this.matriculaService.delete(this.formularioMatricula.value.id).subscribe((resp: any) => {
-          this.mostrarDialogMsj("Mensaje", "Matricula Eliminado", false)
+          this.mostrarDialogMsj("Mensaje", "Matricula Eliminada", false)
           this.router.navigate(['/pages/establecimientos/view/'+this.idOrganizacion]);
         }, err => {
           this.mostrarDialogMsj("Atención", err.error.message, false)
