@@ -1,0 +1,10 @@
+<vex-aio-table [columns]="columnas" [sourceService]="cargoFuncionalService" [filter]="filtro" [ruta]="'cargofuncional'"
+  [nombreTabla]="'Cargos Funcionales'">
+  <app-input-search espacio1></app-input-search>
+
+  <app-search-button-generic espacio2 [searchOptions]="searchOptions">
+  </app-search-button-generic>
+
+  <app-button-nuevo bordederecho [routerLink]="'cargofuncional'" [addRowText]="'Agregar Cargo Funcional'">
+  </app-button-nuevo>
+</vex-aio-table>

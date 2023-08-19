@@ -1,0 +1,16 @@
+.slide-group{
+    margin: 5px 10px;
+}
+
+.formuario {
+    mat-form-field, .slide-group{
+        width: 100%;
+    }
+}
+
+.btn-busqueda{
+    font-size:28px; 
+    position: absolute; 
+    right: 2rem; 
+    bottom: 0.01rem;
+}

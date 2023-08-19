@@ -1,0 +1,54 @@
+<ng-container>
+    <div class="example-container table-container">
+        <!-- {{listaIdsSelect|json}} -->
+        <br>
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+            <ng-container [matColumnDef]="tableData" *ngFor="let tableData of objectKeys(columns); index as i">
+                <th mat-header-cell *matHeaderCellDef> {{columns[i].name}}</th>
+                <div *ngIf="columns[i].property == 'action'">
+
+                    <mat-cell class="mat-column-actions" *matCellDef="let element">
+                        <mat-checkbox [checked]="canbeChecked(element.id)" (change)="onChange($event,element)">
+                        </mat-checkbox>
+                    </mat-cell>
+                </div>
+                <td mat-cell *matCellDef="let element; let ii=index; let aux=tableData;">
+                    <div *ngIf="columns[i].type === 'date'">
+                        {{ element[columnDefinition[tableData]] | date : 'dd/MM/yyyy' }}
+                    </div>
+                    <div *ngIf="columns[i].type === 'boolean'">
+                        {{ element[columnDefinition[tableData]] === true? "SI":"NO" }}
+                    </div>
+                    <div *ngIf="columns[i].type === 'text'">
+                        {{ element[columnDefinition[tableData]] }}
+                    </div>
+                    <div *ngIf="columns[i].type === 'integer'">
+                        {{ element[columnDefinition[tableData]] }}
+                    </div>
+                    <div *ngIf="columns[i].type === 'decimal'">
+                        {{ element[columnDefinition[tableData]] }}
+                    </div>
+                    <div *ngIf="columns[i].type === 'current'">
+                        {{ element[columnDefinition[tableData]] }}
+                    </div>
+                    <div *ngIf="columns[i].type === 'percent'">
+                        {{ element[columnDefinition[tableData]] }}
+                    </div>
+                    <div *ngIf="columns[i].type === 'object'">
+                        {{element | mapingObject:columnDefinition[tableData]}}
+                    </div>
+                </td>
+
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="objectKeys(columnDefinition); sticky: true" class="table-header"></tr>
+            <tr class="row-custom-class" mat-row
+                *matRowDef="let row; columns: objectKeys(columnDefinition); let i=index" [attr.id]="i"></tr>
+        </table>
+        <mat-paginator (page)="pageChanged($event)" [pageSize]="pageProperties.pageSize"
+            [length]="pageProperties.length" [pageSizeOptions]="pageSizeOptions" class="mat-paginator-sticky"
+            showFirstLastButtons="true"></mat-paginator>
+
+    </div>
+    <button mat-button (click)="aceptar()">Aceptar</button>
+    <button mat-button (click)="cerrarPopUp()">Cancelar</button> 
+</ng-container>

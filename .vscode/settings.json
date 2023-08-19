@@ -4,17 +4,17 @@
             "mssqlOptions": {
                 "appName": "SQLTools",
                 "useUTC": true,
-                "encrypt": true,
-                "instanceName": "sqlsrv"
+                "encrypt": true
             },
             "previewLimit": 50,
             "server": "localhost",
             "port": 1433,
             "driver": "MSSQL",
-            "name": "sqlsrv",
-            "database": "db_ruce",
+            "name": "RUCE",
+            "database": "ruce",
             "username": "sa",
-            "password": "Sampar.10"
+            "password": "Password!"
         }
-    ]
+    ],
+    "svn.ignoreMissingSvnWarning": true
 }

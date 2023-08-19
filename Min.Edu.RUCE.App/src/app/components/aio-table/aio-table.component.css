@@ -1,0 +1,8 @@
+
+.dvEtiqueta {
+    display: flex;
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: rgba(0, 0, 0, .54);
+    pointer-events: none;
+}

@@ -4,21 +4,30 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\AutoridadesCooperadora;
-use App\Models\AutoridadesEstablecimientoEducativo;
-use App\Models\Expediente;
+use App\Models\AtencionSeguimiento;
+use App\Models\AutoridadComision;
+use App\Models\AutoridadOrganizacionRUCE;
+use App\Models\Balance;
+use App\Models\Comision;
 use App\Models\Cooperadora;
-use App\Models\HistorialCooperadora;
-use App\Models\EstablecimientoEducativo;
-use App\Models\FondosCooperar;
-use App\Models\HistorialEstadoCooperadora;
+use App\Models\Expediente;
+use App\Models\Fondo;
 use App\Models\Kiosco;
-use App\Models\Persona;
+use App\Models\Matricula;
+use App\Models\MovimientoExpediente;
+use App\Models\OrganizacionRUCE;
+use App\Models\PersonaRUCE;
 use App\Models\Personeria;
-use App\Models\SeguimientoAtencion;
-use App\Models\Usuario;
+use App\Models\RefCargo;
+use App\Models\RefInstanciaInstrumento;
+use App\Models\RefTipoAsociacion;
+use App\Models\RefTipoComision;
+use App\Models\RefTipoDocumentoRUCE;
+use App\Models\RefTipoFondo;
+use App\Models\UsuarioRUCE;
 use Illuminate\Database\Seeder;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -28,51 +37,41 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-        // $this->call([
-        //     TipoAsociacionSeeder::class,
-        // ]);
-
         //Ejecucion de Seeders
 
         $this->call([
-            PersonaSeeder::class,
+            RefSeeder::class,
+            PersonaRUCESeeder::class,
             UsuarioAdministradorSeeder::class,
-            TipoAsociacionTableSeeder::class,
         ]);
 
         //Ejecucion de Factories
 
-        $cant_registros = 10;
+        $cant_registros = 32*6;
 
-        Persona::factory($cant_registros)->create();
+        // PersonaRUCE::factory($cant_registros)->create();
         
-        Usuario::factory($cant_registros)->create();
+        // UsuarioRUCE::factory($cant_registros)->create();
 
-        Kiosco::factory($cant_registros)->create();
+        // Kiosco::factory($cant_registros)->create();
 
-        EstablecimientoEducativo::factory($cant_registros)->create();
+        OrganizacionRUCE::factory($cant_registros)->create();
 
-        AutoridadesEstablecimientoEducativo::factory($cant_registros)->create();
+        // AutoridadOrganizacionRUCE::factory($cant_registros/4)->create();
 
         Cooperadora::factory($cant_registros)->create();
 
-        AutoridadesCooperadora::factory($cant_registros)->create();
+        // Comision::factory($cant_registros/16)->create();
 
-        SeguimientoAtencion::factory($cant_registros)->create();
+        // AutoridadComision::factory($cant_registros/32)->create();
 
-        FondosCooperar::factory($cant_registros)->create();
+        // AtencionSeguimiento::factory($cant_registros)->create();
 
-        Expediente::factory($cant_registros)->create();
+        // Fondo::factory($cant_registros)->create();
 
-        HistorialCooperadora::factory($cant_registros)->create();
+        // Expediente::factory($cant_registros)->create();
 
-        Personeria::factory($cant_registros)->create();
+        // Personeria::factory($cant_registros)->create();
 
     }
 }

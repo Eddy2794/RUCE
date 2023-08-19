@@ -1,0 +1,18 @@
+<h3>Detalle de Modalidad de Dictado</h3>
+
+<form autocomplete="off" [formGroup]="formModalidadDictado" (ngSubmit)="save()" #formRefmodalidaddictado>
+    <div class="form">
+
+        <mat-form-field appearance="fill">
+            <mat-label>Modalidad de Dictado</mat-label>
+            <input matInput formControlName="modalidadDictadoDesc" type="text" maxlength="50" mayus espacios>
+            <mat-error>
+                <app-ver-error [control]="this.formModalidadDictado.controls['modalidadDictadoDesc']"></app-ver-error>
+            </mat-error>
+        </mat-form-field>
+        <mat-error class="errorForm">
+            <app-ver-error [control]="this.formModalidadDictado"></app-ver-error>
+        </mat-error>
+        <app-button-group (cancel)="cancel()" (delete)="eliminar()" (submit)="save()" [accion]="accion"></app-button-group>
+    </div>
+</form>

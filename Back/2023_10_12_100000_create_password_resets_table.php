@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('password_resets', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->string('token');
-            $table->timestamp('created_at')->nullable();
+            $table->timestamp('created_at')->nullable(true);
         });
     }
 
@@ -28,5 +28,8 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('password_resets');
+        Schema::table('OrganizacionRUCE', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

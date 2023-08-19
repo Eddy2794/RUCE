@@ -1,0 +1,93 @@
+<mat-dialog-content *ngIf="form">
+    <p mat-dialog-title>Opciones de Búsqueda</p>
+    <form [formGroup]="form">
+        <div *ngFor="let field of objectKeys(searchOptions); index as i">          
+            <div [ngSwitch]="searchOptions[i].typeControl">
+                <div *ngSwitchCase="'input'">
+                    <mat-form-field class="contenedorCampos" appearance="fill">
+                        <mat-label>{{ searchOptions[i].label }}</mat-label>
+                        <input matInput type="searchOptions[i].typeData" [id]="searchOptions[i].name" (keyup)="deshabilitar()"
+                            [formControlName]="searchOptions[i].name" >
+                    </mat-form-field>
+                </div>
+                <div *ngSwitchCase="'select'">
+                    <mat-form-field class="contenedorCampos" appearance="fill">
+                        <mat-label>{{ searchOptions[i].label }}</mat-label>
+                        <mat-select [formControlName]="searchOptions[i].name" (selectionChange)="cambioValor(searchOptions[i].name, $event.value)">                            
+                            <mat-option value="Seleccione"> Seleccione</mat-option>
+                            <mat-option *ngFor="let item of searchOptions[i].value" [value]="item.id">{{ item[searchOptions[i].property] }} </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div *ngSwitchCase="'radio'">
+                    <mat-label>{{ searchOptions[i].label }}</mat-label>
+                    <mat-radio-group [formControlName]="searchOptions[i].name">                        
+                        <mat-radio-button *ngFor="let item of searchOptions[i].value" [value]="item.id">{{ item[searchOptions[i].property] }}</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <div *ngSwitchCase="'checkbox'">
+                    <mat-checkbox class="contenedorCampos" [id]="searchOptions[i].name" [formControlName]="searchOptions[i].name">{{
+                        searchOptions[i].label }} </mat-checkbox>
+                </div>
+                <div *ngSwitchCase="'datepicker'">
+                    <mat-form-field class="contenedorCampos" appearance="fill">
+                        <mat-label>{{ searchOptions[i].label }}</mat-label>
+                        <input matInput [formControlName]="searchOptions[i].name" [matDatepicker]="picker" >
+                        <mat-hint>DD/MM/AAAA</mat-hint>
+                        <mat-datepicker-toggle matSuffix [for]="picker">                     
+                        </mat-datepicker-toggle>                 
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div *ngSwitchCase="'rangedatepicker'">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Rango de Fechas:</mat-label>
+                        <mat-date-range-input [formGroupName]="searchOptions[i].name" [rangePicker]="pickerrange">
+                            <input matStartDate formControlName="inicio" placeholder="Fecha Inicio">
+                            <input matEndDate formControlName="fin" placeholder="Fecha Fin">
+                        </mat-date-range-input>
+                        <mat-hint>DD/MM/AAAA – DD/MM/AAAA</mat-hint>
+                        <mat-datepicker-toggle matSuffix [for]="pickerrange"></mat-datepicker-toggle>
+                        <mat-date-range-picker #pickerrange></mat-date-range-picker>                      
+                    </mat-form-field>                      
+                </div> 
+                <div *ngSwitchCase="'modal-single-selection'">     
+                    <input hidden [formControlName]="searchOptions[i].name">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Nombre:</mat-label>
+                        <input matInput type="text" id="idcampo" [formControlName]="searchOptions[i].property">
+                    </mat-form-field>
+                    <button mat-icon-button  matTooltip="Búsqueda" (click)="openDialogSingle(searchOptions[i].value, searchOptions[i].property, searchOptions[i].name, searchOptions[i].label);" color="primary"><mat-icon svgIcon="mat:list"></mat-icon></button>
+                </div>
+                <div *ngSwitchCase="'modal-multiple-selection'">  
+                        <mat-label>{{ searchOptions[i].label }}</mat-label>
+                        <ng-container [formArrayName]="searchOptions[i].name">
+                            <ng-container *ngFor="let item of arrayMultipleCheck(searchOptions[i].name).controls; let j = index">
+                                <form [formGroupName]="j">
+                                    <mat-form-field hidden >
+                                        <input matInput
+                                                formControlName="id"
+                                                placeholder="id" >
+                                    </mat-form-field>
+                                    <mat-form-field >
+                                        <input matInput
+                                                type="text" 
+                                                formControlName="valor"                                           
+                                                placeholder="descripcion">                                          
+                                    </mat-form-field>
+                                    <button #btnEliminar mat-raised-button type="button" [name]="'Eliminar ' + j" (click)="eliminar(searchOptions[i].name,j)"> <mat-icon svgIcon="mat:clear"></mat-icon> Eliminar</button>
+                                </form>
+                            </ng-container>
+                        </ng-container>                        
+                    <button mat-icon-button  matTooltip="Búsqueda" (click)="openDialogMultiple(searchOptions[i].value, searchOptions[i].property, searchOptions[i].name, searchOptions[i].label);" color="primary" ><mat-icon svgIcon="mat:list"></mat-icon></button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!-- <button (click)="verform()">ver form</button> -->
+</mat-dialog-content>
+<mat-dialog-actions class="botones">
+    <button mat-button (click)="close();">Cancelar</button>
+    <button mat-button [disabled]="!form.valid || form.pristine" (click)="searchEmmit(form);">Buscar</button>
+</mat-dialog-actions>
+

@@ -2,9 +2,9 @@
 
 namespace Database\Factories;
 
-use App\Models\EstablecimientoEducativo;
-use App\Models\Kiosco;
-use App\Models\TipoAsociacion;
+use App\Models\OrganizacionRUCE;
+use App\Models\PersonaRUCE;
+use App\Models\RefTipoAsociacion;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,18 +19,26 @@ class CooperadoraFactory extends Factory
      */
     public function definition()
     {
+        $valor = $this->faker->randomElement([false,true]);
         return [
+            'fkRefTipoAsociacion' => $this->faker->randomElement(RefTipoAsociacion::all()->getQueueableIds()),
+            'fkOrganizacionRUCE' => $this->faker->randomElement(OrganizacionRUCE::all()->getQueueableIds()),
+
+            'cuit' => $this->faker->unique()->numerify("###########"),
+            'legajo' => "legajo ".$this->faker->unique()->numerify("###"),
             'denominacion' => $this->faker->domainName,
             'estado' => $this->faker->randomElement(["verde","amarillo","rojo"]),
-            'legajo' => "legajo ".$this->faker->unique()->numerify("###"),
-            'decreto' => "decreto ".$this->faker->unique()->numerify("###"),
-            'convenio_sc_economicas' => $this->faker->randomElement([true,false]),
-            'inscripcion_afip' => $this->faker->randomElement([true,false]),
-            'inscripcion_rentas' => $this->faker->randomElement([true,false]),
-            'inscripcion_renacopes' => $this->faker->randomElement([true,false]),
-            'fecha_creacion' => $this->faker->date(),
-            'fk_kiosco' => $this->faker->unique()->randomElement(Kiosco::all()->getQueueableIds()),
-            'fk_establecimiento_educativo' => $this->faker->randomElement(EstablecimientoEducativo::all()->getQueueableIds()),
+            
+            'convenioCsEconomicas' => $this->faker->randomElement([true,false]),
+            'estadoAfip' => $this->faker->randomElement([true,false]),
+            'estadoRentas' => $this->faker->randomElement([true,false]),
+            'inscripcionRenacopes' => $this->faker->randomElement([true,false]),
+            
+            'idUsuarioAlta' => $this->faker->randomElement(PersonaRUCE::all()->getQueueableIds()),
+            'idUsuarioModificacion' => $this->faker->randomElement(PersonaRUCE::all()->getQueueableIds()),
+
+            'estaActivo' => !$valor,
+            'deleted_at' => $valor?$this->faker->date():null,
         ];
     }
 }

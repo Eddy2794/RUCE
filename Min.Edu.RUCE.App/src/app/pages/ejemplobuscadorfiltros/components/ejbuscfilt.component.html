@@ -1,0 +1,49 @@
+<div class="p-gutter">
+    <div class="flex flex-col sm:flex-row gap-4">
+        <div class="card flex-auto">
+            <div class="px-6 py-4 border-b flex items-center">
+                <h2 class="title m-0">Formulario de Ejemplo de uso de Buscador con Filtros</h2>
+
+            </div>
+            <div class="px-6 py-6 border-b">
+                <ng-container [formGroup]="frmPlanEstudio">
+
+                    <!-- BUSCADOR -->
+                    <app-search-filters [columnasVex]="columnasBusqueda" [filtro]="filtroBusqueda"
+                        [searchOptions]="searchOptionsBusqueda" [sourceService]="sourceServiceBusqueda"
+                        [nombreTabla]="'Plan de Estudio'" [campoDesc]="'planEstudioDesc'" [requerido]="true"
+                        formControlName="idPlanEstudioBase" (datos)="obtenerBusqueda($event)">
+                    </app-search-filters>
+                    <!-- FIN BUSCADOR -->
+
+                    <mat-form-field style="width: 19%; margin-right: 1%;">
+                        <mat-label>Duración (años)</mat-label>
+                        <input matInput formControlName="duracionAnios" type="text" maxlength="2" espacios solonum>
+                        <mat-error>
+                            <app-ver-error [control]="this.frmPlanEstudio.controls['duracionAnios']">
+                            </app-ver-error>
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field style="width: 19%; margin-right: 1%;">
+                        <mat-label>Duración (hs. cátedras)</mat-label>
+                        <input matInput formControlName="duracionHsCatedra" type="text" maxlength="4" espacios solonum>
+                    </mat-form-field>
+
+                    <mat-form-field style="width: 19%; margin-right: 1%;">
+                        <mat-label>Duración (hs. reloj)</mat-label>
+                        <input matInput formControlName="duracionHsReloj" type="text" maxlength="4" espacios solonum>
+                    </mat-form-field>
+
+                    <br><br>
+
+                    <div ngClass="dvBotones">
+                        <button mat-raised-button color="primary" type="button" (click)="validar()">Validar</button>
+                    </div>
+
+                    <br>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>
