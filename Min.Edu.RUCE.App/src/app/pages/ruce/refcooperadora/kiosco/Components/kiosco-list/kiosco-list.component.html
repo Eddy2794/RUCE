@@ -1,0 +1,14 @@
+<vex-page-layout>
+    <div>
+        <div class="card flex-auto">
+  
+            <vex-aio-table [columns]="columnasVex" [sourceService]="kioscoService" [filter]="filtro" [ruta]="'cooperadora/'+idCooperadora+'/fondo'" [nombreTabla]="'Kiosco'" [cabecera]="false">
+              <app-input-search espacio1></app-input-search>
+  
+              <app-search-button-generic espacio2 [searchOptions]="searchOptions"></app-search-button-generic>
+  
+              <app-button-nuevo bordederecho [routerLink]="'cooperadora/'+idCooperadora+'/fondo'" [addRowText]="'Agregar Kiosco'"></app-button-nuevo>
+            </vex-aio-table>
+          </div>
+        </div>
+  </vex-page-layout>

@@ -1,0 +1,12 @@
+<div>
+    <h3 class="title m-0">{{data.label}}</h3>
+    <br>
+    <app-input-search>
+    </app-input-search>
+    <br>
+    <app-table-select [sourceService]="entitieService" [columnDefinition]="displayedColumns" [columns]="columns"
+        [columnHeader]="displayedColumns" [filter]="filter">
+    </app-table-select>
+
+    <button mat-button (click)="cerrarPopUp()">Volver</button>
+</div>

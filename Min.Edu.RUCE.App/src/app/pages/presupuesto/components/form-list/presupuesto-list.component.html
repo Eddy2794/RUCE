@@ -1,0 +1,42 @@
+<vex-page-layout>
+    <vex-page-layout-header class="pb-16 flex flex-col items-start justify-center -mb-16">
+        <div class="w-full flex flex-col sm:flex-row justify-between">
+            <div>
+                <h1 class="title mt-0 mb-1">Presupuesto</h1>
+                <vex-breadcrumbs [crumbs]="['Gestión de POF','Presupuesto']"></vex-breadcrumbs>
+            </div>
+        </div>
+    </vex-page-layout-header>
+    <div class="px-6 py-4 border-b flex items-center">
+        <h2 class="title m-0">Listado de Presupuesto</h2>
+    </div>
+    <div class="px-6 py-4 flex flex-col">
+        <div [formGroup]="frmPresupuestoList">
+            <mat-form-field>
+                <mat-label>Seleccione Ejercicio</mat-label>
+                <mat-select formControlName="idRefEjercicio" (selectionChange)="changeEjercicio($event)">
+                    <mat-option>Seleccione</mat-option>
+                    <mat-option *ngFor="let item of refEjercicioList" [value]="item.id">
+                        {{item.ejercicioDesc}}
+                    </mat-option>
+                </mat-select>
+                <mat-error>
+                    <app-ver-error [control]="this.frmPresupuestoList.controls['idRefEjercicio']">
+                    </app-ver-error>
+                </mat-error>
+
+            </mat-form-field>
+            <div *ngIf="idRefEjercicio !== 0">
+                <vex-aio-table [columns]="columnasVex" [sourceService]="presupuestoService" [filter]="filtro"
+                    [ruta]="'presupuesto'" [nombreTabla]="'Presupuesto'">
+                    <app-input-search espacio1></app-input-search>
+                    <app-search-button-generic espacio2 [searchOptions]="searchOptions">
+                    </app-search-button-generic>
+
+                    <app-button-nuevo bordederecho [routerLink]="'presupuesto'" [addRowText]="'Agregar Presupuesto'">
+                    </app-button-nuevo>
+                </vex-aio-table>
+            </div>
+        </div>
+    </div>
+</vex-page-layout>

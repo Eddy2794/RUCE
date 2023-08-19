@@ -1,0 +1,14 @@
+input[type="text"][disabled] {
+    color: darkslategray;
+}
+
+.dvBotones {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 2%;
+}
+
+.dvBotones .mat-raised-button {
+    width: 25%;
+}
