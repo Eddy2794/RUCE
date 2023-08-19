@@ -4,7 +4,7 @@
       [columns]="columnasVex"
       [sourceService]="matriculaService"
       [filter]="filtro"
-      [ruta]="'establecimientos/' + idOrganizacion + '/matricula'"
+      [ruta]="'matriculas'"
       [nombreTabla]="'Matrículas'"
       [cabecera]="false"
       [view]="false"
@@ -18,7 +18,7 @@
 
       <app-button-nuevo
         bordederecho
-        [routerLink]="'establecimientos/' + idOrganizacion + '/matricula'"
+        [routerLink]="'matriculas'"
         [addRowText]="'Agregar Matrícula'"
       ></app-button-nuevo>
     </vex-aio-table>

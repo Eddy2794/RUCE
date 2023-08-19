@@ -70,6 +70,13 @@ const routes: VexRoutes = [
               toolbarShadowEnabled: true,       
             }
           }, 
+          {
+            path: 'matriculas',
+            loadChildren: () => import('./pages/ruce/matriculas/matriculas.module').then(m=> m.MatriculasModule),
+            data:{
+              toolbarShadowEnabled: true,       
+            }
+          }, 
           // {
           //   path: 'cooperadoras',
           //   loadChildren: () => import('./pages/ruce/cooperadora/refcooperadora.module').then(m=> m.RefCooperadoraModule),

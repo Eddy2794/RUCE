@@ -12,7 +12,6 @@ import { ObserverOrganizacionService } from '../../Services/observer-organizacio
 export class DetallesComponent implements OnInit {
   data?: OrganizacionRUCEModel;
   id?: number;
-  autoridadesShow?: boolean = false;
   constructor(
     private route:ActivatedRoute, 
     private organizacionRUCEService:OrganizacionRUCEService,
@@ -27,8 +26,7 @@ export class DetallesComponent implements OnInit {
   private obtenerData(id:any){
     this.organizacionRUCEService.findOne(id).subscribe((res:any) => {
       this.data = Object.assign({}, res.entities[0], this.data);
-      this.observerIdOrganizacion.enviarIdOrganizacion(this.data.id);
-      this.autoridadesShow = true;
+      this.observerIdOrganizacion.enviarIdOrganizacion(this.id);
     });
   }
 

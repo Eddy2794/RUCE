@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { RefniveleducativoModel } from '@app/pages/referenciales/refniveleducativo/model/refniveleducativo.model';
 import { DataPage, FilterOptions } from '@app/shared/utils';
@@ -35,7 +35,6 @@ import { OrganizacionRUCEService } from '@app/pages/ruce/organizacionruce/Servic
 })
 export class AutoridadOrganizacionListComponent implements OnInit, OnDestroy {
 
-  columnasBusqueda!: TableColumn<OrganizacionRUCEModel>[];
   filtroBusqueda: FilterOptions = { PageSize: 10 };
   searchOptionsBusqueda!: SearchOptionsGeneric[];
   frmAutoridades!: FormGroup;
@@ -46,25 +45,17 @@ export class AutoridadOrganizacionListComponent implements OnInit, OnDestroy {
   columnasVex: TableColumn<AutoridadOrganizacionRUCEModel>[];
 
   autoridadesOrganizacion: AutoridadOrganizacionRUCEModel[] = [];
-  refNivelEducList: RefniveleducativoModel[] = [];
-  refJornadaModel: RefJornadaModel[] = [];
-  refEspecialidad: RefEspecialidadModel[] = [];
-  organizacionRUCE: OrganizacionRUCEModel[] = [];
   personaRUCE: PersonaRUCEModel[] = [];
   refCargo: RefCargoModel[] = [];
 
 
-  subsOrganizacion: Subscription;
-  obsOrganizacion!: OrganizacionRUCEModel;
   @Input() idOrganizacion!: number;
 
   constructor(
     private fb: FormBuilder,
-    public organizacionRUCEService: OrganizacionRUCEService,
     public autoridadService: AutoridadOrganizacionRUCEService,
     public refCargoService: RefcargoService,
     public personaRUCEService: PersonaruceService,
-    private observerValueService: ObserverValueService,
     public dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -115,8 +106,8 @@ export class AutoridadOrganizacionListComponent implements OnInit, OnDestroy {
       new SearchOptionsGeneric({
         typeControl: TypeControl.INPUT,
         typeData: TypeData.TEXT,
-        name: 'planEstudioDescContains',
-        label: 'Plan Estudio',
+        name: '',
+        label: '',
         readonly: false,
       }),
       // new SearchOptionsGeneric({
@@ -134,7 +125,7 @@ export class AutoridadOrganizacionListComponent implements OnInit, OnDestroy {
         name: 'idRefNivelEducativo',
         label: 'Nivel Educativo',
         readonly: false,
-        value: this.refNivelEducList,
+        value: "",
         property: 'nivelEducativoDesc'
       }),
       // new SearchOptionsGeneric({

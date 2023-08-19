@@ -28,7 +28,7 @@ export class AutoridadOrganizacionInsupdComponent implements OnInit, OnDestroy {
 
   formularioAutoridad!: FormGroup;
   id: number = 0;
-  idOrganizacion!: number;
+  idOrganizacion: number = 0;
   filtro: FilterOptions = { estaActivo: true, PageSize: 10 };
   tiposDocumentos = new Array<RefTipoDocumentoModel>;
   cargos = new Array<RefCargoModel>;
@@ -55,6 +55,9 @@ export class AutoridadOrganizacionInsupdComponent implements OnInit, OnDestroy {
     private observerIdOrganizacion: ObserverOrganizacionService,
     )
     {
+      this.suscriptionIdOrganizacion = this.observerIdOrganizacion.castIdIdOrganizacion.subscribe((value)=>{
+        this.idOrganizacion = value;
+      });
       this.activatedRoute.url.subscribe((parameter: any) => {
         this.accion = (parameter[0].path);
         switch (parameter[0].path) {
@@ -73,12 +76,9 @@ export class AutoridadOrganizacionInsupdComponent implements OnInit, OnDestroy {
         }
       });
       this.loadRefs();
-      this.suscriptionIdOrganizacion = this.observerIdOrganizacion.castIdIdOrganizacion.subscribe((value)=>{
-        this.idOrganizacion = value;
-      });
       this.createForm();
       this.activatedRoute.params.subscribe((param: any) => {
-        this.id = parseInt(param.idAutoridad);
+        this.id = parseInt(param.id);
         if (this.id !== 0) {
           if (this.accion !== 'delete'){
             this.accion = 'edit'
@@ -149,7 +149,7 @@ export class AutoridadOrganizacionInsupdComponent implements OnInit, OnDestroy {
     //   this.formularioAutoridad.markAllAsTouched();
     //   return;
     // }
-    if (this.id == 0) {
+    if (this.id === 0) {
       this.formularioAutoridad.removeControl('id');
       this.formularioAutoridad.value['inicioCargo'] = this.formularioAutoridad.value['inicioCargo']?.toString()
       this.formularioAutoridad.value['finCargo'] = this.formularioAutoridad.value['finCargo']?.toString()
