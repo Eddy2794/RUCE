@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\AtencionSeguimientoController;
+use App\Http\Controllers\AutoridadOrganizacionRUCEController;
 use App\Http\Controllers\AutoridadComisionController;
+use App\Http\Controllers\AtencionSeguimientoController;
 use App\Http\Controllers\PersonaRUCEController;
 use App\Http\Controllers\KioscoController;
 use App\Http\Controllers\OrganizacionRUCEController;
-use App\Http\Controllers\AutoridadOrganizacionRUCEController;
 use App\Http\Controllers\CooperadoraController;
 use App\Http\Controllers\BalanceController;
 use App\Http\Controllers\ComisionController;
@@ -22,6 +22,7 @@ use App\Http\Controllers\RefTipoDocumentoRUCEController;
 use App\Http\Controllers\RefTipoFondoController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\UsuarioRUCEController;
+use App\Http\Controllers\AuditController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,6 +39,7 @@ use Illuminate\Support\Facades\Route;
 // Route::group(['prefix' => '/establecimientos_educativos/Filter'],function () {
 //     Route::get('/', [EstablecimientoEducativoController::class, 'filtro'])->name('establecimientos_educativos.filter');
 // });
+Route::get('/audits', [AuditController::class, 'getAudits'])->name('audit.getAudits');
 
 Route::group(['prefix' => '/organizacion'],function () {
     // Route::get('/', [OrganizacionRUCEController::class, 'index'])->name('organizacion.index');
