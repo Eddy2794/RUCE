@@ -77,13 +77,13 @@ const routes: VexRoutes = [
               toolbarShadowEnabled: true,       
             }
           }, 
-          // {
-          //   path: 'cooperadoras',
-          //   loadChildren: () => import('./pages/ruce/cooperadora/refcooperadora.module').then(m=> m.RefCooperadoraModule),
-          //   data:{
-          //     toolbarShadowEnabled: true,       
-          //   }
-          // },
+          {
+            path: 'cooperadoras',
+            loadChildren: () => import('./pages/ruce/cooperadora/refcooperadora.module').then(m=> m.RefCooperadoraModule),
+            data:{
+              toolbarShadowEnabled: true,       
+            }
+          },
         ]
       }
     ]

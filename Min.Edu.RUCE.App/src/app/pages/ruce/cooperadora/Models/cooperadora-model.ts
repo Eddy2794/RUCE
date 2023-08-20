@@ -3,9 +3,9 @@ import { RefTipoAsociacionModel } from '@app/pages/ruce/refruce/Model/reftipoaso
 import { ComisionModel } from '../../comision/Models/comision-model';
 import { ExpedienteModel } from '../../expediente/Models/expediente-model';
 import { FondoModel } from '../../fondo/Models/fondo-model';
-import { OrganizacionRUCEModel } from '../../organizacionruce/Models/OrganizacionRUCE/organizacionruce-model';
 import { AtencionSeguimientoModel } from '../../atencionseguimiento/Model/atencion-seguimiento-model';
 import { BalanceModel } from '../../balances/Model/balance-model';
+import { OrganizacionRUCEModel } from '../../organizacionruce/Models/organizacionruce-model';
 
 export class CooperadoraModel extends BaseModel {
     static className: string = 'cooperadora';

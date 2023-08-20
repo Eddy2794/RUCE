@@ -9,9 +9,9 @@ import { ModalSelectOrganizacionComponent } from '@app/components/modal-select-o
 import { IBaseService } from '@app/shared/services/interface/i-base.service';
 import { DataPage, FilterOptions } from '@app/shared/utils';
 import { RefTipoAsociacionModel } from '@app/pages/ruce/refruce/Model/reftipoasociacion-model';
-import { OrganizacionRUCEModel } from '@app/pages/ruce/organizacionruce/Models/OrganizacionRUCE/organizacionruce-model';
-import { OrganizacionRUCEService } from '@app/pages/ruce/organizacionruce/Services/OrganizacionRUCE/organizacionruce-service.service';
 import { RefTipoAsociacionService } from '@app/pages/ruce/refruce/Services/reftipoasociacion.service';
+import { OrganizacionRUCEModel } from '@app/pages/ruce/organizacionruce/Models/organizacionruce-model';
+import { OrganizacionRUCEService } from '@app/pages/ruce/organizacionruce/Services/organizacionruce-service.service';
 
 @Component({
   selector: 'cooperadora-form-insupd',
