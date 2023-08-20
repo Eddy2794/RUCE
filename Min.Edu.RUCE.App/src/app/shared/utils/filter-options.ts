@@ -1,5 +1,7 @@
 
 export class FilterOptions {
+    modelo?: string;
+    event?: string;
     desc?: string;
     descContains?: string;
     includeIds?: number[];
@@ -34,6 +36,8 @@ export class FilterOptions {
 
     constructor() {
         this.desc = '';
+        this.modelo = '';
+        this.event = '';
         this.descContains = '';
         this.includeIds = new Array<number>();
         this.excludeIds = new Array<number>();
@@ -52,6 +56,8 @@ export interface IFilterOptions {
     filtros?: JSON;
     descContains?: string;
     desc?: string;
+    modelo?: string;
+    event?: string;
     includeIds?: number[];
     excludeIds?: number[];
     estaActivo?: boolean;
