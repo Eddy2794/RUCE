@@ -50,13 +50,10 @@ export class KioscoListComponent implements OnInit {
   private setColumns() {
     this.columnasVex = [
       { label: 'ACCIONES', property: 'actions', type: 'button', visible: true },
-      { label: 'FONDO', property: 'fkTipoFondo.', type: 'object', visible: true },
       { label: 'ACCESO POR LICITACION', property: 'accesoLicitacion', type: 'boolean', visible: true },
       { label: 'DOCUMENTACION PRESENTADA', property: 'documentacionPresentada', type: 'boolean', visible: true },
-      { label: 'MONTO', property: 'monto', type: 'text', visible: true },
       { label: 'INICIO DE PERIODO', property: 'periodoInicio', type: 'date', visible: true },
       { label: 'FIN DE PERIODO', property: 'periodoFin', type: 'date', visible: true },
-      { label: 'AÑO OTORGADO', property: 'anioOtorgado', type: 'text', visible: true },
     ]
   }
 

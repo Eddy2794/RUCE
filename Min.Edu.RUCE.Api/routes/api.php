@@ -39,7 +39,8 @@ use Illuminate\Support\Facades\Route;
 // Route::group(['prefix' => '/establecimientos_educativos/Filter'],function () {
 //     Route::get('/', [EstablecimientoEducativoController::class, 'filtro'])->name('establecimientos_educativos.filter');
 // });
-Route::get('/audits', [AuditController::class, 'getAudits'])->name('audit.getAudits');
+Route::get('/audit/Filter', [AuditController::class, 'index'])->name('audit.getAudits');
+// Route::get('/audit/Filter', [AuditController::class, 'getAudits'])->name('audit.getAudits');
 
 Route::group(['prefix' => '/organizacion'],function () {
     // Route::get('/', [OrganizacionRUCEController::class, 'index'])->name('organizacion.index');

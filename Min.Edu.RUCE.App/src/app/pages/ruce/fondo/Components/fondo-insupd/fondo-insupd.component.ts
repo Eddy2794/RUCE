@@ -95,7 +95,6 @@ export class FondoInsupdComponent implements OnInit {
     if (this.accion === 'delete'|| this.accion === 'view') {
       this.formularioFondo.disable();
     }
-    console.log(this.formularioFondo);
   }
 
   save() {

@@ -27,6 +27,7 @@ export class PersoneriaListComponent implements OnInit {
   personeria: PersoneriaModel[] = [];
 
   @Input() idCooperadora!: number;
+  // @Input() view!: string;
 
   constructor(
     public cooperadoraService: CooperadoraService,
@@ -50,13 +51,6 @@ export class PersoneriaListComponent implements OnInit {
   private setColumns() {
     this.columnasVex = [
       { label: 'ACCIONES', property: 'actions', type: 'button', visible: true },
-      { label: 'FONDO', property: 'fkTipoFondo.', type: 'object', visible: true },
-      { label: 'FONDO RECIBIDO', property: 'fondoRecibido', type: 'boolean', visible: true },
-      { label: 'FONDO RENDIDO', property: 'fondoRendido', type: 'boolean', visible: true },
-      { label: 'MONTO', property: 'monto', type: 'text', visible: true },
-      { label: 'RECIBIDO', property: 'fechaRecibido', type: 'date', visible: true },
-      { label: 'RENDIDO', property: 'fechaRendicion', type: 'date', visible: true },
-      { label: 'AÑO OTORGADO', property: 'anioOtorgado', type: 'text', visible: true },
     ]
   }
 

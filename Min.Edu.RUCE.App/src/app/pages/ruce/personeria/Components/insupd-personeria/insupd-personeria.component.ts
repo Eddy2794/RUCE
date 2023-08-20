@@ -100,8 +100,8 @@ export class InsupdPersoneriaComponent implements OnInit {
     // }
     if (this.id == 0) {
       this.formularioPersoneria.removeControl('id');
-      this.formularioPersoneria.value['fondoRecibido'] = this.formularioPersoneria.value['fondoRecibido']?.toString()
-      this.formularioPersoneria.value['fondoRendido'] = this.formularioPersoneria.value['fondoRendido']?.toString()
+      // this.formularioPersoneria.value['fondoRecibido'] = this.formularioPersoneria.value['fondoRecibido']?.toString()
+      // this.formularioPersoneria.value['fondoRendido'] = this.formularioPersoneria.value['fondoRendido']?.toString()
       this.personeriaService.create(this.formularioPersoneria.value).subscribe((resp: any) => {
         this.mostrarDialogMsj("Mensaje", "Fondo Creado", false)
         this.router.navigate(['/pages/cooperadoras/view/'+this.idCooperadora]);

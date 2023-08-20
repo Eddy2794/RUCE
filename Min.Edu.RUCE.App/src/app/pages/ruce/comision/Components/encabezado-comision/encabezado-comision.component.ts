@@ -17,8 +17,8 @@ import { ObserverComisionService } from '../../Services/observer-comision.servic
 export class EncabezadoComisionComponent implements OnInit {
 
   comision?: ComisionModel;
-  idCooperadora?: number;
-  idComision?: number;
+  idCooperadora?: number = 0;
+  idComision?: number = 0;
 
   filtro: FilterOptions = {estaActivo: true, filtros:""};
   columnasVex: TableColumn<AutoridadComisionModel>[];

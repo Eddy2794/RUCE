@@ -55,9 +55,9 @@
     </div>
   
     <div *ngIf="datosShow" class="mt-5 vex-button-group flex items-center justify-center">
-      <button [routerLink]="'cooperadoras/' + idCooperadora + '/comision/add-edit/'+idComision"
+      <button [routerLink]="'comision/add-edit/'+idComision"
       mat-raised-button class="vex-button m-4 vex-lg"  color="primary">   Actualizar   </button>
-      <button [routerLink]="'cooperadoras/' + idCooperadora + '/comision/delete/'+idComision"
+      <button [routerLink]="'comision/delete/'+idComision"
       mat-raised-button class="vex-button m-4 vex-lg"  color="warn">Eliminar</button>
     </div>
   
@@ -68,7 +68,7 @@
       <br>
       <app-button-nuevo
           bordecentro
-          [routerLink]="'cooperadoras/' + idCooperadora + '/comision'"
+          [routerLink]="'comision'"
           [addRowText]="'Agregar Comision'"
         ></app-button-nuevo>
     </div>

@@ -6,10 +6,12 @@ import { PageLayoutModule } from 'src/@vex/components/page-layout/page-layout.mo
 import { SecondaryToolbarModule } from 'src/@vex/components/secondary-toolbar/secondary-toolbar.module';
 
 import { KioscoRoutingModule } from './kiosco-routing.module';
+import { KioscoInsupdComponent } from './Components/kiosco-insupd/kiosco-insupd.component';
+import { KioscoListComponent } from './Components/kiosco-list/kiosco-list.component';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [KioscoInsupdComponent, KioscoListComponent],
   imports: [
     CommonModule,
     SharedModule,
@@ -17,6 +19,7 @@ import { KioscoRoutingModule } from './kiosco-routing.module';
     BreadcrumbsModule,
     SecondaryToolbarModule,
     KioscoRoutingModule
-  ]
+  ],
+  exports: [KioscoInsupdComponent, KioscoListComponent],
 })
 export class KioscoModule { }

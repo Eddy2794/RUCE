@@ -6,10 +6,12 @@ import { PageLayoutModule } from 'src/@vex/components/page-layout/page-layout.mo
 import { SecondaryToolbarModule } from 'src/@vex/components/secondary-toolbar/secondary-toolbar.module';
 
 import { MatriculasRoutingModule } from './matriculas-routing.module';
+import { MatriculaInsupdComponent } from './Components/form-insupd/matricula-insupd/matricula-insupd.component';
+import { MatriculaListComponent } from './Components/form-list/matricula-list/matricula-list.component';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [MatriculaInsupdComponent, MatriculaListComponent],
   imports: [
     CommonModule,
     SharedModule,
@@ -17,6 +19,7 @@ import { MatriculasRoutingModule } from './matriculas-routing.module';
     BreadcrumbsModule,
     SecondaryToolbarModule,
     MatriculasRoutingModule
-  ]
+  ],
+  exports: [MatriculaInsupdComponent, MatriculaListComponent],
 })
 export class MatriculasModule { }

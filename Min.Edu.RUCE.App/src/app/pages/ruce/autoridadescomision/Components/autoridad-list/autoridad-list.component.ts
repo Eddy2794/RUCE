@@ -71,7 +71,6 @@ export class AutoridadComisionListComponent implements OnInit, OnDestroy {
   }
 
   obtenerBusqueda() {
-    console.log("comision"+this.idComision);
     this.filtro = { estaActivo: true, PageSize: 10, fkComision: this.idComision};
     this.cargarList();
   }

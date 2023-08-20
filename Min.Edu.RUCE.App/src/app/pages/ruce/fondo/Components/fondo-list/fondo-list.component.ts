@@ -52,7 +52,7 @@ export class FondoListComponent implements OnInit {
   private setColumns() {
     this.columnasVex = [
       { label: 'ACCIONES', property: 'actions', type: 'button', visible: true },
-      { label: 'FONDO', property: 'fkTipoFondo.', type: 'object', visible: true },
+      { label: 'FONDO', property: 'fkTipoFondo', type: 'object', visible: true },
       { label: 'FONDO RECIBIDO', property: 'fondoRecibido', type: 'boolean', visible: true },
       { label: 'FONDO RENDIDO', property: 'fondoRendido', type: 'boolean', visible: true },
       { label: 'MONTO', property: 'monto', type: 'text', visible: true },

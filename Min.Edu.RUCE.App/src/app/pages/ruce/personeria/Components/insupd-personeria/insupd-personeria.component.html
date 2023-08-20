@@ -33,17 +33,17 @@
                         <app-ver-error [control]="this.formularioPersoneria.controls['fkRefTipoFondo']"></app-ver-error>
                     </mat-error>
                 </mat-form-field> -->
-                <mat-form-field style="width: 100%">
+                <!-- <mat-form-field style="width: 100%">
                     <mat-label>Monto</mat-label>
                     <input matInput formControlName="monto" type="number" espacios mayus>
                     <mat-error>
                         <app-ver-error [control]="this.formularioPersoneria.controls['monto']">
                         </app-ver-error>
                     </mat-error>
-                </mat-form-field>
+                </mat-form-field> -->
             </div>
             
-            <div class="flex flex-col md:flex-row gap-3">
+            <!-- <div class="flex flex-col md:flex-row gap-3">
                 <div class="slide-group">
                     <mat-slide-toggle color="accent" formControlName="fondoRecibido" [checked]="false" class="p-4"></mat-slide-toggle>
                     <mat-label>Fondo Recibido</mat-label>
@@ -52,9 +52,9 @@
                     <mat-slide-toggle color="accent" formControlName="fondoRendido" [checked]="false" class="p-4"></mat-slide-toggle>
                     <mat-label>Fondo Rendido</mat-label>
                 </div>
-            </div>
+            </div> -->
 
-            <div class="flex flex-col md:flex-row gap-3">
+            <!-- <div class="flex flex-col md:flex-row gap-3">
                     <mat-form-field style="width: 100%">
                         <mat-label>Fecha Recibido</mat-label>
                         <input matInput formControlName="fechaRecibido" type="date" espacios mayus>
@@ -71,9 +71,9 @@
                             </app-ver-error>
                         </mat-error>
                     </mat-form-field>
-            </div>
+            </div> -->
 
-            <div class="flex flex-col md:flex-row gap-3">
+            <!-- <div class="flex flex-col md:flex-row gap-3">
                     <mat-form-field style="width: 100%">
                         <mat-label>Año Otorgado</mat-label>
                         <input matInput formControlName="anioOtorgado" type="number" solonum espacios >
@@ -82,7 +82,7 @@
                             </app-ver-error>
                         </mat-error>
                     </mat-form-field>
-            </div>
+            </div> -->
         </div>
         <br>       
             <app-button-group type="button" (cancel)="cancel()" (delete)="eliminar()" (submit)="save()" [accion]="accion"></app-button-group>

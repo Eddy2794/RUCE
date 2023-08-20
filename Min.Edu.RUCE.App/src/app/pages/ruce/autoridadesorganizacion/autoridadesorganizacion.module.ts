@@ -1,3 +1,4 @@
+import { AutoridadOrganizacionListComponent } from './Components/autoridad-list/autoridad-list.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '@app/shared/shared.module';
@@ -11,7 +12,8 @@ import { AutoridadOrganizacionInsupdComponent } from './Components/form-insupd/i
 
 @NgModule({
   declarations: [
-    AutoridadOrganizacionInsupdComponent
+    AutoridadOrganizacionInsupdComponent,
+    AutoridadOrganizacionListComponent
   ],
   imports: [
     CommonModule,
@@ -20,6 +22,10 @@ import { AutoridadOrganizacionInsupdComponent } from './Components/form-insupd/i
     BreadcrumbsModule,
     SecondaryToolbarModule,
     AutoridadesorganizacionRoutingModule
+  ],
+  exports: [
+    AutoridadOrganizacionListComponent,
+    AutoridadOrganizacionInsupdComponent
   ]
 })
 export class AutoridadesorganizacionModule { }
