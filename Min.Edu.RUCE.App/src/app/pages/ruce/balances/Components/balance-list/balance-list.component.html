@@ -2,12 +2,12 @@
     <div>
         <div class="card flex-auto">
   
-            <vex-aio-table [columns]="columnasVex" [sourceService]="balanceService" [filter]="filtro" [ruta]="'cooperadora/'+idCooperadora+'/balance'" [nombreTabla]="'Balances'" [cabecera]="false">
+            <vex-aio-table [columns]="columnasVex" [sourceService]="balanceService" [filter]="filtro" [ruta]="'balances'" [nombreTabla]="'Balances'" [cabecera]="false" [view]="false">
               <app-input-search espacio1></app-input-search>
   
               <app-search-button-generic espacio2 [searchOptions]="searchOptions"></app-search-button-generic>
   
-              <app-button-nuevo bordederecho [routerLink]="'cooperadora/'+idCooperadora+'/balance'" [addRowText]="'Agregar Balance'"></app-button-nuevo>
+              <app-button-nuevo bordederecho [routerLink]="'balances'" [addRowText]="'Agregar Balance'"></app-button-nuevo>
             </vex-aio-table>
           </div>
         </div>

@@ -8,6 +8,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent, DialogData } from '@app/components/dialog/dialog.component';
 import { ComisionService } from '../../../Services/comision.service';
 import { ReftipocomisionService } from '@app/pages/ruce/refruce/Services/reftipocomision.service';
+import { Subscription } from 'rxjs';
+import { ObserverCooperadoraService } from '@app/pages/ruce/cooperadora/Services/observer-cooperadora.service';
 
 @Component({
   selector: 'vex-insupd-comision',
@@ -24,6 +26,8 @@ export class ComisionInsupdComponent implements OnInit {
 
   public accion: string = '';
 
+  suscriptionIdCooperadora: Subscription;
+
   constructor(
     private fb: FormBuilder,
     private comisionService: ComisionService,
@@ -32,7 +36,8 @@ export class ComisionInsupdComponent implements OnInit {
     private validadorServicio: ValidatorService,
     private router: Router,
     private route:ActivatedRoute,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    private observerIdCooperadora: ObserverCooperadoraService
   ) {
     this.activatedRoute.url.subscribe((parameter: any) => {
       this.accion = (parameter[0].path);
@@ -52,8 +57,11 @@ export class ComisionInsupdComponent implements OnInit {
       }
     });
 
+    this.suscriptionIdCooperadora = this.observerIdCooperadora.castIdCooperadora.subscribe((value)=>{
+      this.idCooperadora = value;
+    });
+
     this.loadRefs();
-    this.idCooperadora = this.route.snapshot.params['id'];
     this.createForm();
     this.activatedRoute.params.subscribe((param: any) => {
       this.id = parseInt(param.id);

@@ -24,13 +24,21 @@ class StoreFondoRequest extends FormRequest
     public function rules()
     {
         return [
-            'fkTipoFondo' => [
+            'fkRefTipoFondo' => [
                 'required',
-                'exists:TipoFondo,id'
+                'exists:RefTipoFondo,id'
             ],
             'fkCooperadora' => [
                 'required',
                 'exists:Cooperadora,id'
+            ],
+            'inscripta' =>[
+                'required',
+                'boolean'
+            ],
+            'verificada' =>[
+                'required',
+                'boolean'
             ],
             'fondoRecibido' => [
                 'required',
@@ -45,16 +53,16 @@ class StoreFondoRequest extends FormRequest
                 'integer',
             ],
             'fechaRecibido' => [
-                'required',
-                'date',
+                
+                //'date',
             ],
             'fechaRendicion' => [
-                'required',
-                'date',
+                
+                //'date',
             ],
             'anioOtorgado' => [
                 'required',
-                'date',
+                'integer',
             ],
             'estaActivo' => [
                 'required',
@@ -75,7 +83,7 @@ class StoreFondoRequest extends FormRequest
     {
         return [
             'fkCooperadora.exist' => 'Id de Cooperadora no existe en la tabla Cooperadora.',
-            'fkTipoFondo.exist' => 'Id de Tipo de Fondo no existe en la tabla TipoFondo.',
+            'fkRefTipoFondo.exist' => 'Id de Tipo de Fondo no existe en la tabla RefTipoFondo.',
         ];
     }
 }

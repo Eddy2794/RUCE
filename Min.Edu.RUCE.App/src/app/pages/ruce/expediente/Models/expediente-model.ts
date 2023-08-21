@@ -1,5 +1,6 @@
 import { BaseModel } from "@app/_models/base.model";
 import { CooperadoraModel } from "../../cooperadora/Models/cooperadora-model";
+import { RefInstanciaInstrumentoModel } from "../../refruce/Model/refinstanciainstrumento-model";
 
 export class ExpedienteModel extends BaseModel {
     static className: string = 'expediente';
@@ -12,6 +13,7 @@ export class ExpedienteModel extends BaseModel {
         public estaActivo?: boolean,
         public idUsuarioAlta?: number,
         public idUsuarioModificacion?: number,
+        public ref_instancia_instrumento?: RefInstanciaInstrumentoModel
     ) {
         super();
     }

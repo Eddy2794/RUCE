@@ -62,7 +62,6 @@ export class MatriculaInsupdComponent implements OnInit {
         }
       }
     });
-    console.log(this.idOrganizacion);
     this.createForm();
     this.activatedRoute.params.subscribe((param: any) => {
       this.id = parseInt(param.id);

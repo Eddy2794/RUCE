@@ -2,12 +2,12 @@
     <div>
         <div class="card flex-auto">
   
-            <vex-aio-table [columns]="columnasVex" [sourceService]="atencionSeguimientoService" [filter]="filtro" [ruta]="'cooperadora/'+idCooperadora+'/atencion_seguimiento'" [nombreTabla]="'Atenciones y Seguimiento'" [cabecera]="false">
+            <vex-aio-table [columns]="columnasVex" [sourceService]="atencionSeguimientoService" [filter]="filtro" [ruta]="'atencion_seguimiento'" [nombreTabla]="'Atenciones y Seguimiento'" [cabecera]="false">
               <app-input-search espacio1></app-input-search>
   
               <app-search-button-generic espacio2 [searchOptions]="searchOptions"></app-search-button-generic>
   
-              <app-button-nuevo bordederecho [routerLink]="'cooperadora/'+idCooperadora+'/atencion_seguimiento'" [addRowText]="'Agregar Atención Seguimiento'"></app-button-nuevo>
+              <app-button-nuevo bordederecho [routerLink]="'atencion-seguimiento/'" [addRowText]="'Agregar Atención Seguimiento'"></app-button-nuevo>
             </vex-aio-table>
           </div>
         </div>

@@ -107,7 +107,7 @@ const routes: VexRoutes = [
           },
           {
             path: 'comision',
-            loadChildren: () => import('./pages/ruce/comision/comision.module').then(m=> m.ComisionModule),
+            loadChildren: () => import('./pages/ruce/comision/comision.module').then((m)=> m.ComisionModule),
             data:{
               toolbarShadowEnabled: true,       
             }
@@ -120,7 +120,7 @@ const routes: VexRoutes = [
             }
           },
           {
-            path: 'fondo',
+            path: 'fondos',
             loadChildren: () => import('./pages/ruce/fondo/fondo.module').then(m=> m.FondoModule),
             data:{
               toolbarShadowEnabled: true,       

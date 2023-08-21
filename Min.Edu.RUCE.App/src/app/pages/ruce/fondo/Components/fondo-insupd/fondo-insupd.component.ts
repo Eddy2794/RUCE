@@ -8,6 +8,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent, DialogData } from '@app/components/dialog/dialog.component';
 import { RefTipoFondoModel } from '@app/pages/ruce/refruce/Model/reftipofondo-model';
 import { RefTipoFondoService } from '@app/pages/ruce/refruce/Services/reftipofondo.service';
+import { Subscription } from 'rxjs';
+import { ObserverCooperadoraService } from '@app/pages/ruce/cooperadora/Services/observer-cooperadora.service';
 
 @Component({
   selector: 'vex-fondo-insupd',
@@ -25,6 +27,8 @@ export class FondoInsupdComponent implements OnInit {
 
   public accion: string = '';
 
+  suscriptionIdCooperadora: Subscription;
+
   constructor(
     private fb: FormBuilder,
     private fondoService: FondoService,
@@ -33,7 +37,8 @@ export class FondoInsupdComponent implements OnInit {
     private validadorServicio: ValidatorService,
     private router: Router,
     private route:ActivatedRoute,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    protected observerIdCooperadora: ObserverCooperadoraService,
   ) {
     this.activatedRoute.url.subscribe((parameter: any) => {
       this.accion = (parameter[0].path);
@@ -53,15 +58,19 @@ export class FondoInsupdComponent implements OnInit {
       }
     });
     this.loadRefs();
-    this.idCooperadora = this.route.snapshot.params['id'];
+    this.suscriptionIdCooperadora = this.observerIdCooperadora.castIdCooperadora.subscribe((value)=>{
+      this.idCooperadora = value;
+    });
     this.createForm();
     this.activatedRoute.params.subscribe((param: any) => {
-      this.id = parseInt(param.idAtencionSeguimiento);
+      this.id = parseInt(param.id);
       if (this.id !== 0) {
         if (this.accion !== 'delete'){
           this.accion = 'edit'
         }
         this.fondoService.findOne(this.id).subscribe((resp: any) => {
+          this.formularioFondo.patchValue(resp.entities);
+          this.formularioFondo.controls.fkRefTipoFondo.patchValue(resp.entities.ref_tipo_fondo[0].id)
         });
       }
     });
@@ -80,13 +89,15 @@ export class FondoInsupdComponent implements OnInit {
     this.formularioFondo = this.fb.group({
       id: null,
       fkCooperadora: this.idCooperadora,
-      fkTipoFondo: [null, {validators: [ Validators.required, ]}],
-      fondoRecibido: [null, {validators: [ Validators.required, ]}],
-      fondoRendido: [null, {validators: [ Validators.required,  ]}],
+      fkRefTipoFondo: [null, {validators: [ Validators.required, ]}],
+      inscripta: false,
+      verificada: false,
+      fondoRecibido: false,
+      fondoRendido: false,
       monto: [null, {validators: [ Validators.required, ]}],
-      fechaRecibido: [null, {validators: [ Validators.required, ]}],
-      fechaRendicion: [null, {validators: [ Validators.required, ]}],
-      anioOtorgado: [null, {validators: [ Validators.required, ]}],
+      fechaRecibido: [null],
+      fechaRendicion: [null],
+      anioOtorgado: [null, {validators: [ Validators.required, Validators.minLength(4), Validators.maxLength(4) ]}],
       estaActivo: true,
     },
     {
@@ -108,8 +119,6 @@ export class FondoInsupdComponent implements OnInit {
     // }
     if (this.id == 0) {
       this.formularioFondo.removeControl('id');
-      this.formularioFondo.value['fondoRecibido'] = this.formularioFondo.value['fondoRecibido']?.toString()
-      this.formularioFondo.value['fondoRendido'] = this.formularioFondo.value['fondoRendido']?.toString()
       this.fondoService.create(this.formularioFondo.value).subscribe((resp: any) => {
         this.mostrarDialogMsj("Mensaje", "Fondo Creado", false)
         this.router.navigate(['/pages/cooperadoras/view/'+this.idCooperadora]);

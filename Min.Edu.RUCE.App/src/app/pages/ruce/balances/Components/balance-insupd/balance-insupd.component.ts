@@ -6,6 +6,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ValidatorService } from '@app/shared/validators/validator.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent, DialogData } from '@app/components/dialog/dialog.component';
+import { Subscription } from 'rxjs';
+import { ObserverCooperadoraService } from '@app/pages/ruce/cooperadora/Services/observer-cooperadora.service';
 
 @Component({
   selector: 'vex-balance-insupd',
@@ -21,6 +23,8 @@ export class BalanceInsupdComponent implements OnInit {
 
   public accion: string = '';
 
+  suscriptionIdCooperadora: Subscription;
+
   constructor(
     private fb: FormBuilder,
     private balanceService: BalanceService,
@@ -28,7 +32,8 @@ export class BalanceInsupdComponent implements OnInit {
     private validadorServicio: ValidatorService,
     private router: Router,
     private route:ActivatedRoute,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    protected observerIdCooperadora: ObserverCooperadoraService,
   ) {
     this.activatedRoute.url.subscribe((parameter: any) => {
       this.accion = (parameter[0].path);
@@ -47,15 +52,23 @@ export class BalanceInsupdComponent implements OnInit {
         }
       }
     });
-    this.idCooperadora = this.route.snapshot.params['id'];
+
+    this.suscriptionIdCooperadora= this.observerIdCooperadora.castIdCooperadora.subscribe((value)=>{
+      this.idCooperadora = value;
+    });
+
     this.createForm();
     this.activatedRoute.params.subscribe((param: any) => {
-      this.id = parseInt(param.idBalance);
+      this.id = parseInt(param.id);
       if (this.id !== 0) {
         if (this.accion !== 'delete'){
           this.accion = 'edit'
         }
         this.balanceService.findOne(this.id).subscribe((resp: any) => {
+          this.formularioBalance.patchValue(resp.entities);
+          //this.formularioBalance.controls.anio.patchValue(resp.entities.anio);
+          //this.formularioBalance.controls.estadoBalance.patchValue(resp.entities.estadoBalance);
+
         });
       }
     });
@@ -68,8 +81,8 @@ export class BalanceInsupdComponent implements OnInit {
     this.formularioBalance = this.fb.group({
       id: null,
       fkCooperadora: this.idCooperadora,
-      estadoBalance: [null, {validators: [ Validators.required, ]}],
-      anio: [null, {validators: [ Validators.required,  ]}],
+      estadoBalance: false,
+      anio: [null, {validators: [ Validators.required, Validators.minLength(4), Validators.maxLength(4) ]}],
       estaActivo: true,
     },
     {
@@ -78,7 +91,6 @@ export class BalanceInsupdComponent implements OnInit {
     if (this.accion === 'delete'|| this.accion === 'view') {
       this.formularioBalance.disable();
     }
-    console.log(this.formularioBalance);
   }
 
   save() {
@@ -99,7 +111,10 @@ export class BalanceInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Balance", err.error.message, false)
       }
       );
-    } else {      
+    } else {
+      console.log(this.formularioBalance);
+      //this.formularioBalance.value.anio = this.formularioBalance.value.anio;
+      //this.formularioBalance.value.estadoBalance = this.formularioBalance.value.estadoBalance;
       this.balanceService.update(this.formularioBalance.value.id, this.formularioBalance.value).subscribe((resp: any) => {
         this.mostrarDialogMsj("Mensaje", "Balance Modificado", false)
         this.router.navigate(['/pages/cooperadoras/view/'+this.idCooperadora]);

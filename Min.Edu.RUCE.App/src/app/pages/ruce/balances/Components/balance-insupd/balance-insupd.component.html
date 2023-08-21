@@ -21,9 +21,9 @@
     <form autocomplete="off" [formGroup]="formularioBalance">
         <div class="formuario">
             <div class="flex flex-col md:flex-row gap-3">                
-                <mat-form-field style="width: 100%">
+                <mat-form-field style="width: 50%">
                     <mat-label>Año de Rendición</mat-label>
-                    <input matInput formControlName="anio" type="number" solonum>
+                    <input matInput formControlName="anio" type="text" solonum espacios>
                     <mat-error>
                         <app-ver-error [control]="this.formularioBalance.controls['anio']">
                         </app-ver-error>

@@ -1,4 +1,3 @@
-import { AutoridadComisionModel } from './../autoridadescomision/Model/autoridad-comision-model';
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { SharedModule } from "@app/shared/shared.module";
@@ -10,6 +9,7 @@ import { ComisionRoutingModule } from "./comision-routing.module";
 import { ComisionInsupdComponent } from "./Components/frm-insupd/comision-insupd/comision-insupd.component";
 import { EncabezadoComisionComponent } from "./Components/encabezado-comision/encabezado-comision.component";
 import { AutoridadescomisionModule } from '../autoridadescomision/autoridadescomision.module';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [ComisionInsupdComponent, EncabezadoComisionComponent],
@@ -21,6 +21,7 @@ import { AutoridadescomisionModule } from '../autoridadescomision/autoridadescom
     SecondaryToolbarModule,
     ComisionRoutingModule,
     AutoridadescomisionModule,
+    MatButtonModule
   ],
   exports: [ComisionInsupdComponent, EncabezadoComisionComponent],
 })

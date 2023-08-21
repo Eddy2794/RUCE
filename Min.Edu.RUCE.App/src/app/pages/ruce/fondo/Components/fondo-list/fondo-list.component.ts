@@ -40,7 +40,7 @@ export class FondoListComponent implements OnInit {
   }
 
   obtenerBusqueda() {
-    this.filtro = { estaActivo: true, PageSize: 10, filtros:'{"fkCooperadora":"'+this.idCooperadora+'"}'};
+    this.filtro = { estaActivo: true, PageSize: 10, fkCooperadora: this.idCooperadora};
     this.cargarList();
   }
 
@@ -52,7 +52,9 @@ export class FondoListComponent implements OnInit {
   private setColumns() {
     this.columnasVex = [
       { label: 'ACCIONES', property: 'actions', type: 'button', visible: true },
-      { label: 'FONDO', property: 'fkTipoFondo', type: 'object', visible: true },
+      { label: 'FONDO', property: 'ref_tipo_fondo.0.tipoFondoDesc', type: 'object', visible: true },
+      { label: 'INSCRIPTA', property: 'inscripta', type: 'boolean', visible: true },
+      { label: 'VERIFICADA', property: 'verificada', type: 'boolean', visible: true },
       { label: 'FONDO RECIBIDO', property: 'fondoRecibido', type: 'boolean', visible: true },
       { label: 'FONDO RENDIDO', property: 'fondoRendido', type: 'boolean', visible: true },
       { label: 'MONTO', property: 'monto', type: 'text', visible: true },

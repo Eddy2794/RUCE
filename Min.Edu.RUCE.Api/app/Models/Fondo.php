@@ -19,8 +19,10 @@ class Fondo extends Model  implements Auditable
     protected $primaryKey = 'id';
     protected $dates = ['deleted_at'];
     protected $fillable = [
-        'fkTipoFondo',
+        'fkRefTipoFondo',
         'fkCooperadora',
+        'inscripta',
+        'verificada',
         'fondoRecibido',
         'fondoRendido',
         'monto',
@@ -29,7 +31,7 @@ class Fondo extends Model  implements Auditable
         'anioOtorgado',
         'estaActivo',
         'idUsuarioAlta',
-        'idUsuarioModificacion'
+        'idUsuarioModificacion',
     ];
 
     /**

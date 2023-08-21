@@ -22,6 +22,8 @@ return new class extends Migration
             $table->unsignedInteger('fkRefTipoFondo');
             $table->foreign('fkRefTipoFondo')->references('id')->on('RefTipoFondo')->onDelete('cascade');
 
+            $table->boolean('inscripta')->default(false);
+            $table->boolean('verificada')->default(false);
             $table->boolean('fondoRecibido')->default(false);
             $table->boolean('fondoRendido')->default(false);
             $table->integer('monto')->default(0);

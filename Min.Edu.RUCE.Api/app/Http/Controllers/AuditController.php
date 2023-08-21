@@ -77,13 +77,15 @@ class AuditController extends Controller
     }
 
     protected function getAudits(Request $request): JsonResponse
-    {
+    {   
+        //dd($request->get('Id'));
         // Obtener los registros de auditoría de un modelo y un ID específico
         if($request != null){
-            if (class_exists('App\Models\\'.$request['modelo'])) {
+            //if (class_exists('App\Models\\'.$request['modelo'])) {
+            if ($request->get('Id')!="") {
                 try{
                     $audits = Audit::where([
-                        'auditable_type' => 'App\Models\\'.$request['modelo'],
+                        'auditable_type' => 'App\Models\Expediente',
                         'auditable_id' => $request['id'],
                     ])->whereIn('event', ['created', 'updated'])
                     ->orderBy('created_at')

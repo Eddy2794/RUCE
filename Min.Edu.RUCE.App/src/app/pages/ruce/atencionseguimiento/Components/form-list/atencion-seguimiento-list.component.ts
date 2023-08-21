@@ -40,7 +40,7 @@ export class AtencionSeguimientoListComponent implements OnInit {
   }
 
   obtenerBusqueda() {
-    this.filtro = { estaActivo: true, PageSize: 10, filtros:'{"fkCooperadora":"'+this.idCooperadora+'"}'};
+    this.filtro = { estaActivo: true, PageSize: 10, fkCooperadora: this.idCooperadora};
     this.cargarList();
   }
 
@@ -58,7 +58,7 @@ export class AtencionSeguimientoListComponent implements OnInit {
       { label: 'EMAIL ENVIADOS', property: 'emailEnviados', type: 'text', visible: true },
       { label: 'ATENCION EN OFICINAS', property: 'atencionOficina', type: 'text', visible: true },
       { label: 'ATENCION TERRITORIAL', property: 'atencionTerritorial', type: 'text', visible: true },
-      { label: 'OBSERVACIONES', property: 'observaciones', type: 'text', visible: true },
+      { label: 'OBSERVACIONES', property: 'observacion', type: 'text', visible: true },
     ]
   }
 

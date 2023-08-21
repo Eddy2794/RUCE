@@ -18,13 +18,12 @@ export class EncabezadoComisionComponent implements OnInit {
 
   comision?: ComisionModel;
   idCooperadora?: number = 0;
-  idComision?: number = 0;
+  idComision?: number=1;
 
   filtro: FilterOptions = {estaActivo: true, filtros:""};
   columnasVex: TableColumn<AutoridadComisionModel>[];
   searchOptions!: SearchOptionsGeneric[];
 
-  autoridadShow:boolean = false;
   datosShow:boolean = false;
 
   constructor(
@@ -43,14 +42,13 @@ export class EncabezadoComisionComponent implements OnInit {
     this.obtenerData(this.idCooperadora);
   }
 
-  private obtenerData(id:any){
+  private obtenerData(id:any):void{
     this.comisionService.findOne(id).subscribe(
       (res:any) => {
         this.comision = Object.assign({}, this.comision, res.entities);
         this.idComision = this.comision.id;
-        this.datosShow = true;
         this.observerIdComision.enviarIdComision(this.idComision);
-        this.autoridadShow = true;
+        this.datosShow = true;
       },
     );
   }

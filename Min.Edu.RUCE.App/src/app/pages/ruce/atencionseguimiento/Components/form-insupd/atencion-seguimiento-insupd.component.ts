@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FilterOptions } from '@app/shared/utils';
 import { AtencionSeguimientoService } from '../../Service/atencion-seguimiento.service';
@@ -6,13 +6,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ValidatorService } from '@app/shared/validators/validator.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent, DialogData } from '@app/components/dialog/dialog.component';
+import { Subscription } from 'rxjs';
+import { ObserverCooperadoraService } from '@app/pages/ruce/cooperadora/Services/observer-cooperadora.service';
 
 @Component({
   selector: 'vex-atencion-seguimiento-insupd',
   templateUrl: './atencion-seguimiento-insupd.component.html',
   styleUrls: ['./atencion-seguimiento-insupd.component.scss']
 })
-export class AtencionSeguimientoInsupdComponent implements OnInit {
+export class AtencionSeguimientoInsupdComponent implements OnInit, OnDestroy {
 
   formularioAtencionSeguimiento!: FormGroup;
   id: number = 0;
@@ -21,6 +23,8 @@ export class AtencionSeguimientoInsupdComponent implements OnInit {
 
   public accion: string = '';
 
+  suscriptionIdCooperadora: Subscription;
+
   constructor(
     private fb: FormBuilder,
     private atencionSeguimientoService: AtencionSeguimientoService,
@@ -28,7 +32,8 @@ export class AtencionSeguimientoInsupdComponent implements OnInit {
     private validadorServicio: ValidatorService,
     private router: Router,
     private route:ActivatedRoute,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    protected observerIdCooperadora: ObserverCooperadoraService
   ) {
     this.activatedRoute.url.subscribe((parameter: any) => {
       this.accion = (parameter[0].path);
@@ -47,10 +52,12 @@ export class AtencionSeguimientoInsupdComponent implements OnInit {
         }
       }
     });
-    this.idCooperadora = this.route.snapshot.params['id'];
+    this.suscriptionIdCooperadora = this.observerIdCooperadora.castIdCooperadora.subscribe((value)=>{
+      this.idCooperadora = value;
+    });
     this.createForm();
     this.activatedRoute.params.subscribe((param: any) => {
-      this.id = parseInt(param.idAtencionSeguimiento);
+      this.id = parseInt(param.id);
       if (this.id !== 0) {
         if (this.accion !== 'delete'){
           this.accion = 'edit'
@@ -59,6 +66,9 @@ export class AtencionSeguimientoInsupdComponent implements OnInit {
         });
       }
     });
+  }
+  ngOnDestroy(): void {
+    this.suscriptionIdCooperadora.unsubscribe();
   }
 
   ngOnInit(): void {
@@ -69,12 +79,12 @@ export class AtencionSeguimientoInsupdComponent implements OnInit {
       id: null,
       fkCooperadora: this.idCooperadora,
       fkPersonaRUCE: null,
-      llamadas: [null, {validators: [ Validators.required, ]}],
-      mesajes: [null, {validators: [ Validators.required,  ]}],
-      emailEnviados: [null, {validators: [ Validators.required, ]}],
-      atencionOficina: [null, {validators: [ Validators.required, ]}],
-      atencionTerritorial: [null, {validators: [ Validators.required, ]}],
-      observacion: [null, {validators: [ Validators.required, ]}],
+      llamadas: null,
+      mesajes: null,
+      emailEnviados: null,
+      atencionOficina: null,
+      atencionTerritorial: null,
+      observacion: null,
       fecha: [null, {validators: [ Validators.required,]}],
       estaActivo: true,
     },

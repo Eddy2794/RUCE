@@ -8,7 +8,7 @@
         </div>
         <div>
           <p class="m-0 caption text-hint">
-            COMISION: {{ comision.fkRefTipoComision?.tipoComisionDesc }}
+            COMISION: {{ comision.ref_tipo_comision[0]?.tipoComisionDesc }}
           </p>
         </div>
       </div>
@@ -55,15 +55,17 @@
     </div>
   
     <div *ngIf="datosShow" class="mt-5 vex-button-group flex items-center justify-center">
-      <button [routerLink]="'comision/add-edit/'+idComision"
-      mat-raised-button class="vex-button m-4 vex-lg"  color="primary">   Actualizar   </button>
-      <button [routerLink]="'comision/delete/'+idComision"
+      <button
+      [routerLink]="'/pages/comision/add-edit/'+idComision"
+      mat-raised-button 
+      class="vex-button m-4 vex-lg" color="primary">   Actualizar   </button>
+      <button [routerLink]="'/pages/comision/delete/'+idComision"
       mat-raised-button class="vex-button m-4 vex-lg"  color="warn">Eliminar</button>
     </div>
   
     <br>
     <div *ngIf="!datosShow" _ngcontent-jju-c290="" style="text-align: center;" class="ng-tns-c290-217 ng-star-inserted">
-      <h2 _ngcontent-jju-c290="" class="title mt-0 mb-1 ng-tns-c290-217">Sin información</h2>
+      <h2 _ngcontent-jju-c290="" class="title mt-0 mb-1 ng-tns-c290-217">Sin información de Comisión</h2>
       <br>
       <br>
       <app-button-nuevo
@@ -74,4 +76,4 @@
     </div>
   </div>
   
-  <vex-autoridad-list *ngIf="autoridadShow"></vex-autoridad-list>
+  <vex-autoridad-list *ngIf="datosShow"></vex-autoridad-list>

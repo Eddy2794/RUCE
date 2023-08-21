@@ -9,7 +9,7 @@ const routes: Routes = [{
     { path: 'add-edit/:id', component: ComisionInsupdComponent },
     { path: 'view/:id', component: ComisionInsupdComponent },
     { path: 'delete/:id', component: ComisionInsupdComponent },
-    { path: '**', redirectTo: 'listar' }
+    //{ path: '**', redirectTo: 'listar' }
   ]
 }
 ];

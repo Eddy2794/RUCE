@@ -29,6 +29,10 @@ class UpdateExpedienteRequest extends FormRequest
                 'required',
                 'exists:Cooperadora,id'
             ],
+            'fkRefInstanciaInstrumento'=>[
+                'required',
+                'exists:RefInstanciaInstrumento,id'
+            ],
             'nroExpediente' => [
                 'required',
                 'string',
@@ -44,7 +48,7 @@ class UpdateExpedienteRequest extends FormRequest
             ],
             'observacionesRespondidas' => [
                 'required',
-                'string',
+                'boolean',
             ],
             'estaActivo' => [
                 'required',

@@ -19,6 +19,7 @@ class Balance extends Model  implements Auditable
     protected $dates = ['deleted_at'];
     protected $fillable = [
         'fkCooperadora',
+        'anio',
         'estadoBalance',
         'estaActivo',
         'idUsuarioAlta',

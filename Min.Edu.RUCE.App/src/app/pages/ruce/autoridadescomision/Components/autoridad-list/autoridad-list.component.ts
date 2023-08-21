@@ -57,7 +57,7 @@ export class AutoridadComisionListComponent implements OnInit, OnDestroy {
     public personaRUCEService: PersonaruceService,
     protected observerIdComision: ObserverComisionService,
   ) {
-    this.suscriptionIdComision = this.observerIdComision.castIdIdComision.subscribe((value)=>{
+    this.suscriptionIdComision = this.observerIdComision.castIdComision.subscribe((value)=>{
       this.idComision = value;
     });
   }
@@ -67,7 +67,6 @@ export class AutoridadComisionListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.obtenerBusqueda()
-    console.log(this.idCooperadora);
   }
 
   obtenerBusqueda() {

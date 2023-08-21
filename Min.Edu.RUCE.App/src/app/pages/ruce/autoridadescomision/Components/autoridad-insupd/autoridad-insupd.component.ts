@@ -13,6 +13,7 @@ import { AutoridadComisionService } from '../../Service/autoridad-comision.servi
 import { RefTipoDocumentoService } from '@app/pages/ruce/refruce/Services/reftipodocumento.service';
 import { RefcargoService } from '@app/pages/ruce/refruce/Services/refcargo-service';
 import { ObserverComisionService } from '@app/pages/ruce/comision/Services/observer-comision.service';
+import { ObserverCooperadoraService } from '@app/pages/ruce/cooperadora/Services/observer-cooperadora.service';
 
 @Component({
   selector: 'vex-autoridad-insupd',
@@ -33,6 +34,7 @@ export class AutoridadComisionInsupdComponent implements OnInit, OnDestroy {
   public accion: string = '';
 
   suscriptionIdComision: Subscription;
+  suscriptionIdCooperadora: Subscription;
 
   constructor(
     private fb: FormBuilder,
@@ -45,7 +47,9 @@ export class AutoridadComisionInsupdComponent implements OnInit, OnDestroy {
     private router: Router,
     private route:ActivatedRoute,
     private matDialog: MatDialog,
-    private observerIdComision: ObserverComisionService
+    private observerIdComision: ObserverComisionService,
+    private observerIdCooperadora: ObserverCooperadoraService
+
   ) {
     this.activatedRoute.url.subscribe((parameter: any) => {
       this.accion = (parameter[0].path);
@@ -65,13 +69,15 @@ export class AutoridadComisionInsupdComponent implements OnInit, OnDestroy {
       }
     });
     this.loadRefs();
-    this.idCooperadora = this.route.snapshot.params['id'];
-    this.suscriptionIdComision = this.observerIdComision.castIdIdComision.subscribe((value)=>{
+    this.suscriptionIdCooperadora = this.observerIdCooperadora.castIdCooperadora.subscribe((value)=>{
+      this.idCooperadora = value;
+    });
+    this.suscriptionIdComision = this.observerIdComision.castIdComision.subscribe((value)=>{
       this.idComision = value;
     });
     this.createForm();
     this.activatedRoute.params.subscribe((param: any) => {
-      this.id = parseInt(param.idAutoridad);
+      this.id = parseInt(param.id);
       if (this.id !== 0) {
         if (this.accion !== 'delete'){
           this.accion = 'edit'

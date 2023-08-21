@@ -6,6 +6,7 @@ import { SearchOptionsGeneric } from '@app/shared/utils/search-options-generic';
 import { FormGroup } from '@angular/forms';
 import { BalanceService } from '../../Service/balance.service';
 import { CooperadoraService } from '@app/pages/ruce/cooperadora/Services/cooperadora.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'vex-balance-list',
@@ -31,8 +32,9 @@ export class BalanceListComponent implements OnInit {
   constructor(
     public cooperadoraService: CooperadoraService,
     public balanceService: BalanceService,
+    private route:ActivatedRoute,
   ) {
-    
+    this.idCooperadora = this.route.snapshot.params['id'];
   }
 
   ngOnInit(): void {
@@ -40,7 +42,7 @@ export class BalanceListComponent implements OnInit {
   }
 
   obtenerBusqueda() {
-    this.filtro = { estaActivo: true, PageSize: 10, filtros:'{"fkCooperadora":"'+this.idCooperadora+'"}'};
+    this.filtro = { estaActivo: true, PageSize: 10, fkCooperadora:this.idCooperadora};
     this.cargarList();
   }
 
@@ -51,7 +53,7 @@ export class BalanceListComponent implements OnInit {
   private setColumns() {
     this.columnasVex = [
       { label: 'ACCIONES', property: 'actions', type: 'button', visible: true },
-      { label: 'AÑO DE RENDICIÓN', property: 'anio', type: 'date', visible: true },
+      { label: 'AÑO DE RENDICIÓN', property: 'anio', type: 'text', visible: true },
       { label: 'BALANCE RENDIDO', property: 'estadoBalance', type: 'boolean', visible: true },
     ]
   }

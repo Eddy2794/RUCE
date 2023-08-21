@@ -5,7 +5,7 @@
         [columns]="columnasVex"
         [sourceService]="autoridadService"
         [filter]="filtro"
-        [ruta]="'cooperadoras/' + idCooperadora + '/comision/'+ idComision + '/autoridades'"
+        [ruta]="'autoridad-comision'"
         [nombreTabla]="'Autoridad de la comisión'"
         [cabecera]="false"
         [view]="false"
@@ -19,7 +19,7 @@
 
         <app-button-nuevo
           bordederecho
-          [routerLink]="'cooperadoras/' + idCooperadora + '/comision/'+ idComision +'/autoridades'"
+          [routerLink]="'autoridad-comision'"
           [addRowText]="'Agregar Autoridad'"
         ></app-button-nuevo>
       </vex-aio-table>

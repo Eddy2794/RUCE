@@ -6,9 +6,8 @@ import { FilterOptions } from "@app/shared/utils";
 import { SearchOptionsGeneric } from "@app/shared/utils/search-options-generic";
 import { TableColumn } from "src/@vex/interfaces/table-column.interface";
 
-import { ExpedienteService } from "../../../Services/expediente.service";
-import { AuditService } from "./../../../../refruce/audit/Service/audit.service";
 import { Subscription } from "rxjs";
+import { AuditService } from "@app/pages/ruce/refruce/audit/Service/audit.service";
 
 @Component({
   selector: "vex-expediente-list",
@@ -20,15 +19,14 @@ export class ExpedienteListComponent implements OnInit, OnDestroy {
 
   searchOptions!: SearchOptionsGeneric[];
   filtros!: {};
-  filtro: FilterOptions = {
-    estaActivo: true,
-    modelo: "Expediente",
-    id: this.idExpediente,
-  };
+  filtro: FilterOptions = {estaActivo: true, filtros:null}
+    // modelo: "Expediente",
+    // id: this.idExpediente,
+  //};
   columnasVex: TableColumn<AutoridadComisionModel>[];
 
   suscriptionIdExpediente: Subscription;
-  idExpediente?: number;
+  idExpediente?: number = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -39,11 +37,11 @@ export class ExpedienteListComponent implements OnInit, OnDestroy {
       this.observerCooperadora.castIdExpediente.subscribe((value) => {
         this.idExpediente = value;
       });
-    this.filtro = {
-      estaActivo: true,
-      modelo: "Expediente",
-      id: this.idExpediente,
-    };
+    // this.filtro = {
+    //   estaActivo: true,
+    //   modelo: "Expediente",
+    //   id: this.idExpediente,
+    // };
   }
 
   ngOnInit(): void {
@@ -55,12 +53,8 @@ export class ExpedienteListComponent implements OnInit, OnDestroy {
   }
 
   obtenerBusqueda() {
-    this.filtro = {
-      estaActivo: true,
-      PageSize: 10,
-      modelo: "Expediente",
-      id: this.idExpediente,
-    };
+    this.filtro = { estaActivo: true, PageSize: 10, id: this.idExpediente };
+    console.log(this.idExpediente);
     this.cargarList();
   }
 

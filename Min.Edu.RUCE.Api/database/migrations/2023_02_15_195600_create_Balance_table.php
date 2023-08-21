@@ -16,14 +16,15 @@ return new class extends Migration
         Schema::create('Balance', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->unsignedInteger('fkCooperadora')->unique();
+            $table->unsignedInteger('fkCooperadora');
             $table->foreign('fkCooperadora')->references('id')->on('Cooperadora')->onDelete('cascade');
 
             $table->boolean('estadoBalance')->default(false);
+            $table->integer('anio')->default(null);
             $table->boolean('estaActivo')->default(true);
             $table->dateTime('fechaEliminacion')->nullable(true);
-            $table->integer('idUsuarioAlta')->default(null);
-            $table->integer('idUsuarioModificacion')->default(null);
+            $table->integer('idUsuarioAlta')->nullable(true);
+            $table->integer('idUsuarioModificacion')->nullable(true);
             $table->timestamps();
             $table->softDeletes();
         });

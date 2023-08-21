@@ -7,28 +7,28 @@
                     <br>
                 </div>
                 <div>
-                    <mat-tab-group>
+                    <mat-tab-group (selectedTabChange)="cargarInformacion($event)">
                         <mat-tab label="AUTORIDADES">
-                            <vex-encabezado-comision></vex-encabezado-comision>
+                            <vex-encabezado-comision *ngIf="cargarInfo0"></vex-encabezado-comision>
                         </mat-tab>
                         <mat-tab label="EXPEDIENTE">
-                            <vex-expediente-list></vex-expediente-list>
+                            <vex-expediente-list *ngIf="cargarInfo1"></vex-expediente-list>
                         </mat-tab>
                         <mat-tab label="PERSONERÍA">
-                            <vex-insupd-personeria></vex-insupd-personeria>
+                            <vex-insupd-personeria *ngIf="cargarInfo2"></vex-insupd-personeria>
                             <!-- <vex-personeria-insupd></vex-personeria-insupd> -->
                         </mat-tab>
                         <mat-tab label="BALANCE">
-                            <vex-balance-list [idCooperadora]="id"></vex-balance-list>
+                            <vex-balance-list *ngIf="cargarInfo3" [idCooperadora]="id"></vex-balance-list>
                         </mat-tab>
                         <mat-tab label="FONDOS">
-                            <vex-fondo-list [idCooperadora]="id"></vex-fondo-list>
+                            <vex-fondo-list *ngIf="cargarInfo4" [idCooperadora]="id"></vex-fondo-list>
                         </mat-tab>
                         <mat-tab label="KIOSKO">
                             <!-- <vex-datosplaza-list></vex-datosplaza-list> -->
                         </mat-tab>
                         <mat-tab label="ATENCIÓN Y SEGUIMIENTOS">
-                            <vex-atencion-seguimiento-list [idCooperadora]="id"></vex-atencion-seguimiento-list>
+                            <vex-atencion-seguimiento-list *ngIf="cargarInfo6" [idCooperadora]="id"></vex-atencion-seguimiento-list>
                         </mat-tab>
                     </mat-tab-group>
                 </div>

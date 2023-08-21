@@ -46,7 +46,7 @@ export class MatriculaListComponent implements OnInit {
   private setColumns() {
     this.columnasVex = [
       { label: 'ACCIONES', property: 'actions', type: 'button', visible: true },
-      { label: 'PERIODO LECTIVO', property: 'periodoLectivo', type: 'date', visible: true },
+      { label: 'PERIODO LECTIVO', property: 'periodoLectivo', type: 'text', visible: true },
       { label: 'MATRICULA', property: 'matricula', type: 'text', visible: true },
       
     ]

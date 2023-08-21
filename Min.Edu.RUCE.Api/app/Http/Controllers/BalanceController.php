@@ -39,6 +39,7 @@ class BalanceController extends Controller
                 'organizacionDesc' => $request->organizacionDesc,
                 'fkCooperadora' => $request->fkCooperadora,
                 'estadoBalance' => $request->estadoBalance,
+                'anio' => $request->anio,
                 'idUsuarioAlta' => $request->idUsuarioAlta
             ]);
             return response()->json([
@@ -85,6 +86,7 @@ class BalanceController extends Controller
             //$request = new UpdateBalanceRequest($request->toArray());
             $balance->fkCooperadora = $request->fkCooperadora ?: $balance->fkCooperadora;
             $balance->estadoBalance = $request->estadoBalance ?: $balance->estadoBalance;
+            $balance->anio = $request->anio ?: $balance->anio;
 
             if ($balance->isClean()) {
                 return response()->json([
@@ -92,7 +94,6 @@ class BalanceController extends Controller
                     'succeeded' => false
                 ], 422);
             }
-            $balance->updated_at= Carbon::now();
             $balance->save();
 
             return response()->json([

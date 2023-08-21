@@ -35,6 +35,7 @@ class ExpedienteController extends Controller
         try {
             Expediente::create([
                 'fkCooperadora' => $request->fkCooperadora,
+                'fkRefInstanciaInstrumento' => $request->fkRefInstanciaInstrumento,
                 'nroExpediente' => $request->nroExpediente,
                 'cantObservaciones' => $request->cantObservaciones,
                 'observacionesDesc' => $request->observacionesDesc,
@@ -81,6 +82,7 @@ class ExpedienteController extends Controller
             $expediente = Expediente::where('id', $expediente)->first();
             //$request = new UpdateExpedienteRequest($request->toArray());
             $expediente->fkCooperadora = $request->fkCooperadora ?: $expediente->fkCooperadora;
+            $expediente->fkRefInstanciaInstrumento = $request->fkRefInstanciaInstrumento ?: $expediente->fkRefInstanciaInstrumento;
             $expediente->nroExpediente = $request->nroExpediente ?: $expediente->nroExpediente;
             $expediente->cantObservaciones = $request->cantObservaciones ?: $expediente->cantObservaciones;
             $expediente->observacionesDesc = $request->observacionesDesc ?: $expediente->observacionesDesc;
