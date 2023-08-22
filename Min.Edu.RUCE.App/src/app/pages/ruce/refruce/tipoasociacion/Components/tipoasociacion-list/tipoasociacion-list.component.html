@@ -1,1 +1,14 @@
-<p>tipoasociacion-list works!</p>
+<vex-page-layout>
+    <div>
+        <div class="card flex-auto">
+  
+            <vex-aio-table [columns]="columnasVex" [sourceService]="tipoAsociacionService" [filter]="filtro" [ruta]="'tipo-asociacion'" [nombreTabla]="'Tipos de Asociación'" [view]="false">
+              <app-input-search espacio1></app-input-search>
+  
+              <app-search-button-generic espacio2 [searchOptions]="searchOptions"></app-search-button-generic>
+  
+              <app-button-nuevo bordederecho [routerLink]="'tipo-asociacion'" [addRowText]="'Agregar Tipo de Asociació'"></app-button-nuevo>
+            </vex-aio-table>
+          </div>
+        </div>
+  </vex-page-layout>

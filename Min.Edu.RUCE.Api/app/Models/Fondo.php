@@ -51,6 +51,8 @@ class Fondo extends Model  implements Auditable
     protected $casts = [
         'fondoRecibido' => 'boolean',
         'fondoRendido' => 'boolean',
+        'inscripta' => 'boolean',
+        'verificada' => 'boolean',
     ];
 
     public function RefTipoFondo()

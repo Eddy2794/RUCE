@@ -24,7 +24,7 @@ class StoreRefTipoDocumentoRUCERequest extends FormRequest
     public function rules()
     {
         return [
-            'RefTipoDocumentoRUCE' => [
+            'tipoDocumentoDesc' => [
                 'required',
                 'string',
             ],

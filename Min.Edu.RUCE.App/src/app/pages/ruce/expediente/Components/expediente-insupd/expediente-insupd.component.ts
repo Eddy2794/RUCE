@@ -7,7 +7,7 @@ import { DataPage, FilterOptions } from '@app/shared/utils';
 import { ValidatorService } from '@app/shared/validators/validator.service';
 import { Subscription } from 'rxjs';
 import { ExpedienteService } from '../../Services/expediente.service';
-import { RefinstanciainstrumentoService } from '@app/pages/ruce/refruce/Services/refinstanciainstrumento.service';
+import { RefinstanciaInstrumentoService } from '@app/pages/ruce/refruce/Services/refinstanciainstrumento.service';
 import { RefInstanciaInstrumentoModel } from '@app/pages/ruce/refruce/Model/refinstanciainstrumento-model';
 import { DialogComponent, DialogData } from '@app/components/dialog/dialog.component';
 
@@ -38,7 +38,7 @@ export class ExpedienteInsupdComponent implements OnInit {
     private matDialog: MatDialog,
     private observerIdCooperadora: ObserverCooperadoraService,
     private expedienteService: ExpedienteService,
-    private instrumentoService: RefinstanciainstrumentoService
+    private instrumentoService: RefinstanciaInstrumentoService
   ) {
 
     this.activatedRoute.url.subscribe((parameter: any) => {

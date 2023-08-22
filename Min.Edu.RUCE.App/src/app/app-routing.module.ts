@@ -176,7 +176,7 @@ const routes: VexRoutes = [
             }
           },
           {
-            path: 'tipodocumento',
+            path: 'tipo-documento',
             loadChildren: () => import('./pages/ruce/refruce/tipodocumento/tipodocumento.module').then(m=> m.TipoDocumentoModule),
             data:{
               toolbarShadowEnabled: true,       

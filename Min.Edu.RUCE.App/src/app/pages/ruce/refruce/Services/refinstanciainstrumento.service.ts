@@ -7,7 +7,7 @@ import { RefInstanciaInstrumentoModel } from '../../refruce/Model/refinstanciain
 @Injectable({
   providedIn: 'root'
 })
-export class RefinstanciainstrumentoService extends BaseService<RefInstanciaInstrumentoModel> {
+export class RefinstanciaInstrumentoService extends BaseService<RefInstanciaInstrumentoModel> {
 
   constructor(http: HttpClient) 
   {

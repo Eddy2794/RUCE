@@ -246,37 +246,37 @@ export class AppComponent {
           {
             type: 'link',
             label: 'Cargos',
-            route: '/pages/cargosalarial',
+            route: '/pages/cargos',
             icon: 'mat:supervised_user_circle',
           },
           {
             type: 'link',
             label: 'Instancias Instrumento',
-            route: '/pages/cargofuncional',
+            route: '/pages/instancia-instrumento',
             icon: 'mat:done_all',
           },
           {
             type: 'link',
             label: 'Tipos de Asociación',
-            route: '/pages/plaza',
+            route: '/pages/tipo-asociacion',
             icon: 'mat:edit',
           },
           {
             type: 'link',
             label: 'Tipos de Comisión',
-            route: '/pages/presupuesto',
+            route: '/pages/tipo-comision',
             icon: 'mat:edit',
           },
           {
             type: 'link',
             label: 'Tipos de Documentos',
-            route: '/pages/presupuesto',
+            route: '/pages/tipo-documento',
             icon: 'mat:edit',
           },
           {
             type: 'link',
             label: 'Tipos de Fondos',
-            route: '/pages/presupuesto',
+            route: '/pages/tipo-fondo',
             icon: 'mat:monetization_on',
           },
           {

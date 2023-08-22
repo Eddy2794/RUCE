@@ -24,7 +24,7 @@ class StoreRefTipoComisionRequest extends FormRequest
     public function rules()
     {
         return [
-            'RefTipoComision' => [
+            'tipoComisionDesc' => [
                 'required',
                 'string',
             ],
