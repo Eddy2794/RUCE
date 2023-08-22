@@ -53,10 +53,10 @@ export class AppComponent {
               `assets/img/icons/logos/${name}.svg`
             );
 
-          case 'flag':
-            return this.domSanitizer.bypassSecurityTrustResourceUrl(
-              `assets/img/icons/flags/${name}.svg`
-            );
+          // case 'flag':
+          //   return this.domSanitizer.bypassSecurityTrustResourceUrl(
+          //     `assets/img/icons/flags/${name}.svg`
+          //   );
         }
       }
     );
