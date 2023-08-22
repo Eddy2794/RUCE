@@ -30,23 +30,29 @@ class RefSeeder extends Seeder
 
 
         // Tipos de Cargo
-        $refCargo = new RefCargo(['cargoDesc' => 'DIRECTOR']);
-        $refCargo->save();
         $refCargo = new RefCargo(['cargoDesc' => 'PRESIDENTE']);
         $refCargo->save();
         $refCargo = new RefCargo(['cargoDesc' => 'SECRETARIO']);
         $refCargo->save();
         $refCargo = new RefCargo(['cargoDesc' => 'TESORERO']);
         $refCargo->save();
+        $refCargo = new RefCargo(['cargoDesc' => 'VOCAL']);
+        $refCargo->save();
+        $refCargo = new RefCargo(['cargoDesc' => 'VOCAL']);
+        $refCargo->save();
+        $refCargo = new RefCargo(['cargoDesc' => 'DIRECTOR']);
+        $refCargo->save();
+        $refCargo = new RefCargo(['cargoDesc' => 'SUPERVISOR']);
+        $refCargo->save();
 
 
 
 
         
-        // Tipo de Fondo
-        $refTipoComision = new RefTipoComision(['tipoComisionDesc'=>'COMISION DIRECTIVA']);
+        // Tipo de Comision
+        $refTipoComision = new RefTipoComision(['tipoComisionDesc'=>'DIRECTIVA']);
         $refTipoComision->save();
-        $refTipoComision = new RefTipoComision(['tipoComisionDesc'=>'COMISION REGULARIZADORA']);
+        $refTipoComision = new RefTipoComision(['tipoComisionDesc'=>'REGULARIZADORA']);
         $refTipoComision->save();
 
 
@@ -73,20 +79,16 @@ class RefSeeder extends Seeder
         
         
         // Tipo Instancia Instrumento
-        $refInstanInstr = new RefInstanciaInstrumento(['instrumentoDesc'=>'SECRETARIA DE BIENESTAR']);
+        $refInstanInstr = new RefInstanciaInstrumento(['instrumentoDesc'=>'INICIO DE TRAMITE']);
         $refInstanInstr->save();
-        $refInstanInstr = new RefInstanciaInstrumento(['instrumentoDesc'=>'FISCALIA']);
+        $refInstanInstr = new RefInstanciaInstrumento(['instrumentoDesc'=>'FISCALIA DE ESTADO']);
         $refInstanInstr->save();
-        $refInstanInstr = new RefInstanciaInstrumento(['instrumentoDesc'=>'SECRETARIA DE EQUIDAD']);
+        $refInstanInstr = new RefInstanciaInstrumento(['instrumentoDesc'=>'INSTITUCION']);
+        $refInstanInstr->save();
+        $refInstanInstr = new RefInstanciaInstrumento(['instrumentoDesc'=>'DBEyD']);
+        $refInstanInstr->save();
+        $refInstanInstr = new RefInstanciaInstrumento(['instrumentoDesc'=>'INSTRUMENTO']);
         $refInstanInstr->save();
 
-
-
-
-        // Tipo Comision
-        $refTipoComision = new RefTipoComision(['tipoComisionDesc' => 'DIRECTIVA']);
-        $refTipoComision->save();
-        $refTipoComision = new RefTipoComision(['tipoComisionDesc' => 'REGULARIZADORA']);
-        $refTipoComision->save();
     }
 }

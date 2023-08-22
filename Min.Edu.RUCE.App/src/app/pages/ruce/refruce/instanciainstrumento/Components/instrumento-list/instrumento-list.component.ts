@@ -41,7 +41,7 @@ export class InstrumentoListComponent implements OnInit {
     this.columnasVex = [
       { label: 'ACCIONES', property: 'actions', type: 'button', visible: true },
       { label: 'CODIGO', property: 'id', type: 'object', visible: true },
-      { label: 'DESCRIPCION', property: 'InstrumentoDesc', type: 'text', visible: true },
+      { label: 'DESCRIPCION', property: 'instrumentoDesc', type: 'text', visible: true },
     ]
   }
 

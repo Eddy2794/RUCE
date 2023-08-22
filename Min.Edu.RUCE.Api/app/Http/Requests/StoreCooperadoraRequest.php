@@ -31,22 +31,23 @@ class StoreCooperadoraRequest extends FormRequest
             ],
             'fkOrganizacionRUCE' => [
                 'required',
-                'exists:OrganizacionRUCE,id'
+                'exists:OrganizacionRUCE,id',
+                Rule::unique('Cooperadora','fkOrganizacionRUCE')->where('fkOrganizacionRUCE',$this->fkOrganizacionRUCE)->withoutTrashed()
             ],
             'cuit' => [
                 'required',
                 'string',
-                Rule::unique('Cooperadora','cuit')->where('id',$this->id)->withoutTrashed()
+                Rule::unique('Cooperadora','cuit')->where('cuit',$this->cuit)->withoutTrashed()
             ],
             'legajo' => [
                 'required',
                 'string',
-                Rule::unique('Cooperadora','legajo')->where('id',$this->id)->withoutTrashed()
+                Rule::unique('Cooperadora','legajo')->where('legajo',$this->legajo)->withoutTrashed()
             ],
             'denominacion' => [
                 'required',
                 'string',
-                Rule::unique('Cooperadora','denominacion')->where('id',$this->id)->withoutTrashed()
+                Rule::unique('Cooperadora','denominacion')->where('denominacion',$this->denominacion)->withoutTrashed()
             ],
             'estado' => [
                 'required',
@@ -91,6 +92,7 @@ class StoreCooperadoraRequest extends FormRequest
             'cuit.unique' => 'El CUIT de la Cooperadora ya fue registrado.',
             'legajo.unique' => 'El Legajo de la Cooperadora ya fue registrado.',
             'denominacion.unique' => 'La Denominacion de la Cooperadora ya fue registrado.',
+            'fkOrganizacionRUCE.unique' => 'La Institución ya tiene registrado una Cooperadora.'
         ];
     }
 }

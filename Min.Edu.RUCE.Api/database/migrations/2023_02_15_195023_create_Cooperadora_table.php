@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedInteger('fkRefTipoAsociacion');
             $table->foreign('fkRefTipoAsociacion')->references('id')->on('RefTipoAsociacion')->onDelete('cascade');
 
-            $table->unsignedInteger('fkOrganizacionRUCE');
+            $table->unsignedInteger('fkOrganizacionRUCE')->unique();
             $table->foreign('fkOrganizacionRUCE')->references('id')->on('OrganizacionRUCE')->onDelete('cascade');
 
             $table->string('cuit',13)->nullable(true);
