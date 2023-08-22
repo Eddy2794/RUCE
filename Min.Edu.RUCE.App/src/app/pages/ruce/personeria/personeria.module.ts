@@ -8,9 +8,14 @@ import { SecondaryToolbarModule } from "src/@vex/components/secondary-toolbar/se
 import { PersoneriaRoutingModule } from "./personeria-routing.module";
 import { InsupdPersoneriaComponent } from "./Components/insupd-personeria/insupd-personeria.component";
 import { PersoneriaListComponent } from "./Components/personeria-list/personeria-list.component";
+import { EncabezadoPersoneriaComponent } from "./Components/encabezado-personeria/encabezado-personeria.component";
 
 @NgModule({
-  declarations: [InsupdPersoneriaComponent, PersoneriaListComponent],
+  declarations: [
+    InsupdPersoneriaComponent,
+    PersoneriaListComponent,
+    EncabezadoPersoneriaComponent,
+  ],
   imports: [
     CommonModule,
     SharedModule,
@@ -19,6 +24,6 @@ import { PersoneriaListComponent } from "./Components/personeria-list/personeria
     SecondaryToolbarModule,
     PersoneriaRoutingModule,
   ],
-  exports: [InsupdPersoneriaComponent, PersoneriaListComponent],
+  exports: [InsupdPersoneriaComponent, PersoneriaListComponent, EncabezadoPersoneriaComponent],
 })
 export class PersoneriaModule {}

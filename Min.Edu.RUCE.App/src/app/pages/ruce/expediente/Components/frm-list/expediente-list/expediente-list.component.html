@@ -1,19 +1,37 @@
 <vex-page-layout>
-    <div class="card flex-auto">
-      <vex-aio-table
-        [columns]="columnasVex"
-        [sourceService]="auditService"
-        [filter]="filtro"
-        [ruta]="'audits'"
-        [nombreTabla]="'Movimientos Expediente'"
-        [cabecera]="false"
-        [view]="false"
-      >
-        <app-input-search espacio1></app-input-search>
-  
-        <app-search-button-generic espacio2 [searchOptions]="searchOptions"></app-search-button-generic>
-  
-        <app-button-nuevo *ngIf="idExpediente!==0" bordederecho [routerLink]="'expediente'" [addRowText]="'Agregar Expediente'"></app-button-nuevo>
-      </vex-aio-table>
-    </div>
-  </vex-page-layout>
+  <div class="card flex-auto">
+
+    <button
+      *ngIf="idExpediente !== 0"
+      [routerLink]="'/pages/expediente/add-edit/' + idCooperadora"
+      mat-raised-button
+      class="vex-button m-4 vex-lg"
+      color="primary"
+    >
+      Modificar
+    </button>
+    <vex-aio-table
+      [busqueda]="idExpediente===0?false:undefined"
+      [columns]="columnasVex"
+      [sourceService]="auditService"
+      [filter]="filtro"
+      [ruta]="'expediente'"
+      [nombreTabla]="'Movimientos Expediente'"
+      [cabecera]="false"
+      [view]="false"
+    >
+      <app-input-search espacio1></app-input-search>
+
+      <app-search-button-generic
+        espacio2
+        [searchOptions]="searchOptions"
+      ></app-search-button-generic>
+      <app-button-nuevo
+        *ngIf="idExpediente === 0"
+        bordederecho
+        [routerLink]="'expediente'"
+        [addRowText]="'Agregar Expediente'"
+      ></app-button-nuevo>
+    </vex-aio-table>
+  </div>
+</vex-page-layout>

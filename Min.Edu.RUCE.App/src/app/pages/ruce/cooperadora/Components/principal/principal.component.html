@@ -15,7 +15,7 @@
                             <vex-expediente-list *ngIf="cargarInfo1"></vex-expediente-list>
                         </mat-tab>
                         <mat-tab label="PERSONERÍA">
-                            <vex-insupd-personeria *ngIf="cargarInfo2"></vex-insupd-personeria>
+                            <vex-encabezado-personeria *ngIf="cargarInfo2"></vex-encabezado-personeria>
                             <!-- <vex-personeria-insupd></vex-personeria-insupd> -->
                         </mat-tab>
                         <mat-tab label="BALANCE">
@@ -25,7 +25,7 @@
                             <vex-fondo-list *ngIf="cargarInfo4" [idCooperadora]="id"></vex-fondo-list>
                         </mat-tab>
                         <mat-tab label="KIOSKO">
-                            <!-- <vex-datosplaza-list></vex-datosplaza-list> -->
+                            <vex-encabezado-kiosco *ngIf="cargarInfo5"></vex-encabezado-kiosco>
                         </mat-tab>
                         <mat-tab label="ATENCIÓN Y SEGUIMIENTOS">
                             <vex-atencion-seguimiento-list *ngIf="cargarInfo6" [idCooperadora]="id"></vex-atencion-seguimiento-list>

@@ -24,31 +24,33 @@ import { ComisionModule } from "../comision/comision.module";
 import { ExpedienteModel } from "../expediente/Models/expediente-model";
 import { ExpedienteModule } from '../expediente/expediente.module';
 import { CooperadoraService } from './Services/cooperadora.service';
+import { KioscoModule } from "../kiosco/kiosco.module";
 
 @NgModule({
-  declarations: [
-    EncabezadoCooperadoraComponent,
-    CooperadoraFormInsupdComponent,
-    CooperadoraListComponent,
-    PrincipalComponent,
-  ],
-  imports: [
-    CommonModule,
-    RefCooperadoraRoutingModule,
-    SharedModule,
-    PageLayoutModule,
-    BreadcrumbsModule,
-    SecondaryToolbarModule,
-    PersoneriaModule,
-    ComisionModule,
-    ExpedienteModule,
-    AtencionseguimientoModule,
-    BalancesModule,
-    FondoModule,
-  ],
-  providers: [
-    CooperadoraService,
-    SelectService,
-  ],
+    declarations: [
+        EncabezadoCooperadoraComponent,
+        CooperadoraFormInsupdComponent,
+        CooperadoraListComponent,
+        PrincipalComponent,
+    ],
+    providers: [
+        CooperadoraService,
+        SelectService,
+    ],
+    imports: [
+        CommonModule,
+        RefCooperadoraRoutingModule,
+        SharedModule,
+        PageLayoutModule,
+        BreadcrumbsModule,
+        SecondaryToolbarModule,
+        PersoneriaModule,
+        ComisionModule,
+        ExpedienteModule,
+        AtencionseguimientoModule,
+        BalancesModule,
+        FondoModule,
+        KioscoModule
+    ]
 })
 export class RefCooperadoraModule {}

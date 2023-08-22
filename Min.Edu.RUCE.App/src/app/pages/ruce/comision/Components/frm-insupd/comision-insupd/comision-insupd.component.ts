@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReftipocomisionModel } from '@app/pages/ruce/refruce/Model/reftipocomision-model';
 import { DataPage, FilterOptions } from '@app/shared/utils';
@@ -16,7 +16,7 @@ import { ObserverCooperadoraService } from '@app/pages/ruce/cooperadora/Services
   templateUrl: './comision-insupd.component.html',
   styleUrls: ['./comision-insupd.component.scss']
 })
-export class ComisionInsupdComponent implements OnInit {
+export class ComisionInsupdComponent implements OnInit, OnDestroy {
 
   formularioComision!: FormGroup;
   id: number = 0;
@@ -75,6 +75,9 @@ export class ComisionInsupdComponent implements OnInit {
         });
       }
     });
+  }
+  ngOnDestroy(): void {
+    this.suscriptionIdCooperadora.unsubscribe();
   }
 
   ngOnInit(): void {

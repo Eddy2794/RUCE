@@ -70,6 +70,7 @@ export class AioTableComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() cabecera!: boolean;
   @Input() view!: boolean;
   @Input() specialButton!: string[];
+  @Input() busqueda?: boolean;
   @ViewChild('etiqueta') etiquetaname: any;
   etiquetaShow: boolean = false;
   pageSize = Constants.pageSettings().pageSize; // default page size for the Table.
@@ -138,7 +139,8 @@ export class AioTableComponent implements OnInit, AfterViewInit, OnDestroy {
     this.filterAio = Object.assign(value, this.filter)
     this.paginator.pageIndex = 0;
     this.paginate = new PaginateOptions(this.paginator.pageIndex != 0 ? 1 : (this.paginator.pageIndex + 1), this.paginator.pageSize = 10);
-    this.loadPage(this.filterAio);
+    if(this.busqueda===undefined)
+      this.loadPage(this.filterAio);
   }
 
   loadPage(filter: FilterOptions) {

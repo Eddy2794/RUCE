@@ -20,7 +20,90 @@
     <div class="px-6 py-4 flex flex-col">
     <form autocomplete="off" [formGroup]="formularioKiosco">
         <div class="formuario">
-            
+            <div class="flex flex-col md:flex-row gap-3">                
+                <mat-form-field style="width: 100%">
+                    <mat-label>Tipo de Documento</mat-label>
+                    <mat-select formControlName="fkRefTipoDocumentoRUCE">
+                        <mat-option>Seleccione</mat-option>
+                        <mat-option *ngFor="let item of tiposDocumentos" [value]="item?.id">{{item?.tipoDocumentoDesc}}</mat-option>
+                    </mat-select>
+                    <mat-error>
+                        <app-ver-error [control]="this.formularioKiosco.controls['fkRefTipoDocumentoRUCE']"></app-ver-error>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field style="width: 100%">
+                    <mat-label>Documento</mat-label>
+                    <input matInput formControlName="documento" type="text" espacios solonum>
+                    <mat-error>
+                        <app-ver-error [control]="this.formularioKiosco.controls['documento']">
+                        </app-ver-error>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field style="width: 100%">
+                    <mat-label>Cuil</mat-label>
+                    <input matInput formControlName="cuil" type="text" espacios solonum>
+                    <mat-error>
+                        <app-ver-error [control]="this.formularioKiosco.controls['cuil']">
+                        </app-ver-error>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        
+            <div class="flex flex-col md:flex-row gap-3">
+                <mat-form-field style="width: 100%">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput formControlName="nombre" type="text" espacios mayus>
+                    <mat-error>
+                        <app-ver-error [control]="this.formularioKiosco.controls['nombre']">
+                        </app-ver-error>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field style="width: 100%">
+                    <mat-label>Apellido</mat-label>
+                    <input matInput formControlName="apellido" type="text" espacios mayus>
+                    <mat-error>
+                        <app-ver-error [control]="this.formularioKiosco.controls['apellido']">
+                        </app-ver-error>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-3">
+                <mat-form-field style="width: 100%">
+                    <mat-label>Telefono</mat-label>
+                    <input matInput formControlName="telefono" type="tel" solonum pattern="[0-9]{10}" placeholder="Ingrese numero sin 0 ni 15 ej: 3881234567">
+                    <mat-error>
+                        <app-ver-error [control]="this.formularioKiosco.controls['telefono']">
+                        </app-ver-error>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field style="width: 100%">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" type="text" espacios mayus >
+                    <mat-error>
+                        <app-ver-error [control]="this.formularioKiosco.controls['email']">
+                        </app-ver-error>
+                    </mat-error>
+                </mat-form-field> 
+            </div>
+            <div class="flex flex-col md:flex-row gap-3">
+                <mat-form-field style="width: 100%">
+                    <mat-label>Inicio de Periodo</mat-label>
+                    <input matInput formControlName="periodoInicio" type="date" espacios mayus>
+                    <mat-error>
+                        <app-ver-error [control]="this.formularioKiosco.controls['periodoInicio']">
+                        </app-ver-error>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field style="width: 100%">
+                    <mat-label>Fin de Periodo</mat-label>
+                    <input matInput formControlName="periodoFin" type="date" espacios mayus>
+                    <mat-error>
+                        <app-ver-error [control]="this.formularioKiosco.controls['periodoFin']">
+                        </app-ver-error>
+                    </mat-error>
+                </mat-form-field>
+            </div>
             <div class="flex flex-col md:flex-row gap-3">
                 <div class="slide-group">
                     <mat-slide-toggle color="accent" formControlName="accesoLicitacion" [checked]="false" class="p-4"></mat-slide-toggle>
@@ -31,29 +114,10 @@
                     <mat-label>Documentacion Presentada</mat-label>
                 </div>
             </div>
-
-            <div class="flex flex-col md:flex-row gap-3">
-                    <mat-form-field style="width: 100%">
-                        <mat-label>Inicio de Periodo</mat-label>
-                        <input matInput formControlName="periodoInicio" type="date" espacios mayus>
-                        <mat-error>
-                            <app-ver-error [control]="this.formularioKiosco.controls['periodoInicio']">
-                            </app-ver-error>
-                        </mat-error>
-                    </mat-form-field>
-                    <mat-form-field style="width: 100%">
-                        <mat-label>Fin de Periodo</mat-label>
-                        <input matInput formControlName="periodoFin" type="date" espacios mayus>
-                        <mat-error>
-                            <app-ver-error [control]="this.formularioKiosco.controls['periodoFin']">
-                            </app-ver-error>
-                        </mat-error>
-                    </mat-form-field>
-            </div>
         </div>
-        <br>       
+        <div class="mt-5 flex flex-col md:flex-row gap-3">    
             <app-button-group type="button" (cancel)="cancel()" (delete)="eliminar()" (submit)="save()" [accion]="accion"></app-button-group>
-
+        </div>
         </form>
         </div>
     </div>

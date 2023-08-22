@@ -31,7 +31,7 @@ class ComisionController extends Controller
     }
 
 
-    public function store(StoreComisionRequest $request)
+    public function store(StoreComisionRequest $request): JsonResponse
     {
         //$request = new StoreComisionRequest($request->toArray());
         try {

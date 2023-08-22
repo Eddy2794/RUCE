@@ -81,10 +81,10 @@ class CooperadoraController extends Controller
             $cooperadora->legajo = $request->legajo ?: $cooperadora->legajo;
             $cooperadora->denominacion = $request->denominacion ?: $cooperadora->denominacion;
             $cooperadora->estado = $request->estado ?: $cooperadora->estado;
-            $cooperadora->convenioCsEconomicas = $request->convenioCsEconomicas ?: $cooperadora->convenioCsEconomicas;
-            $cooperadora->estadoAfip = $request->estadoAfip ?: $cooperadora->estadoAfip;
-            $cooperadora->estadoRentas = $request->estadoRentas ?: $cooperadora->estadoRentas;
-            $cooperadora->inscripcionRenacopes = $request->inscripcionRenacopes ?: $cooperadora->inscripcionRenacopes;
+            $cooperadora->convenioCsEconomicas = $request->convenioCsEconomicas !== null ? $request->convenioCsEconomicas : $cooperadora->convenioCsEconomicas;
+            $cooperadora->estadoAfip = $request->estadoAfip !== null ? $request->estadoAfip : $cooperadora->estadoAfip;
+            $cooperadora->estadoRentas = $request->estadoRentas !== null ? $request->estadoRentas : $cooperadora->estadoRentas;
+            $cooperadora->inscripcionRenacopes = $request->inscripcionRenacopes !== null ? $request->inscripcionRenacopes : $cooperadora->inscripcionRenacopes;
             // $cooperdora->idUsuarioModificacion = $request->idUsuarioModificacion ?: $cooperadora->idUsuarioModificacion;
 
             if ($cooperadora->isClean()) {

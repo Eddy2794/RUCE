@@ -39,6 +39,7 @@ export class PrincipalComponent implements OnInit {
       this.observerCooperadora.enviarIdCooperadora(this.cooperadora.id);
       this.observerCooperadora.enviarTipoAsociacion(this.cooperadora.fkRefTipoAsociacion);
       this.observerCooperadora.enviarIdExpediente(this.cooperadora.expediente?.id);
+      this.observerCooperadora.enviarIdPersoneria(this.cooperadora.personeria?.id);
     })
   }
 

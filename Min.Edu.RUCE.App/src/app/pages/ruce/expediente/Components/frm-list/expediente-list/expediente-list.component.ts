@@ -15,7 +15,7 @@ import { AuditService } from "@app/pages/ruce/refruce/audit/Service/audit.servic
   styleUrls: ["./expediente-list.component.scss"],
 })
 export class ExpedienteListComponent implements OnInit, OnDestroy {
-  @Input() idCooperadora!: number;
+  idCooperadora!: number;
 
   searchOptions!: SearchOptionsGeneric[];
   filtros!: {};
@@ -26,17 +26,13 @@ export class ExpedienteListComponent implements OnInit, OnDestroy {
   columnasVex: TableColumn<AutoridadComisionModel>[];
 
   suscriptionIdExpediente: Subscription;
-  idExpediente?: number = 0;
+  idExpediente: number = 0;
 
   constructor(
     private route: ActivatedRoute,
     protected auditService: AuditService,
     private observerCooperadora: ObserverCooperadoraService
   ) {
-    this.suscriptionIdExpediente =
-      this.observerCooperadora.castIdExpediente.subscribe((value) => {
-        this.idExpediente = value;
-      });
     // this.filtro = {
     //   estaActivo: true,
     //   modelo: "Expediente",
@@ -45,6 +41,15 @@ export class ExpedienteListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.suscriptionIdExpediente =
+      this.observerCooperadora.castIdExpediente.subscribe((value) =>{
+        if (value)
+          this.idExpediente = value;
+      });
+    this.suscriptionIdExpediente =
+    this.observerCooperadora.castIdCooperadora.subscribe((value) => {
+      this.idCooperadora = value;
+    });
     this.obtenerBusqueda();
   }
 
@@ -54,7 +59,6 @@ export class ExpedienteListComponent implements OnInit, OnDestroy {
 
   obtenerBusqueda() {
     this.filtro = { estaActivo: true, PageSize: 10, id: this.idExpediente };
-    console.log(this.idExpediente);
     this.cargarList();
   }
 
@@ -67,25 +71,31 @@ export class ExpedienteListComponent implements OnInit, OnDestroy {
       { label: "ACCIONES", property: "actions", type: "button", visible: true },
       {
         label: "NRO DE EXPEDIENTE",
-        property: "expeiente.nroExpediente",
+        property: "expediente.nroExpediente",
         type: "object",
         visible: true,
       },
       {
         label: "CANT. DE OBSERVACIONES.",
-        property: "expediente.fkPersonaRUCE.documento",
+        property: "expediente.cantObservaciones",
         type: "object",
         visible: true,
       },
       {
         label: "OBSERVACIUONES",
-        property: "fexpediente.kPersonaRUCE.nombre",
+        property: "expediente.observacionesDesc",
         type: "object",
         visible: true,
       },
       {
         label: "OBSERVACIUONES RESPODNDIDAS",
-        property: "expediente.fkPersonaRUCE.apellido",
+        property: "expediente.observacionesRespondidas",
+        type: "boolean",
+        visible: true,
+      },
+      {
+        label: "INSTANCIA INSTRUMENTO",
+        property: "expediente.fkRefInstanciaInstrumento",
         type: "object",
         visible: true,
       },

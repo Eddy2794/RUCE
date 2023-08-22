@@ -30,7 +30,7 @@ class StoreComisionRequest extends FormRequest
             ],
             'fkRefTipoComision' => [
                 'required',
-                'exists:RefTipoComision, id'
+                'exists:RefTipoComision,id'
             ],
             'periodoInicio' => [
                 'required',

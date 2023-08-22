@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FilterOptions } from '@app/shared/utils';
 import { Subscription } from 'rxjs';
@@ -7,17 +7,19 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ValidatorService } from '@app/shared/validators/validator.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent, DialogData } from '@app/components/dialog/dialog.component';
+import { ObserverCooperadoraService } from '@app/pages/ruce/cooperadora/Services/observer-cooperadora.service';
 
 @Component({
   selector: 'vex-insupd-personeria',
   templateUrl: './insupd-personeria.component.html',
   styleUrls: ['./insupd-personeria.component.scss']
 })
-export class InsupdPersoneriaComponent implements OnInit {
+export class InsupdPersoneriaComponent implements OnInit, OnDestroy {
 
   formularioPersoneria!: FormGroup;
   id: number = 0;
   idCooperadora!: number;
+  idExpediente!: number;
   filtro: FilterOptions = { estaActivo: true, PageSize: 10,};
 
   //tipoFondo = new Array<RefTipoFondoModel>;
@@ -25,7 +27,7 @@ export class InsupdPersoneriaComponent implements OnInit {
   @Input() view!: string;
   public accion: string = '';
 
-  suscriptionIdComision: Subscription;
+  suscriptionId: Subscription;
 
   constructor(
     private fb: FormBuilder,
@@ -34,7 +36,8 @@ export class InsupdPersoneriaComponent implements OnInit {
     private validadorServicio: ValidatorService,
     private router: Router,
     private route:ActivatedRoute,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    protected observerCooperadora: ObserverCooperadoraService
   ) {
     this.activatedRoute.url.subscribe((parameter: any) => {
       this.accion = (parameter[0].path);
@@ -53,8 +56,15 @@ export class InsupdPersoneriaComponent implements OnInit {
         }
       }
     });
-    //this.loadRefs();
-    this.idCooperadora = this.route.snapshot.params['id'];
+
+    this.suscriptionId = this.observerCooperadora.castIdCooperadora.subscribe((value) => {
+      if (value) this.idCooperadora= value;
+    });
+    
+    this.suscriptionId = this.observerCooperadora.castIdExpediente.subscribe((value) => {
+      if (value) this.idExpediente= value;
+    });
+
     this.createForm();
     this.activatedRoute.params.subscribe((param: any) => {
       this.id = parseInt(param.id);
@@ -63,6 +73,7 @@ export class InsupdPersoneriaComponent implements OnInit {
           this.accion = 'edit'
         }
         this.personeriaService.findOne(this.idCooperadora).subscribe((resp: any) => {
+          this.formularioPersoneria.patchValue(resp.entities);
         });
       }
     });
@@ -70,23 +81,25 @@ export class InsupdPersoneriaComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  
+  ngOnDestroy(): void {
+    this.suscriptionId.unsubscribe();
+  }
+
 
   createForm() {
     this.formularioPersoneria = this.fb.group({
       id: null,
       fkCooperadora: this.idCooperadora,
-      fkExpediente: null,
+      fkExpediente: this.idExpediente,
+      fecha: [null, {validators: [ Validators.required, ]}],
       decreto: [null, {validators: [ Validators.required, ]}],
       nroResolucion: [null, {validators: [ Validators.required,  ]}],
       estaActivo: true,
-    },
-    {
-      //validators: [ this.validadorServicio.validarFechasInicioFin('fechaRecibido','fechaRendicion')]
-    })
+    });
     if (this.accion === 'delete'|| this.accion === 'view') {
       this.formularioPersoneria.disable();
     }
-    console.log(this.formularioPersoneria);
   }
 
   save() {
@@ -94,30 +107,23 @@ export class InsupdPersoneriaComponent implements OnInit {
       this.formularioPersoneria.markAllAsTouched();
       return;
     }
-    // if (this.id == 0) {
-    //   this.formularioPersoneria.markAllAsTouched();
-    //   return;
-    // }
     if (this.id == 0) {
       this.formularioPersoneria.removeControl('id');
-      // this.formularioPersoneria.value['fondoRecibido'] = this.formularioPersoneria.value['fondoRecibido']?.toString()
-      // this.formularioPersoneria.value['fondoRendido'] = this.formularioPersoneria.value['fondoRendido']?.toString()
       this.personeriaService.create(this.formularioPersoneria.value).subscribe((resp: any) => {
-        this.mostrarDialogMsj("Mensaje", "Fondo Creado", false)
+        this.mostrarDialogMsj("Mensaje", "Personeria Creada", false)
         this.router.navigate(['/pages/cooperadoras/view/'+this.idCooperadora]);
       }, err => {
         this.mostrarDialogMsj("Atención", err.error.message, false)
       }
       );
     } else {
-      this.formularioPersoneria.value.fkTipoFondo = this.formularioPersoneria.value.fkTipoFondo?.id;
-      
-      this.personeriaService.update(this.formularioPersoneria.value.id, this.formularioPersoneria.value).subscribe((resp: any) => {
-        this.mostrarDialogMsj("Mensaje", "Fondo Modificado", false)
-        this.router.navigate(['/pages/cooperadoras/view/'+this.idCooperadora]);
-      }, err => {
-        this.mostrarDialogMsj("Atención", err.error.message, false)
-      }
+      this.personeriaService.update(this.formularioPersoneria.value.id, this.formularioPersoneria.value).subscribe(
+        (resp: any) => {
+          this.mostrarDialogMsj("Mensaje", "Personeria Modificada", false)
+          this.router.navigate(['/pages/cooperadoras/view/'+this.idCooperadora]);
+        }, err => {
+          this.mostrarDialogMsj("Atención", err.error.message, false)
+        }
       );
     }
   }
@@ -134,7 +140,7 @@ export class InsupdPersoneriaComponent implements OnInit {
     dialog.afterClosed().subscribe(result => {
       if (result === "Aceptar") {
         this.personeriaService.delete(this.formularioPersoneria.value.id).subscribe((resp: any) => {
-          this.mostrarDialogMsj("Mensaje", "Fondo Eliminado", false)
+          this.mostrarDialogMsj("Mensaje", "Personeria Eliminada", false)
           this.router.navigate(['/pages/cooperadoras/view/'+this.idCooperadora]);
         }, err => {
           this.mostrarDialogMsj("Atención", err.error.message, false)

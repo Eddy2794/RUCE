@@ -29,8 +29,8 @@ class StoreKioscoRequest extends FormRequest
                 'exists:Cooperadora,id'
             ],
             'fkPersonaRUCE' => [
-                'required',
-                'exists:PersonaRUCE,id'
+                // 'required',
+                // 'exists:PersonaRUCE,id'
             ],
             'accesoLicitacion' => [
                 'required',
