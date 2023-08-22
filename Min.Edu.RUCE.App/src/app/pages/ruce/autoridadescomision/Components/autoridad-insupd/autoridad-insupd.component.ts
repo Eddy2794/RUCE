@@ -38,14 +38,12 @@ export class AutoridadComisionInsupdComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
-    private personaRUCEService: PersonaruceService,
     private autoridadComisionService: AutoridadComisionService,
     private refTipoDocumentoService: RefTipoDocumentoService,
     private refCargoService: RefcargoService,
     private activatedRoute: ActivatedRoute,
     private validadorServicio: ValidatorService,
     private router: Router,
-    private route:ActivatedRoute,
     private matDialog: MatDialog,
     private observerIdComision: ObserverComisionService,
     private observerIdCooperadora: ObserverCooperadoraService

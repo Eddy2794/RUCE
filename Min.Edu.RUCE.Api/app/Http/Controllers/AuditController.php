@@ -33,24 +33,50 @@ class AuditController extends Controller
             ];
         }
     }
+
     private function completarModels(array $audits){
         $respuesta = [];
         array_push($respuesta,["expediente" => $audits[0]['new_values'], "fecha" => $audits[0]["created_at"]]);
-        if($audits[1]){
-            for($i = 1; $i < count($audits); $i++){
-                $actual = $respuesta[$i-1];
-                $claves = array_keys($audits[$i]['new_values']);
-                foreach($claves as $clave){
-                    $actual["expediente"][$clave] = $audits[$i]['new_values'][$clave];
+        $modelo = "App\Models\RefInstanciaInstrumento";
+        $model = new $modelo();
+        $respuesta[0]['expediente']["fkRefInstanciaInstrumento"] = $model::find($respuesta[0]['expediente']['fkRefInstanciaInstrumento'])->toArray()['instrumentoDesc'];
+        try{
+            $seg = $audits[1];
+            if($seg){
+                for($i = 1; $i < count($audits); $i++){
+                    $actual = $respuesta[$i-1];
+                    $claves = array_keys($audits[$i]['new_values']);
+                    foreach($claves as $clave){
+                        if(strpos($clave,'fk') !== false){
+                            $modelo = 'App\Models\\'.substr($clave,2);
+                            // dd($modelo);
+                            $model = new $modelo();
+                            // dd($model);
+                            $datos = $model::find($audits[$i]['new_values'][$clave])->toArray();
+                            // dd($datos);
+                            foreach($datos as $c => $v){
+                                if(strpos($c,"Desc") !== false){
+                                    // dd($v);
+                                    $actual['expediente'][$clave] = $v;
+                                    break;
+                                }
+                            }
+                        }
+                        else
+                            $actual["expediente"][$clave] = $audits[$i]['new_values'][$clave];
+                    }
+                    $actual["fecha"]=$audits[$i]['created_at'];
+                    array_push($respuesta,$actual);
                 }
-                $actual["fecha"]=$audits[$i]['created_at'];
-                array_push($respuesta,$actual);
+                usort($respuesta, function ($a, $b) {
+                    return strtotime($b['fecha']) - strtotime($a['fecha']);
+                });
             }
-            usort($respuesta, function ($a, $b) {
-                return strtotime($b['fecha']) - strtotime($a['fecha']);
-            });
+            return $respuesta;
         }
-        return $respuesta;
+        catch(Exception $e){
+            return $respuesta;
+        }
     }
 
     private function getAuditsAdmin(Request $request): JsonResponse
@@ -61,7 +87,7 @@ class AuditController extends Controller
                 try{
                     $audits = Audit::where([
                         'auditable_type' => 'App\Models\\'.$request['modelo'],
-                        'auditable_id' => $request['id'],
+                        'auditable_id' => $request['Id'],
                     ])->whereIn('event', ['created', 'updated'])
                     ->orderBy('created_at')->get()->toArray();
                     $audits = $this->completarModels($audits);
@@ -78,18 +104,21 @@ class AuditController extends Controller
 
     protected function getAudits(Request $request): JsonResponse
     {   
-        //dd($request->get('Id'));
+        // dd($request->get('Id'));
         // Obtener los registros de auditoría de un modelo y un ID específico
         if($request != null){
             //if (class_exists('App\Models\\'.$request['modelo'])) {
             if ($request->get('Id')!="") {
                 try{
+                    $modelo = 'App\Models\Expediente';
                     $audits = Audit::where([
-                        'auditable_type' => 'App\Models\Expediente',
-                        'auditable_id' => $request['id'],
-                    ])->whereIn('event', ['created', 'updated'])
+                        // 'auditable_type' => 'App\Models\\'.$request['modelo'],
+                        'auditable_type' => $modelo,
+                        'auditable_id' => $request['Id'],
+                    ])
+                    ->whereIn('event', ['created', 'updated'])
                     ->orderBy('created_at')
-                    ->get(['new_values','created_at'])
+                    ->get(['auditable_id','new_values','created_at'])
                     ->toArray();
                     $audits = $this->completarModels($audits);
                 } catch(\Throwable $th){

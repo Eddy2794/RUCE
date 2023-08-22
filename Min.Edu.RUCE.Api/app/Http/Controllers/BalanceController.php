@@ -85,7 +85,7 @@ class BalanceController extends Controller
             $balance = Balance::where('id', $balance)->first();
             //$request = new UpdateBalanceRequest($request->toArray());
             $balance->fkCooperadora = $request->fkCooperadora ?: $balance->fkCooperadora;
-            $balance->estadoBalance = $request->estadoBalance ?: $balance->estadoBalance;
+            $balance->estadoBalance = $request->estadoBalance !== null ? $request->estadoBalance : $balance->estadoBalance;
             $balance->anio = $request->anio ?: $balance->anio;
 
             if ($balance->isClean()) {

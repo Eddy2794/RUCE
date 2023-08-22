@@ -44,7 +44,7 @@
                             <mat-option *ngFor="let item of instanciaInstrumento" [value]="item?.id">{{item?.instrumentoDesc}}</mat-option>
                         </mat-select>
                         <mat-error>
-                            <app-ver-error [control]="this.formularioExpediente.controls['fkRefTipoDocumentoRUCE']"></app-ver-error>
+                            <app-ver-error [control]="this.formularioExpediente.controls['fkRefInstanciaInstrumento']"></app-ver-error>
                         </mat-error>
                     </mat-form-field>
                     <div class="slide-group" style="width: 100%">

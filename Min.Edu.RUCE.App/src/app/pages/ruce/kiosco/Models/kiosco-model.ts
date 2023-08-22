@@ -3,7 +3,7 @@ import { PersonaRUCEModel } from "@app/pages/ruce/refruce/Model/persona-ruce-mod
 import { CooperadoraModel } from "../../cooperadora/Models/cooperadora-model";
 
 export class KioscoModel extends BaseModel {
-    static className: string = 'kioscos';
+    static className: string = 'kiosco';
     constructor(
         public fkCooperadora?: CooperadoraModel,
         public fkPersonaRUCE?: PersonaRUCEModel,

@@ -77,10 +77,10 @@ class FondoController extends Controller
             //$request = new UpdateFondoRequest($request->toArray());
             $fondo->fkRefTipoFondo = $request->fkRefTipoFondo ?: $fondo->fkRefTipoFondo;
             $fondo->fkCooperadora = $request->fkCooperadora ?: $fondo->fkCooperadora;
-            $fondo->inscripta = $request->inscripta ?: $fondo->inscripta;
-            $fondo->verificada = $request->verificada ?: $fondo->verificada;
-            $fondo->fondoRecibido = $request->fondoRecibido ?: $fondo->fondoRecibido;
-            $fondo->fondoRendido = $request->fondoRendido ?: $fondo->fondoRendido;
+            $fondo->inscripta = $request->inscripta !== null ? $request->inscripta : $fondo->inscripta;
+            $fondo->verificada = $request->verificada !== null ? $request->verificada : $fondo->verificada;
+            $fondo->fondoRecibido = $request->fondoRecibido !== null ? $request->fondoRecibido : $fondo->fondoRecibido;
+            $fondo->fondoRendido = $request->fondoRendido !== null ? $request->fondoRendido : $fondo->fondoRendido;
             $fondo->monto = $request->monto ?: $fondo->monto;
             $fondo->fechaRecibido = $request->fechaRecibido ?: $fondo->fechaRecibido;
             $fondo->fechaRendicion = $request->fechaRendicion ?: $fondo->fechaRendicion;

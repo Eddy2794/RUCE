@@ -74,6 +74,7 @@ export class ExpedienteInsupdComponent implements OnInit {
         }
         this.expedienteService.findOne(this.id).subscribe((resp: any) => {
           this.formularioExpediente.patchValue(resp.entities);
+          this.formularioExpediente.controls.fkRefInstanciaInstrumento.patchValue(resp.entities.ref_instancia_instrumento[0].id);
         });
       }
     });

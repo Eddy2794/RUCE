@@ -36,7 +36,7 @@ class UpdateExpedienteRequest extends FormRequest
             'nroExpediente' => [
                 'required',
                 'string',
-                Rule::unique('Expediente','nroExpediente')->where('id',$this->id)->withoutTrashed()
+                // Rule::unique('Expediente','nroExpediente')->where('id',$this->id)->withoutTrashed()
             ],
             'cantObservaciones' => [
                 'required',
