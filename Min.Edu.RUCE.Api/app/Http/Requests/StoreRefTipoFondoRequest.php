@@ -24,7 +24,7 @@ class StoreRefTipoFondoRequest extends FormRequest
     public function rules()
     {
         return [
-            'RefTipoFondo' => [
+            'tipoFondoDesc' => [
                 'required',
                 'string',
             ],

@@ -64,8 +64,9 @@ export class CooperadoraFormInsupdComponent implements OnInit {
           if (this.accion !== 'delete'){this.accion = 'edit'}
           this.cooperadoraService.findOne(this.id).subscribe((resp: any) => {
             this.formularioCooperadora.patchValue(resp.entities);
-            this.formularioCooperadora.controls.fkRefTipoAsociacion.patchValue(resp.entities.fkRefTipoAsociacion.id);
-            this.formularioCooperadora.controls.organizacionDesc.patchValue(resp.entities.fkOrganizacionRUCE.organizacionDesc);
+            this.formularioCooperadora.controls.fkRefTipoAsociacion.patchValue(resp.entities.ref_tipo_asociacion[0].id);
+            this.formularioCooperadora.controls.organizacionDesc.patchValue(resp.entities.organizacion_r_u_c_e.organizacionDesc);
+            this.formularioCooperadora.controls.estado.patchValue(resp.entities.estado);
           });
         }
       });

@@ -20,7 +20,7 @@ export class TipodocumentoInsupdComponent implements OnInit {
   id: number = 0;
   filtro: FilterOptions = { estaActivo: true, PageSize: 10,};
 
-  tipoFondo = new Array<RefTipoDocumentoModel>;
+  tipoDocumento = new Array<RefTipoDocumentoModel>;
 
   public accion: string = '';
 
@@ -124,7 +124,7 @@ export class TipodocumentoInsupdComponent implements OnInit {
     dialog.afterClosed().subscribe(result => {
       if (result === "Aceptar") {
         this.tipoDocumentoService.delete(this.formularioTipoDocumento.value.id).subscribe((resp: any) => {
-          this.mostrarDialogMsj("Mensaje", "Instancia Instrumento Eliminado", false)
+          this.mostrarDialogMsj("Mensaje", "Tipo de Documento Eliminado", false)
           this.router.navigate(['/pages/tipo-documento/listar/']);
         }, err => {
           this.mostrarDialogMsj("Atención", err.error.message, false)

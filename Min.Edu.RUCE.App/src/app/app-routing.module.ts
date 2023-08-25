@@ -189,6 +189,13 @@ const routes: VexRoutes = [
               toolbarShadowEnabled: true,       
             }
           },
+          {
+            path: 'usuarios',
+            loadChildren: () => import('./pages/ruce/usuario/usuario.module').then(m=> m.UsuarioModule),
+            data:{
+              toolbarShadowEnabled: true,       
+            }
+          },
         ]
       }
     ]

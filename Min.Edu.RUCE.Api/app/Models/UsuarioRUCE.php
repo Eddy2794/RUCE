@@ -22,8 +22,7 @@ class UsuarioRUCE extends Model  implements Auditable
         'username',
         'estaActivo',
         'idUsuarioAlta',
-        'idUsuarioModificacion',
-        'administrador',
+        'idUsuarioModificacion'
     ];
 
         /**

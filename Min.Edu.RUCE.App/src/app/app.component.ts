@@ -282,7 +282,7 @@ export class AppComponent {
           {
             type: 'link',
             label: 'Gestión de Usuarios',
-            route: '/pages/presupuesto',
+            route: '/pages/usuarios',
             icon: 'mat:account_circle',
           }
         ]

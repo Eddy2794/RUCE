@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePersonaRUCERequest;
 use App\Http\Requests\StoreUsuarioRUCERequest;
+use App\Http\Requests\UpdatePersonaRUCERequest;
 use App\Http\Requests\UpdateUsuarioRUCERequest;
 use App\Http\Resources\ModelResourse;
 use App\Http\Resources\RequestCollection;
+use App\Models\PersonaRUCE;
 use App\Models\UsuarioRUCE;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -32,24 +35,33 @@ class UsuarioRUCEController extends Controller
 
     public function store(StoreUsuarioRUCERequest $request): JsonResponse
     {
-        //$request = new StoreUsuarioRUCERequest($request->toArray());
-        try {
-            UsuarioRUCE::create([
-                'fkPersonaRUCE' => $request->fkPersonaRUCE,
-                'password' => $request->password,
-                'username' => $request->username,
-                'idUsuarioAlta' => $request->idUsuarioAlta,
-            ]);
-            return response()->json([
-                'message' => 'Usuario Registrado con Exito',
-                'succeeded' => true
-            ], Response::HTTP_OK);
-        } catch (\Throwable $th) {
-            return response()->json([
-                'succeeded' => false,
-                'message' => $th->getMessage()
-            ], Response::HTTP_NOT_FOUND);
+        $persona = new PersonaRUCEController();
+        $requestPersona = new StorePersonaRUCERequest($request->toArray());
+        $created = json_decode($persona->store($requestPersona)->getContent());
+        $idPersona = PersonaRUCE::max('id');
+        if($created->succeeded){
+            try {
+                UsuarioRUCE::create([
+                    'fkPersonaRUCE' => $request->fkPersonaRUCE,
+                    'password' => $request->password,
+                    'username' => $request->username,
+                    'idUsuarioAlta' => $request->idUsuarioAlta,
+                ]);
+                return response()->json([
+                    'message' => 'Usuario Registrado con Exito',
+                    'succeeded' => true
+                ], Response::HTTP_OK);
+            } catch (\Throwable $th) {
+                return response()->json([
+                    'succeeded' => false,
+                    'message' => $th->getMessage()
+                ], Response::HTTP_NOT_FOUND);
+            }
         }
+        return response()->json([
+            'message' => $created->message,
+            'succeeded' => $created->succeeded
+        ], Response::HTTP_BAD_REQUEST);
     }
 
     public function show(int $usuarioRUCE): JsonResponse
@@ -66,33 +78,41 @@ class UsuarioRUCEController extends Controller
 
     public function update(UpdateUsuarioRUCERequest $request, int $usuarioRUCE): JsonResponse
     {
-        try {
-            $usuarioRUCE = UsuarioRUCE::where('id', $usuarioRUCE)->first();
-            //$request = new UpdateUsuarioRUCERequest($request->toArray());
-            $usuarioRUCE->fkPersonaRUCE = $request->fkPersonaRUCE ?: $usuarioRUCE->fkPersonaRUCE;
-            $usuarioRUCE->password = $request->password ?: $usuarioRUCE->password;
-            $usuarioRUCE->username = $request->username ?: $usuarioRUCE->username;
-            // $usuarioRUCE->idUsuarioModificacion = $request->idUsuarioModificacion ?: $usuarioRUCE->idUsuarioModificacion;
+        $persona = new PersonaRUCEController();
+        $requestPersona = new UpdatePersonaRUCERequest($request->toArray());
+        $personaUpdated = response()->json($persona->update($requestPersona,$request->fkPersonaRUCE));
+        if($personaUpdated->original->getStatusCode() != Response::HTTP_NOT_FOUND)
+            try {
+                $usuarioRUCE = UsuarioRUCE::where('id', $usuarioRUCE)->first();
+                //$request = new UpdateUsuarioRUCERequest($request->toArray());
+                $usuarioRUCE->fkPersonaRUCE = $request->fkPersonaRUCE ?: $usuarioRUCE->fkPersonaRUCE;
+                $usuarioRUCE->password = $request->password ?: $usuarioRUCE->password;
+                $usuarioRUCE->username = $request->username ?: $usuarioRUCE->username;
+                // $usuarioRUCE->idUsuarioModificacion = $request->idUsuarioModificacion ?: $usuarioRUCE->idUsuarioModificacion;
 
-            if ($usuarioRUCE->isClean()) {
+                if ($usuarioRUCE->isClean()) {
+                    return response()->json([
+                        'message' => 'No se modifico ningun valor',
+                        'succeeded' => false
+                    ], 422);
+                }
+                $usuarioRUCE->updated_at= Carbon::now();
+                $usuarioRUCE->save();
+
                 return response()->json([
-                    'message' => 'No se modifico ningun valor',
-                    'succeeded' => false
-                ], 422);
+                    'succeeded' => true,
+                    'message' => 'Tipo de Asociacion Modificada con exito',
+                ], Response::HTTP_OK);
+            } catch (\Throwable $th) {
+                return response()->json([
+                    'succeeded' => false,
+                    'message' => $th->getMessage()
+                ], Response::HTTP_NOT_FOUND);
             }
-            $usuarioRUCE->updated_at= Carbon::now();
-            $usuarioRUCE->save();
-
             return response()->json([
-                'succeeded' => true,
-                'message' => 'Tipo de Asociacion Modificada con exito',
-            ], Response::HTTP_OK);
-        } catch (\Throwable $th) {
-            return response()->json([
-                'succeeded' => false,
-                'message' => $th->getMessage()
-            ], Response::HTTP_NOT_FOUND);
-        }
+                'message' => $personaUpdated->original->content->message,
+                'succeeded' => $personaUpdated->original->content->succeeded
+            ], $personaUpdated->original->getStatusCode());
     }
 
     public function destroy(int $id): JsonResponse

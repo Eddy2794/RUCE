@@ -81,10 +81,10 @@
                             <mat-form-field>
                                 <mat-label>Estado</mat-label>
                                 <mat-select formControlName="estado">
-                                    <mat-option>Seleccione</mat-option>
-                                    <mat-option [value]="-1">Rojo</mat-option>
-                                    <mat-option [value]="0">Amarillo</mat-option>
-                                    <mat-option [value]="1">Verde</mat-option>
+                                    <!-- <mat-option>Seleccione</mat-option> -->
+                                    <mat-option value=rojo>rojo</mat-option>
+                                    <mat-option value=amarillo>amarillo</mat-option>
+                                    <mat-option value=verde>verde</mat-option>
                                 </mat-select>
                                 <mat-error>
                                     <app-ver-error [control]="this.formularioCooperadora.controls['estado']"></app-ver-error>
