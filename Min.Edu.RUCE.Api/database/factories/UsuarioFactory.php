@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Persona;
+use App\Models\PersonaRUCE;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,7 +19,7 @@ class UsuarioFactory extends Factory
     public function definition()
     {
         return [
-            'fkPersonaRUCE' => $this->faker->randomElement(Persona::all()->getQueueableIds()),
+            'fkPersonaRUCE' => $this->faker->randomElement(PersonaRUCE::all()->getQueueableIds()),
             'username' => $this->faker->userName(),
             'password' => $this->faker->password(),
             'estaActivo' => true,

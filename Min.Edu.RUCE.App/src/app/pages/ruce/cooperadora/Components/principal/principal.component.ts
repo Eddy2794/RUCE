@@ -45,62 +45,70 @@ export class PrincipalComponent implements OnInit {
 
   cargarInformacion(event: MatTabChangeEvent) {
     const pestaña = event.index;
-    if (pestaña === 0) {
-      this.cargarInfo0 = true;
-      this.cargarInfo1 = false;
-      this.cargarInfo2 = false;
-      this.cargarInfo3 = false;
-      this.cargarInfo4 = false;
-      this.cargarInfo5 = false;
-      this.cargarInfo6 = false;
-    } else if (pestaña === 1) {
-      this.cargarInfo1 = true;
-      this.cargarInfo0 = false;
-      this.cargarInfo2 = false;
-      this.cargarInfo3 = false;
-      this.cargarInfo4 = false;
-      this.cargarInfo5 = false;
-      this.cargarInfo6 = false;
-    } else if (pestaña === 2){
-      this.cargarInfo2 = true;
-      this.cargarInfo0 = false;
-      this.cargarInfo1 = false;
-      this.cargarInfo3 = false;
-      this.cargarInfo4 = false;
-      this.cargarInfo5 = false;
-      this.cargarInfo6 = false;
-    } else if (pestaña === 3){
-      this.cargarInfo3 = true;
-      this.cargarInfo0 = false;
-      this.cargarInfo2 = false;
-      this.cargarInfo1 = false;
-      this.cargarInfo4 = false;
-      this.cargarInfo5 = false;
-      this.cargarInfo6 = false;
-    } else if (pestaña === 4){
-      this.cargarInfo4 = true;
-      this.cargarInfo0 = false;
-      this.cargarInfo2 = false;
-      this.cargarInfo3 = false;
-      this.cargarInfo1 = false;
-      this.cargarInfo5 = false;
-      this.cargarInfo6 = false;
-    } else if (pestaña === 5){
-      this.cargarInfo5 = true;
-      this.cargarInfo0 = false;
-      this.cargarInfo2 = false;
-      this.cargarInfo3 = false;
-      this.cargarInfo4 = false;
-      this.cargarInfo1 = false;
-      this.cargarInfo6 = false;
-    } else if (pestaña === 6){
-      this.cargarInfo6 = true;
-      this.cargarInfo0 = false;
-      this.cargarInfo2 = false;
-      this.cargarInfo3 = false;
-      this.cargarInfo4 = false;
-      this.cargarInfo5 = false;
-      this.cargarInfo1 = false;
+    switch(pestaña){
+      case 0:
+        this.cargarInfo0 = true;
+        this.cargarInfo1 = false;
+        this.cargarInfo2 = false;
+        this.cargarInfo3 = false;
+        this.cargarInfo4 = false;
+        this.cargarInfo5 = false;
+        this.cargarInfo6 = false;
+      break;
+      case 1:
+        this.cargarInfo1 = true;
+        this.cargarInfo0 = false;
+        this.cargarInfo2 = false;
+        this.cargarInfo3 = false;
+        this.cargarInfo4 = false;
+        this.cargarInfo5 = false;
+        this.cargarInfo6 = false;
+      break;
+      case 2:
+        this.cargarInfo2 = true;
+        this.cargarInfo0 = false;
+        this.cargarInfo1 = false;
+        this.cargarInfo3 = false;
+        this.cargarInfo4 = false;
+        this.cargarInfo5 = false;
+        this.cargarInfo6 = false;
+      break;
+      case 3:
+        this.cargarInfo3 = true;
+        this.cargarInfo0 = false;
+        this.cargarInfo2 = false;
+        this.cargarInfo1 = false;
+        this.cargarInfo4 = false;
+        this.cargarInfo5 = false;
+        this.cargarInfo6 = false;
+      break;
+      case 4:
+        this.cargarInfo4 = true;
+        this.cargarInfo0 = false;
+        this.cargarInfo2 = false;
+        this.cargarInfo3 = false;
+        this.cargarInfo1 = false;
+        this.cargarInfo5 = false;
+        this.cargarInfo6 = false;
+      break;
+      case 5:
+        this.cargarInfo5 = true;
+        this.cargarInfo0 = false;
+        this.cargarInfo2 = false;
+        this.cargarInfo3 = false;
+        this.cargarInfo4 = false;
+        this.cargarInfo1 = false;
+        this.cargarInfo6 = false;
+      break;
+      case 6:
+        this.cargarInfo6 = true;
+        this.cargarInfo0 = false;
+        this.cargarInfo2 = false;
+        this.cargarInfo3 = false;
+        this.cargarInfo4 = false;
+        this.cargarInfo5 = false;
+        this.cargarInfo1 = false;
+      break;
     }
   }
 

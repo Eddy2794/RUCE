@@ -73,22 +73,15 @@ export class OrganizacionRUCEListComponent implements OnInit {
       new SearchOptionsGeneric({
         typeControl: TypeControl.INPUT,
         typeData: TypeData.TEXT,
-        name: "cue",
-        label: "CUE",
-        readonly: false,
-      }),
-      new SearchOptionsGeneric({
-        typeControl: TypeControl.INPUT,
-        typeData: TypeData.TEXT,
         name: "region",
-        label: "Region",
+        label: "REGION",
         readonly: false,
       }),
       new SearchOptionsGeneric({
         typeControl: TypeControl.INPUT,
         typeData: TypeData.TEXT,
         name: "nivel",
-        label: "Nivel",
+        label: "NIVEL",
         readonly: false,
       }),
     ];

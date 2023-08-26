@@ -68,7 +68,7 @@ export class ExpedienteListComponent implements OnInit, OnDestroy {
 
   private setColumns() {
     this.columnasVex = [
-      { label: "ACCIONES", property: "actions", type: "button", visible: true },
+      //{ label: "ACCIONES", property: "actions", type: "button", visible: true },
       {
         label: "NRO DE EXPEDIENTE",
         property: "expediente.nroExpediente",

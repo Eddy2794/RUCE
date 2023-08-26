@@ -132,11 +132,12 @@ class AutoridadOrganizacionRUCEController extends Controller
         $requestPersona = new UpdatePersonaRUCERequest($request->toArray());
         $personaUpdated = response()->json($persona->update($requestPersona,$request->fkPersonaRUCE));
         if($personaUpdated->original->getStatusCode() != Response::HTTP_NOT_FOUND)
+            {
             try {
                 $autoridadOrganizacionRUCE = AutoridadOrganizacionRUCE::find($id);
                 //$request = new UpdateAutoridadOrganizacionRUCERequest($request->toArray());
                 $autoridadOrganizacionRUCE->fkRefCargo = $request->fkRefCargo ?: $autoridadOrganizacionRUCE->fkRefCargo;
-                $autoridadOrganizacionRUCE->fkPersonaRUCE = $request->fkPersonaRUCE ?: $autoridadOrganizacionRUCE->fkRefCargo;
+                $autoridadOrganizacionRUCE->fkPersonaRUCE = $request->fkPersonaRUCE ?: $autoridadOrganizacionRUCE->fkPersonaRUCE;
                 $autoridadOrganizacionRUCE->fkOrganizacionRUCE = $request->fkOrganizacionRUCE ?: $autoridadOrganizacionRUCE->fkOrganizacionRUCE;
                 $autoridadOrganizacionRUCE->inicioCargo = $request->inicioCargo ?: $autoridadOrganizacionRUCE->inicioCargo;
                 $autoridadOrganizacionRUCE->finCargo = $request->finCargo ?: $autoridadOrganizacionRUCE->finCargo;
@@ -160,6 +161,7 @@ class AutoridadOrganizacionRUCEController extends Controller
                     'message' => $th->getMessage()
                 ], Response::HTTP_NOT_FOUND);
             }
+        }
         return response()->json([
             'message' => $personaUpdated->original->content->message,
             'succeeded' => $personaUpdated->original->content->succeeded

@@ -17,13 +17,13 @@ return new class extends Migration
         Schema::create('Expediente', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->unsignedInteger('fkCooperadora')->unique();
+            $table->unsignedInteger('fkCooperadora');
             $table->foreign('fkCooperadora')->references('id')->on('Cooperadora')->onDelete('cascade');
 
             $table->unsignedInteger('fkRefInstanciaInstrumento');
             $table->foreign('fkRefInstanciaInstrumento')->references('id')->on('RefInstanciaInstrumento')->onDelete('cascade');
 
-            $table->string('nroExpediente',100)->nullable(true);
+            $table->string('nroExpediente',100);
             $table->integer('cantObservaciones')->default(0);
             $table->string('observacionesDesc')->nullable(true);
             $table->boolean('observacionesRespondidas')->default(false);

@@ -42,7 +42,7 @@ class UsuarioRUCEController extends Controller
         if($created->succeeded){
             try {
                 UsuarioRUCE::create([
-                    'fkPersonaRUCE' => $request->fkPersonaRUCE,
+                    'fkPersonaRUCE' => $idPersona,
                     'password' => $request->password,
                     'username' => $request->username,
                     'idUsuarioAlta' => $request->idUsuarioAlta,
@@ -82,6 +82,7 @@ class UsuarioRUCEController extends Controller
         $requestPersona = new UpdatePersonaRUCERequest($request->toArray());
         $personaUpdated = response()->json($persona->update($requestPersona,$request->fkPersonaRUCE));
         if($personaUpdated->original->getStatusCode() != Response::HTTP_NOT_FOUND)
+            {
             try {
                 $usuarioRUCE = UsuarioRUCE::where('id', $usuarioRUCE)->first();
                 //$request = new UpdateUsuarioRUCERequest($request->toArray());
@@ -109,6 +110,7 @@ class UsuarioRUCEController extends Controller
                     'message' => $th->getMessage()
                 ], Response::HTTP_NOT_FOUND);
             }
+        }
             return response()->json([
                 'message' => $personaUpdated->original->content->message,
                 'succeeded' => $personaUpdated->original->content->succeeded

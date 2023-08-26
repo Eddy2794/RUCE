@@ -18,7 +18,7 @@ class UsuarioAdministradorSeeder extends Seeder
         $user1->fkPersonaRUCE=1;
         $user1->username = "edgardo";
         $user1->password = "12345";
-        $user1->administrador = true;
+        //$user1->administrador = true;
         $user1->idUsuarioAlta = 1;
         $user1->idUsuarioModificacion = 1;
         $user1->save();
@@ -27,7 +27,7 @@ class UsuarioAdministradorSeeder extends Seeder
         $user2->fkPersonaRUCE=2;
         $user2->username = "samuel";
         $user2->password = "12345";
-        $user2->administrador = true;
+        //$user2->administrador = true;
         $user1->idUsuarioAlta = 1;
         $user1->idUsuarioModificacion = 1;
         $user2->save();

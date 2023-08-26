@@ -51,7 +51,7 @@ class StoreCooperadoraRequest extends FormRequest
             ],
             'estado' => [
                 'required',
-                'integer'
+                'string'
             ],
             'convenioCsEconomicas' => [
                 'required',

@@ -1,7 +1,16 @@
 <vex-page-layout>
   <div class="card flex-auto">
 
-    <button
+    <div *ngIf="idExpediente !== 0" class="mt-5 vex-button-group flex items-center justify-center">
+      <button
+      [routerLink]="'/pages/expediente/add-edit/'+idCooperadora"
+      mat-raised-button 
+      class="vex-button m-4 vex-lg" color="primary">   Actualizar   </button>
+      <button [routerLink]="'/pages/expediente/delete/'+idCooperadora"
+      mat-raised-button class="vex-button m-4 vex-lg"  color="warn">Eliminar</button>
+    </div>
+
+    <!-- <button
       *ngIf="idExpediente !== 0"
       [routerLink]="'/pages/expediente/add-edit/' + idCooperadora"
       mat-raised-button
@@ -9,7 +18,7 @@
       color="primary"
     >
       Modificar
-    </button>
+    </button> -->
     <vex-aio-table
       [busqueda]="idExpediente===0?false:undefined"
       [columns]="columnasVex"

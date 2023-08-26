@@ -101,8 +101,8 @@ export class ExpedienteInsupdComponent implements OnInit {
       fkRefInstanciaInstrumento: [null, {validators: [ Validators.required, ]}],
       fkCooperadora: this.idCooperadora,
       nroExpediente: [null, {validators: [ Validators.required, this.validadorServicio.validarEspaciosInicioFin ]}],
-      cantObservaciones: [null, {validators: [ Validators.required ]}],
-      observacionesDesc: [null, {validators: [ Validators.required, this.validadorServicio.validarEspaciosInicioFin(), this.validadorServicio.validarCaracteresDescripcion ]}],
+      cantObservaciones: 0,
+      observacionesDesc: ["-", {validators: [ this.validadorServicio.validarCaracteresDescripcion ]}],
       observacionesRespondidas: false,
       estaActivo: true,
     },
@@ -160,7 +160,7 @@ export class ExpedienteInsupdComponent implements OnInit {
     dialog.afterClosed().subscribe(result => {
       if (result === "Aceptar") {
         this.expedienteService.delete(this.formularioExpediente.value.id).subscribe((resp: any) => {
-          this.mostrarDialogMsj("Mensaje", "Autoridad Eliminado", false)
+          this.mostrarDialogMsj("Mensaje", "Expediente Eliminado", false)
           this.router.navigate(['/pages/cooperadoras/view/'+this.idCooperadora]);
         }, err => {
           this.mostrarDialogMsj("Atención", err.error.message, false)

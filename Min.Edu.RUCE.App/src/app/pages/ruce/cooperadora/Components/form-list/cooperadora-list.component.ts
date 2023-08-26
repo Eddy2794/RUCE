@@ -52,22 +52,8 @@ export class CooperadoraListComponent implements OnInit {
       new SearchOptionsGeneric({
         typeControl: TypeControl.INPUT,
         typeData: TypeData.TEXT,
-        name: "cue",
-        label: "CUE",
-        readonly: false,
-      }),
-      new SearchOptionsGeneric({
-        typeControl: TypeControl.INPUT,
-        typeData: TypeData.TEXT,
-        name: "region",
-        label: "Region",
-        readonly: false,
-      }),
-      new SearchOptionsGeneric({
-        typeControl: TypeControl.INPUT,
-        typeData: TypeData.TEXT,
-        name: "nivel",
-        label: "Nivel",
+        name: "estado",
+        label: "ESTADO",
         readonly: false,
       }),
     ];
