@@ -80,24 +80,24 @@ class UsuarioRUCEController extends Controller
     {
         $persona = new PersonaRUCEController();
         $requestPersona = new UpdatePersonaRUCERequest($request->toArray());
+        //dd($$persona->update($requestPersona,$request->fkPersonaRUCE)->toArray());
         $personaUpdated = response()->json($persona->update($requestPersona,$request->fkPersonaRUCE));
         if($personaUpdated->original->getStatusCode() != Response::HTTP_NOT_FOUND)
             {
             try {
-                $usuarioRUCE = UsuarioRUCE::where('id', $usuarioRUCE)->first();
+                $usuarioRUCE = UsuarioRUCE::find($usuarioRUCE);
                 //$request = new UpdateUsuarioRUCERequest($request->toArray());
-                $usuarioRUCE->fkPersonaRUCE = $request->fkPersonaRUCE ?: $usuarioRUCE->fkPersonaRUCE;
-                $usuarioRUCE->password = $request->password ?: $usuarioRUCE->password;
-                $usuarioRUCE->username = $request->username ?: $usuarioRUCE->username;
+                //$usuarioRUCE->fkPersonaRUCE = $request->fkPersonaRUCE ?: $usuarioRUCE->fkPersonaRUCE;
+                $usuarioRUCE->password = $request->password ? $request->password: $usuarioRUCE->password;
+                $usuarioRUCE->username = $request->username ? $request->username: $usuarioRUCE->username;
                 // $usuarioRUCE->idUsuarioModificacion = $request->idUsuarioModificacion ?: $usuarioRUCE->idUsuarioModificacion;
 
-                if ($usuarioRUCE->isClean()) {
+                if ($usuarioRUCE->isClean() && $personaUpdated->original->getStatusCode()== Response::HTTP_UNPROCESSABLE_ENTITY) {
                     return response()->json([
                         'message' => 'No se modifico ningun valor',
                         'succeeded' => false
                     ], 422);
                 }
-                $usuarioRUCE->updated_at= Carbon::now();
                 $usuarioRUCE->save();
 
                 return response()->json([

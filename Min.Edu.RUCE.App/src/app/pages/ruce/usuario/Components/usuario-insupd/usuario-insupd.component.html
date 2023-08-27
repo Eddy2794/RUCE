@@ -94,22 +94,34 @@
                         </app-ver-error>
                     </mat-error>
                 </mat-form-field>
+                
                 <mat-form-field style="width: 100%">
                     <mat-label>Contraseña</mat-label>
-                    <input matInput formControlName="password" type="password" espacios>
+                    <input [type]="inputType" matInput formControlName="password" required espacios>
+                    <button (click)="togglePassword()" mat-icon-button matSuffix type="button">
+                      <mat-icon *ngIf="visible" svgIcon="mat:visibility"></mat-icon>
+                      <mat-icon *ngIf="!visible" svgIcon="mat:visibility_off"></mat-icon>
+                    </button>
+                    <mat-hint>Haga click en el icono de ojo para ver/ocultar la contraseña.</mat-hint>
                     <mat-error>
                         <app-ver-error [control]="this.formularioUsuario.controls['password']">
                         </app-ver-error>
                     </mat-error>
-                </mat-form-field>
-                <mat-form-field style="width: 100%">
-                    <mat-label>Reingrese la Contraseña</mat-label>
-                    <input matInput formControlName="c_password" type="password" espacios>
+                  </mat-form-field>
+
+                  <mat-form-field style="width: 100%">
+                    <mat-label>Repita la contraseña</mat-label>
+                    <input [type]="inputType" matInput formControlName="c_password" required espacios>
+                    <button (click)="togglePassword()" mat-icon-button matSuffix type="button">
+                      <mat-icon *ngIf="visible" svgIcon="mat:visibility"></mat-icon>
+                      <mat-icon *ngIf="!visible" svgIcon="mat:visibility_off"></mat-icon>
+                    </button>
+                    <mat-hint>Haga click en el icono de ojo para ver/ocultar la contraseña.</mat-hint>
                     <mat-error>
                         <app-ver-error [control]="this.formularioUsuario.controls['c_password']">
                         </app-ver-error>
                     </mat-error>
-                </mat-form-field>
+                  </mat-form-field>
             </div>
         </div>
         <br>       

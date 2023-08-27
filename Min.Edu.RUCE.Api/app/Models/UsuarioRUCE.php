@@ -41,7 +41,7 @@ class UsuarioRUCE extends Model  implements Auditable
 
     public function PersonaRuce()
     {
-        return $this->belongsTo(PersonaRUCE::class, 'fkPersonaRUCE', 'id');
+        return $this->hasOne(PersonaRUCE::class, 'id', 'fkPersonaRUCE');
     }
 
     /*

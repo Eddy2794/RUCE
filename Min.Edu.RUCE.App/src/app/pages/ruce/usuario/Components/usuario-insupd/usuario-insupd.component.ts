@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataPage, FilterOptions } from '@app/shared/utils';
 import { UsuarioModel } from '../../Model/usuario-model';
@@ -24,6 +24,9 @@ export class UsuarioInsupdComponent implements OnInit {
   tipoFondo = new Array<UsuarioModel>;
   tiposDocumentos = new Array<RefTipoDocumentoModel>;
 
+  inputType = 'password';
+  visible = false;
+
   public accion: string = '';
 
 
@@ -36,6 +39,7 @@ export class UsuarioInsupdComponent implements OnInit {
     private route:ActivatedRoute,
     private matDialog: MatDialog,
     private refTipoDocumentoService: RefTipoDocumentoService,
+    private cd: ChangeDetectorRef
   ) {
     this.activatedRoute.url.subscribe((parameter: any) => {
       this.accion = (parameter[0].path);
@@ -64,19 +68,31 @@ export class UsuarioInsupdComponent implements OnInit {
         }
         this.usuarioService.findOne(this.id).subscribe((resp: any) => {
           this.formularioUsuario.patchValue(resp.entities);
-          this.formularioUsuario.controls.documento.patchValue(resp.entities.persona_r_u_c_e[0].documento);
-          this.formularioUsuario.controls.cuil.patchValue(resp.entities.persona_r_u_c_e[0].cuil);
-          this.formularioUsuario.controls.nombre.patchValue(resp.entities.persona_r_u_c_e[0].nombre);
-          this.formularioUsuario.controls.apellido.patchValue(resp.entities.persona_r_u_c_e[0].apellido);
-          this.formularioUsuario.controls.telefono.patchValue(resp.entities.persona_r_u_c_e[0].telefono);
-          this.formularioUsuario.controls.email.patchValue(resp.entities.persona_r_u_c_e[0].email);
-          this.formularioUsuario.controls.fkRefTipoDocumentoRUCE.patchValue(Number(resp.entities.persona_r_u_c_e[0].fkRefTipoDocumentoRUCE));
+          this.formularioUsuario.controls.documento.patchValue(resp.entities.persona_r_u_c_e.documento);
+          this.formularioUsuario.controls.cuil.patchValue(resp.entities.persona_r_u_c_e.cuil);
+          this.formularioUsuario.controls.nombre.patchValue(resp.entities.persona_r_u_c_e.nombre);
+          this.formularioUsuario.controls.apellido.patchValue(resp.entities.persona_r_u_c_e.apellido);
+          this.formularioUsuario.controls.telefono.patchValue(resp.entities.persona_r_u_c_e.telefono);
+          this.formularioUsuario.controls.email.patchValue(resp.entities.persona_r_u_c_e.email);
+          this.formularioUsuario.controls.fkRefTipoDocumentoRUCE.patchValue(Number(resp.entities.persona_r_u_c_e.fkRefTipoDocumentoRUCE));
         });
       }
     });
   }
 
   ngOnInit(): void {
+  }
+
+  togglePassword() {
+    if (this.visible) {
+      this.inputType = 'password';
+      this.visible = false;
+      this.cd.markForCheck();
+    } else {
+      this.inputType = 'text';
+      this.visible = true;
+      this.cd.markForCheck();
+    }
   }
 
   loadRefs() {
@@ -89,7 +105,7 @@ export class UsuarioInsupdComponent implements OnInit {
     this.formularioUsuario = this.fb.group({
       id: null,
       username: [null, {validators: [ Validators.required, this.validadorServicio.validarSoloLetras ]}],
-      password: [null, {validators: [ Validators.required, Validators.minLength(8) ]}],
+      password: [null, {validators: [ Validators.required, Validators.minLength(8), this.validadorServicio.nemotecnico ]}],
       c_password: [null, {validators: [ Validators.required, Validators.minLength(8) ]}],
       role: null,
       // role: [null, {validators: [ Validators.required]}],
