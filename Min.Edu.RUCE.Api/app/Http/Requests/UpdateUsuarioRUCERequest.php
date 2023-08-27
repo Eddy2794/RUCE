@@ -25,8 +25,8 @@ class UpdateUsuarioRUCERequest extends FormRequest
     {
         return [
             'fkPersonaRUCE' => [
-                'required',
-                'exists:PersonaRUCE,id'
+                // 'required',
+                // 'exists:PersonaRUCE,id'
             ],
             'password' => [
                 'required',
@@ -36,10 +36,10 @@ class UpdateUsuarioRUCERequest extends FormRequest
                 'required',
                 'string'
             ],
-            'administrador' => [
-                'required',
-                'boolean'
-            ],
+            // 'administrador' => [
+            //     'required',
+            //     'boolean'
+            // ],
             'estaActivo' => [
                 'required',
                 'boolean'

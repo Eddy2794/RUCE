@@ -12,6 +12,7 @@ use App\Http\Resources\ModelResourse;
 use App\Models\AutoridadComision;
 use App\Models\PersonaRUCE;
 use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -34,7 +35,7 @@ class AutoridadComisionController extends Controller
     }
 
 
-    public function store(StoreAutoridadComisionRequest $request)
+    public function store(StoreAutoridadComisionRequest $request): JsonResponse
     {
         $persona = new PersonaRUCEController();
         $requestPersona = new StorePersonaRUCERequest($request->toArray());
@@ -157,32 +158,5 @@ class AutoridadComisionController extends Controller
                 'message' => $th->getMessage()
             ], Response::HTTP_NOT_FOUND);
         }
-    }
-
-    public function search(Request $request, AutoridadComision $autoridadComision)
-    {
-        /*
-        Seguramente se puede refactorizar y optimizar
-        por ahora es la forma que da resultados esperados
-        */
-
-        $query = $autoridadComision->newQuery();
-
-        if ($request->id) {
-            $query->where('id', $request->id)
-                ->where(function ($q) use ($request) {
-                    if ($request->q) {
-                        $q->where('fkComision', 'like', '%' . $request->q . '%')
-                            ->orWhere('fkCooperadora', 'like', '%' . $request->q . '%');
-                    }
-                });
-        } else {
-            if ($request->q) {
-                $query->where('fkComision', 'like', '%' . $request->q . '%')
-                    ->orWhere('fkCooperadora', 'like', '%' . $request->q . '%');
-            }
-        }
-
-        // return new RequestCollection($query->orderBy('organizacionDesc')->paginate()->appends(['q' => $request->q, 'id' => $request->id]));
     }
 }

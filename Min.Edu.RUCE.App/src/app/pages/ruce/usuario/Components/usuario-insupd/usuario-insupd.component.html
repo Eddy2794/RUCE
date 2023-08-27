@@ -1,0 +1,134 @@
+<vex-secondary-toolbar current="Detalle de usuario">
+    <vex-breadcrumbs *ngIf="accion==='add'" [crumbs]="['Usuario', 'Nuevo']" class="flex-auto"></vex-breadcrumbs>
+    <vex-breadcrumbs *ngIf="accion==='edit'" [crumbs]="['Usuario', 'Modificar']" class="flex-auto"></vex-breadcrumbs>
+    <vex-breadcrumbs *ngIf="accion==='delete'" [crumbs]="['Usuario', 'Eliminar']" class="flex-auto"></vex-breadcrumbs>
+    <vex-breadcrumbs *ngIf="accion==='view'" [crumbs]="['Usuario', 'Detalles']" class="flex-auto"></vex-breadcrumbs>
+    
+    <button class="ml-2" color="primary" mat-icon-button type="button">
+        <mat-icon svgIcon="mat:more_vert"></mat-icon>
+    </button>
+</vex-secondary-toolbar>
+<div class="p-gutter container">
+    <div class="flex flex-col sm:flex-row gap-4">
+        <div class="card flex-auto">
+            <div class="px-6 py-4 border-b flex items-center justify-center">
+                <!-- <h2 class="title m-0">Formulario</h2> -->
+                <h2 class="title m-0" *ngIf="accion==='add'">Formulario Alta de Usuario</h2>
+                <h2 class="title m-0" *ngIf="accion==='edit'">Formulario Modificación de Usuario</h2>
+                <h2 class="title m-0" *ngIf="accion==='delete'">Formulario Eliminación de Usuario</h2>
+                <h2 class="title m-0" *ngIf="accion==='view'">Formulario Detalles de Usuario</h2>
+            </div>
+    <div class="px-6 py-4 flex flex-col">
+    <form autocomplete="off" [formGroup]="formularioUsuario">
+        <div class="formuario">
+            <div class="flex flex-col md:flex-row gap-3">                
+                    <mat-form-field style="width: 100%">
+                        <mat-label>Tipo de Documento</mat-label>
+                        <mat-select formControlName="fkRefTipoDocumentoRUCE">
+                            <mat-option>Seleccione</mat-option>
+                            <mat-option *ngFor="let item of tiposDocumentos" [value]="item?.id">{{item?.tipoDocumentoDesc}}</mat-option>
+                        </mat-select>
+                        <mat-error>
+                            <app-ver-error [control]="this.formularioUsuario.controls['fkRefTipoDocumentoRUCE']"></app-ver-error>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field style="width: 100%">
+                        <mat-label>Documento</mat-label>
+                        <input matInput formControlName="documento" type="text" espacios solonum>
+                        <mat-error>
+                            <app-ver-error [control]="this.formularioUsuario.controls['documento']">
+                            </app-ver-error>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field style="width: 100%">
+                        <mat-label>Cuil</mat-label>
+                        <input matInput formControlName="cuil" type="text" espacios solonum>
+                        <mat-error>
+                            <app-ver-error [control]="this.formularioUsuario.controls['cuil']">
+                            </app-ver-error>
+                        </mat-error>
+                    </mat-form-field>
+            </div>
+            
+            <div class="flex flex-col md:flex-row gap-3">
+                    <mat-form-field style="width: 100%">
+                        <mat-label>Nombre</mat-label>
+                        <input matInput formControlName="nombre" type="text" espacios mayus>
+                        <mat-error>
+                            <app-ver-error [control]="this.formularioUsuario.controls['nombre']">
+                            </app-ver-error>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field style="width: 100%">
+                        <mat-label>Apellido</mat-label>
+                        <input matInput formControlName="apellido" type="text" espacios mayus>
+                        <mat-error>
+                            <app-ver-error [control]="this.formularioUsuario.controls['apellido']">
+                            </app-ver-error>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field style="width: 100%">
+                        <mat-label>Telefono</mat-label>
+                        <input matInput formControlName="telefono" type="tel" solonum pattern="[0-9]{10}" placeholder="Ingrese numero sin 0 ni 15 ej: 3881234567">
+                        <mat-error>
+                            <app-ver-error [control]="this.formularioUsuario.controls['telefono']">
+                            </app-ver-error>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field style="width: 100%">
+                        <mat-label>Email</mat-label>
+                        <input matInput formControlName="email" type="text" espacios mayus >
+                        <mat-error>
+                            <app-ver-error [control]="this.formularioUsuario.controls['email']">
+                            </app-ver-error>
+                        </mat-error>
+                    </mat-form-field>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-3">
+                <mat-form-field style="width: 100%">
+                    <mat-label>Nombre de usuario</mat-label>
+                    <input matInput formControlName="username" type="text" espacios>
+                    <mat-error>
+                        <app-ver-error [control]="this.formularioUsuario.controls['username']">
+                        </app-ver-error>
+                    </mat-error>
+                </mat-form-field>
+                
+                <mat-form-field style="width: 100%">
+                    <mat-label>Contraseña</mat-label>
+                    <input [type]="inputType" matInput formControlName="password" required espacios>
+                    <button (click)="togglePassword()" mat-icon-button matSuffix type="button">
+                      <mat-icon *ngIf="visible" svgIcon="mat:visibility"></mat-icon>
+                      <mat-icon *ngIf="!visible" svgIcon="mat:visibility_off"></mat-icon>
+                    </button>
+                    <mat-hint>Haga click en el icono de ojo para ver/ocultar la contraseña.</mat-hint>
+                    <mat-error>
+                        <app-ver-error [control]="this.formularioUsuario.controls['password']">
+                        </app-ver-error>
+                    </mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field style="width: 100%">
+                    <mat-label>Repita la contraseña</mat-label>
+                    <input [type]="inputType" matInput formControlName="c_password" required espacios>
+                    <button (click)="togglePassword()" mat-icon-button matSuffix type="button">
+                      <mat-icon *ngIf="visible" svgIcon="mat:visibility"></mat-icon>
+                      <mat-icon *ngIf="!visible" svgIcon="mat:visibility_off"></mat-icon>
+                    </button>
+                    <mat-hint>Haga click en el icono de ojo para ver/ocultar la contraseña.</mat-hint>
+                    <mat-error>
+                        <app-ver-error [control]="this.formularioUsuario.controls['c_password']">
+                        </app-ver-error>
+                    </mat-error>
+                  </mat-form-field>
+            </div>
+        </div>
+        <br>       
+            <app-button-group type="button" (cancel)="cancel()" (delete)="eliminar()" (submit)="save()" [accion]="accion"></app-button-group>
+
+        </form>
+        </div>
+    </div>
+</div>
+</div>

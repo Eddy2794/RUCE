@@ -53,10 +53,10 @@ export class AppComponent {
               `assets/img/icons/logos/${name}.svg`
             );
 
-          case 'flag':
-            return this.domSanitizer.bypassSecurityTrustResourceUrl(
-              `assets/img/icons/flags/${name}.svg`
-            );
+          // case 'flag':
+          //   return this.domSanitizer.bypassSecurityTrustResourceUrl(
+          //     `assets/img/icons/flags/${name}.svg`
+          //   );
         }
       }
     );
@@ -77,8 +77,8 @@ export class AppComponent {
      */
     this.configService.updateConfig({
       sidenav: {
-        title: 'POF',
-        imageUrl: '',
+        title: 'RUCE',
+        imageUrl: 'assets/img/logo-ruce/logo_energia_viva.png',
         showCollapsePin: true,
         search: {
           visible: false
@@ -132,7 +132,7 @@ export class AppComponent {
      * Add your own routes here
      */
     this.navigationService.items = [
-      {
+/*       {
         type: 'subheading',
         label: 'Principal',
         children: [
@@ -196,10 +196,10 @@ export class AppComponent {
             routerLinkActiveOptions: { exact: true }
           }
         ]
-      },
+      }, */
       {
         type: "subheading",
-        label: 'RUCE',
+        label: 'Principal',
         children: [
           {
             type: 'link',
@@ -210,7 +210,7 @@ export class AppComponent {
           },
           {
             type: 'link',
-            label: 'Cooperadora',
+            label: 'Cooperadoras',
             route: '/pages/cooperadoras',
             icon: 'mat:diversity_2',
             routerLinkActiveOptions: { exact: true }
@@ -236,6 +236,55 @@ export class AppComponent {
           //   icon: 'mat:insights',
           //   routerLinkActiveOptions: { exact: true }
           // },
+        ]
+      },
+
+      {
+        type: 'subheading',
+        label: 'Gestión de Cooperadora',
+        children: [
+          {
+            type: 'link',
+            label: 'Cargos',
+            route: '/pages/cargos',
+            icon: 'mat:supervised_user_circle',
+          },
+          {
+            type: 'link',
+            label: 'Instancias Instrumento',
+            route: '/pages/instancia-instrumento',
+            icon: 'mat:done_all',
+          },
+          {
+            type: 'link',
+            label: 'Tipos de Asociación',
+            route: '/pages/tipo-asociacion',
+            icon: 'mat:edit',
+          },
+          {
+            type: 'link',
+            label: 'Tipos de Comisión',
+            route: '/pages/tipo-comision',
+            icon: 'mat:edit',
+          },
+          {
+            type: 'link',
+            label: 'Tipos de Documentos',
+            route: '/pages/tipo-documento',
+            icon: 'mat:edit',
+          },
+          {
+            type: 'link',
+            label: 'Tipos de Fondos',
+            route: '/pages/tipo-fondo',
+            icon: 'mat:monetization_on',
+          },
+          {
+            type: 'link',
+            label: 'Gestión de Usuarios',
+            route: '/pages/usuarios',
+            icon: 'mat:account_circle',
+          }
         ]
       },
 

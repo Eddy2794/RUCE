@@ -1,0 +1,39 @@
+<div class="p-gutter">
+    <div class="flex flex-col gap-4">
+        <div class="card flex-auto">
+            <div class="px-6 py-4 flex flex-col">
+                <div>
+                    <vex-encabezado-cooperadora></vex-encabezado-cooperadora>
+                    <br>
+                </div>
+                <div>
+                    <mat-tab-group (selectedTabChange)="cargarInformacion($event)">
+                        <mat-tab label="AUTORIDADES">
+                            <vex-encabezado-comision *ngIf="cargarInfo0"></vex-encabezado-comision>
+                        </mat-tab>
+                        <mat-tab label="EXPEDIENTE">
+                            <vex-expediente-list *ngIf="cargarInfo1"></vex-expediente-list>
+                        </mat-tab>
+                        <mat-tab label="PERSONERÍA">
+                            <vex-encabezado-personeria *ngIf="cargarInfo2"></vex-encabezado-personeria>
+                            <!-- <vex-personeria-insupd></vex-personeria-insupd> -->
+                        </mat-tab>
+                        <mat-tab label="BALANCE">
+                            <vex-balance-list *ngIf="cargarInfo3" [idCooperadora]="id"></vex-balance-list>
+                        </mat-tab>
+                        <mat-tab label="FONDOS">
+                            <vex-fondo-list *ngIf="cargarInfo4" [idCooperadora]="id"></vex-fondo-list>
+                        </mat-tab>
+                        <mat-tab label="KIOSKO">
+                            <vex-encabezado-kiosco *ngIf="cargarInfo5"></vex-encabezado-kiosco>
+                        </mat-tab>
+                        <mat-tab label="ATENCIÓN Y SEGUIMIENTOS">
+                            <vex-atencion-seguimiento-list *ngIf="cargarInfo6" [idCooperadora]="id"></vex-atencion-seguimiento-list>
+                        </mat-tab>
+                    </mat-tab-group>
+                </div>
+            </div>
+            <br>
+        </div>
+    </div>
+</div>

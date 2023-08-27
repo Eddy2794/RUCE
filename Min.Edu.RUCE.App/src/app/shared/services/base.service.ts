@@ -77,7 +77,7 @@ export class BaseService<T extends BaseModel> implements IBaseService<T> {
 
             let jsonFilter = JSON.stringify({})
             Object.entries(filterOptions).forEach(([key, value], index) => {
-                if (!key.includes('includesIds') && !key.includes('excludesIds') && !key.includes('estaActivo') && !(key === 'id') && !(key === 'descContains') && !(key === 'PageSize') && !(key === 'PageNumber')) {
+                if (!key.includes('includesIds') && !key.includes('excludesIds') && !key.includes('estaActivo') && !(key === 'id') && !(key === 'descContains') && !(key === "modelo") && !(key === 'PageSize') && !(key === 'PageNumber')) {
                     if (value !== '' && value !== undefined) {
                         jsonFilter = JSON.stringify({
                           ...JSON.parse(jsonFilter),

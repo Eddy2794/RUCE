@@ -32,6 +32,10 @@ class StoreBalanceRequest extends FormRequest
                 'required',
                 'boolean'
             ],
+            'anio' => [
+                'required',
+                'integer'
+            ],
             'estaActivo' => [
                 'required',
                 'boolean'

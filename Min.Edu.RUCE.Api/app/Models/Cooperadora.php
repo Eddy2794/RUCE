@@ -85,6 +85,11 @@ class Cooperadora extends Model  implements Auditable
         return $this->hasOne(Expediente::class, 'fkCooperadora');
     }
 
+    public function Personeria()
+    {
+        return $this->hasOne(Personeria::class, 'fkCooperadora');
+    }
+
     public function Fondo()
     {
         return $this->hasMany(Fondo::class, 'fkCooperadora');

@@ -35,6 +35,7 @@ class ExpedienteController extends Controller
         try {
             Expediente::create([
                 'fkCooperadora' => $request->fkCooperadora,
+                'fkRefInstanciaInstrumento' => $request->fkRefInstanciaInstrumento,
                 'nroExpediente' => $request->nroExpediente,
                 'cantObservaciones' => $request->cantObservaciones,
                 'observacionesDesc' => $request->observacionesDesc,
@@ -57,16 +58,16 @@ class ExpedienteController extends Controller
     {
         try {
             $expediente = Expediente::where('fkCooperadora', $fk_cooperadora)->first();
-            dd($expediente);
+            // dd($expediente);
 
-        if ($expediente) {
-            return response()->json(new ModelResourse($expediente['id'], 'Expediente'));
-        } else {
-            return response()->json([
-                'succeeded' => false,
-                'message' => 'Expediente no Encontrada'
-            ], Response::HTTP_NOT_FOUND);
-        }
+            if ($expediente) {
+                return response()->json(new ModelResourse($expediente['id'], 'Expediente'));
+            } else {
+                return response()->json([
+                    'succeeded' => false,
+                    'message' => 'Expediente no Encontrado'
+                ], Response::HTTP_NOT_FOUND);
+            }
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,
@@ -81,10 +82,11 @@ class ExpedienteController extends Controller
             $expediente = Expediente::where('id', $expediente)->first();
             //$request = new UpdateExpedienteRequest($request->toArray());
             $expediente->fkCooperadora = $request->fkCooperadora ?: $expediente->fkCooperadora;
+            $expediente->fkRefInstanciaInstrumento = $request->fkRefInstanciaInstrumento ?: $expediente->fkRefInstanciaInstrumento;
             $expediente->nroExpediente = $request->nroExpediente ?: $expediente->nroExpediente;
             $expediente->cantObservaciones = $request->cantObservaciones ?: $expediente->cantObservaciones;
             $expediente->observacionesDesc = $request->observacionesDesc ?: $expediente->observacionesDesc;
-            $expediente->observacionesRespondidas = $request->observacionesRespondidas ?: $expediente->observacionesRespondidas;
+            $expediente->observacionesRespondidas = $request->observacionesRespondidas !== null ? $request->observacionesRespondidas : $expediente->observacionesRespondidas;
             // $expediente->idUsuarioModificacion = $request->idUsuarioModificacion ?: $expediente->idUsuarioModificacion;
 
             if ($expediente->isClean()) {

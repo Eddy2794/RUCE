@@ -1,0 +1,14 @@
+<vex-page-layout>
+    <div>
+        <div class="card flex-auto">
+  
+            <vex-aio-table [columns]="columnasVex" [sourceService]="usuarioService" [filter]="filtro" [ruta]="'usuarios'" [nombreTabla]="'Lista de Usuarios'" [view]="false">
+              <app-input-search espacio1></app-input-search>
+  
+              <app-search-button-generic espacio2 [searchOptions]="searchOptions"></app-search-button-generic>
+  
+              <app-button-nuevo bordederecho [routerLink]="'usuarios'" [addRowText]="'Agregar Usuario'"></app-button-nuevo>
+            </vex-aio-table>
+          </div>
+        </div>
+  </vex-page-layout>

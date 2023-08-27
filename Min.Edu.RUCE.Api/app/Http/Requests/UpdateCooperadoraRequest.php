@@ -31,7 +31,9 @@ class UpdateCooperadoraRequest extends FormRequest
             ],
             'fkOrganizacionRUCE' => [
                 'required',
-                'exists:OrganizacionRUCE,id'
+                'integer',
+                'exists:OrganizacionRUCE,id',
+                Rule::unique('Cooperadora','fkOrganizacionRUCE')->where('id',$this->id)->withoutTrashed()
             ],
             'cuit' => [
                 'required',
@@ -91,6 +93,7 @@ class UpdateCooperadoraRequest extends FormRequest
             'cuit.unique' => 'El CUIT de la Cooperadora ya fue registrado.',
             'legajo.unique' => 'El Legajo de la Cooperadora ya fue registrado.',
             'denominacion.unique' => 'La Denominacion de la Cooperadora ya fue registrado.',
+            'fkOrganizacionRUCE.unique' => 'La Institución ya tiene registrado una Cooperadora.'
         ];
     }
 }

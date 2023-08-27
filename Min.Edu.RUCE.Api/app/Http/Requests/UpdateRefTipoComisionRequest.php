@@ -24,7 +24,7 @@ class UpdateRefTipoComisionRequest extends FormRequest
     public function rules()
     {
         return [
-            'RefTipoComision' => [
+            'tipoComisionDesc' => [
                 'required',
                 'string',
             ],

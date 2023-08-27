@@ -29,6 +29,10 @@ class StoreExpedienteRequest extends FormRequest
                 'required',
                 'exists:Cooperadora,id'
             ],
+            'fkRefInstanciaInstrumento'=>[
+                'required',
+                'exists:RefInstanciaInstrumento,id'
+            ],
             'nroExpediente' => [
                 'required',
                 'string',
@@ -36,12 +40,15 @@ class StoreExpedienteRequest extends FormRequest
             ],
             'cantObservaciones' => [
                 'required',
-                'integer',
+                'integer'
             ],
-            'observacionesDesc',
+            'observacionesDesc' => [
+                'required',
+                'string'
+            ],
             'observacionesRespondidas' => [
                 'required',
-                'string',
+                'boolean',
             ],
             'estaActivo' => [
                 'required',
@@ -63,6 +70,8 @@ class StoreExpedienteRequest extends FormRequest
         return [
             'fkCooperadora.exist' => 'Id de Cooperadora no existe en la tabla Cooperadora.',
             'nroExpediente.unique' => 'El Nro de Expediente ya fue registrado.',
+            'fkRefInstanciaInstrumento' => 'Id de Instancia Instrumento no existe en la tabla RefInstanciaInstrumento.'
+        
         ];
     }
 }

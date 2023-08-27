@@ -34,8 +34,10 @@ class FondoController extends Controller
         $request = new StoreFondoRequest($request->toArray());
         try {
             Fondo::create([
-                'fkTipoFondo' => $request->fkTipoFondo,
+                'fkRefTipoFondo' => $request->fkRefTipoFondo,
                 'fkCooperadora' => $request->fkCooperadora,
+                'inscripta' => $request->inscripta,
+                'verificada' => $request->verificada,
                 'fondoRecibido' => $request->fondoRecibido,
                 'fondoRendido' => $request->fondoRendido,
                 'monto' => $request->monto,
@@ -73,10 +75,12 @@ class FondoController extends Controller
         try {
             $fondo = Fondo::where('id', $fondo)->first();
             //$request = new UpdateFondoRequest($request->toArray());
-            $fondo->fkTipoFondo = $request->fkTipoFondo ?: $fondo->fkTipoFondo;
+            $fondo->fkRefTipoFondo = $request->fkRefTipoFondo ?: $fondo->fkRefTipoFondo;
             $fondo->fkCooperadora = $request->fkCooperadora ?: $fondo->fkCooperadora;
-            $fondo->fondoRecibido = $request->fondoRecibido ?: $fondo->fondoRecibido;
-            $fondo->fondoRendido = $request->fondoRendido ?: $fondo->fondoRendido;
+            $fondo->inscripta = $request->inscripta !== null ? $request->inscripta : $fondo->inscripta;
+            $fondo->verificada = $request->verificada !== null ? $request->verificada : $fondo->verificada;
+            $fondo->fondoRecibido = $request->fondoRecibido !== null ? $request->fondoRecibido : $fondo->fondoRecibido;
+            $fondo->fondoRendido = $request->fondoRendido !== null ? $request->fondoRendido : $fondo->fondoRendido;
             $fondo->monto = $request->monto ?: $fondo->monto;
             $fondo->fechaRecibido = $request->fechaRecibido ?: $fondo->fechaRecibido;
             $fondo->fechaRendicion = $request->fechaRendicion ?: $fondo->fechaRendicion;

@@ -29,10 +29,14 @@ class UpdateExpedienteRequest extends FormRequest
                 'required',
                 'exists:Cooperadora,id'
             ],
+            'fkRefInstanciaInstrumento'=>[
+                'required',
+                'exists:RefInstanciaInstrumento,id'
+            ],
             'nroExpediente' => [
                 'required',
                 'string',
-                Rule::unique('Expediente','nroExpediente')->where('id',$this->id)->withoutTrashed()
+                // Rule::unique('Expediente','nroExpediente')->where('id',$this->id)->withoutTrashed()
             ],
             'cantObservaciones' => [
                 'required',
@@ -44,7 +48,7 @@ class UpdateExpedienteRequest extends FormRequest
             ],
             'observacionesRespondidas' => [
                 'required',
-                'string',
+                'boolean',
             ],
             'estaActivo' => [
                 'required',

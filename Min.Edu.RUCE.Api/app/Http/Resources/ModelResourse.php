@@ -84,7 +84,7 @@ class ModelResourse extends JsonResource
         else {
             if($this->model == 'App\Models\Cooperadora'){
                 $cooperadora = new $this->model();
-                $datos = $cooperadora::with(['OrganizacionRUCE','RefTipoAsociacion','AtencionSeguimiento','Comision','Balance','Expediente','Fondo'])->find($this->id);
+                $datos = $cooperadora::with(['OrganizacionRUCE','RefTipoAsociacion','AtencionSeguimiento','Comision','Balance','Expediente','Personeria','Fondo'])->find($this->id);
 
                 return ['entities'=>$datos->toArray()];
             }

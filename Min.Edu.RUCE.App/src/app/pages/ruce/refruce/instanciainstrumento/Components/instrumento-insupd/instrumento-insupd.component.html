@@ -1,0 +1,41 @@
+<vex-secondary-toolbar current="Detalle de Instancia Instrumento">
+    <!-- <vex-breadcrumbs [crumbs]="['Ámbitos', 'Nuevo']" class="flex-auto"></vex-breadcrumbs> -->
+    <vex-breadcrumbs *ngIf="accion==='add'" [crumbs]="['Instancia Instrumento', 'Nuevo']" class="flex-auto"></vex-breadcrumbs>
+    <vex-breadcrumbs *ngIf="accion==='edit'" [crumbs]="['Instancia Instrumento', 'Modificar']" class="flex-auto"></vex-breadcrumbs>
+    <vex-breadcrumbs *ngIf="accion==='delete'" [crumbs]="['Instancia Instrumento', 'Eliminar']" class="flex-auto"></vex-breadcrumbs>
+    
+    <button class="ml-2" color="primary" mat-icon-button type="button">
+        <mat-icon svgIcon="mat:more_vert"></mat-icon>
+    </button>
+</vex-secondary-toolbar>
+<div class="p-gutter container">
+    <div class="flex flex-col sm:flex-row gap-4">
+        <div class="card flex-auto">
+            <div class="px-6 py-4 border-b flex items-center justify-center">
+                <!-- <h2 class="title m-0">Formulario</h2> -->
+                <h2 class="title m-0" *ngIf="accion==='add'">Formulario Alta de Instancia Instrumento</h2>
+                <h2 class="title m-0" *ngIf="accion==='edit'">Formulario Modificación de Instancia Instrumento</h2>
+                <h2 class="title m-0" *ngIf="accion==='delete'">Formulario Eliminación de Instancia Instrumento</h2>
+            </div>
+    <div class="px-6 py-4 flex flex-col">
+    <form autocomplete="off" [formGroup]="formularioInstrumento">
+        <div class="formuario">
+            <div class="flex flex-col md:flex-row gap-3">                
+                <mat-form-field style="width: 100%">
+                    <mat-label>Descripción de Instancia Instrumento</mat-label>
+                    <input matInput formControlName="instrumentoDesc" type="text" espacios mayus>
+                    <mat-error>
+                        <app-ver-error [control]="this.formularioInstrumento.controls['instrumentoDesc']">
+                        </app-ver-error>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <br>       
+            <app-button-group type="button" (cancel)="cancel()" (delete)="eliminar()" (submit)="save()" [accion]="accion"></app-button-group>
+
+        </form>
+        </div>
+    </div>
+</div>
+</div>
