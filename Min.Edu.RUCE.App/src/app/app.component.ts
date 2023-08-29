@@ -198,6 +198,21 @@ export class AppComponent {
         ]
       }, */
       {
+        type: 'subheading',
+        label: 'Panel',
+        children: [
+          {
+            type: 'link',
+            label: 'Panel de Inicio',
+            route: 'inicio',
+            icon: 'mat:insights',
+            routerLinkActiveOptions: { exact: true }
+          },
+        ]
+      },
+
+
+      {
         type: "subheading",
         label: 'Principal',
         children: [
@@ -206,14 +221,14 @@ export class AppComponent {
             label: 'Instituciones',
             route: '/pages/establecimientos',
             icon: 'mat:school',
-            routerLinkActiveOptions: { exact: true }
+            //routerLinkActiveOptions: { exact: true }
           },
           {
             type: 'link',
             label: 'Cooperadoras',
             route: '/pages/cooperadoras',
             icon: 'mat:diversity_2',
-            routerLinkActiveOptions: { exact: true }
+            //routerLinkActiveOptions: { exact: true }
           }
           // {
           //   type: 'link',

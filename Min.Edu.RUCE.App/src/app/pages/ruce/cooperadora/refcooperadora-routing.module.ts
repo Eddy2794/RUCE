@@ -3,9 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { CooperadoraListComponent } from './Components/form-list/cooperadora-list.component';
 import { CooperadoraFormInsupdComponent } from './Components/form-insupd/cooperadora-form-insupd.component';
 import { PrincipalComponent } from './Components/principal/principal.component';
+import { VexRoutes } from 'src/@vex/interfaces/vex-route.interface';
 
 
-const routes: Routes = [
+const routes: VexRoutes = [
   {
     path: '',
     children: [
@@ -13,7 +14,7 @@ const routes: Routes = [
       { path: 'add-edit/:id', component: CooperadoraFormInsupdComponent },
       { path: 'delete/:id', component: CooperadoraFormInsupdComponent },
       { path: 'view/:id', component: PrincipalComponent },
-      { path: 'principal', component: PrincipalComponent },
+      { path: 'view/:id/comision', component: CooperadoraFormInsupdComponent },
       { path: '**', redirectTo: 'listar' }
     ]
   }

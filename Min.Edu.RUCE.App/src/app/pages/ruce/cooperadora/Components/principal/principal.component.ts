@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CooperadoraService } from '../../Services/cooperadora.service';
 import { ObserverCooperadoraService } from '../../Services/observer-cooperadora.service';
 import { MatTabChangeEvent } from '@angular/material/tabs';
+import { Link } from 'src/@vex/interfaces/link.interface';
 
 @Component({
   selector: 'vex-principal',
@@ -12,8 +13,32 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 })
 export class PrincipalComponent implements OnInit {
 
+  links: Link[] = [
+    {
+      label: 'DETALLES',
+      route: './',
+      routerLinkActiveOptions: { exact: true }
+    },
+    {
+      label: 'COMISION',
+      route: './comision',
+      //routerLinkActiveOptions: { exact: true }
+    },
+    {
+      label: 'FRIENDS',
+      route: './timeline',
+      disabled: true
+    },
+    {
+      label: 'PHOTOS',
+      route: './timeline',
+      disabled: true
+    }
+  ];
+
   cooperadora?: CooperadoraModel;
   id?: number;
+  nombreCooperadora?: string;
   cargarInfo0: boolean = false;
   cargarInfo1: boolean = false;
   cargarInfo2: boolean = false;
@@ -40,6 +65,7 @@ export class PrincipalComponent implements OnInit {
       this.observerCooperadora.enviarTipoAsociacion(this.cooperadora.fkRefTipoAsociacion);
       this.observerCooperadora.enviarIdExpediente(this.cooperadora.expediente?.id);
       this.observerCooperadora.enviarIdPersoneria(this.cooperadora.personeria?.id);
+      this.nombreCooperadora = this.cooperadora.denominacion;
     })
   }
 

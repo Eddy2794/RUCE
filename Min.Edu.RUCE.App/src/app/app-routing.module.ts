@@ -6,6 +6,19 @@ import { CustomLayoutComponent } from './custom-layout/custom-layout.component';
 
 const routes: VexRoutes = [
   {
+    path: 'inicio',
+    loadChildren: () => import('./pages/panel/panel.module').then(m => m.PanelModule),
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./pages/pages/auth/login/login.module').then(m => m.LoginModule),
+  },
+  {
+    path: 'forgot-password',
+    loadChildren: () => import('./pages/pages/auth/forgot-password/forgot-password.module').then(m => m.ForgotPasswordModule),
+  },
+  
+  {
     path: '',
     component: CustomLayoutComponent,
     children: [
@@ -195,9 +208,14 @@ const routes: VexRoutes = [
             data:{
               toolbarShadowEnabled: true,       
             }
+            
           },
         ]
-      }
+      },
+      {
+        path: '**',
+        loadChildren: () => import('./pages/pages/errors/error-404/error-404.module').then(m => m.Error404Module)
+      },
     ]
   }
 ];
