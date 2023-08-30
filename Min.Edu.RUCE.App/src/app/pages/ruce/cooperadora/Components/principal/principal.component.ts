@@ -4,37 +4,19 @@ import { ActivatedRoute } from '@angular/router';
 import { CooperadoraService } from '../../Services/cooperadora.service';
 import { ObserverCooperadoraService } from '../../Services/observer-cooperadora.service';
 import { MatTabChangeEvent } from '@angular/material/tabs';
-import { Link } from 'src/@vex/interfaces/link.interface';
+import { scaleIn400ms } from 'src/@vex/animations/scale-in.animation';
+import { fadeInRight400ms } from 'src/@vex/animations/fade-in-right.animation';
 
 @Component({
   selector: 'vex-principal',
   templateUrl: './principal.component.html',
-  styleUrls: ['./principal.component.scss']
+  styleUrls: ['./principal.component.scss'],
+  animations: [
+    scaleIn400ms,
+    fadeInRight400ms
+  ]
 })
 export class PrincipalComponent implements OnInit {
-
-  links: Link[] = [
-    {
-      label: 'DETALLES',
-      route: './',
-      routerLinkActiveOptions: { exact: true }
-    },
-    {
-      label: 'COMISION',
-      route: './comision',
-      //routerLinkActiveOptions: { exact: true }
-    },
-    {
-      label: 'FRIENDS',
-      route: './timeline',
-      disabled: true
-    },
-    {
-      label: 'PHOTOS',
-      route: './timeline',
-      disabled: true
-    }
-  ];
 
   cooperadora?: CooperadoraModel;
   id?: number;
@@ -46,6 +28,7 @@ export class PrincipalComponent implements OnInit {
   cargarInfo4: boolean = false;
   cargarInfo5: boolean = false;
   cargarInfo6: boolean = false;
+  cargarInfo7: boolean = false;
 
   constructor(
     private route:ActivatedRoute,
@@ -80,6 +63,7 @@ export class PrincipalComponent implements OnInit {
         this.cargarInfo4 = false;
         this.cargarInfo5 = false;
         this.cargarInfo6 = false;
+        this.cargarInfo7 = false;
       break;
       case 1:
         this.cargarInfo1 = true;
@@ -89,6 +73,7 @@ export class PrincipalComponent implements OnInit {
         this.cargarInfo4 = false;
         this.cargarInfo5 = false;
         this.cargarInfo6 = false;
+        this.cargarInfo7 = false;
       break;
       case 2:
         this.cargarInfo2 = true;
@@ -98,6 +83,7 @@ export class PrincipalComponent implements OnInit {
         this.cargarInfo4 = false;
         this.cargarInfo5 = false;
         this.cargarInfo6 = false;
+        this.cargarInfo7 = false;
       break;
       case 3:
         this.cargarInfo3 = true;
@@ -107,6 +93,7 @@ export class PrincipalComponent implements OnInit {
         this.cargarInfo4 = false;
         this.cargarInfo5 = false;
         this.cargarInfo6 = false;
+        this.cargarInfo7 = false;
       break;
       case 4:
         this.cargarInfo4 = true;
@@ -116,6 +103,7 @@ export class PrincipalComponent implements OnInit {
         this.cargarInfo1 = false;
         this.cargarInfo5 = false;
         this.cargarInfo6 = false;
+        this.cargarInfo7 = false;
       break;
       case 5:
         this.cargarInfo5 = true;
@@ -125,6 +113,7 @@ export class PrincipalComponent implements OnInit {
         this.cargarInfo4 = false;
         this.cargarInfo1 = false;
         this.cargarInfo6 = false;
+        this.cargarInfo7 = false;
       break;
       case 6:
         this.cargarInfo6 = true;
@@ -134,6 +123,17 @@ export class PrincipalComponent implements OnInit {
         this.cargarInfo4 = false;
         this.cargarInfo5 = false;
         this.cargarInfo1 = false;
+        this.cargarInfo7 = false;
+      break;
+      case 7:
+        this.cargarInfo6 = false;
+        this.cargarInfo0 = false;
+        this.cargarInfo2 = false;
+        this.cargarInfo3 = false;
+        this.cargarInfo4 = false;
+        this.cargarInfo5 = false;
+        this.cargarInfo1 = false;
+        this.cargarInfo7 = true;
       break;
     }
   }

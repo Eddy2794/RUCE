@@ -204,7 +204,7 @@ export class AppComponent {
           {
             type: 'link',
             label: 'Panel de Inicio',
-            route: 'inicio',
+            route: '/pages/inicio',
             icon: 'mat:insights',
             routerLinkActiveOptions: { exact: true }
           },

@@ -6,10 +6,6 @@ import { CustomLayoutComponent } from './custom-layout/custom-layout.component';
 
 const routes: VexRoutes = [
   {
-    path: 'inicio',
-    loadChildren: () => import('./pages/panel/panel.module').then(m => m.PanelModule),
-  },
-  {
     path: 'login',
     loadChildren: () => import('./pages/pages/auth/login/login.module').then(m => m.LoginModule),
   },
@@ -209,6 +205,10 @@ const routes: VexRoutes = [
               toolbarShadowEnabled: true,       
             }
             
+          },
+          {
+            path: 'inicio',
+            loadChildren: () => import('./pages/panel/panel.module').then(m => m.PanelModule),
           },
         ]
       },

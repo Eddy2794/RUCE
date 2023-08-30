@@ -16,6 +16,7 @@ import { SecondaryToolbarModule } from 'src/@vex/components/secondary-toolbar/se
 import { BreadcrumbsModule } from 'src/@vex/components/breadcrumbs/breadcrumbs.module';
 import { MatButtonModule } from '@angular/material/button';
 import { PageLayoutModule } from 'src/@vex/components/page-layout/page-layout.module';
+import { SharedModule } from '@app/shared/shared.module';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { PageLayoutModule } from 'src/@vex/components/page-layout/page-layout.mo
   imports: [
     CommonModule,
     PanelRoutingModule,
+    SharedModule,
     ChartModule,
     MatIconModule,
     WidgetQuickLineChartModule,
@@ -40,6 +42,5 @@ import { PageLayoutModule } from 'src/@vex/components/page-layout/page-layout.mo
     MatButtonModule,
     PageLayoutModule
   ],
-  //exports:[PanelModule]
 })
 export class PanelModule { }

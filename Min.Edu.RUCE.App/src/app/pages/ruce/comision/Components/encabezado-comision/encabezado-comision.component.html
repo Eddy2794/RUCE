@@ -67,7 +67,6 @@
     <div *ngIf="!datosShow" _ngcontent-jju-c290="" style="text-align: center;" class="ng-tns-c290-217 ng-star-inserted">
       <h2 _ngcontent-jju-c290="" class="title mt-0 mb-1 ng-tns-c290-217">Sin información de Comisión</h2>
       <br>
-      <br>
       <app-button-nuevo
           bordecentro
           [routerLink]="'comision'"
@@ -75,5 +74,6 @@
         ></app-button-nuevo>
     </div>
   </div>
-  
-  <vex-autoridad-list *ngIf="datosShow"></vex-autoridad-list>
+  <div>
+    <vex-autoridad-list *ngIf="datosShow"></vex-autoridad-list>
+  </div>
