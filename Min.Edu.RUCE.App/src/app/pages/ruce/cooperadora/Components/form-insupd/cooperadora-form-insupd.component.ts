@@ -116,7 +116,6 @@ export class CooperadoraFormInsupdComponent implements OnInit {
   }
 
   save() {
-    console.log(this.formularioCooperadora);
     if (this.formularioCooperadora.invalid) {
       this.formularioCooperadora.markAllAsTouched();
       return;

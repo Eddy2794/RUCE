@@ -128,13 +128,11 @@ export class BaseService<T extends BaseModel> implements IBaseService<T> {
         }
 
         let query = `${this.apiUrl}/${this.endPoint}/Filter${filter}${paginate}`;
-        console.log(query);
 
         return this.httpClient.get<T[]>(query) as Observable<DataPage<T> | T[]>;
 
     }
     create(model: T): Observable<T> {
-        console.log(model);
 
         return this.httpClient.post<T>(`${this.apiUrl}/${this.endPoint}`, model) as Observable<T>;
     }

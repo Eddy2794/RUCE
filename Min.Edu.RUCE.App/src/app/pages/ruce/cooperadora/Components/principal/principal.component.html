@@ -9,7 +9,7 @@
   
         <div class="max-w-full flex-auto sm:ltr:ml-6 sm:rtl:mr-6">
           <div class="h-16 flex items-end">
-            <h1 @fadeInRight class="headline text-contrast-white pb-2 m-0">{{nombreCooperadora}}</h1>
+            <h1 @fadeInRight class="font-bold headline text-contrast-white pb-2 m-0">{{nombreCooperadora}}</h1>
           </div>
         </div>
       </div>
@@ -31,7 +31,7 @@
                 <vex-expediente-list *ngIf="cargarInfo2"></vex-expediente-list>
             </div>
         </mat-tab>
-        <mat-tab label="PERSONERÍA">
+        <mat-tab *ngIf="idExpediente!=0" label="PERSONERÍA">
             <div class="mt-6">
                 <vex-encabezado-personeria *ngIf="cargarInfo3"></vex-encabezado-personeria>
             </div>

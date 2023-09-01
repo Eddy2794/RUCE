@@ -112,7 +112,6 @@ export class BalanceInsupdComponent implements OnInit {
       }
       );
     } else {
-      console.log(this.formularioBalance);
       //this.formularioBalance.value.anio = this.formularioBalance.value.anio;
       //this.formularioBalance.value.estadoBalance = this.formularioBalance.value.estadoBalance;
       this.balanceService.update(this.formularioBalance.value.id, this.formularioBalance.value).subscribe((resp: any) => {

@@ -94,7 +94,6 @@ export class AtencionSeguimientoInsupdComponent implements OnInit, OnDestroy {
     if (this.accion === 'delete'|| this.accion === 'view') {
       this.formularioAtencionSeguimiento.disable();
     }
-    console.log(this.formularioAtencionSeguimiento);
   }
 
   save() {

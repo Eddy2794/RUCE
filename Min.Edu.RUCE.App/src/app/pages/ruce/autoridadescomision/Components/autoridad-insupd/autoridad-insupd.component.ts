@@ -158,9 +158,7 @@ export class AutoridadComisionInsupdComponent implements OnInit, OnDestroy {
       }
       );
     } else {
-      // console.log(this.formularioAutoridad.value.fkRefTipoDocumentoRUCE)
       this.formularioAutoridad.value.fkComision = this.formularioAutoridad.value.fkComision;
-      // this.formularioAutoridad.value.fkRefTipoDocumentoRUCE = this.formularioAutoridad.value.fkRefTipoDocumentoRUCE;
       this.formularioAutoridad.value.fkPersonaRUCE = this.formularioAutoridad.value.fkPersonaRUCE;
       
       this.autoridadComisionService.update(this.formularioAutoridad.value.id, this.formularioAutoridad.value).subscribe((resp: any) => {

@@ -54,14 +54,21 @@
             </div>
             
             <div class="flex flex-col md:flex-row gap-3">
-                    <mat-form-field style="width: 100%">
+                <div (click)="textarea.focus()" style="width: 75%" class="border-2 bg-foreground rounded-t flex">
+                    <textarea #textarea
+                              cdkTextareaAutosize
+                              formControlName="observacionesDesc"
+                              class="outline-none bg-gradient p-6 rounded-t flex-auto"
+                              placeholder="Descripción de observaciones..."></textarea>
+                </div>
+                    <!-- <mat-form-field style="width: 100%">
                         <mat-label>Descripción de observaciones</mat-label>
                         <input matInput formControlName="observacionesDesc" type="text" espacios mayus>
                         <mat-error>
                             <app-ver-error [control]="this.formularioExpediente.controls['observacionesDesc']">
                             </app-ver-error>
                         </mat-error>
-                    </mat-form-field>
+                    </mat-form-field> -->
             </div>
         </div>
         <br>       

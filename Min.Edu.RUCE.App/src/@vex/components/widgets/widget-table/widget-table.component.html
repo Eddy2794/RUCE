@@ -1,12 +1,9 @@
 <div class="card overflow-hidden w-full flex flex-col">
   <div class="border-b py-4 px-6 flex items-center">
-    <h2 class="m-0 title flex-auto">Recent Sales</h2>
+    <h2 class="m-0 title flex-auto">Últimas cooperadoras registradas</h2>
 
-    <button mat-icon-button type="button">
-      <mat-icon class="text-secondary" svgIcon="mat:cloud_download"></mat-icon>
-    </button>
-
-    <button mat-icon-button type="button">
+    <button mat-icon-button type="button"
+    [routerLink]="'/pages/cooperadoras/list'">
       <mat-icon class="text-secondary" svgIcon="mat:more_horiz"></mat-icon>
     </button>
   </div>

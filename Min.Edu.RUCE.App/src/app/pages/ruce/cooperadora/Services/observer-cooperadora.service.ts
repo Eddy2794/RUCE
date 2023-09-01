@@ -13,6 +13,9 @@ export class ObserverCooperadoraService {
   private valueTipoAsociacion$ = new BehaviorSubject<number>(0);
   castTipoAsociacion = this.valueTipoAsociacion$.asObservable();
 
+  private valueTipoAsociacionDesc$ = new BehaviorSubject<string>("");
+  castTipoAsociacionDesc = this.valueTipoAsociacionDesc$.asObservable();
+
   private valueIdExpediente$ = new BehaviorSubject<number>(0);
   castIdExpediente = this.valueIdExpediente$.asObservable();
 
@@ -26,6 +29,10 @@ export class ObserverCooperadoraService {
 
   enviarTipoAsociacion(nuevoValor) {
     this.valueTipoAsociacion$.next(nuevoValor);
+  }
+
+  enviarTipoAsociacionDesc(nuevoValor) {
+    this.valueTipoAsociacionDesc$.next(nuevoValor);
   }
 
   enviarIdExpediente(nuevoValor){

@@ -38,8 +38,6 @@ class RefSeeder extends Seeder
         $refCargo->save();
         $refCargo = new RefCargo(['cargoDesc' => 'VOCAL']);
         $refCargo->save();
-        $refCargo = new RefCargo(['cargoDesc' => 'VOCAL']);
-        $refCargo->save();
         $refCargo = new RefCargo(['cargoDesc' => 'DIRECTOR']);
         $refCargo->save();
         $refCargo = new RefCargo(['cargoDesc' => 'SUPERVISOR']);

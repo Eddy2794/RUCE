@@ -29,6 +29,10 @@ export class InsupdPersoneriaComponent implements OnInit, OnDestroy {
 
   suscriptionId: Subscription;
 
+  suscriptionTipoAsociacionDesc?: Subscription;
+  tipoAsociacionDesc?: string
+  datosShow: boolean = false;
+
   constructor(
     private fb: FormBuilder,
     private personeriaService: PersoneriaService,
@@ -65,7 +69,13 @@ export class InsupdPersoneriaComponent implements OnInit, OnDestroy {
       if (value) this.idExpediente= value;
     });
 
-    this.createForm();
+    this.suscriptionTipoAsociacionDesc = this.observerCooperadora.castTipoAsociacionDesc.subscribe((value) => {
+      if (value === 'CIVIL') {
+        this.tipoAsociacionDesc= value;
+        this.datosShow = true;
+      }
+    });
+    
     this.activatedRoute.params.subscribe((param: any) => {
       this.id = parseInt(param.id);
       if (this.id !== 0) {
@@ -80,10 +90,12 @@ export class InsupdPersoneriaComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.createForm();
   }
   
   ngOnDestroy(): void {
     this.suscriptionId.unsubscribe();
+    this.suscriptionTipoAsociacionDesc.unsubscribe();
   }
 
 
@@ -93,8 +105,8 @@ export class InsupdPersoneriaComponent implements OnInit, OnDestroy {
       fkCooperadora: this.idCooperadora,
       fkExpediente: this.idExpediente,
       fecha: [null, {validators: [ Validators.required, ]}],
-      decreto: [null, {validators: [ Validators.required, ]}],
-      nroResolucion: [null, {validators: [ Validators.required,  ]}],
+      decreto: null,
+      nroResolucion: null,
       estaActivo: true,
     });
     if (this.accion === 'delete'|| this.accion === 'view') {

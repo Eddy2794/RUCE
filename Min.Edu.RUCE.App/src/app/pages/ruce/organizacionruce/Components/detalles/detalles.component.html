@@ -1,4 +1,4 @@
-<div class="p-gutter">
+<div class="container p-gutter">
     <div class="flex flex-col gap-4">
         <div class="card flex-auto">
                 <div>
@@ -13,7 +13,8 @@
                         <mat-tab label="MATRICULA">
                             <vex-matricula-list [idOrganizacion]="id"></vex-matricula-list>
                         </mat-tab>
-                        <mat-tab label="COOPERADORA" routerLink="cooperadoras/detalle">
+                        <mat-tab label="COOPERADORA">
+                            <vex-encabezado-cooperadora></vex-encabezado-cooperadora>
                         </mat-tab>
                     </mat-tab-group>
                 </div>

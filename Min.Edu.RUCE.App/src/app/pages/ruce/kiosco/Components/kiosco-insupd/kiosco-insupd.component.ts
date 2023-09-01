@@ -69,7 +69,6 @@ export class KioscoInsupdComponent implements OnInit {
           this.accion = 'edit'
         }
         this.kioscoService.findOne(this.id).subscribe((resp: any) => {
-          console.log(resp.entities);
           this.formularioKiosco.patchValue(resp.entities);
           this.formularioKiosco.controls.documento.patchValue(resp.entities.persona_r_u_c_e.documento);
           this.formularioKiosco.controls.cuil.patchValue(resp.entities.persona_r_u_c_e.cuil);
@@ -92,7 +91,6 @@ export class KioscoInsupdComponent implements OnInit {
 
   loadRefs() {
     this.refTipoDocumentoService.filter(this.filtro).subscribe((data: DataPage<RefTipoDocumentoModel>) => {
-      console.log(data.entities);
       this.tiposDocumentos = Object.assign([],data.entities,this.tiposDocumentos);
     });
   }
@@ -121,7 +119,6 @@ export class KioscoInsupdComponent implements OnInit {
     if (this.accion === 'delete'|| this.accion === 'view') {
       this.formularioKiosco.disable();
     }
-    console.log(this.formularioKiosco);
   }
 
   save() {

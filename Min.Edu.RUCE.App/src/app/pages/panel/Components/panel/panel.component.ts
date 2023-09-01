@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CooperadoraService } from '@app/pages/ruce/cooperadora/Services/cooperadora.service';
+import { FilterOptions } from '@app/shared/utils';
 import { TableColumn } from 'src/@vex/interfaces/table-column.interface';
 import { defaultChartOptions } from 'src/@vex/utils/default-chart-options';
 
@@ -7,33 +9,66 @@ import { defaultChartOptions } from 'src/@vex/utils/default-chart-options';
   templateUrl: './panel.component.html',
   styleUrls: ['./panel.component.scss']
 })
-export class PanelComponent {
+export class PanelComponent implements OnInit {
+  filtro: FilterOptions = { estaActivo: true };
+  tableData = [];
+  totalCooperadoras?: number = 0;
+  constructor(
+    private cooperadoraService: CooperadoraService
+  ){}
+  ngOnInit(): void {
+      this.cooperadoraService.filter(this.filtro).subscribe((res: any) => {
+        this.totalCooperadoras = res.paged.entityCount;
+        const datos = res.entities.map(coop => {
+          const dato: any = {};
+    
+          switch (coop.estado) {
+            case 'rojo':
+              dato['status'] = 'warn';
+              break;
+            case 'amarillo':
+              dato['status'] = 'pending';
+              break;
+            case 'verde':
+              dato['status'] = 'ready';
+              break;
+          }
+    
+          dato['nombre'] = coop.denominacion;
+          dato['legajo'] = coop.legajo;
+          const fecha = new Date(coop.updated_at);
+          dato['modificado'] = `${fecha.getDate()}-${fecha.getMonth() + 1}-${fecha.getFullYear()}`;
+          return dato;
+        });
+    
+        this.tableData = datos;
+      });
+  }
 
   tableColumns: TableColumn<1>[] = [
     {
-      label: '',
+      label: 'ESTADO',
       property: 'status',
       type: 'badge'
     },
     {
-      label: 'PRODUCT',
-      property: 'name',
+      label: 'DENOMINACION',
+      property: 'nombre',
       type: 'text'
     },
     {
-      label: '$ PRICE',
-      property: 'price',
+      label: 'LEGAJO',
+      property: 'legajo',
       type: 'text',
       cssClasses: ['font-medium']
     },
     {
-      label: 'DATE',
-      property: 'timestamp',
+      label: 'FECHA',
+      property: 'modificado',
       type: 'text',
       cssClasses: ['text-secondary']
     }
   ];
-  tableData = null;
 
   series: ApexAxisChartSeries = [{
     name: 'Subscribers',

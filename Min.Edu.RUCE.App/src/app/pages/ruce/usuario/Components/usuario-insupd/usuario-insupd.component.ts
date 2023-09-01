@@ -140,7 +140,6 @@ export class UsuarioInsupdComponent implements OnInit {
     //   return;
     // }
 
-    console.log(this.formularioUsuario);
     if (this.id == 0) {
       this.formularioUsuario.removeControl('id');
       this.usuarioService.create(this.formularioUsuario.value).subscribe((resp: any) => {

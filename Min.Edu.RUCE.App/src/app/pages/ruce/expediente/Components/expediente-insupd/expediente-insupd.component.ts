@@ -62,9 +62,6 @@ export class ExpedienteInsupdComponent implements OnInit {
     this.suscriptionIdCooperadora = this.observerIdCooperadora.castIdCooperadora.subscribe((value)=>{
       this.idCooperadora = value;
     });
-    this.suscriptionIdCooperadora = this.observerIdCooperadora.castIdCooperadora.subscribe((value)=>{
-      this.idCooperadora = value;
-    });
     this.createForm();
     this.activatedRoute.params.subscribe((param: any) => {
       this.id = parseInt(param.id);

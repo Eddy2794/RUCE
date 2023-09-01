@@ -33,12 +33,12 @@ class StorePersoneriaRequest extends FormRequest
                 'exists:Cooperadora,id'
             ],
             'decreto' => [
-                'required',
-                'string',
+                //'required',
+                //'string',
             ],
             'nroResolucion' => [
-                'required',
-                'string',
+                //'required',
+                //'string',
             ],
             'fecha' => [
                 'required',
@@ -64,6 +64,7 @@ class StorePersoneriaRequest extends FormRequest
         return [
             'fkExpediente.exist' => 'Id de Expediente no existe en la tabla Expediente.',
             'fkCooperadora.exist' => 'Id de Cooperadora no existe en la tabla Cooperadora.',
+            'fkExpediente.required' => 'No existe un Expediente cargado',
         ];
     }
 }

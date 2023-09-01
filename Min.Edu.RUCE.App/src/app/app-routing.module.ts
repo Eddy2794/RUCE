@@ -210,6 +210,10 @@ const routes: VexRoutes = [
             path: 'inicio',
             loadChildren: () => import('./pages/panel/panel.module').then(m => m.PanelModule),
           },
+          {
+            path: 'constancia',
+            loadChildren: () => import('./pages/pages/invoice/invoice.module').then(m => m.InvoiceModule),
+          },
         ]
       },
       {

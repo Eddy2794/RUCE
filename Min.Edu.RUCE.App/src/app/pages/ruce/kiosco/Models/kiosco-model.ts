@@ -14,6 +14,8 @@ export class KioscoModel extends BaseModel {
         public estaActivo?: boolean,
         public idUsuarioAlta?: number,
         public idUsuarioModificacion?: number,
+        public persona_r_u_c_e?: PersonaRUCEModel,
+        public cooperadora?: CooperadoraModel,
 
     ) {
         super();

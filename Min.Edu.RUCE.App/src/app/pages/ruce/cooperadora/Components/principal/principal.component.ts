@@ -21,6 +21,7 @@ export class PrincipalComponent implements OnInit {
   cooperadora?: CooperadoraModel;
   id?: number;
   nombreCooperadora?: string;
+  idExpediente?: number = 0;
   cargarInfo0: boolean = false;
   cargarInfo1: boolean = false;
   cargarInfo2: boolean = false;
@@ -48,7 +49,9 @@ export class PrincipalComponent implements OnInit {
       this.observerCooperadora.enviarTipoAsociacion(this.cooperadora.fkRefTipoAsociacion);
       this.observerCooperadora.enviarIdExpediente(this.cooperadora.expediente?.id);
       this.observerCooperadora.enviarIdPersoneria(this.cooperadora.personeria?.id);
+      this.observerCooperadora.enviarTipoAsociacionDesc(this.cooperadora.ref_tipo_asociacion[0].tipoAsociacionDesc);
       this.nombreCooperadora = this.cooperadora.denominacion;
+      this.idExpediente = this.cooperadora.expediente.id;
     })
   }
 

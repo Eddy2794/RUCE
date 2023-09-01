@@ -92,7 +92,6 @@ export class MatriculaInsupdComponent implements OnInit {
     if (this.accion === 'delete'|| this.accion === 'view') {
       this.formularioMatricula.disable();
     }
-    console.log(this.formularioMatricula);
   }
 
   save() {
