@@ -70,7 +70,7 @@ class ModelResourse extends JsonResource
 
     public function toArray($request)
     {
-        if ($this->model !== '' && $this->model !== 'App\Models\Cooperadora'){
+        if ($this->model !== '' && $this->model !== 'App\Models\Cooperadora' && $this->model !== 'App\Models\OrganizacionRUCE'){
             // crea una instancia del modelo dianmico
             $modelo = new $this->model();
             // obtiene los datos del modelo dianmico
@@ -86,6 +86,10 @@ class ModelResourse extends JsonResource
                 $cooperadora = new $this->model();
                 $datos = $cooperadora::with(['OrganizacionRUCE','RefTipoAsociacion','AtencionSeguimiento','Comision','Balance','Expediente','Personeria','Fondo'])->find($this->id);
 
+                return ['entities'=>$datos->toArray()];
+            }elseif($this->model == 'App\Models\OrganizacionRUCE'){
+                $organizacion = new $this->model();
+                $datos = $organizacion::with(['Cooperadora'])->find($this->id);
                 return ['entities'=>$datos->toArray()];
             }
             return [

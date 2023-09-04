@@ -68,17 +68,6 @@
                         </mat-error>
                     </mat-form-field>
                     <mat-form-field style="width: 100%">
-                        <mat-label>Observaciones</mat-label>
-                        <input matInput formControlName="observacion" type="text" espacios mayus>
-                        <mat-error>
-                            <app-ver-error [control]="this.formularioAtencionSeguimiento.controls['observacion']">
-                            </app-ver-error>
-                        </mat-error>
-                    </mat-form-field>
-            </div>
-
-            <div class="flex flex-col md:flex-row gap-3">
-                    <mat-form-field style="width: 100%">
                         <mat-label>Fecha</mat-label>
                         <input matInput formControlName="fecha" type="date" espacios >
                         <mat-error>
@@ -86,6 +75,24 @@
                             </app-ver-error>
                         </mat-error>
                     </mat-form-field>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-3">
+                <div (click)="textarea.focus()" style="width: 75%" class="border-2 bg-foreground rounded-t flex">
+                    <textarea #textarea
+                              cdkTextareaAutosize
+                              formControlName="observacion"
+                              class="outline-none bg-foreground p-6 rounded-t flex-auto"
+                              placeholder="Observaciones..."></textarea>
+                </div>
+                    <!-- <mat-form-field style="width: 100%">
+                        <mat-label>Observaciones</mat-label>
+                        <input matInput formControlName="observacion" type="text" espacios mayus>
+                        <mat-error>
+                            <app-ver-error [control]="this.formularioAtencionSeguimiento.controls['observacion']">
+                            </app-ver-error>
+                        </mat-error>
+                    </mat-form-field> -->
             </div>
         </div>
         <br>       

@@ -54,11 +54,11 @@ class UpdateFondoRequest extends FormRequest
             ],
             'fechaRecibido' => [
                 
-                'date',
+                //'date',
             ],
             'fechaRendicion' => [
                 
-                'date',
+                //'date',
             ],
             'anioOtorgado' => [
                 'required',

@@ -39,7 +39,7 @@ export class CooperadoraListComponent implements OnInit {
       { label: "DENOMINACION", property: "denominacion", type: "text", visible: true, },
       { label: "ESTADO", property: "estado", type: "text", visible: true },
       { label: "LEGAJO", property: "legajo", type: "text", visible: true },
-      { label: "CONVENIO SC ECONOMICAS", property: "convenioCsEconomicas", type: "boolean", visible: true },
+      { label: "CONVENIO CS ECONOMICAS", property: "convenioCsEconomicas", type: "boolean", visible: true },
       { label: "INSCRIPCION AFIP", property: "estadoAfip", type: "boolean", visible: true },
       { label: "INSCRIPCION RENTAS", property: "estadoRentas", type: "boolean", visible: true },
       { label: "INSCRIPCION RENACOPES", property: "inscripcionRenacopes", type: "boolean", visible: true },

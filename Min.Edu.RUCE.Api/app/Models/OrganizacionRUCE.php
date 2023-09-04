@@ -61,7 +61,7 @@ class OrganizacionRUCE extends Model  implements Auditable
 
     public function Cooperadora()
     {
-        return $this->hasOne(Cooperadora::class);
+        return $this->hasOne(Cooperadora::class, 'fkOrganizacionRUCE');
     }
 
     /*

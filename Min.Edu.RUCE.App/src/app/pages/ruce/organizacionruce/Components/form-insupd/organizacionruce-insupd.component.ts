@@ -72,7 +72,7 @@ export class OrganizacionRUCEInsupdComponent implements OnInit {
     this.formularioOrganizacionRUCE = this.fb.group({
       id: null,
       cue: [null, { validators: [ Validators.required, Validators.minLength(3), Validators.maxLength(250), this.validadorServicio.validarEspaciosInicioFin() ]}],
-      organizacionDesc: [null, {validators: [ Validators.required, Validators.minLength(3), Validators.maxLength(250), this.validadorServicio.validarEspaciosInicioFin(), this.validadorServicio.validarCaracteresDescripcion() ]}],
+      organizacionDesc: [null, {validators: [ Validators.required, Validators.minLength(3), Validators.maxLength(250) ]}],
       anexo: [null, {validators: [ Validators.required, this.validadorServicio.validarEspaciosInicioFin() ]}],
       nivel: [null, {validators: [ Validators.required, ]}],
       region: [null, {validators: [ Validators.required, ]}],
@@ -99,7 +99,7 @@ export class OrganizacionRUCEInsupdComponent implements OnInit {
     if (this.id == 0) {
       this.formularioOrganizacionRUCE.removeControl('id');
       this.organizacionRUCEService.create(this.formularioOrganizacionRUCE.value).subscribe((resp: any) => {
-        this.mostrarDialogMsj("Mensaje", "OrganizacionRUCE Creado", false)
+        this.mostrarDialogMsj("Mensaje", "Institución Creada", false)
         this.router.navigate(['/pages/establecimientos']);
       }, err => {
         this.mostrarDialogMsj("Atención", err.error.message, false)
@@ -107,7 +107,7 @@ export class OrganizacionRUCEInsupdComponent implements OnInit {
       );
     } else {
       this.organizacionRUCEService.update(this.formularioOrganizacionRUCE.value.id, this.formularioOrganizacionRUCE.value).subscribe((resp: any) => {
-        this.mostrarDialogMsj("Mensaje", "OrganizacionRUCE Modificado", false)
+        this.mostrarDialogMsj("Mensaje", "Institución Modificada", false)
         this.router.navigate(['/pages/establecimientos']);
       }, err => {
         this.mostrarDialogMsj("Atención", err.error.message, false)
@@ -128,7 +128,7 @@ export class OrganizacionRUCEInsupdComponent implements OnInit {
     dialog.afterClosed().subscribe(result => {
       if (result === "Aceptar") {
         this.organizacionRUCEService.delete(this.formularioOrganizacionRUCE.value.id).subscribe((resp: any) => {
-          this.mostrarDialogMsj("Mensaje", "OrganizacionRUCE Eliminado", false)
+          this.mostrarDialogMsj("Mensaje", "Institución Eliminado", false)
           this.router.navigate(['/pages/establecimientos']);
         }, err => {
           this.mostrarDialogMsj("Atención", err.error.message, false)

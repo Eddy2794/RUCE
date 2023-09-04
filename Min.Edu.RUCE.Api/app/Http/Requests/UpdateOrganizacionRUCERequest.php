@@ -56,7 +56,7 @@ class UpdateOrganizacionRUCERequest extends FormRequest
             'domicilio' => [
                 'required',
                 'string',
-                Rule::unique('OrganizacionRUCE','domicilio')->where('domicilio', $this->domicilio)->withoutTrashed()
+                //Rule::unique('OrganizacionRUCE','domicilio')->where('domicilio', $this->domicilio)->withoutTrashed()
             ],
             'region' => [
                 'required',
