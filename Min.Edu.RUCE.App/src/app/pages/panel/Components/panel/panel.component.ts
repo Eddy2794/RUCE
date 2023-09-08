@@ -23,13 +23,13 @@ export class PanelComponent implements OnInit {
           const dato: any = {};
     
           switch (coop.estado) {
-            case 'rojo':
+            case 'ROJO':
               dato['status'] = 'warn';
               break;
-            case 'amarillo':
+            case 'AMARILLO':
               dato['status'] = 'pending';
               break;
-            case 'verde':
+            case 'VERDE':
               dato['status'] = 'ready';
               break;
           }
@@ -37,11 +37,12 @@ export class PanelComponent implements OnInit {
           dato['nombre'] = coop.denominacion;
           dato['legajo'] = coop.legajo;
           const fecha = new Date(coop.updated_at);
-          dato['modificado'] = `${fecha.getDate()}-${fecha.getMonth() + 1}-${fecha.getFullYear()}`;
+          dato['modificado'] = `${fecha.getDate()+1}-${fecha.getMonth() + 1}-${fecha.getFullYear()}`;
           return dato;
         });
     
         this.tableData = datos;
+        console.log(this.tableData);
       });
   }
 

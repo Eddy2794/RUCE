@@ -15,3 +15,31 @@
     padding-right: var(--padding);
   }
 }
+
+.grid-p {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr; /* Columnas laterales más pequeñas que la central */
+  gap: 20px; /* Espacio entre las columnas */
+}
+.grid-p img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+@media print {
+  /* Estilos para la impresión */
+  body {
+    margin: 0; /* Elimina los márgenes por defecto de la página */
+    padding: 0;
+  }
+  
+  .grid-p {
+    grid-template-columns: 1fr 4fr 1fr; /* Mantén la misma estructura de columnas en la impresión */
+    gap: 5px; /* Espacio entre las columnas en la impresión */
+  }
+  
+  .grid-p > div {
+    padding: 5px; /* Añade un pequeño espacio de relleno en cada columna para evitar cortes en la impresión */
+  }
+}

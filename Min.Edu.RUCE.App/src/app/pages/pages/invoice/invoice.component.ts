@@ -1,5 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { fadeInUp400ms } from '../../../../@vex/animations/fade-in-up.animation';
+import { DataPage, FilterOptions } from '@app/shared/utils';
+import { CooperadoraService } from '@app/pages/ruce/cooperadora/Services/cooperadora.service';
+import { CooperadoraModel } from '@app/pages/ruce/cooperadora/Models/cooperadora-model';
+import { Subscription } from 'rxjs';
+import { ObserverCooperadoraService } from '@app/pages/ruce/cooperadora/Services/observer-cooperadora.service';
+import { AutoridadOrganizacionRUCEService } from '@app/pages/ruce/autoridadesorganizacion/Services/autoridad-organizacionruce.service';
+import { AutoridadOrganizacionRUCEModel } from '@app/pages/ruce/autoridadesorganizacion/Models/autoridad-organizacionruce-model';
+import { AutoridadComisionService } from '@app/pages/ruce/autoridadescomision/Service/autoridad-comision.service';
+import { TableColumn } from 'src/@vex/interfaces/table-column.interface';
 
 @Component({
   selector: 'vex-invoice',
@@ -9,11 +18,112 @@ import { fadeInUp400ms } from '../../../../@vex/animations/fade-in-up.animation'
     fadeInUp400ms
   ]
 })
-export class InvoiceComponent implements OnInit {
+export class InvoiceComponent implements OnInit, OnDestroy {
 
-  constructor() { }
+  cooperadora?: CooperadoraModel;
+  autoridad?: AutoridadOrganizacionRUCEModel;
+  idCooperadora?: number;
+  idOrganizacion?: number;
+  directorInst?: string;
+  idComision?: number;
+  tableData = [];
+
+  columnas: string[] = ['cargo', 'apellido', 'nombre', 'cuil'];
+
+  suscriptionIdCooperadora: Subscription;
+
+  filtro: FilterOptions = { estaActivo: true, filtros: null};
+
+  constructor(
+    private cooperadoraService: CooperadoraService,
+    private observerIdCooperadora: ObserverCooperadoraService,
+    private autoridadService: AutoridadOrganizacionRUCEService,
+    private autoridadesComisionService: AutoridadComisionService
+
+  ) {
+    this.suscriptionIdCooperadora = this.observerIdCooperadora.castIdCooperadora.subscribe((value)=>{
+      this.idCooperadora = value;
+    });
+  }
+  ngOnDestroy(): void {
+    this.suscriptionIdCooperadora.unsubscribe();
+  }
 
   ngOnInit() {
+    this.cargarCooperadora();
+    //this.cargarAutoridadesComision();
+  }
+  cargarAutoridadesComision(idCom: number): void {
+    this.filtro = { estaActivo: true, PageSize: 10, fkComision:idCom};
+    this.autoridadesComisionService.filter(this.filtro).subscribe((res: any) => {
+      const datos = res.entities.map(autoridad => {
+        const dato: any = {};
+  
+        dato['cargo'] = autoridad.ref_cargo[0]?.cargoDesc;
+        dato['apellido'] = autoridad.persona_r_u_c_e[0].apellido;
+        dato['nombre'] = autoridad.persona_r_u_c_e[0].nombre;
+        dato['cuil'] = autoridad.persona_r_u_c_e[0].cuil;
+        const fechaInicio = new Date(autoridad.comision.periodoInicio);
+        dato['periodoInicio'] = `${fechaInicio.getDate() +1}-${fechaInicio.getMonth() +1}-${fechaInicio.getFullYear()}`;
+        const fechaFin = new Date(autoridad.comision.periodoFin);
+        dato['periodoFin'] = `${fechaFin.getDate() +1}-${fechaFin.getMonth() + 1}-${fechaFin.getFullYear()}`;
+        return dato;
+      });
+  
+      this.tableData = datos;
+      console.log(this.tableData);
+    });
+  }
+
+  // tableColumns: TableColumn<1>[] = [
+  //   {
+  //     label: 'CARGO',
+  //     property: 'cargo',
+  //     type: 'text'
+  //   },
+  //   {
+  //     label: 'APELLIDO',
+  //     property: 'apellido',
+  //     type: 'text'
+  //   },
+  //   {
+  //     label: 'NOMBRE',
+  //     property: 'nombre',
+  //     type: 'text',
+  //     cssClasses: ['font-medium']
+  //   },
+  //   {
+  //     label: 'CUIT',
+  //     property: 'cuit',
+  //     type: 'text',
+  //     cssClasses: ['text-secondary']
+  //   }
+  // ];
+
+  private cargarCooperadora() {
+    this.cooperadoraService.findOne(this.idCooperadora).subscribe((res:any) => {
+      this.cooperadora = Object.assign({}, this.cooperadora, res.entities);
+      this.idOrganizacion = this.cooperadora.organizacion_r_u_c_e.id;
+      this.idComision = this.cooperadora.comision[0].id;
+      this.cargarAutoridad(this.idOrganizacion);
+      this.cargarAutoridadesComision(this.idComision);
+    });
+  }
+
+  private cargarAutoridad(id: number){
+    this.filtro = { estaActivo: true, PageSize: 10, fkOrganizacionRUCE:id};
+    this.autoridadService.filter(this.filtro).subscribe((res:any) => {
+      this.autoridad = Object.assign({}, this.autoridad, res.entities);
+
+      const propiedadesNumericas = Object.keys(this.autoridad);
+
+      for (const propiedad of propiedadesNumericas) {
+        const objeto = this.autoridad[propiedad];
+        if(objeto.ref_cargo[0].cargoDesc === 'DIRECTOR')
+        this.directorInst = this.autoridad[0].persona_r_u_c_e[0].apellido +' '+this.autoridad[0].persona_r_u_c_e[0].nombre;
+      }
+    });
   }
 
 }
+

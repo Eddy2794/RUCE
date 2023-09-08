@@ -51,12 +51,12 @@ class OrganizacionRUCE extends Model  implements Auditable
 
     public function AutoridadOrganizacionRUCE(): HasMany
     {
-        return $this->hasMany(AutoridadOrganizacionRUCE::class);
+        return $this->hasMany(AutoridadOrganizacionRUCE::class, 'fkOrganizacionRUCE');
     }
 
     public function Matricula(): HasMany
     {
-        return $this->hasMany(Matricula::class);
+        return $this->hasMany(Matricula::class, 'fkOrganizacionRUCE');
     }
 
     public function Cooperadora()
