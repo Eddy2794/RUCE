@@ -3,15 +3,19 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 use OwenIt\Auditing\Contracts\Auditable;
+use Spatie\Permission\Traits\HasRoles;
 
-class UsuarioRUCE extends Model  implements Auditable
+class UsuarioRUCE  extends Authenticatable implements Auditable
 {
     use \OwenIt\Auditing\Auditable;
-    use HasFactory;
+    use HasFactory, Notifiable;
+    use HasRoles;
     use SoftDeletes;
     protected $table = 'UsuarioRUCE';
     protected $primaryKey = 'id';
@@ -25,7 +29,9 @@ class UsuarioRUCE extends Model  implements Auditable
         'idUsuarioModificacion'
     ];
 
-        /**
+    protected $guard_name = 'api';
+
+    /**
      * Attributes to include in the Audit.
      *
      * @var array
@@ -39,20 +45,9 @@ class UsuarioRUCE extends Model  implements Auditable
      */
     protected $auditExclude = [];
 
+
     public function PersonaRuce()
     {
         return $this->hasOne(PersonaRUCE::class, 'id', 'fkPersonaRUCE');
     }
-
-    /*
-public function fromDateTime($value){
-        return Carbon::parse(parent::fromDateTime($value))->format('d-m-Y H:i:s');
-    }
-    
-    public function toDateTime($value){
-        return parent::toDateTime(Carbon::createFromFormat('d/m/Y H:i:s', $value)->format('d-m-Y H:i:s'));
-    }
-*/
-
-    //public $timestamps = false;
 }

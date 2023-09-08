@@ -41,6 +41,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             RefSeeder::class,
+            AuthSeeder::class,
             PersonaRUCESeeder::class,
             UsuarioAdministradorSeeder::class,
         ]);
