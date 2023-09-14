@@ -25,10 +25,6 @@ class StorePersonaRUCERequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => [
-                'required',
-                'exists:PersonaRUCE,id'
-            ],
             'fkRefTipoDocumentoRUCE' => [
                 'required',
                 'exists:RefTipoDocumentoRUCE,id'

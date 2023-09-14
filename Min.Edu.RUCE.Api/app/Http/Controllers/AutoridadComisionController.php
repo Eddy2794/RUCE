@@ -38,7 +38,7 @@ class AutoridadComisionController extends Controller
     public function store(StoreAutoridadComisionRequest $request): JsonResponse
     {
         $persona = new PersonaRUCEController();
-        $requestPersona = new StorePersonaRUCERequest($request->toArray());
+        $requestPersona = app(StorePersonaRUCERequest::class);
         $created = json_decode($persona->store($requestPersona)->getContent());
         $idPersona = PersonaRUCE::max('id');
         if($created->succeeded){
@@ -97,7 +97,7 @@ class AutoridadComisionController extends Controller
     public function update(UpdateAutoridadComisionRequest $request, int $autoridadComision)
     {
         $persona = new PersonaRUCEController();
-        $requestPersona = new \App\Http\Requests\UpdatePersonaRUCERequest($request->toArray());
+        $requestPersona = app(UpdatePersonaRUCERequest::class);
         $personaUpdated = response()->json($persona->update($requestPersona,$request->fkPersonaRUCE));
         if($personaUpdated->original->getStatusCode() != Response::HTTP_NOT_FOUND)
             try {

@@ -37,7 +37,7 @@ class UsuarioRUCEController extends Controller
     {
         if ($request['password'] === $request['c_password']) {
             $persona = new PersonaRUCEController();
-            $requestPersona = new StorePersonaRUCERequest($request->toArray());
+            $requestPersona = app(StorePersonaRUCERequest::class);
             $created = json_decode($persona->store($requestPersona)->getContent());
             $idPersona = PersonaRUCE::max('id');
             if ($created->succeeded) {
@@ -50,6 +50,9 @@ class UsuarioRUCEController extends Controller
                         'idUsuarioAlta' => $request->idUsuarioAlta,
                     ]);
                     $usuario->save(); // Guardar el usuario en la base de datos
+
+                    // $success['token'] =  $usuario->createToken('AccessToken')->plainTextToken;
+                    // $success['name'] =  $usuario->username;
     
                     return response()->json([
                         'message' => 'Usuario Registrado con Exito',
@@ -89,7 +92,7 @@ class UsuarioRUCEController extends Controller
     {
         if ($request['password']===$request['c_password']){
             $persona = new PersonaRUCEController();
-            $requestPersona = new UpdatePersonaRUCERequest($request->toArray());
+            $requestPersona = app(UpdatePersonaRUCERequest::class);
             $personaUpdated = response()->json($persona->update($requestPersona,$request->fkPersonaRUCE));
             if($personaUpdated->original->getStatusCode() != Response::HTTP_NOT_FOUND)
                 try {

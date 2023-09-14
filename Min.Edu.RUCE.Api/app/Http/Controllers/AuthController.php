@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\UsuarioRUCE;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
 
 class AuthController extends Controller
 {
@@ -18,23 +18,23 @@ class AuthController extends Controller
             if (Auth::attempt(['username' => $request->username, 'password' => $request->password], false)) {
                 $expires_at = Carbon::now();
 
-                // if ($request->remember_me) {
-                //     $expires_at = $expires_at->addWeek();
-                // } else {
-                //     $expires_at = $expires_at->addHour();
-                // }
+                if ($request->remember_me) {
+                    $expires_at = $expires_at->addWeek();
+                } else {
+                    $expires_at = $expires_at->addHour();
+                }
                 /** @var \App\Models\UsuarioRUCE $usuario **/
                 $usuario = Auth::user();
-                // $tokenResult = $usuario->createToken('Personal Access Token', ['expires_at' => $expires_at]);
-                // $token = $tokenResult->accessToken->token;
+                $token = $usuario->createToken('Personal Access Token', ['expires_at' => $expires_at])->plainTextToken;
                 return response([
                     'message' => 'Inicio de Sesión exitoso!',
                     'succeeded' => true,
                     'auth' => [
-                        // 'access_token' => $token,
+                        'access_token' => $token,
                         // 'token_type' => 'Bearer',
-                        // 'expires_at' => $expires_at->toDateTimeString(),
+                        'expires_at' => $expires_at->toDateTimeString(),
                         'username' => $usuario->username,
+                        'rol' => $usuario->getRoleNames(),
                     ]
                 ], Response::HTTP_OK);
             } else {
@@ -54,7 +54,7 @@ class AuthController extends Controller
     public function logout(Request $request): JsonResponse
     {
         try {
-            $request->user()->token()->revoke();
+            Auth()->user()->tokens()->delete();
             return response()->json([
                 'succeeded' => true,
                 'message' => "Logout"

@@ -34,7 +34,7 @@ class KioscoController extends Controller
     public function store(StoreKioscoRequest $request): JsonResponse
     {
         $persona = new PersonaRUCEController();
-        $requestPersona = new StorePersonaRUCERequest($request->toArray());
+        $requestPersona = app(StorePersonaRUCERequest::class);
         $created = json_decode($persona->store($requestPersona)->getContent());
         $idPersona = PersonaRUCE::max('id');
         if($created->succeeded){

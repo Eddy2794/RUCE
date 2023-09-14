@@ -56,11 +56,11 @@ class DatabaseSeeder extends Seeder
 
         // Kiosco::factory($cant_registros)->create();
 
-        // OrganizacionRUCE::factory($cant_registros)->create();
+        OrganizacionRUCE::factory($cant_registros)->create();
 
         // AutoridadOrganizacionRUCE::factory($cant_registros/4)->create();
 
-        // Cooperadora::factory($cant_registros)->create();
+        Cooperadora::factory($cant_registros)->create();
 
         // Comision::factory($cant_registros/16)->create();
 
