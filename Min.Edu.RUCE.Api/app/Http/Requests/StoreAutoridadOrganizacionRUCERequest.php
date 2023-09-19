@@ -41,8 +41,8 @@ class StoreAutoridadOrganizacionRUCERequest extends FormRequest
                 'date'
             ],
             'finCargo' => [
-                'required',
-                'date'
+                //'required',
+                //'date'
             ],
             'estaActivo' => [
                 'required',

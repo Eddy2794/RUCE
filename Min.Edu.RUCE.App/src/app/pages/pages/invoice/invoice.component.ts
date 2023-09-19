@@ -63,42 +63,20 @@ export class InvoiceComponent implements OnInit, OnDestroy {
         dato['apellido'] = autoridad.persona_r_u_c_e[0].apellido;
         dato['nombre'] = autoridad.persona_r_u_c_e[0].nombre;
         dato['cuil'] = autoridad.persona_r_u_c_e[0].cuil;
-        const fechaInicio = new Date(autoridad.comision.periodoInicio);
-        dato['periodoInicio'] = `${fechaInicio.getDate() +1}-${fechaInicio.getMonth() +1}-${fechaInicio.getFullYear()}`;
-        const fechaFin = new Date(autoridad.comision.periodoFin);
-        dato['periodoFin'] = `${fechaFin.getDate() +1}-${fechaFin.getMonth() + 1}-${fechaFin.getFullYear()}`;
+        dato['periodoInicio'] = autoridad.comision.periodoInicio;
+        dato['periodoFin'] = autoridad.comision.periodoFin;
         return dato;
+      });
+
+      datos.sort((a, b) => {
+        if (a.cargo < b.cargo) return -1;
+        if (a.cargo > b.cargo) return 1;
+        return 0;
       });
   
       this.tableData = datos;
-      console.log(this.tableData);
     });
   }
-
-  // tableColumns: TableColumn<1>[] = [
-  //   {
-  //     label: 'CARGO',
-  //     property: 'cargo',
-  //     type: 'text'
-  //   },
-  //   {
-  //     label: 'APELLIDO',
-  //     property: 'apellido',
-  //     type: 'text'
-  //   },
-  //   {
-  //     label: 'NOMBRE',
-  //     property: 'nombre',
-  //     type: 'text',
-  //     cssClasses: ['font-medium']
-  //   },
-  //   {
-  //     label: 'CUIT',
-  //     property: 'cuit',
-  //     type: 'text',
-  //     cssClasses: ['text-secondary']
-  //   }
-  // ];
 
   private cargarCooperadora() {
     this.cooperadoraService.findOne(this.idCooperadora).subscribe((res:any) => {

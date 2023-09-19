@@ -38,7 +38,7 @@
 
           <div @fadeInRight>
             <p class="m-0 body-1">INICIO DE PERIODO: </p>
-            <p class="m-0 caption text-hint">{{comision.periodoInicio}}</p>
+            <p class="m-0 caption text-hint">{{comision.periodoInicio | date : 'dd/MM/yyyy'}}</p>
           </div>
         </div>
 
@@ -50,7 +50,7 @@
 
           <div @fadeInRight>
             <p class="m-0 body-1">FIN DE PERIODO: </p>
-            <p class="m-0 caption text-hint">{{comision.periodoFin}}</p>
+            <p class="m-0 caption text-hint">{{comision.periodoFin | date : 'dd/MM/yyyy'}}</p>
           </div>
         </div>
 

@@ -42,7 +42,6 @@ export class PanelComponent implements OnInit {
         });
     
         this.tableData = datos;
-        console.log(this.tableData);
       });
   }
 

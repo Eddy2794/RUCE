@@ -15,12 +15,12 @@
         </div>
       </div>
       
-      <div style="text-align: right;">
+      <!-- <div style="text-align: right;">
         <img class="h-10" src="/assets/img/logo-ruce/logo-bienestar.jpeg">
-      </div>
+      </div> -->
     </div>
 
-    <table class="table w-full  mat-elevation-z3 rounded">
+    <table class="table w-full rounded">
       <tbody>
         <tr>
           <td class="py-2 border-b">
@@ -46,7 +46,7 @@
       </tbody>
     </table>
 
-    <table class="table w-full mt-1 mat-elevation-z3 rounded">
+    <table class="table w-full mt-1 rounded">
       <tbody>
         <tr>
           <td class="py-2 border-b">
@@ -60,19 +60,19 @@
         <td class="py-2 border-b">
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div class="flex items-center">    
-              <div>
+              <div class="bordes">
                 <p class="body-1">REGION: </p>
                 <p class="body-1 title ml-16">{{ cooperadora?.organizacion_r_u_c_e?.region }}</p>
               </div>
             </div>
             <div class="flex items-center">    
-              <div>
+              <div class="bordes">
                 <p class="body-1">CUE ANEXO: </p>
                 <p class="body-1 title ml-16">{{ cooperadora?.organizacion_r_u_c_e?.cue }}</p>
               </div>
             </div>
             <div class="flex items-center">    
-              <div>
+              <div class="bordes">
                 <p class="body-1">NIVEL: </p>
                 <p class="body-1 title ml-16">{{ cooperadora?.organizacion_r_u_c_e?.nivel }}</p>
               </div>
@@ -85,13 +85,13 @@
         <td class="py-2 border-b">
           <div class="px-gutter grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div class="flex items-center">    
-              <div class="p-3">
+              <div class="p-3 bordes">
                 <p class="body-1">DOMICILIO: </p>
                 <p class="body-1 title ml-16">{{ cooperadora?.organizacion_r_u_c_e?.domicilio }}</p>
               </div>
             </div>
             <div class="flex items-center">    
-              <div class="p-3">
+              <div class="p-3 bordes">
                 <p class="body-1">LOCALIDAD: </p>
                 <p class="body-1 title ml-16">{{ cooperadora?.organizacion_r_u_c_e?.localidad }}</p>
               </div>
@@ -102,12 +102,12 @@
       </tbody>
     </table>
 
-    <table class="table w-full mt-1 mat-elevation-z3 rounded">
+    <table class="table w-full mt-1 rounded">
       <tbody>
         <tr>
           <td class="py-2 border-b">
             <div class=" body-1 title">
-              Fiscalía de Estado - Coordincaión de Personas Jurídicas
+              Fiscalía de Estado - Coordinación de Personas Jurídicas
             </div>
           </td>
         </tr>
@@ -116,25 +116,25 @@
         <td class="py-2 border-b">
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div class="flex items-center">    
-              <div class="ml-10 p-3">
+              <div class="ml-10 p-3 bordes">
                 <p class="body-1">FECHA DE CREACIÓN DE LA ASOCIACIÓN: </p>
                 <p class="body-1 title ml-16">{{ cooperadora?.organizacion_r_u_c_e?.region }}</p>
               </div>
             </div>
             <div class="flex items-center">    
-              <div class="ml-10 p-3">
+              <div class="mr-10 p-3 bordes">
                 <p class="body-1">EXPEDIENTE: </p>
                 <p class="body-1 title ml-16">{{ cooperadora?.expediente?.nroExpediente }}</p>
               </div>
             </div>
             <div class="flex items-center">    
-              <div class="ml-10 p-3">
+              <div class="ml-10 p-3 bordes">
                 <p class="body-1">LEGAJO: </p>
                 <p class="body-1 title ml-16">{{ cooperadora?.legajo }}</p>
               </div>
             </div>
             <div class="flex items-center">    
-              <div class="ml-10 p-3">
+              <div class="mr-10 p-3 bordes">
                 <p class="body-1">DECRETO: </p>
                 <p class="body-1 title ml-16">{{ cooperadora?.personeria?.decreto }}</p>
               </div>
@@ -144,7 +144,7 @@
       </tr>
 
       <div class="py-2 body-1 text-center">
-        Comisión vigente desde {{tableData[0]?.periodoInicio}} hasta {{tableData[0]?.periodoFin}}
+        Comisión vigente desde {{tableData[0]?.periodoInicio | date : 'dd/MM/yyyy'}} hasta {{tableData[0]?.periodoFin | date : 'dd/MM/yyyy'}}
       </div>
       <mat-table [dataSource]="tableData" class="container">
         <!-- Columnas de la tabla -->

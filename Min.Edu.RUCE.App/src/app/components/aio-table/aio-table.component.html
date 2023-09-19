@@ -108,6 +108,11 @@
           <td *matCellDef="let row" [ngClass]="column.cssClasses" mat-cell>{{ row[column.property] | date : 'dd/MM/yyyy'
             }}</td>
         </ng-container>
+
+        <ng-container *ngIf="column.type === 'pesos'" [matColumnDef]="column.property">
+          <th *matHeaderCellDef mat-header-cell mat-sort-header> {{ column.label }}</th>
+          <td *matCellDef="let row" [ngClass]="column.cssClasses" mat-cell>$ {{ row[column.property] }}</td>
+        </ng-container>
       </ng-container>
 
       <!-- Contact Column -->

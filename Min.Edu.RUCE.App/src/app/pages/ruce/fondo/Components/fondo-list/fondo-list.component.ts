@@ -57,7 +57,7 @@ export class FondoListComponent implements OnInit {
       { label: 'VERIFICADA', property: 'verificada', type: 'boolean', visible: true },
       { label: 'FONDO RECIBIDO', property: 'fondoRecibido', type: 'boolean', visible: true },
       { label: 'FONDO RENDIDO', property: 'fondoRendido', type: 'boolean', visible: true },
-      { label: 'MONTO', property: 'monto', type: 'text', visible: true },
+      { label: 'MONTO', property: 'monto', type: 'pesos', visible: true },
       { label: 'RECIBIDO', property: 'fechaRecibido', type: 'date', visible: true },
       { label: 'RENDIDO', property: 'fechaRendicion', type: 'date', visible: true },
       { label: 'AÑO OTORGADO', property: 'anioOtorgado', type: 'text', visible: true },

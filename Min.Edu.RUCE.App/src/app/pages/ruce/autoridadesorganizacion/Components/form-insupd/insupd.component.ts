@@ -127,13 +127,13 @@ export class AutoridadOrganizacionInsupdComponent implements OnInit, OnDestroy {
       telefono: [null, {validators: [ Validators.required, this.validadorServicio.validarEspaciosInicioFin() ]}],
       email: [null, {validators: [ Validators.required, Validators.email, this.validadorServicio.validarEspaciosInicioFin() ]}],
       inicioCargo: [null, {validators: [ Validators.required]}],
-      finCargo: [null, {validators: [ Validators.required]} ],
+      finCargo: null,
       idUsuarioAlta: null,
       idUsuarioModificacion: null,
       estaActivo: true,
     },
     {
-      validators: [ this.validadorServicio.validarFechasInicioFin('inicioCargo','finCargo')]
+      //validators: [ this.validadorServicio.validarFechasInicioFin('inicioCargo','finCargo')]
     })
     if (this.accion === 'delete'|| this.accion === 'view') {
       this.formularioAutoridad.disable();
