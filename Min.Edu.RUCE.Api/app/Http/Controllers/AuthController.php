@@ -29,12 +29,12 @@ class AuthController extends Controller
                 return response([
                     'message' => 'Inicio de Sesión exitoso!',
                     'succeeded' => true,
-                    'auth' => [
-                        'access_token' => $token,
+                    'data' => [
+                        'token' => $token,
                         // 'token_type' => 'Bearer',
                         'expires_at' => $expires_at->toDateTimeString(),
                         'username' => $usuario->username,
-                        'rol' => $usuario->getRoleNames(),
+                        'rol' => $usuario->getRoleNames()[0],
                     ]
                 ], Response::HTTP_OK);
             } else {

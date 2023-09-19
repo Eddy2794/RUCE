@@ -180,7 +180,7 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::group(['prefix' => '/refcargo, '], function () {
+    Route::group(['prefix' => '/refcargo'], function () {
         Route::middleware('role:super_admin|admin')->get('/Filter', [RefCargoController::class, 'index'])->name('cargo.index');
         Route::middleware('role:super_admin|admin')->post('/', [RefCargoController::class, 'store'])->name('cargo.store');
         Route::middleware('role:super_admin|admin')->get('/{id}', [RefCargoController::class, 'show'])->name('cargo.show');

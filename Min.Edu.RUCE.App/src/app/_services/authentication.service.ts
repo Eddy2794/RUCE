@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { environment } from '@environments/environment';
 import { Router } from '@angular/router';
-import * as jwt_decode from 'jwt-decode';
+//import * as jwt_decode from 'jwt-decode';
 import { User } from '@app/_models/user.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
     private currentUserSubject!: BehaviorSubject<User>;
-    public currentUser: Observable<User>;
+    public currentUser!: Observable<User>;
     public user!: User;
     constructor(private http: HttpClient, public router: Router) {
         let dataUserCurrent = localStorage.getItem('currentUser')
         // this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(dataUserCurrent));
-        this.currentUser = this.currentUserSubject.asObservable();
+        // this.currentUser = this.currentUserSubject.asObservable();
     }
 
     public get currentUserValue(): User | undefined {
@@ -23,11 +23,17 @@ export class AuthenticationService {
     }
 
     login(username: string, password: string) {
-        return this.http.post<any>(`${environment.apiPofUrl}/auth/login`, { username, password })
-            .pipe(map(response => {
-                localStorage.setItem('currentUser', JSON.stringify(response.data));
-                return response.data;
-            }));
+        return this.http.post<any>(`${environment.apiRuceUrl}/auth/login`, { username, password })
+            .pipe(
+              map(response => {
+                console.log(response);
+                if (response.succeeded){
+                  localStorage.setItem('currentUser', JSON.stringify(response.data));
+                  return response.data;
+                }else
+                return response;
+            }),
+            );
     }
 
     logout() {
