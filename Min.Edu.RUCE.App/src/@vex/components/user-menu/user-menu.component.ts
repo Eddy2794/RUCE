@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PopoverRef } from '../popover/popover-ref';
+import { AuthenticationService } from '@app/_services';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'vex-user-menu',
@@ -8,7 +10,11 @@ import { PopoverRef } from '../popover/popover-ref';
 })
 export class UserMenuComponent implements OnInit {
 
-  constructor(private readonly popoverRef: PopoverRef) { }
+  constructor(
+    private readonly popoverRef: PopoverRef,
+    private authenticationService: AuthenticationService,
+    private snackbar: MatSnackBar,
+    ) { }
 
   ngOnInit(): void {
   }
@@ -17,4 +23,10 @@ export class UserMenuComponent implements OnInit {
     /** Wait for animation to complete and then close */
     setTimeout(() => this.popoverRef.close(), 250);
   }
+
+  send() {
+    this.close();
+    this.authenticationService.logout();
+    this.snackbar.open('Cierre de sesión exitoso.', 'OK', { duration: 10000 });
+}
 }

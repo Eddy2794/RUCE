@@ -22,11 +22,10 @@ export class AuthenticationService {
        return undefined;
     }
 
-    login(username: string, password: string) {
-        return this.http.post<any>(`${environment.apiRuceUrl}/auth/login`, { username, password })
+    login(username: string, password: string, remember_me: boolean) {
+        return this.http.post<any>(`${environment.apiRuceUrl}/auth/login`, { username, password, remember_me })
             .pipe(
               map(response => {
-                console.log(response);
                 if (response.succeeded){
                   localStorage.setItem('currentUser', JSON.stringify(response.data));
                   return response.data;
@@ -37,6 +36,7 @@ export class AuthenticationService {
     }
 
     logout() {
+      this.http.post<any>(`${environment.apiRuceUrl}/auth/logout`,{});
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
         localStorage.removeItem('Products');

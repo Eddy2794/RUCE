@@ -144,7 +144,7 @@
       </tr>
 
       <div class="py-2 body-1 text-center">
-        Comisión vigente desde {{tableData[0]?.periodoInicio | date : 'dd/MM/yyyy'}} hasta {{tableData[0]?.periodoFin | date : 'dd/MM/yyyy'}}
+        Comisión vigente desde {{cooperadora?.comision[0]?.periodoInicio | date : 'dd/MM/yyyy'}} hasta {{cooperadora?.comision[0]?.periodoFin | date : 'dd/MM/yyyy'}}
       </div>
       <mat-table [dataSource]="tableData" class="container">
         <!-- Columnas de la tabla -->

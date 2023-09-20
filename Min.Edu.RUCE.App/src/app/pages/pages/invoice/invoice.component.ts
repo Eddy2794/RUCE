@@ -81,6 +81,7 @@ export class InvoiceComponent implements OnInit, OnDestroy {
   private cargarCooperadora() {
     this.cooperadoraService.findOne(this.idCooperadora).subscribe((res:any) => {
       this.cooperadora = Object.assign({}, this.cooperadora, res.entities);
+      console.log(this.cooperadora);
       this.idOrganizacion = this.cooperadora.organizacion_r_u_c_e.id;
       this.idComision = this.cooperadora.comision[0].id;
       this.cargarAutoridad(this.idOrganizacion);

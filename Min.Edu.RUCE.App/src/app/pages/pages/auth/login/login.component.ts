@@ -31,12 +31,14 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.form = this.fb.group({
       username: ['', Validators.required],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
+      remember_me : false,
     });
   }
 
   send() {
-    this.authenticationService.login(this.form.value.username, this.form.value.password).subscribe(
+    console.log(this.form.value);
+    this.authenticationService.login(this.form.value.username, this.form.value.password, this.form.value.remember_me).subscribe(
       response => {
         if (response.succeeded===false){
           this.snackbar.open('Inicio de sesión fallido. Por favor, verifica tus credenciales.', 'OK', { duration: 10000 });

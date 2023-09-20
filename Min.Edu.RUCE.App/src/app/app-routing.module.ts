@@ -3,6 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { QuicklinkModule, QuicklinkStrategy } from 'ngx-quicklink';
 import { VexRoutes } from 'src/@vex/interfaces/vex-route.interface';
 import { CustomLayoutComponent } from './custom-layout/custom-layout.component';
+import { AuthGuard } from './_helpers';
 
 const routes: VexRoutes = [
   {
@@ -17,6 +18,7 @@ const routes: VexRoutes = [
   {
     path: '',
     component: CustomLayoutComponent,
+    canActivate:[AuthGuard],
     children: [
       {
         path: 'pages',
