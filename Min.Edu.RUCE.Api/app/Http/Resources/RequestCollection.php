@@ -61,7 +61,7 @@ class RequestCollection extends ResourceCollection
         return $data;
     }
 
-    private function busqueda($datos, $campos, $desc)
+    private function busqueda($datos, $campos, $desc, $foraneos = [])
     {
         $query = get_class($datos->first())::query();
 

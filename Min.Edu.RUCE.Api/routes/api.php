@@ -3,6 +3,7 @@
 use App\Http\Controllers\AutoridadOrganizacionRUCEController;
 use App\Http\Controllers\AutoridadComisionController;
 use App\Http\Controllers\AtencionSeguimientoController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PersonaRUCEController;
 use App\Http\Controllers\KioscoController;
 use App\Http\Controllers\OrganizacionRUCEController;
@@ -255,4 +256,14 @@ Route::group(['prefix' => '/auth'], function () {
     Route::post('/login', [AuthController::class, 'login'])->name('auth.login');
     Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
     Route::get('/unauthorized', [AuthController::class, 'unauthorized'])->name('auth.unauthorized');
+});
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::group(['prefix' => '/panel'], function () {
+        Route::middleware('role:super_admin|admin|writer|user')->get('/Filter', [DashboardController::class, 'index'])->name('panel.index');
+        // Route::middleware('role:super_admin')->post('/', [UsuarioRUCEController::class, 'store'])->name('usuario.store');
+        // Route::middleware('role:super_admin|admin|writer|user')->get('/{id}', [UsuarioRUCEController::class, 'show'])->name('usuario.show');
+        // Route::middleware('role:super_admin')->delete('/{id}', [UsuarioRUCEController::class, 'destroy'])->name('usuario.destroy');
+        // Route::middleware('role:super_admin')->put('/{id}', [UsuarioRUCEController::class, 'update'])->name('usuario.update');
+    });
 });
