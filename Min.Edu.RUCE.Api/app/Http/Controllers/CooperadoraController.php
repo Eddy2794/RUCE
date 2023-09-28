@@ -17,10 +17,10 @@ class CooperadoraController extends Controller
     public function index(Request $request)
     {
         try {
-            if ($request->has('PageNumber')&&$request->has('PageSize')) {
-                return new RequestCollection(Cooperadora::all(),$request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
+            if ($request->has('PageNumber') && $request->has('PageSize')) {
+                return new RequestCollection(Cooperadora::all(), $request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
             }
-            return new RequestCollection(Cooperadora::all(),10, 1);
+            return new RequestCollection(Cooperadora::all(), 10, 1);
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,
@@ -61,7 +61,7 @@ class CooperadoraController extends Controller
     public function show(int $cooperadora): JsonResponse
     {
         try {
-            return response()->json(new ModelResourse($cooperadora,'Cooperadora'));
+            return response()->json(new ModelResourse($cooperadora, 'Cooperadora'));
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,
@@ -93,7 +93,7 @@ class CooperadoraController extends Controller
                     'succeeded' => false
                 ], 422);
             }
-            $cooperadora->updated_at= Carbon::now();
+            $cooperadora->updated_at = Carbon::now();
             $cooperadora->save();
 
             return response()->json([
@@ -111,7 +111,7 @@ class CooperadoraController extends Controller
     public function destroy(int $id): JsonResponse
     {
         try {
-            Cooperadora::where('id', $id)->update(['estaActivo'=>false,]);
+            Cooperadora::where('id', $id)->update(['estaActivo' => false,]);
             Cooperadora::where('id', $id)->delete();
             return response()->json([
                 'succeeded' => true,
@@ -133,5 +133,5 @@ class CooperadoraController extends Controller
     //     }
     //     return $query->paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']);
     // }
-    
+
 }

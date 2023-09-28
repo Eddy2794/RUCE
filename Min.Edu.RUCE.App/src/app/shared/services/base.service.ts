@@ -112,6 +112,9 @@ export class BaseService<T extends BaseModel> implements IBaseService<T> {
             if (filterOptions.estaActivo === false) {
                 queryFilter = queryFilter ? queryFilter + `&EstaActivo=${filterOptions.estaActivo}` : `EstaActivo=${filterOptions.estaActivo}`
             }
+            if (filterOptions.sinCoop && filterOptions.sinCoop === true) {
+                queryFilter = queryFilter ? queryFilter + `&sinCoop=${filterOptions.sinCoop}` : `sinCoop=${filterOptions.sinCoop}`;
+            }
 
 
         }

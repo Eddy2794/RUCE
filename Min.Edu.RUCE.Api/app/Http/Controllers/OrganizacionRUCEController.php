@@ -17,10 +17,18 @@ class OrganizacionRUCEController extends Controller
     public function index(Request $request)
     {
         try {
-            if ($request->has('PageNumber')&&$request->has('PageSize')) {
-                    return new RequestCollection(OrganizacionRUCE::all(),$request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
+            if ($request->has('PageNumber') && $request->has('PageSize')) {
+                if ($request->has('sinCoop') && $request['sinCoop'] == true) {
+                    return new RequestCollection(
+                        OrganizacionRUCE::whereDoesntHave('Cooperadora')->get(),
+                        $request['PageSize'],
+                        $request['PageNumber'],
+                        $request['descContains']
+                    );
+                } else
+                    return new RequestCollection(OrganizacionRUCE::all(), $request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
             }
-            return new RequestCollection(OrganizacionRUCE::all(),10, 1);
+            return new RequestCollection(OrganizacionRUCE::all(), 10, 1);
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,
@@ -32,7 +40,7 @@ class OrganizacionRUCEController extends Controller
 
     public function store(StoreOrganizacionRUCERequest $request): JsonResponse
     {
-        
+
         $request = new StoreOrganizacionRUCERequest($request->toArray());
         try {
             OrganizacionRUCE::create([
@@ -63,7 +71,7 @@ class OrganizacionRUCEController extends Controller
     public function show(int $organizacionRUCE): JsonResponse
     {
         try {
-            return response()->json(new ModelResourse($organizacionRUCE,'OrganizacionRUCE'));
+            return response()->json(new ModelResourse($organizacionRUCE, 'OrganizacionRUCE'));
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,
@@ -95,7 +103,7 @@ class OrganizacionRUCEController extends Controller
                     'succeeded' => false
                 ], 422);
             }
-            $organizacionRUCE->updated_at= Carbon::now();
+            $organizacionRUCE->updated_at = Carbon::now();
             $organizacionRUCE->save();
 
             return response()->json([
@@ -113,7 +121,7 @@ class OrganizacionRUCEController extends Controller
     public function destroy(int $id): JsonResponse
     {
         try {
-            OrganizacionRUCE::where('id', $id)->update(['estaActivo'=>false,]);
+            OrganizacionRUCE::where('id', $id)->update(['estaActivo' => false,]);
             OrganizacionRUCE::where('id', $id)->delete();
             return response()->json([
                 'succeeded' => true,

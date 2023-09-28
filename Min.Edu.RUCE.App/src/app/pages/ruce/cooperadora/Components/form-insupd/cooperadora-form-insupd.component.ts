@@ -173,7 +173,7 @@ export class CooperadoraFormInsupdComponent implements OnInit {
   openDialogSingle(dataSource: IBaseService<any>, nombreColumnaDesc: string, nombreEntidad: string, label: string) {
     let resp!: any;
     const dialogConfig = new MatDialogConfig();
-    const filter: FilterOptions = { estaActivo: true };
+    const filter: FilterOptions = { estaActivo: true, sinCoop: true };
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = '75em';
