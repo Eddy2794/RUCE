@@ -21,6 +21,7 @@ class Matricula extends Model  implements Auditable
         'fkOrganizacionRUCE',
         'periodoLectivo',
         'matricula',
+        'fecha',
         'estaActivo',
         'idUsuarioAlta',
         'idUsuarioModificacion'

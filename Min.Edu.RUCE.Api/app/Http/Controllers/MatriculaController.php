@@ -39,6 +39,7 @@ class MatriculaController extends Controller
                 'fkOrganizacionRUCE' => $request->fkOrganizacionRUCE,
                 'periodoLectivo' => $request->periodoLectivo,
                 'matricula' => $request->matricula,
+                'fecha' => $request->fecha,
                 'idUsuarioAlta' => $request->idUsuarioAlta,
             ]);
             return response()->json([
@@ -74,6 +75,7 @@ class MatriculaController extends Controller
             $matricula->fkOrganizacionRUCE = $request->fkOrganizacionRUCE ?: $matricula->fkOrganizacionRUCE;
             $matricula->periodoLectivo = $request->periodoLectivo ?: $matricula->periodoLectivo;
             $matricula->matricula = $request->matricula ?: $matricula->matricula;
+            $matricula->fecha = $request->fecha ?: $matricula->fecha;
             // $matricula->idUsuarioModificacion = $request->idUsuarioModificacion ?: $matricula->idUsuarioModificacion;
 
             if ($matricula->isClean()) {
@@ -112,32 +114,5 @@ class MatriculaController extends Controller
                 'message' => $th->getMessage()
             ], Response::HTTP_NOT_FOUND);
         }
-    }
-
-    public function search(Request $request, Matricula $matricula)
-    {
-        /*
-        Seguramente se puede refactorizar y optimizar
-        por ahora es la forma que da resultados esperados
-        */
-
-        $query = $matricula->newQuery();
-
-        if ($request->id) {
-            $query->where('id', $request->id)
-                ->where(function ($q) use ($request) {
-                    if ($request->q) {
-                        $q->where('cue', 'like', '%' . $request->q . '%')
-                            ->orWhere('organizacionDesc', 'like', '%' . $request->q . '%');
-                    }
-                });
-        } else {
-            if ($request->q) {
-                $query->where('cue', 'like', '%' . $request->q . '%')
-                    ->orWhere('organizacionDesc', 'like', '%' . $request->q . '%');
-            }
-        }
-
-        // return new RequestCollection($query->orderBy('organizacionDesc')->paginate()->appends(['q' => $request->q, 'id' => $request->id]));
     }
 }

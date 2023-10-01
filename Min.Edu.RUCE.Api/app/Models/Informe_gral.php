@@ -23,4 +23,11 @@ class Informe_gral extends Model  implements Auditable
         'idUsuarioAlta',
         'idUsuarioModificacion'
     ];
+
+
+
+    public function Cooperadora()
+    {
+        return $this->belongsTo(Cooperadora::class, 'fkCooperadora', 'id');
+    }
 }

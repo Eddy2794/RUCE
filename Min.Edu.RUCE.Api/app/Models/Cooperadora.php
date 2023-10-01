@@ -59,7 +59,12 @@ class Cooperadora extends Model  implements Auditable
     {
         return $this->belongsTo(OrganizacionRUCE::class, 'id');
     }
-    
+
+    public function Informe_gral()
+    {
+        return $this->hasMany(Informe_gral::class, 'id', 'fkCooperadora');
+    }
+
     public function RefTipoAsociacion()
     {
         return $this->hasMany(RefTipoAsociacion::class, 'id', 'fkRefTipoAsociacion');

@@ -29,7 +29,12 @@ class OrganizacionRUCE extends Model  implements Auditable
         'departamento',
         'telefono',
         'email',
-        'domicilio',
+        // 'domicilio',
+        'calle', 
+        'numero', 
+        'barrio', 
+        'cp', 
+        'sector',
         'estaActivo',
         'idUsuarioAlta',
         'idUsuarioModificacion'

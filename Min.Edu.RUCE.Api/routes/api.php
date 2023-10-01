@@ -24,6 +24,8 @@ use App\Http\Controllers\RefTipoFondoController;
 use App\Http\Controllers\UsuarioRUCEController;
 use App\Http\Controllers\AuditController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Informe_gralController;
+use App\Models\Informe_gral;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -266,4 +268,12 @@ Route::middleware('auth:sanctum')->group(function () {
         // Route::middleware('role:super_admin')->delete('/{id}', [UsuarioRUCEController::class, 'destroy'])->name('usuario.destroy');
         // Route::middleware('role:super_admin')->put('/{id}', [UsuarioRUCEController::class, 'update'])->name('usuario.update');
     });
+});
+
+Route::group(['prefix' => '/informe_gral'], function () {
+    Route::get('/Filter', [Informe_gralController::class, 'index'])->name('reportes');
+    // Route::middleware('role:super_admin')->post('/', [UsuarioRUCEController::class, 'store'])->name('usuario.store');
+    // Route::middleware('role:super_admin|admin|writer|user')->get('/{id}', [UsuarioRUCEController::class, 'show'])->name('usuario.show');
+    // Route::middleware('role:super_admin')->delete('/{id}', [UsuarioRUCEController::class, 'destroy'])->name('usuario.destroy');
+    // Route::middleware('role:super_admin')->put('/{id}', [UsuarioRUCEController::class, 'update'])->name('usuario.update');
 });
