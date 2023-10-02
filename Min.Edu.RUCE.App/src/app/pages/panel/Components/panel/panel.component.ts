@@ -3,6 +3,8 @@ import { CooperadoraService } from '@app/pages/ruce/cooperadora/Services/coopera
 import { FilterOptions } from '@app/shared/utils';
 import { TableColumn } from 'src/@vex/interfaces/table-column.interface';
 import { defaultChartOptions } from 'src/@vex/utils/default-chart-options';
+import { PanelService } from '../../Service/panel.service';
+import { PanelModel } from '../../Model/panel-model';
 
 @Component({
   selector: 'vex-panel',
@@ -12,13 +14,13 @@ import { defaultChartOptions } from 'src/@vex/utils/default-chart-options';
 export class PanelComponent implements OnInit {
   filtro: FilterOptions = { estaActivo: true };
   tableData = [];
-  totalCooperadoras?: number = 0;
+  datosCards?: PanelModel;
   constructor(
-    private cooperadoraService: CooperadoraService
+    private cooperadoraService: CooperadoraService,
+    private panelService: PanelService
   ){}
   ngOnInit(): void {
       this.cooperadoraService.filter(this.filtro).subscribe((res: any) => {
-        this.totalCooperadoras = res.paged.entityCount;
         const datos = res.entities.map(coop => {
           const dato: any = {};
     
@@ -43,6 +45,10 @@ export class PanelComponent implements OnInit {
     
         this.tableData = datos;
       });
+
+      this.panelService.filter(this.filtro).subscribe((res: any) => {
+        this.datosCards = res.datos;
+      })
   }
 
   tableColumns: TableColumn<1>[] = [

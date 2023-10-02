@@ -17,13 +17,13 @@ class DashboardController extends Controller
             $datos = [];
             $cooperadoras = Cooperadora::all()->toArray();
             $cooperadorasVerde = count(array_filter($cooperadoras, function($cooperadora) {
-                return $cooperadora['estado'] === 'verde';
+                return $cooperadora['estado'] === 'VERDE';
             }));
             $cooperadorasAmarillo = count(array_filter($cooperadoras, function($cooperadora) {
-                return $cooperadora['estado'] === 'amarillo';
+                return $cooperadora['estado'] === 'AMARILLO';
             }));
             $cooperadorasRojo = count(array_filter($cooperadoras, function($cooperadora) {
-                return $cooperadora['estado'] === 'rojo';
+                return $cooperadora['estado'] === 'ROJO';
             }));
             $instituciones = OrganizacionRUCE::with(['Cooperadora'])->get()->toArray();
             $instCoop = count(array_filter($instituciones, function($institucion) {
@@ -40,7 +40,7 @@ class DashboardController extends Controller
                 "coopExpediente" => $cooperadorasAmarillo,
                 "coopSinNovedad" => $cooperadorasRojo,
                 "coopConstancias" => $constancias,
-                "instCoop" => $instCoop,
+                "instSinCoop" => $instCoop,
             ];
             return response()->json([
                 'succeded' => true,

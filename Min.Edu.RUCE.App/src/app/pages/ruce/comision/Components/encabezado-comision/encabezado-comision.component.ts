@@ -27,8 +27,9 @@ import { stagger40ms } from 'src/@vex/animations/stagger.animation';
 export class EncabezadoComisionComponent implements OnInit {
 
   comision?: ComisionModel;
+  autoridad?: AutoridadComisionModel;
   idCooperadora?: number = 0;
-  idComision?: number=1;
+  idComision?: number=0;
 
   filtro: FilterOptions = {estaActivo: true, filtros:""};
   columnasVex: TableColumn<AutoridadComisionModel>[];
@@ -59,6 +60,13 @@ export class EncabezadoComisionComponent implements OnInit {
         this.idComision = this.comision.id;
         this.observerIdComision.enviarIdComision(this.idComision);
         this.datosShow = true;
+
+        this.autoridadService.findOne(this.idComision).subscribe(
+          (res:any) => {
+            if (res.entities.ref_cargo[0].cargoDesc === "PRESIDENTE")
+              this.autoridad = Object.assign({}, this.autoridad, res.entities);
+          }
+        )
       },
     );
   }
