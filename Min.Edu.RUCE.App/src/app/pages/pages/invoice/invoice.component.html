@@ -32,17 +32,31 @@
 
       <tr>
         <td class="py-2 border-b">
-          <div class="">Establecimiento Educativo:</div>
-          <div class="text-center body-1 title">{{cooperadora?.organizacion_r_u_c_e?.organizacionDesc}}</div>
+          <div class="px-gutter grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+            <div class="flex items-center w-75">    
+              <div class="p-3 bordes">
+                <p class="body-1">Establecimiento Educativo: </p>
+                <p class="body-1 title ml-16">{{ cooperadora?.organizacion_r_u_c_e?.organizacionDesc }}</p>
+              </div>
+            </div>
+            <div class="flex items-center w-25">    
+              <div class="p-3 bordes">
+                <p class="body-1">Tipo de Asociación: </p>
+                <p class="body-1 title ml-36">{{ cooperadora?.ref_tipo_asociacion[0]?.tipoAsociacionDesc }}</p>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="">Establecimiento Educativo:</div>
+          <div class="text-center body-1 title">{{cooperadora?.organizacion_r_u_c_e?.organizacionDesc}}</div> -->
         </td>
       </tr>
 
-      <tr>
+      <!-- <tr>
         <td class="py-2 border-b">
           <div class="">Director/a: </div>
           <div class="ml-24">{{directorInst}}</div>
         </td>
-      </tr>
+      </tr> -->
       </tbody>
     </table>
 

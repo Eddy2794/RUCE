@@ -5,7 +5,7 @@
   <div class="container py-gutter grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
     <vex-widget-assistant class="sm:col-span-2"></vex-widget-assistant>
   
-    <!-- <vex-widget-quick-value-center icon="mat:diversity_2"
+    <vex-widget-quick-value-center icon="mat:diversity_2"
                                    iconClass="text-primary bg-primary/10"
                                    helpText="Total de Cooperadoras Registradas"
                                    label="Cooperadoras registradas"
@@ -14,32 +14,34 @@
                                    iconClass="text-primary bg-primary/10"
                                    helpText="Total de Establecimientos"
                                    label="Establecimientos"
-                                   value={{datosCards?.totalInstituciones}}></vex-widget-quick-value-center> -->
+                                   value={{datosCards?.totalInstituciones}}></vex-widget-quick-value-center>
   
     <!-- <vex-widget-large-chart [series]="userSessionsSeries"
                             class="sm:col-span-2"></vex-widget-large-chart> -->
   
-    <vex-widget-quick-value-center icon="mat:diversity_2"
-                                   iconClass="text-red bg-red-light"
-                                   helpText="Cooperadoras que no iniciaron ningún trámite"
-                                   label="Cooperadoras Sin Novedades"
-                                   value={{datosCards?.coopSinNovedad}}></vex-widget-quick-value-center>
-    <vex-widget-quick-value-center icon="mat:diversity_2"
-                                   iconClass="text-orange bg-orange-light"
-                                   helpText="Cooperadoras que iniciaron o tienen expediente"
-                                   label="Cooperadoras Con Epediente"
-                                   value={{datosCards?.coopExpediente}}></vex-widget-quick-value-center>
-    
-    <vex-widget-quick-value-center icon="mat:diversity_2"
-                                   iconClass="text-green bg-green/10"
-                                   helpText="Cooperadoras que registran personería"
-                                   label="Cooperadoras Con Personería"
-                                   value={{datosCards?.coopPersonaria}}></vex-widget-quick-value-center>
-    <vex-widget-quick-value-center icon="mat:diversity_2"
-                                   iconClass="text-primary bg-primary/10"
-                                   helpText="Cooperadoras que ya poseen constancia"
-                                   label="Cooperadoras con Constancia"
-                                   value={{datosCards?.coopConstancias}}></vex-widget-quick-value-center>
+    <div class="sm:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <vex-widget-quick-value-center icon="mat:diversity_2"
+                                    iconClass="text-red bg-red-light"
+                                    helpText="Cooperadoras que no iniciaron ningún trámite"
+                                    label="Cooperadoras Sin Novedades"
+                                    value={{datosCards?.coopSinNovedad}}></vex-widget-quick-value-center>
+      <vex-widget-quick-value-center icon="mat:diversity_2"
+                                    iconClass="text-orange bg-orange-light"
+                                    helpText="Cooperadoras que iniciaron o tienen expediente"
+                                    label="Cooperadoras Con Epediente"
+                                    value={{datosCards?.coopExpediente}}></vex-widget-quick-value-center>
+      
+      <vex-widget-quick-value-center icon="mat:diversity_2"
+                                    iconClass="text-green bg-green/10"
+                                    helpText="Cooperadoras que registran personería"
+                                    label="Cooperadoras Con Personería"
+                                    value={{datosCards?.coopPersonaria}}></vex-widget-quick-value-center>
+      <vex-widget-quick-value-center icon="mat:diversity_2"
+                                    iconClass="text-primary bg-primary/10"
+                                    helpText="Cooperadoras que ya poseen constancia"
+                                    label="Cooperadoras con Constancia"
+                                    value={{datosCards?.coopConstancias}}></vex-widget-quick-value-center>
+    </div>
   
     <!-- <vex-widget-large-goal-chart [series]="salesSeries"
                                  class="sm:col-span-full"
