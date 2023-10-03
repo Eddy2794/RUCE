@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\RequestCollection;
+use App\Models\Cooperadora;
 use App\Models\Informe_gral;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -14,28 +15,32 @@ class Informe_gralController extends Controller
     {
         try {
             $filtersArray = get_object_vars(json_decode($request['filtros']));
-            $datos = Informe_gral::with('Cooperadora.OrganizacionRUCE.Matricula')
-            ->whereHas('Cooperadora.OrganizacionRUCE', function ($query) use (&$filtersArray) {
-                $query->where(function ($query) use (&$filtersArray) {
-                    foreach ($filtersArray as $clave => $valor) {
-                        if ($clave != 'matricula') {
-                            $query->where($clave, $valor);
-                            unset($filtersArray[$clave]);
+            $datos = Cooperadora::with('OrganizacionRUCE.Matricula')
+                ->whereHas('OrganizacionRUCE', function ($query) use (&$filtersArray) {
+                    $query->where(function ($query) use (&$filtersArray) {
+                        foreach ($filtersArray as $clave => $valor) {
+                            if ($clave != 'matricula') {
+                                $query->where($clave, $valor);
+                                unset($filtersArray[$clave]);
+                            }
                         }
+                    });
+                    if (array_key_exists('matricula', $filtersArray)) {
+                        $query->whereHas('Matricula', function ($query) use (&$filtersArray) {
+                            foreach ($filtersArray as $clave => $valor) {
+                                if ($clave == 'matricula') {
+                                    $valores = explode(" ", $valor);
+                                    $query->where('matricula', $valores[0], $valores[1]);
+                                }
+                            }
+                        });
                     }
-                });
-            
-                $query->whereHas('Matricula', function ($query) use (&$filtersArray) {
-                    foreach ($filtersArray as $clave => $valor) {
-                        if ($clave == 'matricula') {
-                            $valores = explode(" ", $valor);
-                            $query->where('matricula', $valores[0], $valores[1]);
-                        }
-                    }
-                });
-            })
-            ->get();
-            if ($request->has('PageNumber')&&$request->has('PageSize')) {
+                })->get();
+            if ($datos->toArray() != []) {
+                $this->store($datos->toArray());
+            }
+
+            if ($request->has('PageNumber') && $request->has('PageSize')) {
                 return new RequestCollection($datos, $request['PageSize'], $request['PageNumber'], $request['descContains']);
             }
             return new RequestCollection($datos, 10, 1);
@@ -48,9 +53,18 @@ class Informe_gralController extends Controller
     }
 
 
-    public function show(Informe_gral $informe_gral): JsonResponse
+    public function show(int $idCooperadora): JsonResponse
     {
         try {
+            $datos = Cooperadora::with([
+                'OrganizacionRUCE',
+                'RefTipoAsociacion', 
+                'Expediente', 
+                'Personeria', 
+                'Comision.RefTipoComision', 
+                'Comision.AutoridadComision.PersonaRUCE', 
+                'Comision.AutoridadComision.RefCargo'
+            ])->where("id", $idCooperadora)->get()->toArray();
             
             return response()->json();
         } catch (\Throwable $th) {
@@ -62,12 +76,14 @@ class Informe_gralController extends Controller
     }
 
 
-    public function store(Request $request): JsonResponse
+    public function store(array $datos): JsonResponse
     {
         try {
-
+            Informe_gral::create([
+                "datos" => $datos
+            ]);
             return response()->json([
-                'message' => 'Matricula registrada con Exito',
+                'message' => 'Reporte registrado con Exito',
                 'succeeded' => true
             ], Response::HTTP_OK);
         } catch (\Throwable $th) {
@@ -81,7 +97,7 @@ class Informe_gralController extends Controller
     public function destroy(Informe_gral $informe_gral): JsonResponse
     {
         try {
-            
+
             return response()->json([
                 'succeeded' => true,
                 'message' => 'Matricula eliminada con exito'

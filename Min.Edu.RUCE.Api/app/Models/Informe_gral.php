@@ -18,12 +18,16 @@ class Informe_gral extends Model  implements Auditable
     protected $dates = ['deleted_at'];
     protected $fillable = [
         'fkCooperadora',
+        'datos',
         'esReporte',
         'estaActivo',
         'idUsuarioAlta',
         'idUsuarioModificacion'
     ];
 
+    protected $casts = [
+        'datos' => 'array'
+    ];
 
 
     public function Cooperadora()

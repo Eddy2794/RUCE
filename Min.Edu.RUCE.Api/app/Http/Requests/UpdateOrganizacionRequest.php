@@ -25,8 +25,7 @@ class UpdateOrganizacionRequest extends FormRequest
     {
         return [
             'organizacionDesc' => 'required|unique:OrganizacionRUCE|max:255',
-            'cue' => 'required|unique:OrganizacionRUCE',
-            'anexo' => 'required',
+            'cueAnexo' => 'required|unique:OrganizacionRUCE',
             'telefono' => 'required',
             'email' => 'required|unique:OrganizacionRUCE|max:255',
             'domicilio' => 'required',

@@ -104,31 +104,4 @@ class RefCargoController extends Controller
             ], Response::HTTP_NOT_FOUND);
         }
     }
-
-    public function search(Request $request, RefCargo $refCargo)
-    {
-        /*
-        Seguramente se puede refactorizar y optimizar
-        por ahora es la forma que da resultados esperados
-        */
-
-        $query = $refCargo->newQuery();
-
-        if ($request->id) {
-            $query->where('id', $request->id)
-                ->where(function ($q) use ($request) {
-                    if ($request->q) {
-                        $q->where('cue', 'like', '%' . $request->q . '%')
-                            ->orWhere('cargoDesc', 'like', '%' . $request->q . '%');
-                    }
-                });
-        } else {
-            if ($request->q) {
-                $query->where('cue', 'like', '%' . $request->q . '%')
-                    ->orWhere('cargoDesc', 'like', '%' . $request->q . '%');
-            }
-        }
-
-        // return new RequestCollection($query->orderBy('cargoDesc')->paginate()->appends(['q' => $request->q, 'id' => $request->id]));
-    }
 }

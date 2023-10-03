@@ -272,6 +272,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::group(['prefix' => '/informe_gral'], function () {
     Route::get('/Filter', [Informe_gralController::class, 'index'])->name('reportes');
+    Route::get('/{id}', [Informe_gralController::class, 'show'])->name('generar_constancias');
+    Route::get('/{cooperadora}/{constancia}', [Informe_gralController::class, 'show'])->name('constancias');
     // Route::middleware('role:super_admin')->post('/', [UsuarioRUCEController::class, 'store'])->name('usuario.store');
     // Route::middleware('role:super_admin|admin|writer|user')->get('/{id}', [UsuarioRUCEController::class, 'show'])->name('usuario.show');
     // Route::middleware('role:super_admin')->delete('/{id}', [UsuarioRUCEController::class, 'destroy'])->name('usuario.destroy');

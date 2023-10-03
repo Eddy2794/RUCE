@@ -112,31 +112,4 @@ class RefTipoFondoController extends Controller
             ], Response::HTTP_NOT_FOUND);
         }
     }
-
-    public function search(Request $request, RefTipoFondo $refTipoFondo)
-    {
-        /*
-        Seguramente se puede refactorizar y optimizar
-        por ahora es la forma que da resultados esperados
-        */
-
-        $query = $refTipoFondo->newQuery();
-
-        if ($request->id) {
-            $query->where('id', $request->id)
-                ->where(function ($q) use ($request) {
-                    if ($request->q) {
-                        $q->where('cue', 'like', '%' . $request->q . '%')
-                            ->orWhere('tipoFondoDesc', 'like', '%' . $request->q . '%');
-                    }
-                });
-        } else {
-            if ($request->q) {
-                $query->where('cue', 'like', '%' . $request->q . '%')
-                    ->orWhere('tipoFondoDesc', 'like', '%' . $request->q . '%');
-            }
-        }
-
-        // return new RequestCollection($query->orderBy('tipoFondoDesc')->paginate()->appends(['q' => $request->q, 'id' => $request->id]));
-    }
 }

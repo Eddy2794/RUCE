@@ -22,11 +22,12 @@ return new class extends Migration
             $table->string('nivel',20);
             $table->string('localidad',100);
             $table->string('departamento',100);
-            $table->string('calle',100);
-            $table->integer('numero')->nullable();
-            $table->string('barrio',100);
-            $table->string('cp',100);
-            $table->boolean('sector')->default(true);
+            $table->string('domicilio',100);
+            // $table->string('calle',100);
+            // $table->integer('numero')->nullable();
+            // $table->string('barrio',100);
+            // $table->string('cp',100);
+            // $table->boolean('sector')->default(true);
             $table->string('telefono');
             $table->string('email');
             $table->boolean('estaActivo')->default(true)->nullable(false);

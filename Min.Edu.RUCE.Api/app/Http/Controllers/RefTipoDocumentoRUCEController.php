@@ -105,31 +105,4 @@ class RefTipoDocumentoRUCEController extends Controller
             ], Response::HTTP_NOT_FOUND);
         }
     }
-
-    public function search(Request $request, RefTipoDocumentoRUCE $refTipoDocumentoRUCE)
-    {
-        /*
-        Seguramente se puede refactorizar y optimizar
-        por ahora es la forma que da resultados esperados
-        */
-
-        $query = $refTipoDocumentoRUCE->newQuery();
-
-        if ($request->id) {
-            $query->where('id', $request->id)
-                ->where(function ($q) use ($request) {
-                    if ($request->q) {
-                        $q->where('cue', 'like', '%' . $request->q . '%')
-                            ->orWhere('tipoDocumentoDesc', 'like', '%' . $request->q . '%');
-                    }
-                });
-        } else {
-            if ($request->q) {
-                $query->where('cue', 'like', '%' . $request->q . '%')
-                    ->orWhere('tipoDocumentoDesc', 'like', '%' . $request->q . '%');
-            }
-        }
-
-        // return new RequestCollection($query->orderBy('tipoDocumentoDesc')->paginate()->appends(['q' => $request->q, 'id' => $request->id]));
-    }
 }

@@ -44,7 +44,7 @@ class Comision extends Model  implements Auditable
      */
     protected $auditExclude = [];
 
-        public function AutoridadesComision()
+        public function AutoridadComision()
     {
         return $this->hasMany(AutoridadComision::class, 'id', 'fkRefTipoComision',);
     }

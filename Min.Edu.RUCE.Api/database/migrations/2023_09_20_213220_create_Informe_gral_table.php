@@ -16,11 +16,13 @@ return new class extends Migration
         Schema::create('Informe_gral', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->unsignedInteger('fkCooperadora');
+            $table->unsignedInteger('fkCooperadora')->nullable();
             $table->foreign('fkCooperadora')->references('id')->on('Cooperadora');
 
+            $table->json('datos');
+
             $table->boolean('estaActivo')->default(true)->nullable(false);
-            $table->boolean('esReporte')->nullable(false);
+            $table->boolean('esReporte')->nullable(false)->default(true);
 
             $table->integer('idUsuarioAlta')->nullable(true);
             $table->integer('idUsuarioModificacion')->nullable(true);

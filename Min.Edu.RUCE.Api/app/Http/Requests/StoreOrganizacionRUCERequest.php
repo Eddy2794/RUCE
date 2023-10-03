@@ -34,14 +34,10 @@ class StoreOrganizacionRUCERequest extends FormRequest
                 'string',
                 Rule::unique('OrganizacionRUCE','organizacionDesc')->where('id',$this->id)->withoutTrashed()
             ],
-            'cue' => [
+            'cueAnexo' => [
                 'required',
                 'string',
-                Rule::unique('OrganizacionRUCE','cue')->where('cue',$this->cue)->withoutTrashed()
-            ],
-            'anexo' => [
-                'required',
-                'integer',
+                Rule::unique('OrganizacionRUCE','cueAnexo')->where('cueAnexo',$this->cueAnexo)->withoutTrashed()
             ],
             'region' => [
                 'required',
@@ -94,7 +90,7 @@ class StoreOrganizacionRUCERequest extends FormRequest
         return [
             'id.exist' => 'Id de OrganizacionRUCE no existe en la tabla OrganizacionRUCE.',
             'organizacionDesc.unique' => 'El nombre de la Oganizacion ya fue registrado.',
-            'cue.unique' => 'El CUE de la Ognaizacion ya fue registrado.',
+            'cueAnexo.unique' => 'El CUE de la Ognaizacion ya fue registrado.',
             'telefono.unique' => 'El telefono de la Organizacion ya fue registrado.',
             'email.unique' => 'El email de la Oganizacion ya fue registrado.',
             'domicilio.unique' => 'El domicilio de la Organizacion ya fue registrado.'
