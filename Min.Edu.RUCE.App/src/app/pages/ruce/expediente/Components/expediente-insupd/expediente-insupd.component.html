@@ -47,10 +47,20 @@
                             <app-ver-error [control]="this.formularioExpediente.controls['fkRefInstanciaInstrumento']"></app-ver-error>
                         </mat-error>
                     </mat-form-field>
-                    <div class="slide-group" style="width: 100%">
-                        <mat-slide-toggle color="accent" formControlName="observacionesRespondidas" class="p-4"></mat-slide-toggle>
-                        <mat-label>Observaciones Respondidas</mat-label>
-                    </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-3">
+                <mat-form-field style="width: 100%">
+                    <mat-label>Fecha de actualización</mat-label>
+                    <input matInput formControlName="fecha" type="date">
+                    <mat-error>
+                        <app-ver-error [control]="this.formularioExpediente.controls['fecha']"></app-ver-error>
+                    </mat-error>
+                </mat-form-field>
+                <div class="slide-group" style="width: 100%">
+                    <mat-slide-toggle color="accent" formControlName="observacionesRespondidas" class="p-4"></mat-slide-toggle>
+                    <mat-label>Observaciones Respondidas</mat-label>
+                </div>
             </div>
             
             <div class="flex flex-col md:flex-row gap-3">

@@ -44,6 +44,7 @@ class CooperadoraController extends Controller
                 'estadoAfip' => $request->estadoAfip,
                 'estadoRentas' => $request->estadoRentas,
                 'inscripcionRenacopes' => $request->inscripcionRenacopes,
+                'modalidad' => $request->modalidad,
                 'idUsuarioAlta' => $request->idUsuarioAlta,
             ]);
             return response()->json([
@@ -85,7 +86,8 @@ class CooperadoraController extends Controller
             $cooperadora->estadoAfip = $request->estadoAfip !== null ? $request->estadoAfip : $cooperadora->estadoAfip;
             $cooperadora->estadoRentas = $request->estadoRentas !== null ? $request->estadoRentas : $cooperadora->estadoRentas;
             $cooperadora->inscripcionRenacopes = $request->inscripcionRenacopes !== null ? $request->inscripcionRenacopes : $cooperadora->inscripcionRenacopes;
-            // $cooperdora->idUsuarioModificacion = $request->idUsuarioModificacion ?: $cooperadora->idUsuarioModificacion;
+            $cooperadora->modalidad = $request->modalidad ?: $cooperadora->modalidad;
+            $cooperadora->idUsuarioModificacion = $request->idUsuarioModificacion ?: $cooperadora->idUsuarioModificacion;
 
             if ($cooperadora->isClean()) {
                 return response()->json([
@@ -124,14 +126,4 @@ class CooperadoraController extends Controller
             ], Response::HTTP_NOT_FOUND);
         }
     }
-
-    // public function search(Request $request, $model){
-    //     $query = $model::query();
-    //     if($request->has('descContains')){
-    //         $query->where('denominacion', 'LIKE', '%'.$request->descContains.'%')
-    //         ->orWhere('cuit', 'LIKE', '%'.$request->descContains.'%');
-    //     }
-    //     return $query->paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']);
-    // }
-
 }

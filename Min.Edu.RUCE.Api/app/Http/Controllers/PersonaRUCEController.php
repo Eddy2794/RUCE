@@ -85,7 +85,7 @@ class PersonaRUCEController extends Controller
             $personaRUCE->nombre = $request->nombre ?: $personaRUCE->nombre;
             $personaRUCE->apellido = $request->apellido ?: $personaRUCE->apellido;
             $personaRUCE->telefono = $request->telefono ?: $personaRUCE->telefono;
-            $personaRUCE->email = $request->email ?: $personaRUCE->email;
+            $personaRUCE->email = $request->email == null ? $request->email : $personaRUCE->email;
             // $personaRUCE->idUsuarioModificacion = $request->idUsuarioModificacion ?: $personaRUCE->idUsuarioModificacion;
 
             if ($personaRUCE->isClean()) {

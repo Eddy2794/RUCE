@@ -78,7 +78,7 @@ export class AppComponent {
     this.configService.updateConfig({
       sidenav: {
         title: 'RUCE',
-        imageUrl: 'assets/img/logo-ruce/logo_energia_viva.png',
+        imageUrl: 'assets/img/logo-ruce/logo_energia_viva1.png',
         showCollapsePin: true,
         search: {
           visible: false

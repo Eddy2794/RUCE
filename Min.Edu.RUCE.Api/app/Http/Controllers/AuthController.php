@@ -16,23 +16,25 @@ class AuthController extends Controller
     {
         try {
             if (Auth::attempt(['username' => $request->username, 'password' => $request->password], false)) {
-                $expires_at = Carbon::now();
+                // $expires_at = Carbon::now();
 
-                if ($request->remember_me) {
-                    $expires_at = $expires_at->addWeek();
-                } else {
-                    $expires_at = $expires_at->addHour();
-                }
+                // if ($request->remember_me) {
+                //     $expires_at = $expires_at->addWeek();
+                // } else {
+                //     $expires_at = $expires_at->addHour();
+                // }
                 /** @var \App\Models\UsuarioRUCE $usuario **/
                 $usuario = Auth::user();
-                $token = $usuario->createToken('Personal Access Token', ['expires_at' => $expires_at])->plainTextToken;
+                // $token = $usuario->createToken('Personal Access Token', ['expires_at' => $expires_at])->plainTextToken;
+                $tokenExpiry = $request->remember_me ? now()->addWeek() : now()->addHour(6);
+                $token = $usuario->createToken('Personal Access Token', ['expires_at' => $tokenExpiry])->plainTextToken;
                 return response([
                     'message' => 'Inicio de Sesión exitoso!',
                     'succeeded' => true,
                     'data' => [
                         'token' => $token,
                         // 'token_type' => 'Bearer',
-                        'expires_at' => $expires_at->toDateTimeString(),
+                        'expires_at' => $tokenExpiry->toDateTimeString(),
                         'username' => $usuario->username,
                         'rol' => $usuario->getRoleNames()[0],
                     ]
@@ -57,7 +59,7 @@ class AuthController extends Controller
             Auth()->user()->tokens()->delete();
             return response()->json([
                 'succeeded' => true,
-                'message' => "Logout"
+                'message' => "Sesión cerrada"
             ], Response::HTTP_OK);
         } catch (\Throwable $th) {
             return response()->json([
@@ -70,7 +72,7 @@ class AuthController extends Controller
     public function unauthorized(): JsonResponse
     {
         return response()->json([
-            "error" => "Unauthorized",
+            "error" => "Inicie sesión para la operación",
             "status" => 401
         ], Response::HTTP_UNAUTHORIZED);
     }

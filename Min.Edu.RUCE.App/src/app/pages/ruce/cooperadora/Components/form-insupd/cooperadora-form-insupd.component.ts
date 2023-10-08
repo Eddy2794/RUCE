@@ -28,6 +28,9 @@ export class CooperadoraFormInsupdComponent implements OnInit {
 
   organizaciones: Array<OrganizacionRUCEModel>;
 
+  modalidadSelect: string[]= ['COMUN','RURAL','CONTEXTO DE ENCIERRO','NOCTURNA'];
+  estados: string[] = ['SIN CONFORMACION', 'EN CONFORMACION', 'CON PERSONERIA'];
+
   constructor(
     private fb: FormBuilder,
     private cooperadoraService: CooperadoraService,
@@ -96,7 +99,7 @@ export class CooperadoraFormInsupdComponent implements OnInit {
       id: null,
       fkRefTipoAsociacion:[null, {validators: [Validators.required]}],
       fkOrganizacionRUCE: null,
-      cuit: [null, {validators: [Validators.required, Validators.minLength(9), Validators.maxLength(11), this.validadorServicio.validarEspaciosInicioFin() ]}],
+      cuit: [null, {validators: [Validators.required, Validators.minLength(11), Validators.maxLength(11), this.validadorServicio.validarEspaciosInicioFin() ]}],
       legajo: [null, { validators: [Validators.required, Validators.minLength(3), this.validadorServicio.validarEspaciosInicioFin(), Validators.maxLength(100),] }],
       denominacion: [null, {validators: [Validators.required, Validators.minLength(3), this.validadorServicio.validarCaracteresDescripcion(), this.validadorServicio.validarEspaciosInicioFin(), Validators.max(255), ]}],
       estado: [null, { validators: [ Validators.required, ]}],
@@ -105,6 +108,7 @@ export class CooperadoraFormInsupdComponent implements OnInit {
       estadoRentas: false,
       inscripcionRenacopes: false,
       organizacionDesc: "",
+      modalidad: [null, { validators: [ Validators.required, ] }],
       estaActivo: true,
     },
       {

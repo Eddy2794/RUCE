@@ -20,7 +20,7 @@
                     <div class="formuario">
                         <div class="flex flex-col md:flex-row gap-3">
                             <mat-form-field>
-                                <mat-label>Organizaciones</mat-label>
+                                <mat-label>Organización</mat-label>
                                 <input matInput formControlName="organizacionDesc" readonly="true" type="text" maxlength="250" mayus
                                     espacios>
                                 <button class="btn-busqueda" mat-icon-button matTooltip="Búsqueda" color="primary"
@@ -41,6 +41,16 @@
                                 </mat-error>
                             </mat-form-field>
                             <mat-form-field>
+                                <mat-label>Denominacion</mat-label>
+                                <input matInput formControlName="denominacion" type="text" mayus espacios>
+                                <mat-error>
+                                    <app-ver-error [control]="this.formularioCooperadora.controls['denominacion']">
+                                    </app-ver-error>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="flex flex-col md:flex-row gap-3">
+                            <mat-form-field>
                                 <mat-label>Tipo Asociación</mat-label>
                                 <mat-select formControlName="fkRefTipoAsociacion">
                                     <mat-option>Seleccione</mat-option>
@@ -50,11 +60,9 @@
                                     <app-ver-error [control]="this.formularioCooperadora.controls['fkRefTipoAsociacion']"></app-ver-error>
                                 </mat-error>
                             </mat-form-field>
-                        </div>
-                        <div class="flex flex-col md:flex-row gap-3">
                             <mat-form-field>
                                 <mat-label>CUIT</mat-label>
-                                <input matInput formControlName="cuit" type="text" solonum espacios>
+                                <input matInput formControlName="cuit" type="text" maxlength="11" solonum espacios>
                                 <mat-error>
                                     <app-ver-error [control]="this.formularioCooperadora.controls['cuit']">
                                     </app-ver-error>
@@ -70,24 +78,24 @@
                             </mat-form-field>
                         </div>
                         <div class="flex flex-col md:flex-row gap-3">
-                            <mat-form-field>
-                                <mat-label>Denominacion</mat-label>
-                                <input matInput formControlName="denominacion" type="text" mayus espacios>
-                                <mat-error>
-                                    <app-ver-error [control]="this.formularioCooperadora.controls['denominacion']">
-                                    </app-ver-error>
-                                </mat-error>
-                            </mat-form-field>
-                            <mat-form-field>
-                                <mat-label>Estado</mat-label>
+                            <mat-form-field style="width: 100%">
+                                <mat-label>Estado actual</mat-label>
                                 <mat-select formControlName="estado">
-                                    <!-- <mat-option>Seleccione</mat-option> -->
-                                    <mat-option value=ROJO>ROJO</mat-option>
-                                    <mat-option value=AMARILLO>AMARILLO</mat-option>
-                                    <mat-option value=VERDE>VERDE</mat-option>
+                                    <mat-option>Seleccione</mat-option>
+                                    <mat-option *ngFor="let item of estados" [value]="item">{{item}} </mat-option>
                                 </mat-select>
                                 <mat-error>
                                     <app-ver-error [control]="this.formularioCooperadora.controls['estado']"></app-ver-error>
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field style="width: 100%">
+                                <mat-label>Modalidad</mat-label>
+                                <mat-select formControlName="modalidad">
+                                    <mat-option>Seleccione</mat-option>
+                                    <mat-option *ngFor="let item of modalidadSelect" [value]="item">{{item}} </mat-option>
+                                </mat-select>
+                                <mat-error>
+                                    <app-ver-error [control]="this.formularioCooperadora.controls['modalidad']"></app-ver-error>
                                 </mat-error>
                             </mat-form-field>
                         </div>

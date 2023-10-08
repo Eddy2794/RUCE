@@ -78,8 +78,8 @@ class AutoridadOrganizacionRUCEController extends Controller
                     'fkRefCargo' => $request->fkRefCargo,
                     'fkPersonaRUCE' => $idPersona,
                     'fkOrganizacionRUCE' => $request->fkOrganizacionRUCE,
-                    'inicioCargo' => date_create($request->inicioCargo),
-                    'finCargo' => date_create($request->finCargo),
+                    'inicioCargo' => ($request->inicioCargo),
+                    'finCargo' => ($request->finCargo),
                     'idUsuarioAlta'=>$request->idUsuarioAlta,
                     'idUsuarioModificacion' => $request->idUsuarioModificacion
                 ]);
@@ -140,7 +140,7 @@ class AutoridadOrganizacionRUCEController extends Controller
                 $autoridadOrganizacionRUCE->fkPersonaRUCE = $request->fkPersonaRUCE ?: $autoridadOrganizacionRUCE->fkPersonaRUCE;
                 $autoridadOrganizacionRUCE->fkOrganizacionRUCE = $request->fkOrganizacionRUCE ?: $autoridadOrganizacionRUCE->fkOrganizacionRUCE;
                 $autoridadOrganizacionRUCE->inicioCargo = $request->inicioCargo ?: $autoridadOrganizacionRUCE->inicioCargo;
-                $autoridadOrganizacionRUCE->finCargo = $request->finCargo ?: $autoridadOrganizacionRUCE->finCargo;
+                $autoridadOrganizacionRUCE->finCargo = $request->finCargo == null || $request->finCargo !== null ? $request->finCargo : $autoridadOrganizacionRUCE->finCargo;
                 $autoridadOrganizacionRUCE->idUsuarioModificacion = $request->idUsuarioModificacion ?: $autoridadOrganizacionRUCE->idUsuarioModificacion;
 
                 if ($autoridadOrganizacionRUCE->isClean() && $personaUpdated->original->getStatusCode()== Response::HTTP_UNPROCESSABLE_ENTITY) {

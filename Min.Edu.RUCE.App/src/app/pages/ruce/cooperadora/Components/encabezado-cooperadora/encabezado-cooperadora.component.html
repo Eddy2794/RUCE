@@ -66,6 +66,18 @@
               <p class="m-0 caption text-hint">{{cooperadora?.estado}}</p>
             </div>
           </div>
+
+          <div class="py-3 flex items-center">
+            <div @scaleIn
+                 class="w-10 h-10 rounded-full bg-primary/10 text-primary ltr:mr-3 rtl:ml-3 flex items-center justify-center">
+              <mat-icon class="icon-sm" svgIcon="mat:event_note"></mat-icon>
+            </div>
+  
+            <div @fadeInRight>
+              <p class="m-0 body-1">MODALIDAD: </p>
+              <p class="m-0 caption text-hint">{{cooperadora?.modalidad}}</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -83,7 +95,7 @@
 
             <div @fadeInRight>
             <p class="m-0 body-1">E-MAIL: </p>
-            <p class="m-0 caption text-hint">{{cooperadora.organizacion_r_u_c_e?.email}}</p>
+            <p class="m-0 caption text-hint">{{cooperadora.organizacion_r_u_c_e?.email || 'Sin información'}}</p>
             </div>
         </div>
 
@@ -95,7 +107,7 @@
 
             <div @fadeInRight>
             <p class="m-0 body-1">TELEFONO: </p>
-            <p class="m-0 caption text-hint">{{cooperadora.organizacion_r_u_c_e?.telefono}}</p>
+            <p class="m-0 caption text-hint">{{cooperadora.organizacion_r_u_c_e?.telefono || 'Sin información'}}</p>
             </div>
         </div>
     </div>

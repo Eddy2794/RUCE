@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePersonaRUCERequest;
+use App\Http\Requests\UpdatePersonaRUCERequest;
 use App\Http\Resources\RequestCollection;
 
 use App\Http\Requests\StoreAutoridadComisionRequest;
@@ -106,8 +107,8 @@ class AutoridadComisionController extends Controller
                 $autoridadComision->fkPersonaRUCE = $request->fkPersonaRUCE ?: $autoridadComision->fkRefCargo;
                 $autoridadComision->fkRefCargo = $request->fkRefCargo ?: $autoridadComision->fkRefCargo;
                 $autoridadComision->fkComision = $request->fkComision ?: $autoridadComision->fkComision;
-                $autoridadComision->inicioCargo = $request->inicioCargo ?: $autoridadComision->inicioCargo;
-                $autoridadComision->finCargo = $request->finCargo ?: $autoridadComision->finCargo;
+                $autoridadComision->inicioCargo = $request->inicioCargo !== null || $request->inicioCargo == null ? $request->inicioCargo : $autoridadComision->inicioCargo;
+                $autoridadComision->finCargo = $request->finCargo !== null || $request->finCargo == null ? $request->finCargo : $autoridadComision->finCargo;
                 $autoridadComision->estaActivo = $request->estaActivo ?: $autoridadComision->estaActivo;
                 $autoridadComision->idUsuarioModificacion = $request->idUsuarioModificacion ?: $autoridadComision->idUsuarioModificacion;
 

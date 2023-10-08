@@ -49,25 +49,26 @@ class StorePersonaRUCERequest extends FormRequest
             ],
             'telefono' => [
                 'required',
-                'string'
+                'string',
+                Rule::unique('PersonaRUCE','telefono')->where('telefono', $this->telefono)->withoutTrashed()
             ],
             'email' => [
-                'required',
+                'nullable',
                 'string',
                 Rule::unique('PersonaRUCE','email')->where('email', $this->email)->withoutTrashed()
             ],
             'estaActivo' => [
                 'required',
                 'boolean'
-            ],/*
+            ],
             'idUsuarioAlta' => [
-                'required',
+                'nullable',
                 'integer',
             ],
             'idUsuarioModificacion' => [
-                'required',
+                'nullable',
                 'integer',
-            ],*/
+            ],
         ];
     }
 
@@ -78,7 +79,8 @@ class StorePersonaRUCERequest extends FormRequest
             'fkRefTipoDocumentoRUCE.exist' => 'El tipo de Documento no existe en la tabla RefTipoDocumentoRUCE.',
             'documento.unique' => 'El documento de la Persona ya fue registrado.',
             'cuil.unique' => 'El cuil de la Persona ya fue registrado.',
-            'email.unique' => 'El email de la Oganizacion ya fue registrado.',
+            'email.unique' => 'El email de la persona ya fue registrado.',
+            'telefono.unique' => 'El telefono de la persona ya fue registrado.',
         ];
     }
 }

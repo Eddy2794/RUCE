@@ -28,50 +28,50 @@ class UpdateAtencionSeguimientoRequest extends FormRequest
                 'required',
                 'exists:Cooperadora,id'
             ],
-            'fkPersonaRUCE'=>[
-                'required',
-                'exists:PersonaRUCE,id'
-            ],
+            // 'fkPersonaRUCE'=>[
+            //     'required',
+            //     'exists:PersonaRUCE,id'
+            // ],
             'llamadas'=>[
-                'required',
+                'nullable',
                 'integer'
             ],
             'mesajes'=>[
-                'required',
+                'nullable',
                 'integer'
             ],
             'emailEnviados'=>[
-                'required',
+                'nullable',
                 'integer'
             ],
             'atencionOficina'=>[
-                'required',
+                'nullable',
                 'integer'
             ],
             'atencionTerritorial'=>[
-                'required',
+                'nullable',
                 'integer'
             ],
             'observacion'=>[
-                'required',
-                'text'
+                'nullable',
+                'string'
             ],
             'fecha'=>[
                 'required',
-                'dateTime'
+                'date'
             ],
             'estaActivo' => [
                 'required',
                 'boolean'
-            ],/*
+            ],
             'idUsuarioAlta' => [
-                'required',
+                'nullable',
                 'integer',
             ],
             'idUsuarioModificacion' => [
-                'required',
+                'nullable',
                 'integer',
-            ],*/
+            ],
         ];
     }
 

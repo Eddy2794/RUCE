@@ -32,19 +32,27 @@
                                 </mat-form-field>
                             </ng-template> -->
 
-                            <mat-form-field>
+                            <mat-form-field style="width: 100%">
                                 <mat-label>Periodo Lectivo</mat-label>
-                                <input matInput formControlName="periodoLectivo" type="text" espacios solonum>
+                                <input matInput formControlName="periodoLectivo" type="text" espacios solonum maxlength="4">
                                 <mat-error>
                                     <app-ver-error [control]="this.formularioMatricula.controls['periodoLectivo']">
                                     </app-ver-error>
                                 </mat-error>
                             </mat-form-field>
-                            <mat-form-field>
+                            <mat-form-field style="width: 100%">
                                 <mat-label>Matrícula</mat-label>
                                 <input matInput formControlName="matricula" type="text" espacios solonum>
                                 <mat-error>
                                     <app-ver-error [control]="this.formularioMatricula.controls['matricula']"></app-ver-error>
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field style="width: 100%">
+                                <mat-label>Fecha de matrículas</mat-label>
+                                <input matInput formControlName="fecha" type="date">
+                                <mat-error>
+                                    <app-ver-error [control]="this.formularioMatricula.controls['fecha']">
+                                    </app-ver-error>
                                 </mat-error>
                             </mat-form-field>
                         </div>

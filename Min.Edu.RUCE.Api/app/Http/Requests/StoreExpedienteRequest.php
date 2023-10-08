@@ -39,29 +39,33 @@ class StoreExpedienteRequest extends FormRequest
                 Rule::unique('Expediente','nroExpediente')->where('id',$this->id)->withoutTrashed()
             ],
             'cantObservaciones' => [
-                'required',
+                'nullable',
                 'integer'
             ],
             'observacionesDesc' => [
-                'required',
+                'nullable',
                 'string'
             ],
             'observacionesRespondidas' => [
                 'required',
                 'boolean',
             ],
+            'fecha' => [
+                'required',
+                'date',
+            ],
             'estaActivo' => [
                 'required',
                 'boolean'
-            ],/*
+            ],
             'idUsuarioAlta' => [
-                'required',
+                'nullable',
                 'integer',
             ],
             'idUsuarioModificacion' => [
-                'required',
+                'nullable',
                 'integer',
-            ],*/
+            ],
         ];
     }
 

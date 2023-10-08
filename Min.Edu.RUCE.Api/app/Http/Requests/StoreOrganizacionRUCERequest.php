@@ -56,32 +56,42 @@ class StoreOrganizacionRUCERequest extends FormRequest
                 'string'
             ],
             'telefono' => [
-                'required',
+                'nullable',
                 'string',
-                Rule::unique('OrganizacionRUCE','telefono')->where('telefono', $this->telefono)->withoutTrashed()
             ],
             'email' => [
-                'required',
+                'nullable',
                 'string',
                 Rule::unique('OrganizacionRUCE','email')->where('email', $this->email)->withoutTrashed()
             ],
-            'domicilio' => [
+            'calle' => [
                 'required',
-                'string',
-                //Rule::unique('OrganizacionRUCE','domicilio')->where('domicilio', $this->domicilio)->withoutTrashed()
+                'string'
+            ],
+            'numero' => [
+                'nullable',
+                'string'
+            ],
+            'barrio' => [
+                'required',
+                'string'
+            ],
+            'cp' => [
+                'nullable',
+                'string'
             ],
             'estaActivo' => [
                 'required',
                 'boolean'
-            ],/*
+            ],
             'idUsuarioAlta' => [
-                'required',
+                'nullable',
                 'integer',
             ],
             'idUsuarioModificacion' => [
-                'required',
+                'nullable',
                 'integer',
-            ],*/
+            ],
         ];
     }
 

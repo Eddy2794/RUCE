@@ -20,7 +20,7 @@ return new class extends Migration
 
             $table->date('periodoInicio')->nullable(false);
             $table->date('periodoFin')->nullable(false);
-            $table->integer('nroSocios')->default(1);
+            $table->integer('nroSocios')->nullable();
             $table->string('estadoResolucion');
             
             $table->boolean('estaActivo')->default(true)->nullable(false);

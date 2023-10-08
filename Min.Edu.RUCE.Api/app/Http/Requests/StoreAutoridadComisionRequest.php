@@ -25,6 +25,7 @@ class StoreAutoridadComisionRequest extends FormRequest
     {
         return [
             'fkPersonaRUCE'=>[
+                'nullable'
                 // 'exists:PersonaRUCE,id'
             ],
             'fkRefCargo' => [
@@ -36,25 +37,25 @@ class StoreAutoridadComisionRequest extends FormRequest
                 'exists:Comision,id'
             ],
             'inicioCargo' => [
-                'required',
+                'nullable',
                 'date'
             ],
             'finCargo' => [
-                'required',
+                'nullable',
                 'date'
             ],
             'estaActivo' => [
                 'required',
                 'boolean'
-            ],/*
+            ],
             'idUsuarioAlta' => [
-                'required',
+                'nullable',
                 'integer',
             ],
             'idUsuarioModificacion' => [
-                'required',
+                'nullable',
                 'integer',
-            ],*/
+            ],
         ];
     }
 

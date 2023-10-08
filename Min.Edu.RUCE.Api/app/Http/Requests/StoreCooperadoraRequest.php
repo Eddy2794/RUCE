@@ -35,7 +35,7 @@ class StoreCooperadoraRequest extends FormRequest
                 Rule::unique('Cooperadora','fkOrganizacionRUCE')->where('fkOrganizacionRUCE',$this->fkOrganizacionRUCE)->withoutTrashed()
             ],
             'cuit' => [
-                'required',
+                'nullable',
                 'string',
                 Rule::unique('Cooperadora','cuit')->where('cuit',$this->cuit)->withoutTrashed()
             ],
@@ -69,18 +69,22 @@ class StoreCooperadoraRequest extends FormRequest
                 'required',
                 'boolean'
             ],
+            'modalidad' => [
+                'nullable',
+                'string'
+            ],
             'estaActivo' => [
                 'required',
                 'boolean'
-            ],/*
+            ],
             'idUsuarioAlta' => [
-                'required',
+                'nullable',
                 'integer',
             ],
             'idUsuarioModificacion' => [
-                'required',
+                'nullable',
                 'integer',
-            ],*/
+            ],
         ];
     }
 

@@ -9,6 +9,7 @@ export class MatriculaModel extends BaseModel {
         public fkOrganizacionRUCE?: OrganizacionRUCEModel,
         public periodoLectivo?: number,
         public matricula?: number,
+        public fecha?: Date,
     ){
         super();
     }

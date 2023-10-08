@@ -34,6 +34,7 @@ import { TableMultipleSelectComponent } from '@app/components/tableMultipleSelec
 import { TablaRelacionesComponent } from '@app/components/tabla-relaciones/tabla-relaciones.component';
 import { SearchFiltersComponent } from '@app/components/search-filters/search-filters.component';
 import { ModalSelectOrganizacionComponent } from '@app/components/modal-select-organizacion/modal-select-organizacion.component';
+import { FormatoCuilDirective } from './directives/directive-cuil/formato-cuil.directive';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { ModalSelectOrganizacionComponent } from '@app/components/modal-select-o
     ModalMultipleSelectComponent,
     TablaRelacionesComponent,
     SearchFiltersComponent,
-    ModalSelectOrganizacionComponent
+    ModalSelectOrganizacionComponent,
+    FormatoCuilDirective
   ],
   providers: [
   ],
@@ -111,7 +113,8 @@ import { ModalSelectOrganizacionComponent } from '@app/components/modal-select-o
     ModalMultipleSelectComponent,
     TablaRelacionesComponent,
     SearchFiltersComponent,
-    ModalSelectOrganizacionComponent
+    ModalSelectOrganizacionComponent,
+    FormatoCuilDirective
   ]
 })
 export class SharedModule {

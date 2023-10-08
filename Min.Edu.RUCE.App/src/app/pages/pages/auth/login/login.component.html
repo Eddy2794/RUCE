@@ -2,13 +2,13 @@
   <div class="card overflow-hidden w-full max-w-xs">
     <div class="p-6 pb-0 flex flex-col items-center justify-center">
       <div class="fill-current text-center">
-        <img class="w-50" src="assets/img/logo-ruce/logo_energia_viva.png">
+        <img class="w-50" src="assets/img/logo-ruce/logo_educacion1.png">
       </div>
     </div>
 
     <div class="text-center mt-4">
-      <h2 class="title m-0">Bienvenido!!!</h2>
-      <h4 class="body-2 text-secondary m-0">Inicie sesión con sus credenciales a continuación.</h4>
+      <h2 class="title m-0">REGISTRO UNICO DE COOPERADORAS ESCOLARES (RUCE)</h2>
+      <h4 class="body-2 text-secondary m-0">Inicie sesión</h4>
     </div>
 
     <div [formGroup]="form" class="p-6 flex flex-col gap-4">
@@ -25,24 +25,24 @@
             <mat-icon *ngIf="visible" svgIcon="mat:visibility"></mat-icon>
             <mat-icon *ngIf="!visible" svgIcon="mat:visibility_off"></mat-icon>
           </button>
-          <mat-hint>Haga clic en el ojo para alternar la visibilidad</mat-hint>
+          <!-- <mat-hint>Haga clic en el ojo para alternar la visibilidad</mat-hint> -->
           <mat-error *ngIf="form.get('password').hasError('required')">Se necesita una contraseña para iniciar sesión</mat-error>
         </mat-form-field>
       </div>
 
-      <div class="flex items-center justify-between">
+      <!-- <div class="flex items-center justify-between">
         <mat-checkbox class="caption" color="primary" formControlName="remember_me">Guardar datos de sesion</mat-checkbox>
         <a [routerLink]="['/login']" class="caption">¿Olvidaste tu contraseña?</a>
-      </div>
+      </div> -->
 
       <button (click)="send()" color="primary" mat-raised-button type="button">
         INICIAR SESION
       </button>
 
-      <p class="text-secondary text-center">
+      <!-- <p class="text-secondary text-center">
         ¿No tienes datos de ingreso?<br/>
         <a [routerLink]="['/login']">Comunicate con el administrador</a>
-      </p>
+      </p> -->
     </div>
   </div>
 </div>

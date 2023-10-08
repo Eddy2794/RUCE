@@ -85,7 +85,7 @@ class FondoController extends Controller
             $fondo->fechaRecibido = $request->fechaRecibido ?: $fondo->fechaRecibido;
             $fondo->fechaRendicion = $request->fechaRendicion ?: $fondo->fechaRendicion;
             $fondo->anioOtorgado = $request->anioOtorgado ?: $fondo->anioOtorgado;
-            // $fondo->idUsuarioModificacion = $request->idUsuarioModificacion ?: $fondo->idUsuarioModificacion;
+            $fondo->idUsuarioModificacion = $request->idUsuarioModificacion ?: $fondo->idUsuarioModificacion;
 
             if ($fondo->isClean()) {
                 return response()->json([

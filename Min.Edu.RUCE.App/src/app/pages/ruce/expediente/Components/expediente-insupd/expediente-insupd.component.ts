@@ -101,6 +101,7 @@ export class ExpedienteInsupdComponent implements OnInit {
       cantObservaciones: 0,
       observacionesDesc: ["-", {validators: [ this.validadorServicio.validarCaracteresDescripcion ]}],
       observacionesRespondidas: false,
+      fecha: [null, {validators: [ Validators.required ]}],
       estaActivo: true,
     },
     {

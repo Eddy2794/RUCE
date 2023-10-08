@@ -23,16 +23,17 @@ return new class extends Migration
             $table->unsignedInteger('fkOrganizacionRUCE');
             $table->foreign('fkOrganizacionRUCE')->references('id')->on('OrganizacionRUCE')->onDelete('cascade');
 
-            $table->string('cuit',13)->nullable(true);
-            $table->string('legajo',200)->nullable(true);
-            $table->string('denominacion',100);
-            $table->string('estado',200)->nullable(true);
+            $table->string('cuit',11)->unique()->nullable(true);
+            $table->string('legajo',200)->unique()->nullable(true);
+            $table->string('denominacion')->unique();
+            $table->string('estado',200);
 
             $table->boolean('convenioCsEconomicas')->default(false);
             $table->boolean('estadoAfip')->default(false);
             $table->boolean('estadoRentas')->default(false);
             $table->boolean('inscripcionRenacopes')->default(false);
 
+            $table->string('modalidad')->nullable();
 
             $table->boolean('estaActivo')->default(true)->nullable(false);
             $table->integer('idUsuarioAlta')->nullable(true);

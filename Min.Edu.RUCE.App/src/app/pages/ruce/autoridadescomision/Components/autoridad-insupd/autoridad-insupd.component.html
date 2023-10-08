@@ -33,7 +33,7 @@
                     </mat-form-field>
                     <mat-form-field style="width: 100%">
                         <mat-label>Documento</mat-label>
-                        <input matInput formControlName="documento" type="text" espacios solonum>
+                        <input matInput formControlName="documento" type="text" espacios solonum maxlength="8">
                         <mat-error>
                             <app-ver-error [control]="this.formularioAutoridad.controls['documento']">
                             </app-ver-error>
@@ -41,7 +41,7 @@
                     </mat-form-field>
                     <mat-form-field style="width: 100%">
                         <mat-label>Cuil</mat-label>
-                        <input matInput formControlName="cuil" type="text" espacios solonum>
+                        <input matInput formControlName="cuil" vexFormatoCuil="documento" type="text" maxlength="11" espacios solonum>
                         <mat-error>
                             <app-ver-error [control]="this.formularioAutoridad.controls['cuil']">
                             </app-ver-error>
@@ -71,7 +71,7 @@
             <div class="flex flex-col md:flex-row gap-3">
                     <mat-form-field style="width: 100%">
                         <mat-label>Telefono</mat-label>
-                        <input matInput formControlName="telefono" type="tel" solonum pattern="[0-9]{10}" placeholder="Ingrese numero sin 0 ni 15 ej: 3881234567">
+                        <input matInput formControlName="telefono" type="tel" maxlength="10" solonum pattern="[0-9]{10}" placeholder="Ingrese numero sin 0 ni 15 ej: 3881234567">
                         <mat-error>
                             <app-ver-error [control]="this.formularioAutoridad.controls['telefono']">
                             </app-ver-error>

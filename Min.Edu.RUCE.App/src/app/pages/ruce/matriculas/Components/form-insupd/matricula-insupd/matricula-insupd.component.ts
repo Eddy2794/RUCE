@@ -87,6 +87,7 @@ export class MatriculaInsupdComponent implements OnInit {
       fkOrganizacionRUCE: this.idOrganizacion,
       periodoLectivo: [null, {validators: [ Validators.required, Validators.min(1900), Validators.maxLength(4) ]}],
       matricula: [null, {validators: [ Validators.required ]}],
+      fecha:null,
       estaActivo: true,
     },)
     if (this.accion === 'delete'|| this.accion === 'view') {

@@ -11,15 +11,29 @@
   src: url('../../../../assets/fonts/font-ruce/Archia-Thin.otf') format('opentype');
 }
 
+.fuenteRegular {
+  font-family: 'ArchiaRegular', sans-serif;
+  font-size: 15px;
+}
+
+.fuenteBold {
+  font-family: 'ArchiaBold', sans-serif;
+  font-size: 16px;
+}
+
 .table {
   //border-collapse: collapse; /* Combina los bordes adyacentes en una sola línea */
   border-radius: 3px; /* Redondea los bordes de la tabla */
   border: 3px solid #000; /* Establece el ancho y el color del borde */
+  font-family: 'ArchiaRegular', sans-serif;
+  font-size: 15px;
   tr, td {
   //border: 5px solid #000; /* Establece el ancho y el color del borde para las celdas */
   padding: 15px; /* Agrega espacio interno a las celdas para que el texto no toque los bordes */
   padding-left: var(--padding);
   padding-right: var(--padding);
+  font-family: 'ArchiaRegular', sans-serif;
+  font-size: 15px;
   }
 }
 

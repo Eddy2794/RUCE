@@ -49,16 +49,16 @@ class UpdateFondoRequest extends FormRequest
                 'boolean',
             ],
             'monto' => [
-                'required',
+                'nullable',
                 'integer',
             ],
             'fechaRecibido' => [
-                
-                //'date',
+                'nullable',
+                'date',
             ],
             'fechaRendicion' => [
-                
-                //'date',
+                'nullable',
+                'date',
             ],
             'anioOtorgado' => [
                 'required',
@@ -67,15 +67,15 @@ class UpdateFondoRequest extends FormRequest
             'estaActivo' => [
                 'required',
                 'boolean'
-            ],/*
+            ],
             'idUsuarioAlta' => [
-                'required',
+                'nullable',
                 'integer',
             ],
             'idUsuarioModificacion' => [
-                'required',
+                'nullable',
                 'integer',
-            ],*/
+            ],
         ];
     }
 

@@ -41,21 +41,21 @@ class UpdateAutoridadOrganizacionRUCERequest extends FormRequest
                 'date'
             ],
             'finCargo' => [
-                //'required',
-                //'date'
+                'nullable',
+                'date'
             ],
             'estaActivo' => [
                 'required',
                 'boolean'
-            ],/*
+            ],
             'idUsuarioAlta' => [
-                'required',
+                'nullable',
                 'integer',
             ],
             'idUsuarioModificacion' => [
-                'required',
+                'nullable',
                 'integer',
-            ],*/
+            ],
         ];
     }
 

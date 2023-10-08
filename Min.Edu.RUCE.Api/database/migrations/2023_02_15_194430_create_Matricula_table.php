@@ -21,7 +21,7 @@ return new class extends Migration
 
             $table->integer('periodoLectivo');
             $table->integer('matricula');
-            $table->date('fecha');
+            $table->date('fecha')->nullable();
             $table->boolean('estaActivo')->default(true);
             $table->integer('idUsuarioAlta')->nullable(true);
             $table->integer('idUsuarioModificacion')->nullable(true);

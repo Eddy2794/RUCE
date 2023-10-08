@@ -1,4 +1,4 @@
-<div class="p-gutter container">
+<div class="fuenteRegular p-gutter container">
   <div class="card p-16">
 
     <div class="grid-p">
@@ -7,11 +7,11 @@
       </div>
     
       <div class="text-center body-1 flex flex-col items-center">
-        <div class="text-center body-1 flex flex-col items-center">
-          <h4 class="body-2 m-0">MINISTERIO DE EDUCACION</h4>
-          <h4 class="body-2 m-0">SECRETARIA DE EQUIDAD EDUCATIVA</h4>
-          <h4 class="body-2 m-0">DIRECCION DE BIENESTAR ESTUDIANTIL Y DOCENTE</h4>
-          <h4 class="body-2 m-0">Registro Único de Cooperadoras Escolares (RUCE)</h4>
+        <div class="fuenteBold text-center body-1 flex flex-col items-center">
+          <h4 class="fuenteBold body-2 m-0">MINISTERIO DE EDUCACION</h4>
+          <h4 class="fuenteBold body-2 m-0">SECRETARIA DE EQUIDAD EDUCATIVA</h4>
+          <h4 class="fuenteBold body-2 m-0">DIRECCION DE BIENESTAR ESTUDIANTIL Y DOCENTE</h4>
+          <h4 class="fuenteBold body-2 m-0">Registro Único de Cooperadoras Escolares (RUCE)</h4>
         </div>
       </div>
       
@@ -24,7 +24,7 @@
       <tbody>
         <tr>
           <td class="py-2 border-b">
-            <div class="text-center body-1 title">
+            <div class="fuenteRegular text-center body-1 title">
               ASOCIACIÓN COOPERADORA {{cooperadora?.denominacion}}
             </div>
           </td>
@@ -35,14 +35,14 @@
           <div class="px-gutter grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
             <div class="flex items-center w-75">    
               <div class="p-3 bordes">
-                <p class="body-1">Establecimiento Educativo: </p>
-                <p class="body-1 title ml-16">{{ cooperadora?.organizacion_r_u_c_e?.organizacionDesc }}</p>
+                <p class="fuenteRegular body-1">Establecimiento Educativo: </p>
+                <p class="fuenteRegular body-1 title ml-16">{{ cooperadora?.organizacion_r_u_c_e?.organizacionDesc }}</p>
               </div>
             </div>
             <div class="flex items-center w-25">    
               <div class="p-3 bordes">
-                <p class="body-1">Tipo de Asociación: </p>
-                <p class="body-1 title ml-36">{{ cooperadora?.ref_tipo_asociacion[0]?.tipoAsociacionDesc }}</p>
+                <p class="fuenteRegular body-1">Tipo de Asociación: </p>
+                <p class="fuenteRegular body-1 title ml-36">{{ cooperadora?.ref_tipo_asociacion[0]?.tipoAsociacionDesc }}</p>
               </div>
             </div>
           </div>
@@ -64,7 +64,7 @@
       <tbody>
         <tr>
           <td class="py-2 border-b">
-            <div class=" body-1 title">
+            <div class="fuenteRegular body-1 title">
               Datos de la intitución
             </div>
           </td>
@@ -75,20 +75,20 @@
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div class="flex items-center">    
               <div class="bordes">
-                <p class="body-1">REGION: </p>
-                <p class="body-1 title ml-16">{{ cooperadora?.organizacion_r_u_c_e?.region }}</p>
+                <p class="fuenteRegular body-1">REGION: </p>
+                <p class="fuenteRegular body-1 title ml-16">{{ cooperadora?.organizacion_r_u_c_e?.region }}</p>
               </div>
             </div>
             <div class="flex items-center">    
               <div class="bordes">
-                <p class="body-1">CUE ANEXO: </p>
-                <p class="body-1 title ml-16">{{ cooperadora?.organizacion_r_u_c_e?.cue }}</p>
+                <p class="fuenteRegular body-1">CUE ANEXO: </p>
+                <p class="fuenteRegular body-1 title ml-16">{{ cooperadora?.organizacion_r_u_c_e?.cueAnexo }}</p>
               </div>
             </div>
             <div class="flex items-center">    
               <div class="bordes">
-                <p class="body-1">NIVEL: </p>
-                <p class="body-1 title ml-16">{{ cooperadora?.organizacion_r_u_c_e?.nivel }}</p>
+                <p class="fuenteRegular body-1">NIVEL: </p>
+                <p class="fuenteRegular body-1 title ml-16">{{ cooperadora?.organizacion_r_u_c_e?.nivel }}</p>
               </div>
             </div>
           </div>
@@ -100,14 +100,14 @@
           <div class="px-gutter grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div class="flex items-center">    
               <div class="p-3 bordes">
-                <p class="body-1">DOMICILIO: </p>
-                <p class="body-1 title ml-16">{{ cooperadora?.organizacion_r_u_c_e?.domicilio }}</p>
+                <p class="fuenteRegular body-1">DOMICILIO: </p>
+                <p class="fuenteRegular body-1 title ml-16">{{ cooperadora?.organizacion_r_u_c_e?.calle }} Nº {{ cooperadora?.organizacion_r_u_c_e?.numero }} Barrio {{ cooperadora?.organizacion_r_u_c_e?.barrio }}</p>
               </div>
             </div>
             <div class="flex items-center">    
               <div class="p-3 bordes">
-                <p class="body-1">LOCALIDAD: </p>
-                <p class="body-1 title ml-16">{{ cooperadora?.organizacion_r_u_c_e?.localidad }}</p>
+                <p class="fuenteRegular body-1">LOCALIDAD: </p>
+                <p class="fuenteRegular body-1 title ml-16">{{ cooperadora?.organizacion_r_u_c_e?.localidad }}</p>
               </div>
             </div>
           </div>
@@ -120,7 +120,7 @@
       <tbody>
         <tr>
           <td class="py-2 border-b">
-            <div class=" body-1 title">
+            <div class="fuenteRegular body-1 title">
               Fiscalía de Estado - Coordinación de Personas Jurídicas
             </div>
           </td>
@@ -131,33 +131,33 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div class="flex items-center">    
               <div class="ml-10 p-3 bordes">
-                <p class="body-1">FECHA DE CREACIÓN DE LA ASOCIACIÓN: </p>
-                <p class="body-1 title ml-16">{{ cooperadora?.organizacion_r_u_c_e?.region }}</p>
+                <p class="fuenteRegular body-1">FECHA DE CREACIÓN DE LA ASOCIACIÓN: </p>
+                <p class="fuenteRegular body-1 title ml-16">{{ cooperadora?.organizacion_r_u_c_e?.region }}</p>
               </div>
             </div>
             <div class="flex items-center">    
               <div class="mr-10 p-3 bordes">
-                <p class="body-1">EXPEDIENTE: </p>
-                <p class="body-1 title ml-16">{{ cooperadora?.expediente?.nroExpediente }}</p>
+                <p class="fuenteRegular body-1">EXPEDIENTE: </p>
+                <p class="fuenteRegular body-1 title ml-16">{{ cooperadora?.expediente?.nroExpediente }}</p>
               </div>
             </div>
             <div class="flex items-center">    
               <div class="ml-10 p-3 bordes">
-                <p class="body-1">LEGAJO: </p>
-                <p class="body-1 title ml-16">{{ cooperadora?.legajo }}</p>
+                <p class="fuenteRegular body-1">LEGAJO: </p>
+                <p class="fuenteRegular body-1 title ml-16">{{ cooperadora?.legajo }}</p>
               </div>
             </div>
             <div class="flex items-center">    
               <div class="mr-10 p-3 bordes">
-                <p class="body-1">DECRETO: </p>
-                <p class="body-1 title ml-16">{{ cooperadora?.personeria?.decreto }}</p>
+                <p class="fuenteRegular body-1">DECRETO: </p>
+                <p class="fuenteRegular body-1 title ml-16">{{ cooperadora?.personeria?.decreto }}</p>
               </div>
             </div>
           </div>
         </td>
       </tr>
 
-      <div class="py-2 body-1 text-center">
+      <div class="fuenteRegular py-2 body-1 text-center">
         Comisión vigente desde {{cooperadora?.comision[0]?.periodoInicio | date : 'dd/MM/yyyy'}} hasta {{cooperadora?.comision[0]?.periodoFin | date : 'dd/MM/yyyy'}}
       </div>
       <mat-table [dataSource]="tableData" class="container">
@@ -191,7 +191,7 @@
           <div class="px-gutter grid grid-cols-1 sm:grid-cols-1 gap-4">
             <div class="flex items-center">    
               <div class="p-2">
-                <p class="body-1 text-justify">Se extiende la presente constancia a fin de acreditar la existencia
+                <p class="fuenteRegular body-1 text-justify">Se extiende la presente constancia a fin de acreditar la existencia
                   y reconocimiento de la Asociación Civil Cooperadora Escolar, para ser presentada ante 
                 las autoridades de AFIP (Artículo 2 segundo párrafo de la Resolución General N° 4739/2020) </p>
               </div>

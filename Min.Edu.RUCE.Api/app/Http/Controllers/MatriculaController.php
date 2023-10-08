@@ -75,8 +75,8 @@ class MatriculaController extends Controller
             $matricula->fkOrganizacionRUCE = $request->fkOrganizacionRUCE ?: $matricula->fkOrganizacionRUCE;
             $matricula->periodoLectivo = $request->periodoLectivo ?: $matricula->periodoLectivo;
             $matricula->matricula = $request->matricula ?: $matricula->matricula;
-            $matricula->fecha = $request->fecha ?: $matricula->fecha;
-            // $matricula->idUsuarioModificacion = $request->idUsuarioModificacion ?: $matricula->idUsuarioModificacion;
+            $matricula->fecha = $request->fecha !==null || $request->fecha ==null ? $request->fecha: $matricula->fecha;
+            $matricula->idUsuarioModificacion = $request->idUsuarioModificacion ?: $matricula->idUsuarioModificacion;
 
             if ($matricula->isClean()) {
                 return response()->json([

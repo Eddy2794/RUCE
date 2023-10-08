@@ -56,7 +56,6 @@ class OrganizacionRUCEController extends Controller
                 'barrio' => $request->barrio,
                 'numero' => $request->numero,
                 'cp' => $request->cp,
-                'sector' => $request->sector,
                 'idUsuarioAlta' => $request->idUsuarioAlta,
             ]);
             return response()->json([
@@ -94,14 +93,13 @@ class OrganizacionRUCEController extends Controller
             $organizacionRUCE->nivel = $request->nivel ?: $organizacionRUCE->nivel;
             $organizacionRUCE->localidad = $request->localidad ?: $organizacionRUCE->localidad;
             $organizacionRUCE->departamento = $request->departamento ?: $organizacionRUCE->departamento;
-            $organizacionRUCE->telefono = $request->telefono ?: $organizacionRUCE->telefono;
-            $organizacionRUCE->email = $request->email ?: $organizacionRUCE->email;
+            $organizacionRUCE->telefono = $request->telefono !== null || $request->telefono == null ? $request->telefono : $organizacionRUCE->telefono;
+            $organizacionRUCE->email = $request->email !== null || $request->email == null ? $request->email : $organizacionRUCE->email;
             $organizacionRUCE->calle = $request->calle ?: $organizacionRUCE->calle;
-            $organizacionRUCE->numero = $request->numero ?: $organizacionRUCE->numero;
+            $organizacionRUCE->numero = $request->numero !== null || $request->numero == null ? $request->numero : $organizacionRUCE->numero;
             $organizacionRUCE->barrio = $request->barrio ?: $organizacionRUCE->barrio;
-            $organizacionRUCE->cp = $request->cp ?: $organizacionRUCE->cp;
-            $organizacionRUCE->sector = $request->sector ?: $organizacionRUCE->sector;
-            // $organizacionRUCE->idUsuarioModificacion = $request->idUsuarioModificacion ?: $organizacionRUCE->idUsuarioModificacion;
+            $organizacionRUCE->cp = $request->cp !== null || $request->cp == null ? $request->cp : $organizacionRUCE->cp;
+            $organizacionRUCE->idUsuarioModificacion = $request->idUsuarioModificacion ?: $organizacionRUCE->idUsuarioModificacion;
 
             if ($organizacionRUCE->isClean()) {
                 return response()->json([

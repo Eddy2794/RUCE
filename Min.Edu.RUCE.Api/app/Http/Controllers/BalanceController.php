@@ -40,6 +40,8 @@ class BalanceController extends Controller
                 'fkCooperadora' => $request->fkCooperadora,
                 'estadoBalance' => $request->estadoBalance,
                 'anio' => $request->anio,
+                'fecha' => $request->fecha,
+                'observaciones' => $request->observaciones,
                 'idUsuarioAlta' => $request->idUsuarioAlta
             ]);
             return response()->json([
@@ -87,6 +89,8 @@ class BalanceController extends Controller
             $balance->fkCooperadora = $request->fkCooperadora ?: $balance->fkCooperadora;
             $balance->estadoBalance = $request->estadoBalance !== null ? $request->estadoBalance : $balance->estadoBalance;
             $balance->anio = $request->anio ?: $balance->anio;
+            $balance->fecha = $request->fecha ?: $balance->fecha;
+            $balance->observaciones = $request->observaciones ?: $balance->observaciones;
 
             if ($balance->isClean()) {
                 return response()->json([

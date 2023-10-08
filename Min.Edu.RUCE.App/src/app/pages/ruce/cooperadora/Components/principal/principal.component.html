@@ -31,29 +31,29 @@
                 <vex-expediente-list *ngIf="cargarInfo2"></vex-expediente-list>
             </div>
         </mat-tab>
-        <mat-tab *ngIf="idExpediente!=0" label="PERSONERÍA">
+        <mat-tab label="PERSONERÍA">
             <div class="mt-6">
                 <vex-encabezado-personeria *ngIf="cargarInfo3"></vex-encabezado-personeria>
             </div>
         </mat-tab>
         <mat-tab label="SITUACION CONTABLE">
             <div class="mt-6">
-                <vex-balance-list *ngIf="cargarInfo3 || cargarInfo4" [idCooperadora]="id"></vex-balance-list>
+                <vex-balance-list *ngIf="cargarInfo4" [idCooperadora]="id"></vex-balance-list>
             </div>
         </mat-tab>
         <mat-tab label="FONDOS">
             <div class="mt-6">
-                <vex-fondo-list *ngIf="cargarInfo4 || cargarInfo5" [idCooperadora]="id"></vex-fondo-list>
+                <vex-fondo-list *ngIf="cargarInfo5" [idCooperadora]="id"></vex-fondo-list>
             </div>
         </mat-tab>
         <mat-tab label="KIOSCO">
             <div class="mt-6">
-                <vex-encabezado-kiosco *ngIf="cargarInfo5 || cargarInfo6"></vex-encabezado-kiosco>
+                <vex-encabezado-kiosco *ngIf="cargarInfo6"></vex-encabezado-kiosco>
             </div>
         </mat-tab>
         <mat-tab label="ATENCIÓN Y SEGUIMIENTOS">
             <div class="mt-6">
-                <vex-atencion-seguimiento-list *ngIf="cargarInfo6 || cargarInfo7" [idCooperadora]="id"></vex-atencion-seguimiento-list>
+                <vex-atencion-seguimiento-list *ngIf="cargarInfo7" [idCooperadora]="id"></vex-atencion-seguimiento-list>
             </div>
         </mat-tab>
     </mat-tab-group>

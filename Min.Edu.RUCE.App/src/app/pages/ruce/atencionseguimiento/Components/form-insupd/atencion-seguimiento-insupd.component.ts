@@ -76,9 +76,7 @@ export class AtencionSeguimientoInsupdComponent implements OnInit, OnDestroy {
 
   createForm() {
     this.formularioAtencionSeguimiento = this.fb.group({
-      id: null,
       fkCooperadora: this.idCooperadora,
-      fkPersonaRUCE: null,
       llamadas: null,
       mesajes: null,
       emailEnviados: null,

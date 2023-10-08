@@ -29,42 +29,49 @@ class StoreAtencionSeguimientoRequest extends FormRequest
                 'required',
                 'exists:Cooperadora,id'
             ],
-            'fkPersonaRUCE'=>[
-                'exists:PersonaRUCE,id'
-            ],
+            // 'fkPersonaRUCE'=>[
+            //     'exists:PersonaRUCE,id'
+            // ],
             'llamadas'=>[
+                'nullable',
                 'integer'
             ],
             'mesajes'=>[
+                'nullable',
                 'integer'
             ],
             'emailEnviados'=>[
+                'nullable',
                 'integer'
             ],
             'atencionOficina'=>[
+                'nullable',
                 'integer'
             ],
             'atencionTerritorial'=>[
+                'nullable',
                 'integer'
             ],
             'observacion'=>[
-                'text'
+                'nullable',
+                'string'
             ],
             'fecha'=>[
+                'required',
                 'date'
             ],
             'estaActivo' => [
                 'required',
                 'boolean'
-            ],/*
+            ],
             'idUsuarioAlta' => [
-                'required',
+                'nullable',
                 'integer',
             ],
             'idUsuarioModificacion' => [
-                'required',
+                'nullable',
                 'integer',
-            ],*/
+            ],
         ];
     }
 

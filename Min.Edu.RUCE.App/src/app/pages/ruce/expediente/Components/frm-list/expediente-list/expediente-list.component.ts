@@ -109,6 +109,12 @@ export class ExpedienteListComponent implements OnInit, OnDestroy {
         type: "object",
         visible: true,
       },
+      {
+        label: "FECHA DE ACTUALIZACION",
+        property: "expediente.fecha",
+        type: "object",
+        visible: true,
+      },
     ];
   }
 }

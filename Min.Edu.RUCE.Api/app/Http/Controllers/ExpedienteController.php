@@ -40,6 +40,7 @@ class ExpedienteController extends Controller
                 'cantObservaciones' => $request->cantObservaciones,
                 'observacionesDesc' => $request->observacionesDesc,
                 'observacionesRespondidas' => $request->observacionesRespondidas,
+                'fecha' => $request->fecha,
                 'idUsuarioAlta' => $request->idUsuarioAlta,
             ]);
             return response()->json([
@@ -87,7 +88,8 @@ class ExpedienteController extends Controller
             $expediente->cantObservaciones = $request->cantObservaciones ?: $expediente->cantObservaciones;
             $expediente->observacionesDesc = $request->observacionesDesc ?: $expediente->observacionesDesc;
             $expediente->observacionesRespondidas = $request->observacionesRespondidas !== null ? $request->observacionesRespondidas : $expediente->observacionesRespondidas;
-            // $expediente->idUsuarioModificacion = $request->idUsuarioModificacion ?: $expediente->idUsuarioModificacion;
+            $expediente->fecha = $request->fecha ?: $expediente->fecha;
+            $expediente->idUsuarioModificacion = $request->idUsuarioModificacion ?: $expediente->idUsuarioModificacion;
 
             if ($expediente->isClean()) {
                 return response()->json([

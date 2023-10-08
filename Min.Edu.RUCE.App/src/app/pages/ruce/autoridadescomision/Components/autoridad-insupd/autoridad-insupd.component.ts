@@ -117,20 +117,20 @@ export class AutoridadComisionInsupdComponent implements OnInit, OnDestroy {
       fkRefCargo: [null, {validators: [ Validators.required, ]}],
       fkPersonaRUCE: null,
       fkRefTipoDocumentoRUCE: [null, {validators: [ Validators.required, ]}],
-      documento: [null, {validators: [ Validators.required, Validators.minLength(7), Validators.maxLength(8), this.validadorServicio.validarEspaciosInicioFin() ]}],
-      cuil: [null, {validators: [ Validators.required, Validators.minLength(11), Validators.maxLength(12), this.validadorServicio.validarEspaciosInicioFin() ]}],
-      nombre: [null, {validators: [ Validators.required, this.validadorServicio.validarSoloLetras(), this.validadorServicio.validarEspaciosInicioFin() ]}],
-      apellido: [null, {validators: [ Validators.required,  this.validadorServicio.validarSoloLetras(), this.validadorServicio.validarEspaciosInicioFin() ]}],
-      telefono: [null, {validators: [ Validators.required, this.validadorServicio.validarEspaciosInicioFin() ]}],
-      email: [null, {validators: [ Validators.required, Validators.email, this.validadorServicio.validarEspaciosInicioFin() ]}],
-      inicioCargo: [null, {validators: [ Validators.required]}],
-      finCargo: [null, {validators: [ Validators.required]} ],
+      documento: [null, {validators: [ Validators.required, Validators.minLength(7), Validators.maxLength(8), ]}],
+      cuil: [null, {validators: [ Validators.required, Validators.minLength(11), Validators.maxLength(11), ]}],
+      nombre: [null, {validators: [ Validators.required, this.validadorServicio.validarSoloLetras(), ]}],
+      apellido: [null, {validators: [ Validators.required,  this.validadorServicio.validarSoloLetras(), ]}],
+      telefono: [null, {validators: [ Validators.required, ]}],
+      email: [null, {validators: [ Validators.email]}],
+      inicioCargo: null,
+      finCargo: null,
       idUsuarioAlta: null,
       idUsuarioModificacion: null,
       estaActivo: true,
     },
     {
-      validators: [ this.validadorServicio.validarFechasInicioFin('inicioCargo','finCargo')]
+      //validators: [ this.validadorServicio.validarFechasInicioFin('inicioCargo','finCargo')]
     })
     if (this.accion === 'delete'|| this.accion === 'view') {
       this.formularioAutoridad.disable();

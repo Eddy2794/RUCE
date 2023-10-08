@@ -47,11 +47,11 @@ export class PrincipalComponent implements OnInit {
       this.cooperadora = Object.assign(res.entities,this.cooperadora);
       this.observerCooperadora.enviarIdCooperadora(this.cooperadora.id);
       this.observerCooperadora.enviarTipoAsociacion(this.cooperadora.fkRefTipoAsociacion);
-      this.observerCooperadora.enviarIdExpediente(this.cooperadora.expediente?.id);
-      this.observerCooperadora.enviarIdPersoneria(this.cooperadora.personeria?.id);
-      this.observerCooperadora.enviarTipoAsociacionDesc(this.cooperadora.ref_tipo_asociacion[0].tipoAsociacionDesc);
+      this.observerCooperadora.enviarIdExpediente(this.cooperadora?.expediente?.id);
+      this.observerCooperadora.enviarIdPersoneria(this.cooperadora?.personeria?.id);
+      this.observerCooperadora.enviarTipoAsociacionDesc(this.cooperadora?.ref_tipo_asociacion[0]?.tipoAsociacionDesc);
       this.nombreCooperadora = this.cooperadora.denominacion;
-      if(this.cooperadora.expediente.id!==null)this.idExpediente = this.cooperadora.expediente.id;
+      if(this.cooperadora?.expediente?.id!==null)this.idExpediente = this.cooperadora?.expediente?.id;
     })
   }
 
@@ -67,7 +67,6 @@ export class PrincipalComponent implements OnInit {
         this.cargarInfo4 = false;
         this.cargarInfo5 = false;
         this.cargarInfo6 = false;
-        this.cargarInfo7 = false;
       break;
       case 1:
         this.cargarInfo1 = true;
@@ -77,7 +76,6 @@ export class PrincipalComponent implements OnInit {
         this.cargarInfo4 = false;
         this.cargarInfo5 = false;
         this.cargarInfo6 = false;
-        this.cargarInfo7 = false;
       break;
       case 2:
         this.cargarInfo2 = true;
@@ -87,7 +85,6 @@ export class PrincipalComponent implements OnInit {
         this.cargarInfo4 = false;
         this.cargarInfo5 = false;
         this.cargarInfo6 = false;
-        this.cargarInfo7 = false;
       break;
       case 3:
         this.cargarInfo3 = true;
@@ -97,7 +94,6 @@ export class PrincipalComponent implements OnInit {
         this.cargarInfo4 = false;
         this.cargarInfo5 = false;
         this.cargarInfo6 = false;
-        this.cargarInfo7 = false;
       break;
       case 4:
         this.cargarInfo4 = true;
@@ -107,7 +103,6 @@ export class PrincipalComponent implements OnInit {
         this.cargarInfo1 = false;
         this.cargarInfo5 = false;
         this.cargarInfo6 = false;
-        this.cargarInfo7 = false;
       break;
       case 5:
         this.cargarInfo5 = true;
@@ -117,7 +112,6 @@ export class PrincipalComponent implements OnInit {
         this.cargarInfo4 = false;
         this.cargarInfo1 = false;
         this.cargarInfo6 = false;
-        this.cargarInfo7 = false;
       break;
       case 6:
         this.cargarInfo6 = true;
@@ -127,7 +121,6 @@ export class PrincipalComponent implements OnInit {
         this.cargarInfo4 = false;
         this.cargarInfo5 = false;
         this.cargarInfo1 = false;
-        this.cargarInfo7 = false;
       break;
       case 7:
         this.cargarInfo6 = false;

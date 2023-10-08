@@ -10,8 +10,8 @@
             </div>
   
             <div @fadeInRight>
-              <p class="m-0 body-1">CUE: </p>
-              <p class="m-0 caption text-hint">{{organizacionruce.cue}}</p>
+              <p class="m-0 body-1">CUEANEXO: </p>
+              <p class="m-0 caption text-hint">{{organizacionruce.cueAnexo}}</p>
             </div>
           </div>
   
@@ -22,7 +22,7 @@
             </div>
   
             <div @fadeInRight>
-              <p class="m-0 body-1">NOMBRE: </p>
+              <p class="m-0 body-1">NOMBRE DE LA INSTITUCION: </p>
               <p class="m-0 caption text-hint">{{organizacionruce.organizacionDesc}}</p>
             </div>
           </div>
@@ -35,7 +35,7 @@
   
             <div @fadeInRight>
               <p class="m-0 body-1">TELEFONO: </p>
-              <p class="m-0 caption text-hint">{{organizacionruce.telefono}}</p>
+              <p class="m-0 caption text-hint">{{organizacionruce.telefono || 'Sin información'}}</p>
             </div>
           </div>
   
@@ -47,7 +47,7 @@
   
             <div @fadeInRight>
               <p class="m-0 body-1">EMAIL: </p>
-              <p class="m-0 caption text-hint">{{organizacionruce.email}}</p>
+              <p class="m-0 caption text-hint">{{organizacionruce.email || 'Sin información'}}</p>
             </div>
           </div>
 
@@ -80,87 +80,3 @@
       </div>
     </div>
   </div>
-
-
-
-<!-- <div class="card border-b">
-    <div class="px-gutter py-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div class="py-1 flex items-center">
-            <div
-                class="w-10 h-10 rounded-full bg-primary/10 text-primary ltr:mr-3 rtl:ml-3 flex items-center justify-center">
-                <mat-icon class="icon-sm" svgIcon="mat:event_note"></mat-icon>
-            </div>
-
-            <div>
-                <p class="m-0 body-0 ">
-                    <label><b></b></label>
-                </p>
-                <p class="m-0 caption text-hint">CUE: {{organizacionruce.cue}}</p>
-            </div>
-        </div>
-
-        <div class="py-1 flex items-center">
-            <div
-                class="w-10 h-10 rounded-full bg-primary/10 text-primary ltr:mr-3 rtl:ml-3 flex items-center justify-center">
-                <mat-icon class="icon-sm" svgIcon="mat:business"></mat-icon>
-            </div>
-
-            <div>
-                <p class="m-0 body-1">
-                    <label><b></b></label>
-                </p>
-                <p class="m-0 caption text-hint">NOMBRE: {{organizacionruce.organizacionDesc}}</p>
-            </div>
-        </div>
-
-      
-    </div>
-    <div class="px-gutter py-4 grid grid-cols-4 sm:grid-cols-4 gap-4">
-        <div class="py-1 flex items-center">
-            <div
-                class="w-10 h-10 rounded-full bg-primary/10 text-primary ltr:mr-3 rtl:ml-3 flex items-center justify-center">
-                <mat-icon class="icon-sm" svgIcon="mat:local_phone"></mat-icon>
-            </div>
-
-            <div>
-                <p class="m-0 body-1"><label><b></b></label></p>
-                <p class="m-0 caption text-hint">{{organizacionruce.telefono}}</p>
-            </div>
-        </div>
-        <div class="py-1 flex items-center">
-            <div
-                class="w-10 h-10 rounded-full bg-primary/10 text-primary ltr:mr-3 rtl:ml-3 flex items-center justify-center">
-                <mat-icon class="icon-sm" svgIcon="mat:email"></mat-icon>
-            </div>
-
-            <div>
-                <p class="m-0 body-1"><label><b></b></label></p>
-                <p class="m-0 caption text-hint">{{organizacionruce.email}}</p>
-            </div>
-        </div>
-        <div class="py-1 flex items-center">
-            <div
-                class="w-10 h-10 rounded-full bg-primary/10 text-primary ltr:mr-3 rtl:ml-3 flex items-center justify-center">
-                <mat-icon class="icon-sm" svgIcon="mat:event_note"></mat-icon>
-            </div>
-    
-            <div>
-                <p class="m-0 body-1"><label><b></b></label></p>
-                <p class="m-0 caption text-hint">NIVEL: {{organizacionruce.nivel}}</p>
-            </div>
-        </div>
-        <div class="py-1 flex items-center">
-            <div
-            class="w-10 h-10 rounded-full bg-primary/10 text-primary ltr:mr-3 rtl:ml-3 flex items-center justify-center">
-            <mat-icon class="icon-sm" svgIcon="mat:event_note"></mat-icon>
-        </div>
-        
-        <div>
-            <p class="m-0 body-1"><label><b></b></label></p>
-            <p class="m-0 caption text-hint">REGION: {{organizacionruce.region}}</p>
-        </div>
-        
-    </div>
-
-    </div>
-</div> -->

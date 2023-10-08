@@ -25,6 +25,7 @@ class Expediente extends Model  implements Auditable
         'cantObservaciones',
         'observacionesDesc',
         'observacionesRespondidas',
+        'fecha',
         'estaActivo',
         'idUsuarioAlta',
         'idUsuarioModificacion'
