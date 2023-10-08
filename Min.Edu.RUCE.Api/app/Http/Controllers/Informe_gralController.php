@@ -15,7 +15,7 @@ class Informe_gralController extends Controller
     {
         try {
             $filtersArray = get_object_vars(json_decode($request['filtros']));
-            $datos = Cooperadora::with('OrganizacionRUCE.Matricula')
+            $datos = Cooperadora::with(['OrganizacionRUCE.Matricula','RefTipoAsociacion','AtencionSeguimiento','Comision.RefTipoComision','Comision.AutoridadComision','Balance','Expediente.RefInstanciaInstrumento','Personeria','Fondo.RefTipoFondo','Kiosco.PersonaRuce'])
                 ->whereHas('OrganizacionRUCE', function ($query) use (&$filtersArray) {
                     $query->where(function ($query) use (&$filtersArray) {
                         foreach ($filtersArray as $clave => $valor) {

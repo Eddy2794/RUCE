@@ -260,6 +260,12 @@ export class AppComponent {
         children: [
           {
             type: 'link',
+            label: 'Reportes',
+            route: '/pages/reportes',
+            icon: 'mat:find_in_page',
+          },
+          {
+            type: 'link',
             label: 'Cargos',
             route: '/pages/cargos',
             icon: 'mat:supervised_user_circle',

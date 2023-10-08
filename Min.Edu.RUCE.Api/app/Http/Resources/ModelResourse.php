@@ -28,30 +28,6 @@ class ModelResourse extends JsonResource
         }
     }
 
-    // private function recFkData(mixed $registro){
-    //     try{
-    //         foreach ($registro->getAttributes() as $clave => $valor){                
-    //             if(str_contains($clave,'fk')){
-    //                 $modelo = 'App\Models'.'\\'.substr($clave,2);
-    //                 $modelo = new $modelo;
-    //                 $valor = $modelo::where('id',$valor)->get()[0];
-    //                 if($valor!=[]){
-    //                     unset($valor['created_at']);
-    //                     unset($valor['updated_at']);
-    //                     unset($valor['deleted_at']);
-    //                     // unset($valor['idUsuarioAlta']);
-    //                     // unset($valor['idUsuarioModificacion']);
-    //                     $registro[$clave]=$this->recFkData($valor);
-    //                 }
-    //             }
-    //         }
-    //         return $registro;
-    //     }
-    //     catch(Exception){
-    //         return $registro;
-    //     }
-    // }
-
     public function addFkData($data){
         //obtiene los datos de cada clave foranea que contenga cualquier modelo
         $data->transform(function ($item) {

@@ -102,7 +102,7 @@
                       <mat-icon *ngIf="visible" svgIcon="mat:visibility"></mat-icon>
                       <mat-icon *ngIf="!visible" svgIcon="mat:visibility_off"></mat-icon>
                     </button>
-                    <mat-hint>Haga click en el icono de ojo para ver/ocultar la contraseña.</mat-hint>
+                    <!-- <mat-hint>Haga click en el icono de ojo para ver/ocultar la contraseña.</mat-hint> -->
                     <mat-error>
                         <app-ver-error [control]="this.formularioUsuario.controls['password']">
                         </app-ver-error>
@@ -116,11 +116,20 @@
                       <mat-icon *ngIf="visible" svgIcon="mat:visibility"></mat-icon>
                       <mat-icon *ngIf="!visible" svgIcon="mat:visibility_off"></mat-icon>
                     </button>
-                    <mat-hint>Haga click en el icono de ojo para ver/ocultar la contraseña.</mat-hint>
+                    <!-- <mat-hint>Haga click en el icono de ojo para ver/ocultar la contraseña.</mat-hint> -->
                     <mat-error>
                         <app-ver-error [control]="this.formularioUsuario.controls['c_password']">
                         </app-ver-error>
                     </mat-error>
+                  </mat-form-field>
+
+
+                  <mat-form-field style="width: 100%">
+                    <mat-label>Rol</mat-label>
+                    <mat-select formControlName="role">
+                        <mat-option>Seleccione</mat-option>
+                        <mat-option *ngFor="let item of roles" [value]="item?.id">{{item?.name}}</mat-option>
+                    </mat-select>
                   </mat-form-field>
             </div>
         </div>

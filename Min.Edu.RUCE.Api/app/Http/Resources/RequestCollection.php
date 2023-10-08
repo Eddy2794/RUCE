@@ -87,7 +87,8 @@ class RequestCollection extends ResourceCollection
             $datos = $this->busqueda($datos,$this->campos,$this->desc);
 
         //agrega informacion de las claves foraneas
-        $datos = $this->adjustForeignKeys($datos);
+        // $datos = $this->adjustForeignKeys($datos);
+        // dd($datos->values()->toArray());
         return $datos->values()->toArray();
     }
 

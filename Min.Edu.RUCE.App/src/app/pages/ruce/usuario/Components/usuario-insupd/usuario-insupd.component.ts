@@ -1,14 +1,15 @@
+import { RoleService } from './../../../../../_services/role.service';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataPage, FilterOptions } from '@app/shared/utils';
-import { UsuarioModel } from '../../Model/usuario-model';
-import { UsuarioService } from '../../Service/usuario.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ValidatorService } from '@app/shared/validators/validator.service';
 import { MatDialog } from '@angular/material/dialog';
 import { RefTipoDocumentoService } from '@app/pages/ruce/refruce/Services/reftipodocumento.service';
 import { RefTipoDocumentoModel } from '@app/pages/ruce/refruce/Model/reftipodocumento-model';
 import { DialogComponent, DialogData } from '@app/components/dialog/dialog.component';
+import { Role } from '@app/_models/role.model';
+import { UserService } from '@app/_services/user.service';
 
 @Component({
   selector: 'vex-usuario-insupd',
@@ -21,8 +22,8 @@ export class UsuarioInsupdComponent implements OnInit {
   id: number = 0;
   filtro: FilterOptions = { estaActivo: true, PageSize: 10,};
 
-  tipoFondo = new Array<UsuarioModel>;
   tiposDocumentos = new Array<RefTipoDocumentoModel>;
+  roles = new Array<Role>;
 
   inputType = 'password';
   visible = false;
@@ -32,13 +33,14 @@ export class UsuarioInsupdComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private usuarioService: UsuarioService,
+    private usuarioService: UserService,
     private activatedRoute: ActivatedRoute,
     private validadorServicio: ValidatorService,
     private router: Router,
     private route:ActivatedRoute,
     private matDialog: MatDialog,
     private refTipoDocumentoService: RefTipoDocumentoService,
+    private roleService: RoleService,
     private cd: ChangeDetectorRef
   ) {
     this.activatedRoute.url.subscribe((parameter: any) => {
@@ -75,6 +77,7 @@ export class UsuarioInsupdComponent implements OnInit {
           this.formularioUsuario.controls.telefono.patchValue(resp.entities.persona_r_u_c_e.telefono);
           this.formularioUsuario.controls.email.patchValue(resp.entities.persona_r_u_c_e.email);
           this.formularioUsuario.controls.fkRefTipoDocumentoRUCE.patchValue(Number(resp.entities.persona_r_u_c_e.fkRefTipoDocumentoRUCE));
+          this.formularioUsuario.controls.role.patchValue(Number(resp.entities.roles[0].id));
         });
       }
     });
@@ -99,6 +102,9 @@ export class UsuarioInsupdComponent implements OnInit {
     this.refTipoDocumentoService.filter(this.filtro).subscribe((data: DataPage<RefTipoDocumentoModel>) => {
       this.tiposDocumentos = Object.assign([],data.entities,this.tiposDocumentos);
     })
+    this.roleService.filter(this.filtro).subscribe((data: DataPage<Role>) => {
+      this.roles = Object.assign([],data.entities,this.roles);
+    })
   }
 
   createForm() {
@@ -107,7 +113,6 @@ export class UsuarioInsupdComponent implements OnInit {
       username: [null, {validators: [ Validators.required, this.validadorServicio.validarSoloLetras ]}],
       password: [null, {validators: [ Validators.required, Validators.minLength(8), this.validadorServicio.nemotecnico ]}],
       c_password: [null, {validators: [ Validators.required, Validators.minLength(8) ]}],
-      role: null,
       // role: [null, {validators: [ Validators.required]}],
       fkPersonaRUCE: null,
       fkRefTipoDocumentoRUCE: [null, {validators: [ Validators.required, ]}],
@@ -117,6 +122,7 @@ export class UsuarioInsupdComponent implements OnInit {
       apellido: [null, {validators: [ Validators.required,  this.validadorServicio.validarSoloLetras(), this.validadorServicio.validarEspaciosInicioFin() ]}],
       telefono: [null, {validators: [ Validators.required, this.validadorServicio.validarEspaciosInicioFin() ]}],
       email: [null, {validators: [ Validators.required, Validators.email, this.validadorServicio.validarEspaciosInicioFin() ]}],
+      role: [null,{validators:[ Validators.required]}],
       idUsuarioAlta: null,
       idUsuarioModificacion: null,
       estaActivo: true,
@@ -150,7 +156,6 @@ export class UsuarioInsupdComponent implements OnInit {
       }
       );
     } else {
-      this.formularioUsuario.value.fkTipoFondo = this.formularioUsuario.value.fkTipoFondo?.id;
       
       this.usuarioService.update(this.formularioUsuario.value.id, this.formularioUsuario.value).subscribe((resp: any) => {
         this.mostrarDialogMsj("Mensaje", "Usuario Modificado", false)

@@ -11,8 +11,11 @@ use App\Http\Resources\RequestCollection;
 use App\Models\PersonaRUCE;
 use App\Models\UsuarioRUCE;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 use Symfony\Component\HttpFoundation\Response;
 
 class UsuarioRUCEController extends Controller
@@ -21,7 +24,7 @@ class UsuarioRUCEController extends Controller
     {
         try {
             if ($request->has('PageNumber') && $request->has('PageSize')) {
-                return new RequestCollection(UsuarioRUCE::all(), $request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
+                return new RequestCollection(UsuarioRUCE::with(['roles','PersonaRUCE'])->orderBy('created_at','desc')->get(), $request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
             }
             return new RequestCollection(UsuarioRUCE::all(), 10, 1);
         } catch (\Throwable $th) {
@@ -35,43 +38,53 @@ class UsuarioRUCEController extends Controller
 
     public function store(StoreUsuarioRUCERequest $request): JsonResponse
     {
-        if ($request['password'] === $request['c_password']) {
-            $persona = new PersonaRUCEController();
-            $requestPersona = app(StorePersonaRUCERequest::class);
-            $created = json_decode($persona->store($requestPersona)->getContent());
-            $idPersona = PersonaRUCE::max('id');
-            if ($created->succeeded) {
-                try {
-                    $usuario = new UsuarioRUCE();
-                    $usuario->fill([
-                        'fkPersonaRUCE' => $idPersona,
-                        'password' => $request->password,
-                        'username' => $request->username,
-                        'idUsuarioAlta' => $request->idUsuarioAlta,
-                    ]);
-                    $usuario->save(); // Guardar el usuario en la base de datos
+        if (Role::where('id', $request->role)->get() != new Collection()) {
+            if ($request['password'] === $request['c_password']) {
+                $persona = new PersonaRUCEController();
+                $requestPersona = app(StorePersonaRUCERequest::class);
+                $created = json_decode($persona->store($requestPersona)->getContent());
+                $idPersona = PersonaRUCE::max('id');
+                if ($created->succeeded) {
+                    try {
+                        $usuario = new UsuarioRUCE();
+                        $usuario->fill([
+                            'fkPersonaRUCE' => $idPersona,
+                            'password' => Hash::make($request->password),
+                            'username' => $request->username,
+                            'idUsuarioAlta' => $request->idUsuarioAlta,
+                        ]);
 
-                    // $success['token'] =  $usuario->createToken('AccessToken')->plainTextToken;
-                    // $success['name'] =  $usuario->username;
-    
-                    return response()->json([
-                        'message' => 'Usuario Registrado con Exito',
-                        'succeeded' => true,
-                    ], Response::HTTP_OK);
-                } catch (\Throwable $th) {
-                    return response()->json([
-                        'succeeded' => false,
-                        'message' => $th->getMessage()
-                    ], Response::HTTP_INTERNAL_SERVER_ERROR);
+                        $role = Role::where('id', $request->role)->first();
+                        $usuario->assignRole([$role->name]);
+
+                        $usuario->save(); // Guardar el usuario en la base de datos
+
+                        // $success['token'] =  $usuario->createToken('AccessToken')->plainTextToken;
+                        // $success['name'] =  $usuario->username;
+
+                        return response()->json([
+                            'message' => 'Usuario Registrado con Exito',
+                            'succeeded' => true,
+                        ], Response::HTTP_OK);
+                    } catch (\Throwable $th) {
+                        return response()->json([
+                            'succeeded' => false,
+                            'message' => $th->getMessage()
+                        ], Response::HTTP_INTERNAL_SERVER_ERROR);
+                    }
                 }
+                return response()->json([
+                    'message' => $created->message,
+                    'succeeded' => $created->succeeded
+                ], Response::HTTP_BAD_REQUEST);
             }
             return response()->json([
-                'message' => $created->message,
-                'succeeded' => $created->succeeded
+                'message' => 'Las contraseñas no coinciden',
+                'succeeded' => false
             ], Response::HTTP_BAD_REQUEST);
         }
         return response()->json([
-            'message' => 'Las contraseñas no coinciden',
+            'message' => 'El rol no existe',
             'succeeded' => false
         ], Response::HTTP_BAD_REQUEST);
     }
@@ -90,26 +103,30 @@ class UsuarioRUCEController extends Controller
 
     public function update(UpdateUsuarioRUCERequest $request, int $usuarioRUCE): JsonResponse
     {
-        if ($request['password']===$request['c_password']){
+        if ($request['password'] === $request['c_password']) {
             $persona = new PersonaRUCEController();
             $requestPersona = app(UpdatePersonaRUCERequest::class);
-            $personaUpdated = response()->json($persona->update($requestPersona,$request->fkPersonaRUCE));
-            if($personaUpdated->original->getStatusCode() != Response::HTTP_NOT_FOUND)
+            $personaUpdated = response()->json($persona->update($requestPersona, $request->fkPersonaRUCE));
+            if ($personaUpdated->original->getStatusCode() != Response::HTTP_NOT_FOUND)
                 try {
-                    $usuarioRUCE = UsuarioRUCE::where('id', $usuarioRUCE)->first();
+                    $usuarioRUCE = UsuarioRUCE::with('roles')->where('id', $usuarioRUCE)->first();
+                    $role = Role::firstWhere('id', $request->role);
+                    if($role and $role->name != $usuarioRUCE->roles[0]->name){
+                        $usuarioRUCE->removeRole($usuarioRUCE->roles[0]->name);
+                        $usuarioRUCE->assignRole($role->name);
+                    }
                     //$request = new UpdateUsuarioRUCERequest($request->toArray());
                     $usuarioRUCE->fkPersonaRUCE = $request->fkPersonaRUCE ?: $usuarioRUCE->fkPersonaRUCE;
-                    $usuarioRUCE->password = $request->password ?: $usuarioRUCE->password;
+                    $usuarioRUCE->password = $request->password ? Hash::make($request->password): $usuarioRUCE->password;
                     $usuarioRUCE->username = $request->username ?: $usuarioRUCE->username;
                     // $usuarioRUCE->idUsuarioModificacion = $request->idUsuarioModificacion ?: $usuarioRUCE->idUsuarioModificacion;
-
-                if ($usuarioRUCE->isClean() && $personaUpdated->original->getStatusCode()== Response::HTTP_UNPROCESSABLE_ENTITY) {
-                    return response()->json([
-                        'message' => 'No se modifico ningun valor',
-                        'succeeded' => false
-                    ], 422);
-                }
-                $usuarioRUCE->save();
+                    if ($usuarioRUCE->isClean() && $personaUpdated->original->getStatusCode() == Response::HTTP_UNPROCESSABLE_ENTITY) {
+                        return response()->json([
+                            'message' => 'No se modifico ningun valor',
+                            'succeeded' => false
+                        ], 422);
+                    }
+                    $usuarioRUCE->save();
 
                     return response()->json([
                         'succeeded' => true,

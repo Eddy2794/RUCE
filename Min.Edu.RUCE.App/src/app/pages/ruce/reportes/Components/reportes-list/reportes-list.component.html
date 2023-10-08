@@ -1,0 +1,20 @@
+<vex-page-layout>
+  <div>
+    <div class="card flex-auto">
+      <vex-aio-table
+        [columns]="columnasVex"
+        [sourceService]="reporteService"
+        [filter]="filtro"
+        [ruta]="'reportes'"
+        [nombreTabla]="'Lista de Reportes'"
+        [view]="false"
+      >
+        <app-input-search espacio1></app-input-search>
+        <app-search-button-generic
+          espacio2
+          [searchOptions]="searchOptions"
+        ></app-search-button-generic>
+      </vex-aio-table>
+    </div>
+  </div>
+</vex-page-layout>
