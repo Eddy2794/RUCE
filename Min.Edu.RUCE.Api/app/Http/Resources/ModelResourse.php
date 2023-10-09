@@ -36,7 +36,8 @@ class ModelResourse extends JsonResource
                     $foraneo = substr($clave, 2);
                     // $item[$clave] = $item->$foraneo->toArray();
                     // dd($item[$clave]);
-                    $item->$foraneo->toArray();
+                    if($valor)
+                        $item->$foraneo->toArray();
                 }
             }
             return $item;

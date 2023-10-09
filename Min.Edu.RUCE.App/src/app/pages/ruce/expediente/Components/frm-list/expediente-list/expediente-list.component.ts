@@ -92,15 +92,15 @@ export class ExpedienteListComponent implements OnInit, OnDestroy {
         visible: true,
       },
       {
-        label: "OBSERVACIUONES",
+        label: "OBSERVACIONES",
         property: "expediente.observacionesDesc",
         type: "object",
         visible: true,
       },
       {
-        label: "OBSERVACIUONES RESPODNDIDAS",
+        label: "OBSERVACIONES RESPODNDIDAS",
         property: "expediente.observacionesRespondidas",
-        type: "boolean",
+        type: "object",
         visible: true,
       },
       {
@@ -111,8 +111,8 @@ export class ExpedienteListComponent implements OnInit, OnDestroy {
       },
       {
         label: "FECHA DE ACTUALIZACION",
-        property: "expediente.fecha",
-        type: "object",
+        property: "fecha",
+        type: "date",
         visible: true,
       },
     ];

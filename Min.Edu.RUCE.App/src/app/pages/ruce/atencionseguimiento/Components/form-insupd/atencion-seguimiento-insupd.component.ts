@@ -63,6 +63,7 @@ export class AtencionSeguimientoInsupdComponent implements OnInit, OnDestroy {
           this.accion = 'edit'
         }
         this.atencionSeguimientoService.findOne(this.id).subscribe((resp: any) => {
+          this.formularioAtencionSeguimiento.patchValue(resp.entities);
         });
       }
     });

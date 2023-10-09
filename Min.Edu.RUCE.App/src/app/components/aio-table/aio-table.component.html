@@ -96,7 +96,7 @@
         </ng-container>
         <ng-container *ngIf="column.type === 'object'" [matColumnDef]="column.property">
           <th *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header> {{ column.label }}</th>
-          <td *matCellDef="let row" [ngClass]="column.cssClasses" mat-cell>{{ row | mapingObject:column.property }}</td>
+          <td *matCellDef="let row" [ngClass]="column.cssClasses" mat-cell>{{ (row | mapingObject:column.property) ===true? "SI":(row | mapingObject:column.property) ===false? "NO":row | mapingObject:column.property }}</td>
         </ng-container>
         <ng-container *ngIf="column.type === 'boolean'" [matColumnDef]="column.property">
           <th *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header> {{ column.label }}</th>

@@ -62,6 +62,7 @@ export class EncabezadoPersoneriaComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.idCooperadora = this.route.snapshot.params["id"];
+    console.log(this.idCooperadora);
     this.obtenerData(this.idCooperadora);
     this.tipoAsociacion();
   }

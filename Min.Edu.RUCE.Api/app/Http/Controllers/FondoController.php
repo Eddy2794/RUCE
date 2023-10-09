@@ -58,10 +58,18 @@ class FondoController extends Controller
         }
     }
     
-    public function show(int $fondo): JsonResponse
+    public function show(int $fk_cooperadora): JsonResponse
     {
         try {
-            return response()->json(new ModelResourse($fondo,'Fondo'));
+            $fondo = Fondo::where('fkCooperadora', $fk_cooperadora)->first();
+            if($fondo){
+                return response()->json(new ModelResourse($fondo['id'],'Fondo'));
+            } else{
+                return response()->json([
+                    'succeeded' => false,
+                    'message' => 'Fondo not found'
+                ], Response::HTTP_NOT_FOUND);
+            }
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,

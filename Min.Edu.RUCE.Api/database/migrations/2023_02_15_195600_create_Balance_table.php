@@ -22,7 +22,7 @@ return new class extends Migration
             $table->boolean('estadoBalance')->default(false);
             $table->integer('anio');
             $table->date('fecha')->nullable();
-            $table->date('observaciones')->default('Sin Observaciones');
+            $table->text('observaciones')->default('Sin Observaciones');
             $table->boolean('estaActivo')->default(true);
             $table->integer('idUsuarioAlta')->nullable(true);
             $table->integer('idUsuarioModificacion')->nullable(true);

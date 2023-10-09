@@ -83,7 +83,8 @@ export class BalanceInsupdComponent implements OnInit {
       fkCooperadora: this.idCooperadora,
       estadoBalance: false,
       anio: [null, {validators: [ Validators.required, Validators.minLength(4), Validators.maxLength(4) ]}],
-      fecha: [null, {validators: [Validators.required]}],
+      fecha: null,
+      observaciones: ["-", {validators: [Validators.required]}],
       estaActivo: true,
     },
     {

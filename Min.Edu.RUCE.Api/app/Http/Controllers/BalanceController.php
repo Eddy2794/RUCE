@@ -89,8 +89,8 @@ class BalanceController extends Controller
             $balance->fkCooperadora = $request->fkCooperadora ?: $balance->fkCooperadora;
             $balance->estadoBalance = $request->estadoBalance !== null ? $request->estadoBalance : $balance->estadoBalance;
             $balance->anio = $request->anio ?: $balance->anio;
-            $balance->fecha = $request->fecha ?: $balance->fecha;
-            $balance->observaciones = $request->observaciones ?: $balance->observaciones;
+            $balance->fecha = $request->fecha !== null || $request->fecha == null ? $request->fecha : $balance->fecha;
+            $balance->observaciones = $request->observaciones !== null || $request->observaciones == null ? $request->observaciones : $balance->observaciones;
 
             if ($balance->isClean()) {
                 return response()->json([

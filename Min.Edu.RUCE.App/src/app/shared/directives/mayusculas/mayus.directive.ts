@@ -2,7 +2,7 @@ import { Directive, ElementRef, HostListener } from '@angular/core';
 import { NgControl } from '@angular/forms';
 
 @Directive({
-  selector: 'input[mayus]'
+  selector: 'input[mayus], textarea[mayus]'
 })
 export class MayusDirective {
   constructor(private readonly control: NgControl) { }

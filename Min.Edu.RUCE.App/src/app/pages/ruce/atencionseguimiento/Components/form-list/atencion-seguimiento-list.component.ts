@@ -59,6 +59,7 @@ export class AtencionSeguimientoListComponent implements OnInit {
       { label: 'ATENCION EN OFICINAS', property: 'atencionOficina', type: 'text', visible: true },
       { label: 'ATENCION TERRITORIAL', property: 'atencionTerritorial', type: 'text', visible: true },
       { label: 'OBSERVACIONES', property: 'observacion', type: 'text', visible: true },
+      { label: 'FECHA', property: 'fecha', type: 'date', visible: true },
     ]
   }
 

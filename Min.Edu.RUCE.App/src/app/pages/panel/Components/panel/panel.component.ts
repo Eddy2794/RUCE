@@ -25,13 +25,13 @@ export class PanelComponent implements OnInit {
           const dato: any = {};
     
           switch (coop.estado) {
-            case 'ROJO':
+            case 'SIN CONFORMACION':
               dato['status'] = 'warn';
               break;
-            case 'AMARILLO':
+            case 'EN CONFORMACION ':
               dato['status'] = 'pending';
               break;
-            case 'VERDE':
+            case 'CON PERSONERIA':
               dato['status'] = 'ready';
               break;
           }

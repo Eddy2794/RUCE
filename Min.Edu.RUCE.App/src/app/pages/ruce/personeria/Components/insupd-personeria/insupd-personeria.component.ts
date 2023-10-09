@@ -103,7 +103,7 @@ export class InsupdPersoneriaComponent implements OnInit, OnDestroy {
     this.formularioPersoneria = this.fb.group({
       id: null,
       fkCooperadora: this.idCooperadora,
-      fkExpediente: this.idExpediente,
+      fkExpediente: this.idExpediente || null,
       fecha: [null, {validators: [ Validators.required, ]}],
       decreto: null,
       nroResolucion: null,

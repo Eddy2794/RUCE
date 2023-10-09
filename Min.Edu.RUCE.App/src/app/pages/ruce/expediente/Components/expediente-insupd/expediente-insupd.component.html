@@ -58,7 +58,7 @@
                     </mat-error>
                 </mat-form-field>
                 <div class="slide-group" style="width: 100%">
-                    <mat-slide-toggle color="accent" formControlName="observacionesRespondidas" class="p-4"></mat-slide-toggle>
+                    <mat-slide-toggle color="accent" formControlName="observacionesRespondidas" [checked]="false" class="p-4"></mat-slide-toggle>
                     <mat-label>Observaciones Respondidas</mat-label>
                 </div>
             </div>
@@ -69,16 +69,8 @@
                               cdkTextareaAutosize
                               formControlName="observacionesDesc"
                               class="outline-none bg-foreground p-6 rounded-t flex-auto"
-                              placeholder="Descripción de observaciones..."></textarea>
+                              placeholder="Descripción de observaciones..." mayus espacios></textarea>
                 </div>
-                    <!-- <mat-form-field style="width: 100%">
-                        <mat-label>Descripción de observaciones</mat-label>
-                        <input matInput formControlName="observacionesDesc" type="text" espacios mayus>
-                        <mat-error>
-                            <app-ver-error [control]="this.formularioExpediente.controls['observacionesDesc']">
-                            </app-ver-error>
-                        </mat-error>
-                    </mat-form-field> -->
             </div>
         </div>
         <br>       

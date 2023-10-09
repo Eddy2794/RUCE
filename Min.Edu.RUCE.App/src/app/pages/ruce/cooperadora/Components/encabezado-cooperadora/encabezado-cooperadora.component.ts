@@ -43,9 +43,9 @@ export class EncabezadoCooperadoraComponent implements OnInit {
   }
 
   getBackgroundColor(estado: string): string {
-    if (estado === 'VERDE') {
+    if (estado === 'CON PERSONERIA') {
       return 'hsl(120, 80%, 65%)'; // Cambia esto al color que desees
-    } else if (estado === 'ROJO') {
+    } else if (estado === 'SIN CONFORMACION') {
       return 'hsl(0, 80%, 65%)'; // Cambia esto al color que desees
     } else {
       return 'hsl(60, 80%, 65%)'; // Color predeterminado o transparente

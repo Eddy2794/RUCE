@@ -96,7 +96,7 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::group(['prefix' => '/balance', 'middleware' => ['role:super_admin']], function () {
+    Route::group(['prefix' => '/balance', 'middleware'], function () {
         Route::middleware('role:super_admin|admin|writer|user')->get('/Filter', [BalanceController::class, 'index'])->name('balance.index');
         Route::middleware('role:super_admin|admin')->post('/', [BalanceController::class, 'store'])->name('balance.store');
         Route::middleware('role:super_admin|admin|writer|user')->get('/{id}', [BalanceController::class, 'show'])->name('balance.show');

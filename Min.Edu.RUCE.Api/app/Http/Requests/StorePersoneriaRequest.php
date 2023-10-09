@@ -25,7 +25,7 @@ class StorePersoneriaRequest extends FormRequest
     {
         return [
             'fkExpediente' => [
-                'required',
+                'nullable',
                 'exists:Expediente,id'
             ],
             'fkCooperadora' => [
@@ -33,12 +33,12 @@ class StorePersoneriaRequest extends FormRequest
                 'exists:Cooperadora,id'
             ],
             'decreto' => [
-                //'required',
-                //'string',
+                'nullable',
+                'string',
             ],
             'nroResolucion' => [
-                //'required',
-                //'string',
+                'nullable',
+                'string',
             ],
             'fecha' => [
                 'required',
@@ -47,15 +47,15 @@ class StorePersoneriaRequest extends FormRequest
             'estaActivo' => [
                 'required',
                 'boolean'
-            ],/*
+            ],
             'idUsuarioAlta' => [
-                'required',
+                'nullable',
                 'integer',
             ],
             'idUsuarioModificacion' => [
-                'required',
+                'nullable',
                 'integer',
-            ],*/
+            ],
         ];
     }
 

@@ -1,7 +1,7 @@
 import { Directive, ElementRef, HostListener } from '@angular/core';
 
 @Directive({
-  selector: 'input[espacios]'
+  selector: 'input[espacios], textarea[espacios]'
 })
 export class EspaciosDirective {
   constructor(private readonly elemRef: ElementRef) { }
