@@ -59,7 +59,7 @@ class Informe_gralController extends Controller
                     ->get();
             } else {
                 $datos = Cooperadora::join('OrganizacionRUCE', 'Cooperadora.fkOrganizacionRUCE', '=', 'OrganizacionRUCE.id')->with(['OrganizacionRUCE.Matricula', 'RefTipoAsociacion', 'AtencionSeguimiento', 'Comision.RefTipoComision', 'Comision.AutoridadComision.PersonaRUCE.RefTipoDocumentoRUCE', 'Balance', 'Expediente.RefInstanciaInstrumento', 'Personeria', 'Fondo.RefTipoFondo', 'Kiosco.PersonaRuce'])->orderBy('OrganizacionRUCE.organizacionDesc', 'asc')->get();
-            dd($datos->toArray());
+            // dd($datos->toArray());
             }
             if ($datos->toArray() != []) {
                 $this->store($datos->toArray());

@@ -62,7 +62,7 @@ export class ReportesListComponent implements OnInit {
 
       //MATRICULA
 
-      { label: 'MATRICULA', property: 'matricula', type: 'object', visible: true },
+      { label: 'MATRICULA', property: 'organizacion_r_u_c_e.matricula.0.matricula', type: 'object', visible: true },
       
       //COOPERADORA
       { label: "DENOMINACION", property: "denominacion", type: "text", visible: true, },
