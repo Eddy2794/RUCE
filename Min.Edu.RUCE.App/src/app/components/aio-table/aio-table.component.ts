@@ -8,7 +8,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { fadeInUp400ms } from '../../../@vex/animations/fade-in-up.animation';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldDefaultOptions } from '@angular/material/form-field';
 import { stagger40ms } from '../../../@vex/animations/stagger.animation';
-import { UntypedFormControl } from '@angular/forms';
+import { FormControl, UntypedFormControl } from '@angular/forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { IBaseService } from '@app/shared/services/interface/i-base.service';
 import { DataPage, FilterOptions, PaginateOptions } from '@app/shared/utils';
@@ -97,6 +97,12 @@ export class AioTableComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   isLoadingResults = false;
 
+
+
+  
+  rowFormControl = new FormControl();
+
+  
   constructor(private dialog: MatDialog,
     public searchService: SearchService,
     private changeDetectorRef: ChangeDetectorRef,
@@ -153,6 +159,14 @@ export class AioTableComponent implements OnInit, AfterViewInit, OnDestroy {
       this.pageProperties.length = resp.paged.entityCount;
       this.isLoadingResults = false;
       this.textSearchList = mostrarCriterios(resp.entities[0], this.listTextOption);
+
+      if (this.nombreTabla === "Lista de Reportes")
+        this.dataSource.data.forEach(item => {
+          // console.log(item.comision[0].autoridad_comision);
+          // Suponiendo que 'comision' es el array que quieres mostrar en el mat-select
+          item['rowFormControl'] = new FormControl(item.comision[0].autoridad_comision);
+          // console.log(item['rowFormControl']);
+        });
     });
   }
 

@@ -70,7 +70,7 @@ class PersonaRUCE extends Model  implements Auditable
 
     public function RefTipoDocumentoRUCE()
     {
-        return $this->hasMany(RefTipoDocumentoRUCE::class);
+        return $this->hasMany(RefTipoDocumentoRUCE::class, 'id', 'fkRefTipoDocumentoRUCE');
     }
     /*
 public function fromDateTime($value){

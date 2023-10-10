@@ -24,7 +24,11 @@ class UsuarioRUCEController extends Controller
     {
         try {
             if ($request->has('PageNumber') && $request->has('PageSize')) {
-                return new RequestCollection(UsuarioRUCE::with(['roles','PersonaRUCE'])->orderBy('created_at','desc')->get(), $request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
+                return new RequestCollection(UsuarioRUCE::with(['roles','PersonaRUCE'])
+                ->whereHas("roles",function($query){
+                    $query->where("name","<>","super_admin");
+                })
+                ->orderBy('created_at','desc')->get(), $request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
             }
             return new RequestCollection(UsuarioRUCE::all(), 10, 1);
         } catch (\Throwable $th) {

@@ -14,28 +14,56 @@ class Informe_gralController extends Controller
     public function index(Request $request)
     {
         try {
-            $filtersArray = get_object_vars(json_decode($request['filtros']));
-            $datos = Cooperadora::with(['OrganizacionRUCE.Matricula','RefTipoAsociacion','AtencionSeguimiento','Comision.RefTipoComision','Comision.AutoridadComision','Balance','Expediente.RefInstanciaInstrumento','Personeria','Fondo.RefTipoFondo','Kiosco.PersonaRuce'])
-                ->whereHas('OrganizacionRUCE', function ($query) use (&$filtersArray) {
-                    $query->where(function ($query) use (&$filtersArray) {
-                        foreach ($filtersArray as $clave => $valor) {
-                            if ($clave != 'matricula') {
-                                $query->where($clave, $valor);
-                                unset($filtersArray[$clave]);
+            $filtersArray = [];
+            if ($request['filtros']) {
+                $filtersArray = get_object_vars(json_decode($request['filtros']));
+                // dd($filtersArray);
+                $datos = Cooperadora::with([
+                    'OrganizacionRUCE'  => function ($query) {
+                        $query->orderBy('organizacionDesc', 'asc');
+                    }, 
+                    'OrganizacionRUCE.Matricula', 
+                    'RefTipoAsociacion', 
+                    'AtencionSeguimiento', 
+                    'Comision.RefTipoComision', 
+                    'Comision.AutoridadComision.RefCargo'   => function ($query) {
+                        $query->orderBy('id', 'asc');
+                    },  
+                    'Comision.AutoridadComision.PersonaRUCE', 
+                    'Balance', 
+                    'Expediente.RefInstanciaInstrumento', 
+                    'Personeria', 
+                    'Fondo.RefTipoFondo', 
+                    'Kiosco.PersonaRuce'
+                ])
+                    ->whereHas(
+                        'OrganizacionRUCE',
+                        function ($query) use (&$filtersArray) {
+                            $query->where(function ($query) use (&$filtersArray) {
+                                foreach ($filtersArray as $clave => $valor) {
+                                    if ($clave != 'matricula') {
+                                        $query->where($clave, $valor);
+                                        unset($filtersArray[$clave]);
+                                    }
+                                }
+                            });
+                            if (array_key_exists('matricula', $filtersArray)) {
+                                $query->whereHas('Matricula', function ($query) use (&$filtersArray) {
+                                    foreach ($filtersArray as $clave => $valor) {
+                                        if ($clave == 'matricula') {
+                                            $valores = explode(" ", $valor);
+                                            $query->where('matricula', $valores[0], $valores[1]);
+                                        }
+                                    }
+                                });
                             }
                         }
-                    });
-                    if (array_key_exists('matricula', $filtersArray)) {
-                        $query->whereHas('Matricula', function ($query) use (&$filtersArray) {
-                            foreach ($filtersArray as $clave => $valor) {
-                                if ($clave == 'matricula') {
-                                    $valores = explode(" ", $valor);
-                                    $query->where('matricula', $valores[0], $valores[1]);
-                                }
-                            }
-                        });
-                    }
-                })->get();
+                    )
+                    ->orderBy("organizacion_r_u_c_e.organizacionDesc", "asc")
+                    ->get();
+            } else {
+                $datos = Cooperadora::with(['OrganizacionRUCE.Matricula', 'RefTipoAsociacion', 'AtencionSeguimiento', 'Comision.RefTipoComision', 'Comision.AutoridadComision.PersonaRUCE.RefTipoDocumentoRUCE', 'Balance', 'Expediente.RefInstanciaInstrumento', 'Personeria', 'Fondo.RefTipoFondo', 'Kiosco.PersonaRuce'])->get();
+            }
             if ($datos->toArray() != []) {
                 $this->store($datos->toArray());
             }
@@ -58,14 +86,14 @@ class Informe_gralController extends Controller
         try {
             $datos = Cooperadora::with([
                 'OrganizacionRUCE',
-                'RefTipoAsociacion', 
-                'Expediente', 
-                'Personeria', 
-                'Comision.RefTipoComision', 
-                'Comision.AutoridadComision.PersonaRUCE', 
+                'RefTipoAsociacion',
+                'Expediente',
+                'Personeria',
+                'Comision.RefTipoComision',
+                'Comision.AutoridadComision.PersonaRUCE',
                 'Comision.AutoridadComision.RefCargo'
             ])->where("id", $idCooperadora)->get()->toArray();
-            
+
             return response()->json();
         } catch (\Throwable $th) {
             return response()->json([

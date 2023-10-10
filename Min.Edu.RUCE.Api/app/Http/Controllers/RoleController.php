@@ -15,9 +15,9 @@ class RoleController extends Controller
     {
         try {
             if ($request->has('PageNumber') && $request->has('PageSize')) {
-                return new RequestCollection(Role::all(), $request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
+                return new RequestCollection(Role::where("name","<>","super_admin")->get(), $request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
             }
-            return new RequestCollection(Role::all(), 10, 1);
+            return new RequestCollection(Role::where("name","<>","super_admin")->get(), 10, 1);
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,

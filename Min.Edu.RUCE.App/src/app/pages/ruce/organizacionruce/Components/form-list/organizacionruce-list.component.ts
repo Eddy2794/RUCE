@@ -42,17 +42,24 @@ export class OrganizacionRUCEListComponent implements OnInit {
       { label: "ACCIONES", property: "actions", type: "button", visible: true },
       // { label: "CÓDIGO", property: "id", type: "text", visible: true, },
       { label: "CUE", property: "cueAnexo", type: "text", visible: true },
-      { label: "NOMBRE DE LA INSTITUCION", property: "organizacionDesc", type: "text", visible: true, },
+      {
+        label: "NOMBRE DE LA INSTITUCION",
+        property: "organizacionDesc",
+        type: "text",
+        visible: true,
+      },
       {
         label: "LOCALIDAD",
         property: "localidad",
         type: "text",
         visible: true,
       },
-      { label: "DEPARTAMENTO", property: "departamento",
-      type: "text",
-      visible: true,
-    },
+      {
+        label: "DEPARTAMENTO",
+        property: "departamento",
+        type: "text",
+        visible: true,
+      },
       { label: "NIVEL", property: "nivel", type: "text", visible: true },
       { label: "REGION", property: "region", type: "text", visible: true },
       {
@@ -75,7 +82,6 @@ export class OrganizacionRUCEListComponent implements OnInit {
       },
       { label: "EMAIL", property: "email", type: "text", visible: true },
       { label: "TELEFONO", property: "telefono", type: "text", visible: true },
-
     ];
   }
 

@@ -32,10 +32,6 @@ export function mostrarCriterios(resp: any, listTextOption: TextSearch[]): TextL
                     textSearch.push({ name: etiquetaBusqueda });
 
                     break;
-                case 'descContains':
-                    etiquetaBusqueda = 'Contiene : ' + element.valor;
-                    textSearch.push({ name: etiquetaBusqueda });
-                    break;
                 case 'id':
                     if (element.valor !== '') {
                         etiquetaBusqueda = 'Código : ' + resp.id;
@@ -72,11 +68,11 @@ export function mostrarCriterios(resp: any, listTextOption: TextSearch[]): TextL
                 //         textSearch.push({ name: etiquetaBusqueda });
                 //     }
                 //     break;
-                case 'estaConfirmado':
-                    let estaConfirm: string = resp.estaConfirmado === true ? 'SI' : 'NO';
-                    etiquetaBusqueda = 'Esta Confirmado: ' + estaConfirm;
-                    textSearch.push({ name: etiquetaBusqueda });
-                    break;
+                // case 'estaConfirmado':
+                //     let estaConfirm: string = resp.estaConfirmado === true ? 'SI' : 'NO';
+                //     etiquetaBusqueda = 'Esta Confirmado: ' + estaConfirm;
+                //     textSearch.push({ name: etiquetaBusqueda });
+                //     break;
                 // case 'esEducativa':
                 //     let esEducativ: string = resp.esEducativa === true ? 'SI' : ' NO'
                 //     etiquetaBusqueda = 'Es Educativa: ' + esEducativ;
@@ -127,55 +123,55 @@ export function mostrarCriterios(resp: any, listTextOption: TextSearch[]): TextL
                 //     etiquetaBusqueda = 'Tipo de Edificio: ' + resp.refTipoEdificio.tipoEdificioDesc
                 //     textSearch.push({ name: etiquetaBusqueda });
                 //     break;
-                case 'cargoSalarialDescContains':
-                    etiquetaBusqueda = 'Cargo Salarial Contiene: ' + element.valor;
-                    textSearch.push({ name: etiquetaBusqueda });
-                    break;
-                case 'idRefJornada':
-                    etiquetaBusqueda = 'Jornada: ' + resp.refJornada.jornadaDesc;
-                    textSearch.push({ name: etiquetaBusqueda });
-                    break;
-                case 'equivalenciaHoraria':
-                    etiquetaBusqueda = 'Equivalencia Horaria: ' + resp.equivalenciaHoraria;
-                    textSearch.push({ name: etiquetaBusqueda });
-                    break;
-                case 'cargoFuncionalDescContains':
-                    etiquetaBusqueda = 'Cargo Funcional Contiene: ' + element.valor.toUpperCase();
-                    textSearch.push({ name: etiquetaBusqueda });
-                    break;
-                case 'idRefTipoFuncion':
-                    etiquetaBusqueda = 'Tipo Función: ' + resp.refTipoFuncion.tipoFuncionDesc;
-                    textSearch.push({ name: etiquetaBusqueda });
-                    break;
-                case 'esJerarquico':
-                    let esJerarquico: string = resp.esJerarquico === true ? 'SI' : 'NO';
-                    etiquetaBusqueda = 'Es Jerarquico: ' + esJerarquico;
-                    textSearch.push({ name: etiquetaBusqueda });
-                    break;
-                case 'idRefUdeOxEjer':
-                    etiquetaBusqueda = 'U. de O.: ' + resp.refUdeOxEjer.refUdeO.udeoDesc;
-                    textSearch.push({ name: etiquetaBusqueda });
-                    break;
-                case 'idRefFinalidadxEjer':
-                    etiquetaBusqueda = 'Finalidad: ' + resp.refFinalidadxEjer.refFinalidad.finalidadDesc;
-                    textSearch.push({ name: etiquetaBusqueda });
-                    break;
-                case 'idRefFuncionxEjer':
-                    etiquetaBusqueda = 'Función: ' + resp.refFuncionxEjer.refFuncion.funcionDesc;
-                    textSearch.push({ name: etiquetaBusqueda });
-                    break;
-                case 'idRefAdicional':
-                    etiquetaBusqueda = 'Adicional: ' + resp.refAdicional.adicionalDesc;
-                    textSearch.push({ name: etiquetaBusqueda });
-                    break;
-                case 'idRefEscalafon':
-                    etiquetaBusqueda = 'Escalafón: ' + resp.refEscalafon.escalafonDesc;
-                    textSearch.push({ name: etiquetaBusqueda });
-                    break;
-                case 'CargoSalarialDescContains':
-                    etiquetaBusqueda = 'Cargo Salarial Contiene: ' + element.valor.toUpperCase();
-                    textSearch.push({ name: etiquetaBusqueda });
-                    break;
+                // case 'cargoSalarialDescContains':
+                //     etiquetaBusqueda = 'Cargo Salarial Contiene: ' + element.valor;
+                //     textSearch.push({ name: etiquetaBusqueda });
+                //     break;
+                // case 'idRefJornada':
+                //     etiquetaBusqueda = 'Jornada: ' + resp.refJornada.jornadaDesc;
+                //     textSearch.push({ name: etiquetaBusqueda });
+                //     break;
+                // case 'equivalenciaHoraria':
+                //     etiquetaBusqueda = 'Equivalencia Horaria: ' + resp.equivalenciaHoraria;
+                //     textSearch.push({ name: etiquetaBusqueda });
+                //     break;
+                // case 'cargoFuncionalDescContains':
+                //     etiquetaBusqueda = 'Cargo Funcional Contiene: ' + element.valor.toUpperCase();
+                //     textSearch.push({ name: etiquetaBusqueda });
+                //     break;
+                // case 'idRefTipoFuncion':
+                //     etiquetaBusqueda = 'Tipo Función: ' + resp.refTipoFuncion.tipoFuncionDesc;
+                //     textSearch.push({ name: etiquetaBusqueda });
+                //     break;
+                // case 'esJerarquico':
+                //     let esJerarquico: string = resp.esJerarquico === true ? 'SI' : 'NO';
+                //     etiquetaBusqueda = 'Es Jerarquico: ' + esJerarquico;
+                //     textSearch.push({ name: etiquetaBusqueda });
+                //     break;
+                // case 'idRefUdeOxEjer':
+                //     etiquetaBusqueda = 'U. de O.: ' + resp.refUdeOxEjer.refUdeO.udeoDesc;
+                //     textSearch.push({ name: etiquetaBusqueda });
+                //     break;
+                // case 'idRefFinalidadxEjer':
+                //     etiquetaBusqueda = 'Finalidad: ' + resp.refFinalidadxEjer.refFinalidad.finalidadDesc;
+                //     textSearch.push({ name: etiquetaBusqueda });
+                //     break;
+                // case 'idRefFuncionxEjer':
+                //     etiquetaBusqueda = 'Función: ' + resp.refFuncionxEjer.refFuncion.funcionDesc;
+                //     textSearch.push({ name: etiquetaBusqueda });
+                //     break;
+                // case 'idRefAdicional':
+                //     etiquetaBusqueda = 'Adicional: ' + resp.refAdicional.adicionalDesc;
+                //     textSearch.push({ name: etiquetaBusqueda });
+                //     break;
+                // case 'idRefEscalafon':
+                //     etiquetaBusqueda = 'Escalafón: ' + resp.refEscalafon.escalafonDesc;
+                //     textSearch.push({ name: etiquetaBusqueda });
+                //     break;
+                // case 'CargoSalarialDescContains':
+                //     etiquetaBusqueda = 'Cargo Salarial Contiene: ' + element.valor.toUpperCase();
+                //     textSearch.push({ name: etiquetaBusqueda });
+                //     break;
                 default:
                     //let contieneDesc = key.includes('Desc');
                     etiquetaBusqueda = 'Agregar : ' + element.nombre + '--' + element.valor;
