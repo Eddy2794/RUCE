@@ -121,7 +121,7 @@
               <mat-label>{{ column.label }}</mat-label>
               <mat-select [formControl]="row['rowFormControl']">
                 <mat-option *ngFor="let option of row['comision']['0']['autoridad_comision']" [value]="option">
-                  {{ option. option?.persona_r_u_c_e[0].cuil + " - " + option?.persona_r_u_c_e[0].apellido + ", " + option?.persona_r_u_c_e[0].nombre }}
+                  {{ option?.persona_r_u_c_e[0]?.cuil + " - " + option?.persona_r_u_c_e[0]?.apellido + ", " + option?.persona_r_u_c_e[0]?.nombre }}
                 </mat-option>
               </mat-select>
             </mat-form-field>

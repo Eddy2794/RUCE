@@ -119,7 +119,7 @@ export class AutoridadOrganizacionInsupdComponent implements OnInit, OnDestroy {
       fkOrganizacionRUCE: this.idOrganizacion,
       fkRefCargo: [null, {validators: [ Validators.required, ]}],
       fkPersonaRUCE: null,
-      fkRefTipoDocumentoRUCE: [null, {validators: [ Validators.required, ]}],
+      fkRefTipoDocumentoRUCE: [1, {validators: [ Validators.required, ]}],
       documento: [null, {validators: [ Validators.required, Validators.minLength(7), Validators.maxLength(8), this.validadorServicio.validarEspaciosInicioFin() ]}],
       cuil: [null, {validators: [ Validators.required, Validators.minLength(10), Validators.maxLength(11), this.validadorServicio.validarEspaciosInicioFin() ]}],
       nombre: [null, {validators: [ Validators.required, this.validadorServicio.validarSoloLetras(), this.validadorServicio.validarEspaciosInicioFin() ]}],

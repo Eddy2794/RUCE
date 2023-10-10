@@ -48,6 +48,7 @@ export class PanelComponent implements OnInit {
 
       this.panelService.filter(this.filtro).subscribe((res: any) => {
         this.datosCards = res.datos;
+        console.log(this.datosCards);
       })
   }
 

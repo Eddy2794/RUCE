@@ -41,7 +41,8 @@ export class ReportesListComponent implements OnInit {
 
   ngOnInit(): void {
     this.setColumns();
-    this.setSearchData();
+    // this.setSearchData();
+    this.setSearchOptions();
   }
 
   private setColumns() {
@@ -58,6 +59,10 @@ export class ReportesListComponent implements OnInit {
       { label: "BARRIO",property: "organizacion_r_u_c_e.barrio",type: "object",visible: true, },
       { label: "EMAIL", property: "organizacion_r_u_c_e.email", type: "object", visible: true },
       { label: "TELEFONO", property: "organizacion_r_u_c_e.telefono", type: "object", visible: true },
+
+      //MATRICULA
+
+      { label: 'MATRICULA', property: 'matricula', type: 'object', visible: true },
       
       //COOPERADORA
       { label: "DENOMINACION", property: "denominacion", type: "text", visible: true, },
@@ -81,44 +86,8 @@ export class ReportesListComponent implements OnInit {
     ];
   }
 
-  private async setSearchData(){
-    const observables = [
-      this.tipoAsociacionService.filter(this.filtro),
-      this.tipoComisionService.filter(this.filtro),
-      this.tipoFondoService.filter(this.filtro)
-    ];
-  
-    forkJoin(observables).subscribe((resultados: any[]) => {
-      this.tipos["asociaciones"] = resultados[0].entities.map((tipo: any) => ({
-        key: tipo.id,
-        value: tipo.tipoAsociacionDesc
-      }));
-      this.tipos["comisiones"] = resultados[1].entities.map((tipo: any) => ({
-        key: tipo.id,
-        value: tipo.tipoComisionDesc
-      }));
-      this.tipos["fondos"] = resultados[2].entities.map((tipo: any) => ({
-        key: tipo.id,
-        value: tipo.tipoFondoDesc
-      }));
-  
-      this.setSearchOptions();
-    }, (error) => {
-      console.error('Error al obtener datos:', error);
-    });
-  }
-
   private setSearchOptions() {
-    console.log(this.tipos)
     this.searchOptions = [
-      // OrganizacionRUCE
-      new SearchOptionsGeneric({
-        typeControl: TypeControl.INPUT,
-        typeData: TypeData.TEXT,
-        name: "region",
-        label: "REGION",
-        readonly: false,
-      }),
       new SearchOptionsGeneric({
         typeControl: TypeControl.INPUT,
         typeData: TypeData.TEXT,
@@ -129,38 +98,121 @@ export class ReportesListComponent implements OnInit {
       new SearchOptionsGeneric({
         typeControl: TypeControl.INPUT,
         typeData: TypeData.TEXT,
+        name: "region",
+        label: "REGION",
+        readonly: false,
+      }),
+      new SearchOptionsGeneric({
+        typeControl: TypeControl.INPUT,
+        typeData: TypeData.TEXT,
+        name: "departamento",
+        label: "DEPARTAMENTO",
+        readonly: false,
+      }),
+      new SearchOptionsGeneric({
+        typeControl: TypeControl.INPUT,
+        typeData: TypeData.TEXT,
+        name: "localidad",
+        label: "LOCALIDAD",
+        readonly: false,
+      }),
+      new SearchOptionsGeneric({
+        typeControl: TypeControl.INPUT,
+        typeData: TypeData.TEXT,
         name: "matricula",
         label: "MATRICULA",
         readonly: false,
       }),
       new SearchOptionsGeneric({
-        typeControl: TypeControl.SELECT,
-        typeData: TypeData.OBJECT,
-        name: "tipoAsociacion",
-        label: "TIPO ASOCIACION",
-        options: this.tipos["asociaciones"],
-        // value: this.tipos["asociaciones"],
-        readonly: false,
-      }),
-      new SearchOptionsGeneric({
-        typeControl: TypeControl.SELECT,
-        typeData: TypeData.OBJECT,
-        name: "tipoComision",
-        label: "TIPO COMISION",
-        // options: this.tipos["comisiones"],
-        value: this.tipos["comisiones"],
-        readonly: false,
-      }),
-      new SearchOptionsGeneric({
-        typeControl: TypeControl.SELECT,
-        typeData: TypeData.OBJECT,
-        name: "tipoFondo",
-        label: "TIPO FONDO",
-        // options: this.tipos["fondos"],
-        value: this.tipos["fondos"],
+        typeControl: TypeControl.INPUT,
+        typeData: TypeData.TEXT,
+        name: "modalidad",
+        label: "MODALIDAD",
         readonly: false,
       }),
     ];
   }
+
+  // private async setSearchData(){
+  //   const observables = [
+  //     this.tipoAsociacionService.filter(this.filtro),
+  //     this.tipoComisionService.filter(this.filtro),
+  //     this.tipoFondoService.filter(this.filtro)
+  //   ];
+  
+  //   forkJoin(observables).subscribe((resultados: any[]) => {
+  //     this.tipos["asociaciones"] = resultados[0].entities.map((tipo: any) => ({
+  //       key: tipo.id,
+  //       value: tipo.tipoAsociacionDesc
+  //     }));
+  //     this.tipos["comisiones"] = resultados[1].entities.map((tipo: any) => ({
+  //       key: tipo.id,
+  //       value: tipo.tipoComisionDesc
+  //     }));
+  //     this.tipos["fondos"] = resultados[2].entities.map((tipo: any) => ({
+  //       key: tipo.id,
+  //       value: tipo.tipoFondoDesc
+  //     }));
+  
+  //     this.setSearchOptions();
+  //   }, (error) => {
+  //     console.error('Error al obtener datos:', error);
+  //   });
+  // }
+
+  // private setSearchOptions() {
+  //   console.log(this.tipos)
+  //   this.searchOptions = [
+  //     // OrganizacionRUCE
+  //     new SearchOptionsGeneric({
+  //       typeControl: TypeControl.INPUT,
+  //       typeData: TypeData.TEXT,
+  //       name: "region",
+  //       label: "REGION",
+  //       readonly: false,
+  //     }),
+  //     new SearchOptionsGeneric({
+  //       typeControl: TypeControl.INPUT,
+  //       typeData: TypeData.TEXT,
+  //       name: "nivel",
+  //       label: "NIVEL",
+  //       readonly: false,
+  //     }),
+  //     new SearchOptionsGeneric({
+  //       typeControl: TypeControl.INPUT,
+  //       typeData: TypeData.TEXT,
+  //       name: "matricula",
+  //       label: "MATRICULA",
+  //       readonly: false,
+  //     }),
+  //     new SearchOptionsGeneric({
+  //       typeControl: TypeControl.SELECT,
+  //       typeData: TypeData.OBJECT,
+  //       name: "tipoAsociacion",
+  //       label: "TIPO ASOCIACION",
+  //       options: this.tipos["asociaciones"],
+  //       // value: this.tipos["asociaciones"],
+  //       readonly: false,
+  //     }),
+  //     new SearchOptionsGeneric({
+  //       typeControl: TypeControl.SELECT,
+  //       typeData: TypeData.OBJECT,
+  //       name: "tipoComision",
+  //       label: "TIPO COMISION",
+  //       // options: this.tipos["comisiones"],
+  //       value: this.tipos["comisiones"],
+  //       readonly: false,
+  //     }),
+  //     new SearchOptionsGeneric({
+  //       typeControl: TypeControl.SELECT,
+  //       typeData: TypeData.OBJECT,
+  //       name: "tipoFondo",
+  //       label: "TIPO FONDO",
+  //       // options: this.tipos["fondos"],
+  //       value: this.tipos["fondos"],
+  //       readonly: false,
+  //     }),
+  //   ];
+  // }
 
 }

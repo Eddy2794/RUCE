@@ -18,7 +18,7 @@ class CooperadoraController extends Controller
     {
         try {
             if ($request->has('PageNumber') && $request->has('PageSize')) {
-                return new RequestCollection(Cooperadora::all(), $request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
+                return new RequestCollection(Cooperadora::with('OrganizacionRUCE')->get(), $request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
             }
             return new RequestCollection(Cooperadora::all(), 10, 1);
         } catch (\Throwable $th) {

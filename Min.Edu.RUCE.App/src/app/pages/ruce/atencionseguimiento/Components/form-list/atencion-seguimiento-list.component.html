@@ -2,7 +2,7 @@
     <div>
         <div class="card flex-auto">
   
-            <vex-aio-table [columns]="columnasVex" [sourceService]="atencionSeguimientoService" [filter]="filtro" [ruta]="'atencion-seguimiento'" [nombreTabla]="'Atenciones y Seguimiento'" [cabecera]="false">
+            <vex-aio-table [columns]="columnasVex" [sourceService]="atencionSeguimientoService" [filter]="filtro" [ruta]="'atencion-seguimiento'" [nombreTabla]="'Atenciones y Seguimiento'" [cabecera]="false" [view]="false">
               <app-input-search espacio1></app-input-search>
   
               <app-search-button-generic espacio2 [searchOptions]="searchOptions"></app-search-button-generic>

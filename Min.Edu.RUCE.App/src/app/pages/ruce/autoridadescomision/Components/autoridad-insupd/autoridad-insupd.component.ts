@@ -116,7 +116,7 @@ export class AutoridadComisionInsupdComponent implements OnInit, OnDestroy {
       fkComision: this.idComision,
       fkRefCargo: [null, {validators: [ Validators.required, ]}],
       fkPersonaRUCE: null,
-      fkRefTipoDocumentoRUCE: [null, {validators: [ Validators.required, ]}],
+      fkRefTipoDocumentoRUCE: [1, {validators: [ Validators.required, ]}],
       documento: [null, {validators: [ Validators.required, Validators.minLength(7), Validators.maxLength(8), ]}],
       cuil: [null, {validators: [ Validators.required, Validators.minLength(11), Validators.maxLength(11), ]}],
       nombre: [null, {validators: [ Validators.required, this.validadorServicio.validarSoloLetras(), ]}],

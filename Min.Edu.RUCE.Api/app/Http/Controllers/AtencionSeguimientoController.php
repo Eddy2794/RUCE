@@ -89,16 +89,16 @@ class AtencionSeguimientoController extends Controller
     public function update(UpdateAtencionSeguimientoRequest $request, int $atencionSeguimiento)
     {
         try {
-            $organizacionRUCE = AtencionSeguimiento::where('id', $atencionSeguimiento)->first();
+            $atencionSeguimiento = AtencionSeguimiento::where('id', $atencionSeguimiento)->first();
             //$request = new UpdateAtencionSeguimientoRequest($request->toArray());
             $atencionSeguimiento->fkCooperadora = $request->fkCooperadora ?: $atencionSeguimiento->fkCooperadora;
             // $atencionSeguimiento->fkPersonaRUCE = $request->fkPersonaRUCE ?: $atencionSeguimiento->fkPersonaRUCE;
-            $atencionSeguimiento->llamadas = $request->llamadas ?: $atencionSeguimiento->llamadas;
-            $atencionSeguimiento->mesajes = $request->mesajes ?: $atencionSeguimiento->mesajes;
-            $atencionSeguimiento->emailEnviados = $request->emailEnviados ?: $atencionSeguimiento->emailEnviados;
-            $atencionSeguimiento->atencionOficina = $request->atencionOficina ?: $atencionSeguimiento->atencionOficina;
-            $atencionSeguimiento->atencionTerritorial = $request->atencionTerritorial ?: $atencionSeguimiento->atencionTerritorial;
-            $atencionSeguimiento->observacion = $request->observacion ?: $atencionSeguimiento->observacion;
+            $atencionSeguimiento->llamadas = $request->llamadas == null || $request->llamadas !== null ? $request->llamadas : $atencionSeguimiento->llamadas;
+            $atencionSeguimiento->mensajes = $request->mensajes == null || $request->mensajes !== null ? $request->mensajes : $atencionSeguimiento->mensajes;
+            $atencionSeguimiento->emailEnviados = $request->emailEnviados == null || $request->emailEnviados !== null ? $request->emailEnviados : $atencionSeguimiento->emailEnviados;
+            $atencionSeguimiento->atencionOficina = $request->atencionOficina == null || $request->atencionOficina !== null ? $request->atencionOficina : $atencionSeguimiento->atencionOficina;
+            $atencionSeguimiento->atencionTerritorial = $request->atencionTerritorial == null || $request->atencionTerritorial !== null ? $request->atencionTerritorial : $atencionSeguimiento->atencionTerritorial;
+            $atencionSeguimiento->observacion = $request->observacion == null || $request->observacion !== null ? $request->observacion : $atencionSeguimiento->observacion;
             $atencionSeguimiento->fecha = $request->fecha ?: $atencionSeguimiento->fecha;
             $atencionSeguimiento->estaActivo = $request->estaActivo ?: $atencionSeguimiento->estaActivo;
             $atencionSeguimiento->idUsuarioModificacion = $request->idUsuarioModificacion ?: $atencionSeguimiento->idUsuarioModificacion;
@@ -109,7 +109,7 @@ class AtencionSeguimientoController extends Controller
                     'succeeded' => false
                 ], 422);
             }
-            $organizacionRUCE->updated_at= Carbon::now();
+            //$organizacionRUCE->updated_at= Carbon::now();
             $atencionSeguimiento->save();
 
             return response()->json([

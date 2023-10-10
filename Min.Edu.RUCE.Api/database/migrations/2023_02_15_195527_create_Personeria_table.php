@@ -21,7 +21,7 @@ return new class extends Migration
             $table->unsignedInteger('fkExpediente')->nullable();
             $table->foreign('fkExpediente')->references('id')->on('Expediente')->onDelete('cascade'); 
 
-            $table->unsignedInteger('fkCooperadora')->unique();
+            $table->unsignedInteger('fkCooperadora');
             $table->foreign('fkCooperadora')->references('id')->on('Cooperadora');
 
             $table->string('decreto')->nullable();

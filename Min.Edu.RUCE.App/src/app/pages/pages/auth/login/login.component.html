@@ -8,19 +8,21 @@
 
     <div class="text-center mt-4">
       <h2 class="title m-0">REGISTRO UNICO DE COOPERADORAS ESCOLARES (RUCE)</h2>
-      <h4 class="body-2 text-secondary m-0">Inicie sesión</h4>
+      <h4 class="body-2 text-secondary m-0">Programa Cooperadoras Escolares</h4>
+      <h4 class="body-2 text-secondary m-0">Dirección de Bienestar Estudiantil y Docente</h4>
+      <h4 class="body-2 text-secondary m-0">Secretaría de Equidad Educativa</h4>
     </div>
 
     <div [formGroup]="form" class="p-6 flex flex-col gap-4">
       <div class="flex flex-col">
         <mat-form-field class="flex-1">
           <mat-label>Nombre de usuario</mat-label>
-          <input formControlName="username" matInput required>
+          <input formControlName="username" matInput required #usernameInput>
           <mat-error *ngIf="form.get('username').hasError('required')">Se necesita un nombre de usuario para iniciar sesión</mat-error>
         </mat-form-field>
         <mat-form-field class="flex-1">
           <mat-label>Contraseña</mat-label>
-          <input [type]="inputType" formControlName="password" matInput required>
+          <input [type]="inputType" formControlName="password" matInput required #passwordInput>
           <button (click)="toggleVisibility()" mat-icon-button matSuffix matTooltip="Ver/Ocultar contraseña" type="button">
             <mat-icon *ngIf="visible" svgIcon="mat:visibility"></mat-icon>
             <mat-icon *ngIf="!visible" svgIcon="mat:visibility_off"></mat-icon>

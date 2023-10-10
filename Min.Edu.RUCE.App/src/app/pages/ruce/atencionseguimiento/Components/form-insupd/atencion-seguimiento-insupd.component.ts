@@ -76,10 +76,11 @@ export class AtencionSeguimientoInsupdComponent implements OnInit, OnDestroy {
   }
 
   createForm() {
+    console.log(this.idCooperadora);
     this.formularioAtencionSeguimiento = this.fb.group({
       fkCooperadora: this.idCooperadora,
       llamadas: null,
-      mesajes: null,
+      mensajes: null,
       emailEnviados: null,
       atencionOficina: null,
       atencionTerritorial: null,
@@ -115,9 +116,8 @@ export class AtencionSeguimientoInsupdComponent implements OnInit, OnDestroy {
       }
       );
     } else {
-      this.formularioAtencionSeguimiento.value.fkPersonaRUCE = this.formularioAtencionSeguimiento.value.fkPersonaRUCE?.id;
-      
-      this.atencionSeguimientoService.update(this.formularioAtencionSeguimiento.value.id, this.formularioAtencionSeguimiento.value).subscribe((resp: any) => {
+      //this.formularioAtencionSeguimiento.value.fkPersonaRUCE = this.formularioAtencionSeguimiento.value.fkPersonaRUCE?.id;
+      this.atencionSeguimientoService.update(this.id, this.formularioAtencionSeguimiento.value).subscribe((resp: any) => {
         this.mostrarDialogMsj("Mensaje", "Atención Modificado", false)
         this.router.navigate(['/pages/cooperadoras/view/'+this.idCooperadora]);
       }, err => {

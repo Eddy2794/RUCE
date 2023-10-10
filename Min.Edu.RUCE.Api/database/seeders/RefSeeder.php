@@ -22,8 +22,6 @@ class RefSeeder extends Seeder
         // Tipos de Documento
         $refTipoDocumento = new RefTipoDocumentoRUCE(['tipoDocumentoDesc' => 'DNI']);
         $refTipoDocumento->save();
-        $refTipoDocumento = new RefTipoDocumentoRUCE(['tipoDocumentoDesc' => 'PASAPORTE']);
-        $refTipoDocumento->save();
 
 
 
@@ -32,9 +30,17 @@ class RefSeeder extends Seeder
         // Tipos de Cargo
         $refCargo = new RefCargo(['cargoDesc' => 'PRESIDENTE']);
         $refCargo->save();
+        $refCargo = new RefCargo(['cargoDesc' => 'VICEPRESIDENTE']);
+        $refCargo->save();
         $refCargo = new RefCargo(['cargoDesc' => 'SECRETARIO']);
         $refCargo->save();
+        $refCargo = new RefCargo(['cargoDesc' => 'PROSECRETARIO']);
+        $refCargo->save();
         $refCargo = new RefCargo(['cargoDesc' => 'TESORERO']);
+        $refCargo->save();
+        $refCargo = new RefCargo(['cargoDesc' => 'PROTESORERO']);
+        $refCargo->save();
+        $refCargo = new RefCargo(['cargoDesc' => 'REVISOR DE CUENTAS']);
         $refCargo->save();
         $refCargo = new RefCargo(['cargoDesc' => 'VOCAL']);
         $refCargo->save();

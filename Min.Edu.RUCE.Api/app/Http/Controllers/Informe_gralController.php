@@ -18,18 +18,14 @@ class Informe_gralController extends Controller
             if ($request['filtros']) {
                 $filtersArray = get_object_vars(json_decode($request['filtros']));
                 // dd($filtersArray);
-                $datos = Cooperadora::with([
-                    'OrganizacionRUCE'  => function ($query) {
-                        $query->orderBy('organizacionDesc', 'asc');
-                    }, 
+                $datos = Cooperadora::join('OrganizacionRUCE', 'Cooperadora.fkOrganizacionRUCE', '=', 'OrganizacionRUCE.id')->with([
+                    'OrganizacionRUCE.AutoridadOrganizacionRUCE.PersonaRUCE.RefTipoDocumentoRUCE',
                     'OrganizacionRUCE.Matricula', 
                     'RefTipoAsociacion', 
                     'AtencionSeguimiento', 
                     'Comision.RefTipoComision', 
-                    'Comision.AutoridadComision.RefCargo'   => function ($query) {
-                        $query->orderBy('id', 'asc');
-                    },  
-                    'Comision.AutoridadComision.PersonaRUCE', 
+                    'Comision.AutoridadComision.RefCargo',
+                    'Comision.AutoridadComision.PersonaRUCE.RefTipoDocumentoRUCE', 
                     'Balance', 
                     'Expediente.RefInstanciaInstrumento', 
                     'Personeria', 
@@ -59,10 +55,11 @@ class Informe_gralController extends Controller
                             }
                         }
                     )
-                    ->orderBy("organizacion_r_u_c_e.organizacionDesc", "asc")
+                    ->orderBy('OrganizacionRUCE.organizacionDesc', 'asc')
                     ->get();
             } else {
-                $datos = Cooperadora::with(['OrganizacionRUCE.Matricula', 'RefTipoAsociacion', 'AtencionSeguimiento', 'Comision.RefTipoComision', 'Comision.AutoridadComision.PersonaRUCE.RefTipoDocumentoRUCE', 'Balance', 'Expediente.RefInstanciaInstrumento', 'Personeria', 'Fondo.RefTipoFondo', 'Kiosco.PersonaRuce'])->get();
+                $datos = Cooperadora::join('OrganizacionRUCE', 'Cooperadora.fkOrganizacionRUCE', '=', 'OrganizacionRUCE.id')->with(['OrganizacionRUCE.Matricula', 'RefTipoAsociacion', 'AtencionSeguimiento', 'Comision.RefTipoComision', 'Comision.AutoridadComision.PersonaRUCE.RefTipoDocumentoRUCE', 'Balance', 'Expediente.RefInstanciaInstrumento', 'Personeria', 'Fondo.RefTipoFondo', 'Kiosco.PersonaRuce'])->orderBy('OrganizacionRUCE.organizacionDesc', 'asc')->get();
+            dd($datos->toArray());
             }
             if ($datos->toArray() != []) {
                 $this->store($datos->toArray());

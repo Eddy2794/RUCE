@@ -12,7 +12,7 @@ return new class extends Migration
         Schema::create('Comision', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->unsignedInteger('fkCooperadora')->unique();
+            $table->unsignedInteger('fkCooperadora');
             $table->foreign('fkCooperadora')->references('id')->on('Cooperadora')->onDelete('cascade');
 
             $table->unsignedInteger('fkRefTipoComision');
