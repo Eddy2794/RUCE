@@ -160,13 +160,14 @@ export class AioTableComponent implements OnInit, AfterViewInit, OnDestroy {
       this.isLoadingResults = false;
       this.textSearchList = mostrarCriterios(resp.entities[0], this.listTextOption);
 
-      if (this.nombreTabla === "Lista de Reportes")
-        this.dataSource.data.forEach(item => {
-          // console.log(item.comision[0].autoridad_comision);
-          // Suponiendo que 'comision' es el array que quieres mostrar en el mat-select
-          item['rowFormControl'] = new FormControl(item.comision[0].autoridad_comision);
-          // console.log(item['rowFormControl']);
-        });
+      // if (this.nombreTabla === "Lista de Reportes")
+      //   this.dataSource.data.forEach(item => {
+
+      //     // Suponiendo que 'comision' es el array que quieres mostrar en el mat-select
+      //     item['autoridadFormControl'] = new FormControl(item.organizacion_r_u_c_e.autoridad[0].autoridad);
+      //     item['comisionFormControl'] = new FormControl(item.comision[0].autoridad_comision);
+      //     // console.log(item['rowFormControl']);
+      //   });
     });
   }
 

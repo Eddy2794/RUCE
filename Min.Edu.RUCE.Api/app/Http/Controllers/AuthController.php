@@ -16,25 +16,23 @@ class AuthController extends Controller
     {
         try {
             if (Auth::attempt(['username' => $request->username, 'password' => $request->password], false)) {
-                // $expires_at = Carbon::now();
+                $expires_at = Carbon::now();
 
-                // if ($request->remember_me) {
-                //     $expires_at = $expires_at->addWeek();
-                // } else {
-                //     $expires_at = $expires_at->addHour();
-                // }
+                if ($request->remember_me) {
+                    $expires_at = $expires_at->addWeek();
+                } else {
+                    $expires_at = $expires_at->addHours(6);
+                }
                 /** @var \App\Models\UsuarioRUCE $usuario **/
                 $usuario = Auth::user();
-                // $token = $usuario->createToken('Personal Access Token', ['expires_at' => $expires_at])->plainTextToken;
-                $tokenExpiry = $request->remember_me ? now()->addWeek() : now()->addHour(6);
-                $token = $usuario->createToken('Personal Access Token', ['expires_at' => $tokenExpiry])->plainTextToken;
+                $token = $usuario->createToken('Personal Access Token', ['expires_at' => $expires_at], $expires_at)->plainTextToken;
                 return response([
                     'message' => 'Inicio de Sesión exitoso!',
                     'succeeded' => true,
                     'data' => [
                         'token' => $token,
                         // 'token_type' => 'Bearer',
-                        'expires_at' => $tokenExpiry->toDateTimeString(),
+                        'expires_at' => $expires_at->toDateTimeString(),
                         'username' => $usuario->username,
                         'rol' => $usuario->getRoleNames()[0],
                     ]

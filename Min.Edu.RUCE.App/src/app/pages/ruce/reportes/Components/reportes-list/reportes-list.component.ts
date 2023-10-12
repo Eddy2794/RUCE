@@ -29,6 +29,29 @@ export class ReportesListComponent implements OnInit {
     "asociaciones": [],
     "comisiones": [],
     "fondos": [],
+    "regiones": [
+      {id:"I", region:"I"},
+      {id:"II", region:"II"},
+      {id:"III", region:"III"},
+      {id:"IV", region:"IV"},
+      {id:"V", region:"V"},
+      {id:"VI", region:"VI"},
+      {id:"VIi", region:"VIi"},
+    ],
+    "niveles": [
+      {id: "INICIAL", nivel:"INICIAL"}, 
+      {id: "PRIMARIO", nivel:"PRIMARIO"}, 
+      {id: "SECUNDARIO", nivel:"SECUNDARIO"},
+      {id: "SUPEROPR", nivel:"SUPEROPR"},
+      {id: "EDUCACION ESPECIAL", nivel:"EDUCACION ESPECIAL"}, 
+      {id: "TECNICO PROFESIONAL", nivel:"TECNICO PROFESIONAL"}
+    ],
+    "modalidades": [
+      {id: "COMUN", modalidad:"COMUN"}, 
+      {id: "RURAL", modalidad:"RURAL"}, 
+      {id: "CONTEXTO DE ENCIERRO", modalidad:"CONTEXTO DE ENCIERRO"},
+      {id: "NOCTURNA", modalidad:"NOCTURNA"},
+    ],
   }
 
   constructor(
@@ -41,8 +64,8 @@ export class ReportesListComponent implements OnInit {
 
   ngOnInit(): void {
     this.setColumns();
-    // this.setSearchData();
-    this.setSearchOptions();
+    this.setSearchData();
+    // this.setSearchOptions();
   }
 
   private setColumns() {
@@ -59,6 +82,7 @@ export class ReportesListComponent implements OnInit {
       { label: "BARRIO",property: "organizacion_r_u_c_e.barrio",type: "object",visible: true, },
       { label: "EMAIL", property: "organizacion_r_u_c_e.email", type: "object", visible: true },
       { label: "TELEFONO", property: "organizacion_r_u_c_e.telefono", type: "object", visible: true },
+      { label: "AUTORIDADES INSTITUCION", property: "organizacion_r_u_c_e.autoridades", type: "array", visible: true },
 
       //MATRICULA
 
@@ -81,25 +105,19 @@ export class ReportesListComponent implements OnInit {
       { label: "ESTADO RESOLUCION", property: "comision.0.estadoResolucion", type: "object", visible: true },
       
       //AUTORIDADES
-      { label: "AUTORIDADES", property: "comision.autoridad_comision", type: "array", visible: true },
+      { label: "AUTORIDADES COMISION", property: "comision.autoridad_comision", type: "array", visible: true },
 
     ];
   }
 
   private setSearchOptions() {
+      console.log(this.tipos)
     this.searchOptions = [
       new SearchOptionsGeneric({
         typeControl: TypeControl.INPUT,
         typeData: TypeData.TEXT,
-        name: "nivel",
-        label: "NIVEL",
-        readonly: false,
-      }),
-      new SearchOptionsGeneric({
-        typeControl: TypeControl.INPUT,
-        typeData: TypeData.TEXT,
-        name: "region",
-        label: "REGION",
+        name: "matricula",
+        label: "MATRICULA",
         readonly: false,
       }),
       new SearchOptionsGeneric({
@@ -117,48 +135,61 @@ export class ReportesListComponent implements OnInit {
         readonly: false,
       }),
       new SearchOptionsGeneric({
-        typeControl: TypeControl.INPUT,
-        typeData: TypeData.TEXT,
-        name: "matricula",
-        label: "MATRICULA",
+        typeControl: TypeControl.SELECT,
+        typeData: TypeData.OBJECT,
+        name: "region",
+        label: "REGION",
+        property: "region",
+        value: this.tipos["regiones"],
+        readonly: true,
+      }),
+      new SearchOptionsGeneric({
+        typeControl: TypeControl.SELECT,
+        typeData: TypeData.OBJECT,
+        name: "nivel",
+        label: "NIVEL",
+        property: "nivel",
+        value: this.tipos["niveles"],
         readonly: false,
       }),
       new SearchOptionsGeneric({
-        typeControl: TypeControl.INPUT,
-        typeData: TypeData.TEXT,
+        typeControl: TypeControl.SELECT,
+        typeData: TypeData.OBJECT,
         name: "modalidad",
         label: "MODALIDAD",
+        property: "modalidad",
+        value: this.tipos["modalidades"],
         readonly: false,
       }),
     ];
   }
 
-  // private async setSearchData(){
-  //   const observables = [
-  //     this.tipoAsociacionService.filter(this.filtro),
-  //     this.tipoComisionService.filter(this.filtro),
-  //     this.tipoFondoService.filter(this.filtro)
-  //   ];
+  private async setSearchData(){
+    const observables = [
+      this.tipoAsociacionService.filter(this.filtro),
+      this.tipoComisionService.filter(this.filtro),
+      this.tipoFondoService.filter(this.filtro)
+    ];
   
-  //   forkJoin(observables).subscribe((resultados: any[]) => {
-  //     this.tipos["asociaciones"] = resultados[0].entities.map((tipo: any) => ({
-  //       key: tipo.id,
-  //       value: tipo.tipoAsociacionDesc
-  //     }));
-  //     this.tipos["comisiones"] = resultados[1].entities.map((tipo: any) => ({
-  //       key: tipo.id,
-  //       value: tipo.tipoComisionDesc
-  //     }));
-  //     this.tipos["fondos"] = resultados[2].entities.map((tipo: any) => ({
-  //       key: tipo.id,
-  //       value: tipo.tipoFondoDesc
-  //     }));
+    forkJoin(observables).subscribe((resultados: any[]) => {
+      this.tipos["asociaciones"] = resultados[0].entities.map((tipo: any) => ({
+        id: tipo.id,
+        tipoAsociacionDesc: tipo.tipoAsociacionDesc
+      }));
+      this.tipos["comisiones"] = resultados[1].entities.map((tipo: any) => ({
+        id: tipo.id,
+        tipoComisionDesc: tipo.tipoComisionDesc
+      }));
+      this.tipos["fondos"] = resultados[2].entities.map((tipo: any) => ({
+        id: tipo.id,
+        tipoFondoDesc: tipo.tipoFondoDesc
+      }));
   
-  //     this.setSearchOptions();
-  //   }, (error) => {
-  //     console.error('Error al obtener datos:', error);
-  //   });
-  // }
+      this.setSearchOptions();
+    }, (error) => {
+      console.error('Error al obtener datos:', error);
+    });
+  }
 
   // private setSearchOptions() {
   //   console.log(this.tipos)

@@ -14,6 +14,18 @@
           espacio2
           [searchOptions]="searchOptions"
         ></app-search-button-generic>
+
+        <div bordederecho class="m-5 flex justify-center">
+  
+          <div class="relative flex items-center cursor-pointer select-none rounded-full px-4 py-2 hover:bg-green-light trans-ease-out"
+               matRipple
+               [routerLink]="'/pages/comision/add-edit/0'">
+            <div @scaleIn class="p-2 bg-green-light text-green rounded-full ltr:mr-4 rtl:ml-4">
+              <mat-icon class="block" svgIcon="mat:assessment"></mat-icon>
+            </div>
+            <p @fadeInRight class="font-medium text-green">Excel</p>
+          </div>
+        </div>
       </vex-aio-table>
     </div>
   </div>
