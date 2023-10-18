@@ -23,10 +23,10 @@ class AutoridadComisionController extends Controller
     {
         try {
             if ($request->has('PageNumber')&&$request->has('PageSize')) {
-                return new RequestCollection(AutoridadComision::with(["PersonaRUCE.RefTipoDocumentoRUCE","RefCargo"])->get(),$request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
+                return new RequestCollection(AutoridadComision::with(["PersonaRUCE.RefTipoDocumentoRUCE","RefCargo"])->orderBy('fkRefCargo')->get(),$request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
             }
 
-            return new RequestCollection(AutoridadComision::with(["PersonaRUCE.RefTipoDocumentoRUCE","RefCargo"])->get(),10, 1);
+            return new RequestCollection(AutoridadComision::with(["PersonaRUCE.RefTipoDocumentoRUCE","RefCargo"])->orderBy('fkRefCargo')->get(),10, 1);
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,

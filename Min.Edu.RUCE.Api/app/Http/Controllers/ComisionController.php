@@ -19,9 +19,9 @@ class ComisionController extends Controller
     {
         try {
             if ($request->has('PageNumber')&&$request->has('PageSize')) {
-                return new RequestCollection(Comision::all(),$request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
+                return new RequestCollection(Comision::orderBy('delete_at','desc')->get(),$request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
             }
-            return new RequestCollection(Comision::all(),10, 1);
+            return new RequestCollection(Comision::orderBy('delete_at','desc')->get(),10, 1);
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,

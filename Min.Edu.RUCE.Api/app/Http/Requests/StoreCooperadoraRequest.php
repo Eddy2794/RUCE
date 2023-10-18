@@ -40,7 +40,7 @@ class StoreCooperadoraRequest extends FormRequest
                 Rule::unique('Cooperadora','cuit')->where('cuit',$this->cuit)->withoutTrashed()
             ],
             'legajo' => [
-                'required',
+                'nullable',
                 'string',
                 Rule::unique('Cooperadora','legajo')->where('legajo',$this->legajo)->withoutTrashed()
             ],

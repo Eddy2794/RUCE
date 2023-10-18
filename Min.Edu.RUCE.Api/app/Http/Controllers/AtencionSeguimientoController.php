@@ -20,10 +20,10 @@ class AtencionSeguimientoController extends Controller
         // return typeOf($request->page);
         try {
             if ($request->has('PageNumber')&&$request->has('PageSize')) {
-                return new RequestCollection(AtencionSeguimiento::all(),$request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
+                return new RequestCollection(AtencionSeguimiento::orderBy('fecha', 'desc')->get(),$request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
             }
 
-            return new RequestCollection(AtencionSeguimiento::all(),10, 1);
+            return new RequestCollection(AtencionSeguimiento::orderBy('fecha', 'desc')->get(),10, 1);
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,

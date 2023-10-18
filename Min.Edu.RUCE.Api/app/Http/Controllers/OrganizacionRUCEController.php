@@ -20,15 +20,15 @@ class OrganizacionRUCEController extends Controller
             if ($request->has('PageNumber') && $request->has('PageSize')) {
                 if ($request->has('sinCoop') && $request['sinCoop'] == true) {
                     return new RequestCollection(
-                        OrganizacionRUCE::whereDoesntHave('Cooperadora')->get(),
+                        OrganizacionRUCE::whereDoesntHave('Cooperadora')->get()->orderBy('organizacionDesc', 'asc'),
                         $request['PageSize'],
                         $request['PageNumber'],
                         $request['descContains']
                     );
                 } else
-                    return new RequestCollection(OrganizacionRUCE::all(), $request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
+                    return new RequestCollection(OrganizacionRUCE::orderBy('organizacionDesc', 'asc')->get(), $request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
             }
-            return new RequestCollection(OrganizacionRUCE::all(), 10, 1);
+            return new RequestCollection(OrganizacionRUCE::orderBy('organizacionDesc', 'asc')->get(), 10, 1);
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,

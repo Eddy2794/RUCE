@@ -28,7 +28,7 @@ export class PanelComponent implements OnInit {
             case 'SIN CONFORMACION':
               dato['status'] = 'warn';
               break;
-            case 'EN CONFORMACION ':
+            case 'EN CONFORMACION':
               dato['status'] = 'pending';
               break;
             case 'CON PERSONERIA':

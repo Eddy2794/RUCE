@@ -19,9 +19,9 @@ class MatriculaController extends Controller
     {
         try {
             if ($request->has('PageNumber')&&$request->has('PageSize')) {
-                return new RequestCollection(Matricula::all(),$request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
+                return new RequestCollection(Matricula::orderBy('periodoLectivo','desc')->get(),$request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
             }
-            return new RequestCollection(Matricula::all(),10, 1);
+            return new RequestCollection(Matricula::orderBy('periodoLectivo','desc')->get(),10, 1);
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,

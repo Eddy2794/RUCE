@@ -44,7 +44,7 @@ class UpdateCooperadoraRequest extends FormRequest
                 })->withoutTrashed()
             ],
             'legajo' => [
-                'required',
+                'nullable',
                 'string',
                 Rule::unique('Cooperadora', 'legajo')->where(function ($query) {
                     // Excluye el registro actual por su ID

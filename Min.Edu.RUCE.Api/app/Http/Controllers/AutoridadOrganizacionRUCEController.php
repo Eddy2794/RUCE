@@ -25,9 +25,9 @@ class AutoridadOrganizacionRUCEController extends Controller
         // return typeOf($request->page);
         try {
             if ($request->has('PageNumber')&&$request->has('PageSize')) {
-                return new RequestCollection(AutoridadOrganizacionRUCE::with(["PersonaRUCE.RefTipoDocumentoRUCE","RefCargo"])->get(),$request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
+                return new RequestCollection(AutoridadOrganizacionRUCE::with(["PersonaRUCE.RefTipoDocumentoRUCE","RefCargo"])->orderBy('fkRefCargo')->get(),$request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
             }
-            return new RequestCollection(AutoridadOrganizacionRUCE::all(),10, 1);
+            return new RequestCollection(AutoridadOrganizacionRUCE::with(["PersonaRUCE.RefTipoDocumentoRUCE","RefCargo"])->orderBy('fkRefCargo')->get(),10, 1);
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,
