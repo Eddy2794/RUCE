@@ -20,7 +20,7 @@ class OrganizacionRUCEController extends Controller
             if ($request->has('PageNumber') && $request->has('PageSize')) {
                 if ($request->has('sinCoop') && $request['sinCoop'] == true) {
                     return new RequestCollection(
-                        OrganizacionRUCE::whereDoesntHave('Cooperadora')->get()->orderBy('organizacionDesc', 'asc'),
+                        OrganizacionRUCE::whereDoesntHave('Cooperadora')->orderBy('organizacionDesc', 'asc')->get(),
                         $request['PageSize'],
                         $request['PageNumber'],
                         $request['descContains']
