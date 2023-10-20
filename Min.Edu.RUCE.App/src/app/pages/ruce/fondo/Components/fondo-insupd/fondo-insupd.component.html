@@ -63,10 +63,6 @@
                     <mat-slide-toggle color="accent" formControlName="fondoRecibido" [checked]="false" class="p-4"></mat-slide-toggle>
                     <mat-label>Fondo Recibido</mat-label>
                 </div>
-                <div class="slide-group" style="width: 100%">
-                    <mat-slide-toggle color="accent" formControlName="fondoRendido" [checked]="false" class="p-4"></mat-slide-toggle>
-                    <mat-label>Fondo Rendido</mat-label>
-                </div>
                 <mat-form-field style="width: 100%" *ngIf="formularioFondo.controls['fondoRecibido'].value">
                     <mat-label>Fecha Recibido</mat-label>
                     <input matInput formControlName="fechaRecibido" type="date">
@@ -75,6 +71,10 @@
                         </app-ver-error>
                     </mat-error>
                 </mat-form-field>
+                <div class="slide-group" style="width: 100%">
+                    <mat-slide-toggle color="accent" formControlName="fondoRendido" [checked]="false" class="p-4"></mat-slide-toggle>
+                    <mat-label>Fondo Rendido</mat-label>
+                </div>
                 <mat-form-field style="width: 100%" *ngIf="formularioFondo.controls['fondoRendido'].value">
                     <mat-label>Fecha Rendicion</mat-label>
                     <input matInput formControlName="fechaRendicion" type="date">

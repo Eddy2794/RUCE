@@ -101,7 +101,7 @@ export class CooperadoraFormInsupdComponent implements OnInit {
       fkOrganizacionRUCE: null,
       cuit: [null, {validators: [ Validators.minLength(11), Validators.maxLength(11) ]}],
       legajo: [null, { validators: [ Validators.minLength(3), Validators.maxLength(100),] }],
-      denominacion: [null, {validators: [Validators.required, Validators.minLength(3), this.validadorServicio.validarCaracteresDescripcion(), this.validadorServicio.validarEspaciosInicioFin(), Validators.max(255), ]}],
+      denominacion: [null, {validators: [Validators.required, Validators.minLength(3) ]}],
       estado: [null, { validators: [ Validators.required, ]}],
       convenioCsEconomicas: false,
       estadoAfip: false,

@@ -26,13 +26,13 @@
           <td *matCellDef="let row" [ngClass]="column.cssClasses" mat-cell>
             <div *ngIf="row[column.property] === 'ready'"
                  class="w-3 h-3 rounded-full bg-green cursor-pointer"
-                 matTooltip="Ready to ship"></div>
+                 matTooltip="Con Personería"></div>
             <div *ngIf="row[column.property] === 'pending'"
                  class="w-3 h-3 rounded-full bg-orange cursor-pointer"
-                 matTooltip="Pending Payment"></div>
+                 matTooltip="En Conformación"></div>
             <div *ngIf="row[column.property] === 'warn'"
                  class="w-3 h-3 rounded-full bg-red cursor-pointer"
-                 matTooltip="Missing Payment"></div>
+                 matTooltip="Sin Conformación"></div>
           </td>
         </ng-container>
       </ng-container>

@@ -20,7 +20,7 @@ class CooperadoraController extends Controller
             if ($request->has('PageNumber') && $request->has('PageSize')) {
                 return new RequestCollection(Cooperadora::with('OrganizacionRUCE')->orderBy('denominacion', 'desc')->get(), $request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
             }
-            return new RequestCollection(with('OrganizacionRUCE')->orderBy('denominacion', 'desc')->get(), 10, 1);
+            return new RequestCollection(Cooperadora::orderBy('created_at','desc')->get(), 10, 1);
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,
