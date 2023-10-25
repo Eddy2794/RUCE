@@ -10,10 +10,10 @@ const routes: VexRoutes = [
     path: 'login',
     loadChildren: () => import('./pages/pages/auth/login/login.module').then(m => m.LoginModule),
   },
-  {
-    path: 'forgot-password',
-    loadChildren: () => import('./pages/pages/auth/forgot-password/forgot-password.module').then(m => m.ForgotPasswordModule),
-  },
+  // {
+  //   path: 'forgot-password',
+  //   loadChildren: () => import('./pages/pages/auth/forgot-password/forgot-password.module').then(m => m.ForgotPasswordModule),
+  // },
   
   {
     path: '',
@@ -180,11 +180,15 @@ const routes: VexRoutes = [
             path: 'constancia',
             loadChildren: () => import('./pages/pages/invoice/invoice.module').then(m => m.InvoiceModule),
           },
+          {
+            path: '404',
+            loadChildren: () => import('./pages/pages/errors/error-404/error-404.module').then(m => m.Error404Module)
+          },
         ]
       },
       {
-        path: '**',
-        loadChildren: () => import('./pages/pages/errors/error-404/error-404.module').then(m => m.Error404Module)
+        path: '**', redirectTo: 'pages/inicio',
+        // loadChildren: () => import('./pages/pages/errors/error-404/error-404.module').then(m => m.Error404Module)
       },
     ]
   }
