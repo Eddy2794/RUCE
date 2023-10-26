@@ -15,11 +15,18 @@ class Informe_gralController extends Controller
     public function index(Request $request)
     {
         try {
+            $filtros = $request['filtros'];
+            // dd($filtros);
             $filtersArray = [];
-            if ($request['filtros']) {
-                // dd($request['filtros']);
-                $filtersArray = get_object_vars(json_decode($request['filtros']));
-                // dd($filtersArray);
+            if (!empty($filtros)) {
+                // dd(json_decode($request['filtros']));
+                $jsonData = json_decode($filtros, true);
+                if ($jsonData !== null) {
+                    // A continuación, verifica que sea un array.
+                    if (is_array($jsonData)) {
+                        $filtersArray = $jsonData;
+                    }
+                }
                 $datos = OrganizacionRUCE::with([
                     'AutoridadOrganizacionRUCE.PersonaRUCE.RefTipoDocumentoRUCE',
                     'AutoridadOrganizacionRUCE.RefCargo',
@@ -39,7 +46,7 @@ class Informe_gralController extends Controller
                         function ($query) use (&$filtersArray) {
                             $query->where(function ($query) use (&$filtersArray) {
                                 foreach ($filtersArray as $clave => $valor) {
-                                    if ($clave != 'matricula' || $clave != 'modalidad') {
+                                    if ($clave != 'matricula' && $clave != 'modalidad') {
                                         $query->where($clave, $valor);
                                         unset($filtersArray[$clave]);
                                     }
@@ -59,7 +66,7 @@ class Informe_gralController extends Controller
                                 $query->whereHas('Cooperadora', function ($query) use (&$filtersArray) {
                                     foreach ($filtersArray as $clave => $valor) {
                                         if ($clave == 'modalidad') {
-                                            $query->where('modalidad', $clave, $valor);
+                                            $query->where('modalidad', $valor);
                                         }
                                     }
                                 });

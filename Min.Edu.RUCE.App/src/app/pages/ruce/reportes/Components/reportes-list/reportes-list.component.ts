@@ -13,11 +13,21 @@ import { RefTipoAsociacionModel } from '@app/pages/ruce/refruce/Model/reftipoaso
 import { DataPage } from '@app/shared/utils/data-page';
 import { RefTipoFondoModel } from '@app/pages/ruce/refruce/Model/reftipofondo-model';
 import { forkJoin } from 'rxjs/internal/observable/forkJoin';
+import { fadeInRight400ms } from 'src/@vex/animations/fade-in-right.animation';
+import { fadeInUp400ms } from 'src/@vex/animations/fade-in-up.animation';
+import { scaleIn400ms } from 'src/@vex/animations/scale-in.animation';
+import { stagger40ms } from 'src/@vex/animations/stagger.animation';
 
 @Component({
   selector: 'vex-reportes-list',
   templateUrl: './reportes-list.component.html',
-  styleUrls: ['./reportes-list.component.scss']
+  styleUrls: ['./reportes-list.component.scss'],
+  animations: [
+    fadeInUp400ms,
+    fadeInRight400ms,
+    scaleIn400ms,
+    stagger40ms
+  ]
 })
 export class ReportesListComponent implements OnInit {
 
@@ -80,34 +90,47 @@ export class ReportesListComponent implements OnInit {
       { label: "CALLE",property: "calle",type: "object",visible: true, },
       { label: "Nº",property: "numero",type: "object",visible: true, },
       { label: "BARRIO",property: "barrio",type: "object",visible: true, },
-      { label: "EMAIL", property: "omail", type: "object", visible: true },
+      { label: "EMAIL", property: "email", type: "object", visible: true },
       { label: "TELEFONO", property: "telefono", type: "object", visible: true },
-      // { label: "AUTORIDADES INSTITUCION", property: "autoridades", type: "array", visible: true },
+      { label: "AUTORIDADES INSTITUCION", property: "autoridades", type: "array", visible: true },
 
       //MATRICULA
-
       { label: 'MATRICULA', property: 'matricula.0.matricula', type: 'object', visible: true },
       
       //COOPERADORA
-      // { label: "DENOMINACION", property: "cooperadora.denominacion", type: "text", visible: true, },
-      // { label: "ESTADO", property: "cooperadora.estado", type: "text", visible: true },
-      // { label: "LEGAJO", property: "cooperadora.legajo", type: "text", visible: true },
-      // { label: "MODALIDAD", property: "cooperadora.modalidad", type: "text", visible: true },
-      // { label: "CONVENIO CS ECONOMICAS", property: "cooperadora.convenioCsEconomicas", type: "boolean", visible: true },
-      // { label: "INSCRIPCION AFIP", property: "cooperadora.estadoAfip", type: "boolean", visible: true },
-      // { label: "INSCRIPCION RENTAS", property: "cooperadora.estadoRentas", type: "boolean", visible: true },
-      // { label: "INSCRIPCION RENACOPES", property: "cooperadora.inscripcionRenacopes", type: "boolean", visible: true },
+      { label: "DENOMINACION", property: "cooperadora.denominacion", type: "object", visible: true, },
+      { label: "ESTADO", property: "cooperadora.estado", type: "object", visible: true },
+      { label: "LEGAJO", property: "cooperadora.legajo", type: "object", visible: true },
+      { label: "MODALIDAD", property: "cooperadora.modalidad", type: "object", visible: true },
+      { label: "CONVENIO CS ECONOMICAS", property: "cooperadora.convenioCsEconomicas", type: "boolean", visible: true },
+      { label: "INSCRIPCION AFIP", property: "cooperadora.estadoAfip", type: "boolean", visible: true },
+      { label: "INSCRIPCION RENTAS", property: "cooperadora.estadoRentas", type: "boolean", visible: true },
+      { label: "INSCRIPCION RENACOPES", property: "cooperadora.inscripcionRenacopes", type: "boolean", visible: true },
       
-      // //COMISION
-      // { label: "NRO SOCIOS", property: "cooperadora.comision.0.nroSocios", type: "object", visible: true },
-      // { label: "PERIODO INICIO", property: "cooperadora.comision.0.periodoInicio", type: "object", visible: true },
-      // { label: "PERIODO FIN", property: "cooperadora.comision.0.periodoFin", type: "object", visible: true },
-      // { label: "ESTADO RESOLUCION", property: "cooperadora.comision.0.estadoResolucion", type: "object", visible: true },
+      //COMISION
+      { label: "NRO SOCIOS", property: "cooperadora.comision.0.nroSocios", type: "object", visible: true },
+      { label: "PERIODO INICIO", property: "cooperadora.comision.0.periodoInicio", type: "object", visible: true },
+      { label: "PERIODO FIN", property: "cooperadora.comision.0.periodoFin", type: "object", visible: true },
+      { label: "ESTADO RESOLUCION", property: "cooperadora.comision.0.estadoResolucion", type: "object", visible: true },
       
-      // //AUTORIDADES
-      // { label: "AUTORIDADES COMISION", property: "cooperadora.comision.autoridad_comision", type: "array", visible: true },
+      //AUTORIDADES
+      { label: "AUTORIDADES COMISION", property: "cooperadora.comision.autoridad_comision", type: "array", visible: true },
 
-      //
+      //EXPEDIENTE
+      { label: "NRO EXPEDIENTE", property: "cooperadora.expediente.nroExpediente", type: "object", visible: true },
+
+      //PERSONERIA
+      { label: "NRO RESOLUCION", property: "cooperadora.personeria.nroResolucion", type: "object", visible: true },
+      { label: "DECRETO", property: "cooperadora.personeria.decreto", type: "object", visible: true },
+
+      //BALANCE
+
+      //FONDO
+      
+      //KIOSCO
+
+      //ATENCION SEGUIMIENTO
+      
     ];
   }
 
