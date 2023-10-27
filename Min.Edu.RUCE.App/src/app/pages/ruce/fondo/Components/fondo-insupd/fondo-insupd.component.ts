@@ -68,7 +68,7 @@ export class FondoInsupdComponent implements OnInit {
         if (this.accion !== 'delete'){
           this.accion = 'edit'
         }
-        this.fondoService.findOne(this.id).subscribe((resp: any) => {
+        this.fondoService.findOne(this.idCooperadora).subscribe((resp: any) => {
           this.formularioFondo.patchValue(resp.entities);
           this.formularioFondo.controls.fkRefTipoFondo.patchValue(resp.entities.ref_tipo_fondo[0].id)
         });

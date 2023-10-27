@@ -111,7 +111,7 @@ export class ReportesListComponent implements OnInit {
       { label: "NRO SOCIOS", property: "cooperadora.comision.0.nroSocios", type: "object", visible: true },
       { label: "PERIODO INICIO", property: "cooperadora.comision.0.periodoInicio", type: "object", visible: true },
       { label: "PERIODO FIN", property: "cooperadora.comision.0.periodoFin", type: "object", visible: true },
-      { label: "ESTADO RESOLUCION", property: "cooperadora.comision.0.estadoResolucion", type: "object", visible: true },
+      { label: "ESTADO COMISIÓN", property: "cooperadora.comision.0.estadoResolucion", type: "object", visible: true },
       
       //AUTORIDADES
       { label: "AUTORIDADES COMISION", property: "cooperadora.comision.autoridad_comision", type: "array", visible: true },
@@ -124,12 +124,22 @@ export class ReportesListComponent implements OnInit {
       { label: "DECRETO", property: "cooperadora.personeria.decreto", type: "object", visible: true },
 
       //BALANCE
+      { label: "BALANCE APROBADO", property: "cooperadora.balance.0.estadoBalance", type: "object", visible: true },
+      { label: "AÑO DE RENDICIÓN", property: "cooperadora.balance.0.anio", type: "object", visible: true },
 
       //FONDO
+      { label: "TIPO DE FONDO", property: "cooperadora.fondo.0.ref_tipo_fondo.0.tipoFondoDesc", type: "object", visible: true },
+      { label: "MONTO", property: "cooperadora.fondo.0.monto", type: "object", visible: true },
+      { label: "AÑO OTORGADO", property: "cooperadora.fondo.0.anioOtorgado", type: "object", visible: true },
       
       //KIOSCO
+      { label: "INICIO DE PERIODO KIOSCO", property: "cooperadora.kiosco.0.periodoInicio", type: "object", visible: true },
+      { label: "FIN DE PERIODO KIOSCO", property: "cooperadora.kiosco.0.periodoFin", type: "object", visible: true },
 
       //ATENCION SEGUIMIENTO
+      { label: "ATENCIÓN EN OFICINA", property: "cooperadora.atencion_seguimiento.0.atencionOficina", type: "object", visible: true },
+      { label: "ATENCION TERRITORIAL", property: "cooperadora.atencion_seguimiento.0.atencionTerritorial", type: "object", visible: true },
+      { label: "FECHA DE ATENCIÓN", property: "cooperadora.atencion_seguimiento.0.fecha", type: "object", visible: true },
       
     ];
   }
