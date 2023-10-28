@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use \Carbon\Carbon;
 use App\Http\Resources\RequestCollection;
 use App\Models\Cooperadora;
 use App\Models\Informe_gral;
@@ -9,6 +10,9 @@ use App\Models\OrganizacionRUCE;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+
+use App\Exports\ReportExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class Informe_gralController extends Controller
 {
@@ -110,7 +114,10 @@ class Informe_gralController extends Controller
         }
     }
 
-
+    public function export() 
+    {
+        return Excel::download(new ReportExport, 'reporte-'. Carbon::now()->format('d-m-Y').'.xlsx');
+    }
     public function show(int $idCooperadora): JsonResponse
     {
         try {

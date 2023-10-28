@@ -283,6 +283,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::group(['prefix' => '/informe_gral'], function () {
     Route::get('/Filter', [Informe_gralController::class, 'index'])->name('reportes');
+    Route::get('/export', [Informe_gralController::class, 'export'])->name('exportar_excel');
     Route::get('/{id}', [Informe_gralController::class, 'show'])->name('generar_constancias');
     Route::get('/{cooperadora}/{constancia}', [Informe_gralController::class, 'show'])->name('constancias');
     // Route::middleware('role:super_admin')->post('/', [UsuarioRUCEController::class, 'store'])->name('usuario.store');
