@@ -3,20 +3,19 @@
 namespace App\Exports;
 
 use App\Models\Informe_gral;
-use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\FromArray;
 
-class ReportExport implements FromCollection
+class ReportExport implements FromArray
 {
-    /**
-    * @return \Illuminate\Support\Collection
-    */
-    public function collection()
+    protected $reporte;
+
+    public function __construct(array $reporte)
     {
-        $informes = Informe_gral::all()->toArray();
-        $respuesta = [];
-        foreach($informes as $dato){
-            array_push($respuesta,[$dato["datos"][0]]);
-        }
-        return collect($respuesta);
+        $this->reporte = $reporte;
+    }
+
+    public function array(): array
+    {
+        return $this->reporte;
     }
 }

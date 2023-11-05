@@ -101,7 +101,29 @@ class Informe_gralController extends Controller
             if ($datos->toArray() != []) {
                 $this->store($datos->toArray());
             }
+            if ($request->has('excel') and $request->excel == true){
+                $titulos = [
+                    "ORGANIZACION DESC",
+                    "TIPO ASOCIACION",
+                    "ATENCION SEGUIMIENTO"
+                ];
+                $datos = $datos->map(function ($item) {
+                    return [
+                        'organizacionDesc' => $item->organizacionDesc,
+                        // Agrega aquí otros campos que desees aplanar desde las relaciones.
+                        // 'matricula' => $item->Matricula->matricula ?? "Sin Informacion",
+                        'refTipoAsociacion' => $item->Cooperadora->RefTipoAsociacion[0]->tipoAsociacionDesc ?? "Sin Información",
+                        'atencionSeguimiento' => $item->Cooperadora->AtencionSeguimiento ?? null,
+                        // Continúa agregando campos según tus necesidades.
+                    ];
+                });
+                $datos = collect(array_merge([$titulos],[$datos->toArray()]));
+                // dd($datos);
 
+
+                $export = new ReportExport($datos->toArray());
+                return Excel::download($export, 'reporte-'. Carbon::now()->format('d-m-Y').'.xlsx');
+            }
             if ($request->has('PageNumber') && $request->has('PageSize')) {
                 return new RequestCollection($datos, $request['PageSize'], $request['PageNumber'], $request['descContains']);
             }
@@ -116,7 +138,7 @@ class Informe_gralController extends Controller
 
     public function export() 
     {
-        return Excel::download(new ReportExport, 'reporte-'. Carbon::now()->format('d-m-Y').'.xlsx');
+        // return Excel::download(new ReportExport, 'reporte-'. Carbon::now()->format('d-m-Y').'.xlsx');
     }
     public function show(int $idCooperadora): JsonResponse
     {
