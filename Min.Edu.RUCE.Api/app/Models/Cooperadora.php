@@ -63,7 +63,7 @@ class Cooperadora extends Model  implements Auditable
 
     public function Informe_gral()
     {
-        return $this->hasMany(Informe_gral::class, 'id', 'fkCooperadora');
+        return $this->hasOne(Informe_gral::class, 'fkCooperadora');
     }
 
     public function RefTipoAsociacion()
