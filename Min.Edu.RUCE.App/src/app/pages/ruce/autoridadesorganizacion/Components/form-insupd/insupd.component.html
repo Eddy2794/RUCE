@@ -32,7 +32,7 @@
                     </mat-form-field>
                     <mat-form-field style="width: 100%">
                         <mat-label>Documento</mat-label>
-                        <input matInput formControlName="documento" type="text" maxlength="8" espacios solonum>
+                        <input matInput formControlName="documento" type="text" maxlength="8" (blur)="getUser(this.formularioAutoridad.value['documento'] )" espacios solonum>
                         <mat-error>
                             <app-ver-error [control]="this.formularioAutoridad.controls['documento']">
                             </app-ver-error>

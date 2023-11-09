@@ -68,11 +68,15 @@ class AutoridadOrganizacionRUCEController extends Controller
 
     public function store(StoreAutoridadOrganizacionRUCERequest $request): JsonResponse
     {
-        $persona = new PersonaRUCEController();
-        $requestPersona = app(StorePersonaRUCERequest::class);
-        $created = json_decode($persona->store($requestPersona)->getContent());
-        $idPersona = PersonaRUCE::max('id');
-        if($created->succeeded){
+        $idPersona = $request->fkPersonaRUCE;
+        $created = (object)['succeeded' => false];
+        if($idPersona==null){
+            $persona = new PersonaRUCEController();
+            $requestPersona = app(StorePersonaRUCERequest::class);
+            $created = json_decode($persona->store($requestPersona)->getContent());
+            $idPersona = $created->succeeded ? PersonaRUCE::max('id') : null;
+        }
+        if($idPersona!=null){
             try {
                 AutoridadOrganizacionRUCE::create([
                     'fkRefCargo' => $request->fkRefCargo,
@@ -88,7 +92,8 @@ class AutoridadOrganizacionRUCEController extends Controller
                     'succeeded' => true
                 ], Response::HTTP_OK);
             } catch (\Throwable $th) {
-                $persona->delete($idPersona);
+                if($created->succeeded)
+                    $persona->delete($idPersona);
                 return response()->json([
                     'succeeded' => false,
                     'message' => $th->getMessage()
