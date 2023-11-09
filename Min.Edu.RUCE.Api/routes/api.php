@@ -170,6 +170,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::group(['prefix' => '/persona_ruce'], function () {
         Route::middleware('role:super_admin|admin|writer|user')->get('/Filter', [PersonaRUCEController::class, 'index'])->name('persona_ruce.index');
         Route::middleware('role:super_admin|admin')->post('/', [PersonaRUCEController::class, 'store'])->name('persona_ruce.store');
+        Route::middleware('role:super_admin|admin|writer|user')->get('persona/{dni}', [PersonaRUCEController::class, 'show'])->name('persona_ruce.getByDNI');
         Route::middleware('role:super_admin|admin|writer|user')->get('/{id}', [PersonaRUCEController::class, 'show'])->name('persona_ruce.show');
         Route::middleware('role:super_admin|admin')->delete('/{id}', [PersonaRUCEController::class, 'destroy'])->name('persona_ruce.destroy');
         Route::middleware('role:super_admin|admin')->put('/{id}', [PersonaRUCEController::class, 'update'])->name('persona_ruce.update');

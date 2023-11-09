@@ -7,10 +7,7 @@ use App\Http\Requests\UpdatePersonaRUCERequest;
 use App\Http\Resources\ModelResourse;
 use App\Http\Resources\RequestCollection;
 use App\Models\PersonaRUCE;
-use ArrayObject;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -65,7 +62,22 @@ class PersonaRUCEController extends Controller
     public function show(int $personaRUCE): JsonResponse
     {
         try {
+            $url = explode('/', url()->current());
+            if($url[sizeof($url)-2]=="persona")
+                return $this->getByDNI($personaRUCE);
             return response()->json(new ModelResourse($personaRUCE,'PersonaRUCE'));
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
+    }
+
+    private function getByDNI(int $dni):JsonResponse
+    {
+        try {
+            return response()->json(new ModelResourse(PersonaRUCE::where('documento',$dni)->get()->toArray(),'PersonaRUCE'));
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,
