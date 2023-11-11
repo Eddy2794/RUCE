@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class UsuarioRUCEController extends Controller
 {
@@ -55,7 +56,8 @@ class UsuarioRUCEController extends Controller
                             'fkPersonaRUCE' => $idPersona,
                             'password' => Hash::make($request->password),
                             'username' => $request->username,
-                            'idUsuarioAlta' => $request->idUsuarioAlta,
+                            'idUsuarioAlta'=>Auth::user()->id,
+                            'idUsuarioModificacion' => Auth::user()->id
                         ]);
 
                         $role = Role::where('id', $request->role)->first();
@@ -119,17 +121,16 @@ class UsuarioRUCEController extends Controller
                         $usuarioRUCE->removeRole($usuarioRUCE->roles[0]->name);
                         $usuarioRUCE->assignRole($role->name);
                     }
-                    //$request = new UpdateUsuarioRUCERequest($request->toArray());
                     $usuarioRUCE->fkPersonaRUCE = $request->fkPersonaRUCE ?: $usuarioRUCE->fkPersonaRUCE;
                     $usuarioRUCE->password = $request->password ? Hash::make($request->password): $usuarioRUCE->password;
                     $usuarioRUCE->username = $request->username ?: $usuarioRUCE->username;
-                    // $usuarioRUCE->idUsuarioModificacion = $request->idUsuarioModificacion ?: $usuarioRUCE->idUsuarioModificacion;
                     if ($usuarioRUCE->isClean() && $personaUpdated->original->getStatusCode() == Response::HTTP_UNPROCESSABLE_ENTITY) {
                         return response()->json([
                             'message' => 'No se modifico ningun valor',
                             'succeeded' => false
                         ], 422);
                     }
+                    $usuarioRUCE->idUsuarioModificacion = Auth::user()->id;
                     $usuarioRUCE->save();
 
                     return response()->json([
@@ -156,7 +157,7 @@ class UsuarioRUCEController extends Controller
     public function destroy(int $id): JsonResponse
     {
         try {
-            UsuarioRUCE::where('id', $id)->update(['estaActivo' => false,]);
+            UsuarioRUCE::where('id', $id)->update(['estaActivo' => false,'idUsuarioModificacion' => Auth::user()->id]);
             UsuarioRUCE::where('id', $id)->delete();
             return response()->json([
                 'succeeded' => true,

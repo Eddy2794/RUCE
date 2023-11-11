@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class OrganizacionRUCEController extends Controller
 {
@@ -56,7 +57,8 @@ class OrganizacionRUCEController extends Controller
                 'barrio' => $request->barrio,
                 'numero' => $request->numero,
                 'cp' => $request->cp,
-                'idUsuarioAlta' => $request->idUsuarioAlta,
+                'idUsuarioAlta'=>Auth::user()->id,
+                'idUsuarioModificacion' => Auth::user()->id
             ]);
             return response()->json([
                 'message' => 'Organizacion registrada con Exito',
@@ -86,7 +88,6 @@ class OrganizacionRUCEController extends Controller
     {
         try {
             $organizacionRUCE = OrganizacionRUCE::where('id', $organizacionRUCE)->first();
-            //$request = new UpdateOrganizacionRUCERequest($request->toArray());
             $organizacionRUCE->organizacionDesc = $request->organizacionDesc ?: $organizacionRUCE->organizacionDesc;
             $organizacionRUCE->cueAnexo = $request->cueAnexo ?: $organizacionRUCE->cueAnexo;
             $organizacionRUCE->region = $request->region ?: $organizacionRUCE->region;
@@ -99,15 +100,15 @@ class OrganizacionRUCEController extends Controller
             $organizacionRUCE->numero = $request->numero !== null || $request->numero == null ? $request->numero : $organizacionRUCE->numero;
             $organizacionRUCE->barrio = $request->barrio ?: $organizacionRUCE->barrio;
             $organizacionRUCE->cp = $request->cp !== null || $request->cp == null ? $request->cp : $organizacionRUCE->cp;
-            $organizacionRUCE->idUsuarioModificacion = $request->idUsuarioModificacion ?: $organizacionRUCE->idUsuarioModificacion;
-
+            
             if ($organizacionRUCE->isClean()) {
                 return response()->json([
                     'message' => 'No se modifico ningun valor',
                     'succeeded' => false
                 ], 422);
             }
-            $organizacionRUCE->updated_at = Carbon::now();
+            $organizacionRUCE->idUsuarioModificacion = Auth::user()->id;
+            // $organizacionRUCE->updated_at = Carbon::now();
             $organizacionRUCE->save();
 
             return response()->json([
@@ -125,7 +126,7 @@ class OrganizacionRUCEController extends Controller
     public function destroy(int $id): JsonResponse
     {
         try {
-            OrganizacionRUCE::where('id', $id)->update(['estaActivo' => false,]);
+            OrganizacionRUCE::where('id', $id)->update(['estaActivo' => false, 'idUsuarioModificacion' => Auth::user()->id]);
             OrganizacionRUCE::where('id', $id)->delete();
             return response()->json([
                 'succeeded' => true,

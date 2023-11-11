@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class RefTipoDocumentoRUCEController extends Controller
 {
@@ -37,6 +38,8 @@ class RefTipoDocumentoRUCEController extends Controller
         try {
             RefTipoDocumentoRUCE::create([
                 'tipoDocumentoDesc' => $request->tipoDocumentoDesc,
+                'idUsuarioAlta'=>Auth::user()->id,
+                'idUsuarioModificacion' => Auth::user()->id
             ]);
             return response()->json([
                 'message' => 'Tipo de Documento registrada con Exito',
@@ -66,7 +69,6 @@ class RefTipoDocumentoRUCEController extends Controller
     {
         try {
             $refTipoDocumentoRUCE = RefTipoDocumentoRUCE::where('id', $refTipoDocumentoRUCE)->first();
-            //$request = new UpdateRefTipoDocumentoRUCERequest($request->toArray());
             $refTipoDocumentoRUCE->tipoDocumentoDesc = $request->tipoDocumentoDesc ?: $refTipoDocumentoRUCE->tipoDocumentoDesc;
 
             if ($refTipoDocumentoRUCE->isClean()) {
@@ -75,7 +77,7 @@ class RefTipoDocumentoRUCEController extends Controller
                     'succeeded' => false
                 ], 422);
             }
-            $refTipoDocumentoRUCE->updated_at= Carbon::now();
+            $refTipoDocumentoRUCE->idUsuarioModifiacion = Auth::user()->id;
             $refTipoDocumentoRUCE->save();
 
             return response()->json([
@@ -93,6 +95,7 @@ class RefTipoDocumentoRUCEController extends Controller
     public function destroy(int $id): JsonResponse
     {
         try {
+            RefTipoDocumentoRUCE::where('id',$id)->update(['estaActivo'=>false,'idUsuarioModificacion'=>Auth::user()->id]);
             RefTipoDocumentoRUCE::where('id', $id)->delete();
             return response()->json([
                 'succeeded' => true,

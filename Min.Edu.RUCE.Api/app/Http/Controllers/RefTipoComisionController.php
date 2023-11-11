@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class RefTipoComisionController extends Controller
 {
@@ -37,6 +38,8 @@ class RefTipoComisionController extends Controller
         try {
             RefTipoComision::create([
                 'tipoComisionDesc' => $request->tipoComisionDesc,
+                'idUsuarioAlta'=>Auth::user()->id,
+                'idUsuarioModificacion' => Auth::user()->id
             ]);
             return response()->json([
                 'message' => 'Tipo de Comision registrada con Exito',
@@ -66,7 +69,6 @@ class RefTipoComisionController extends Controller
     {
         try {
             $refInstanciaInstrumento = RefTipoComision::where('id', $refInstanciaInstrumento)->first();
-            //$request = new UpdateRefTipoComisionRequest($request->toArray());
             $refInstanciaInstrumento->tipoComisionDesc = $request->tipoComisionDesc ?: $refInstanciaInstrumento->tipoComisionDesc;
 
             if ($refInstanciaInstrumento->isClean()) {
@@ -75,7 +77,7 @@ class RefTipoComisionController extends Controller
                     'succeeded' => false
                 ], 422);
             }
-            $refInstanciaInstrumento->updated_at= Carbon::now();
+            $refInstanciaInstrumento->idUsuarioModificacion = Auth::user()->id;
             $refInstanciaInstrumento->save();
 
             return response()->json([
@@ -93,6 +95,7 @@ class RefTipoComisionController extends Controller
     public function destroy(int $id): JsonResponse
     {
         try {
+            RefTipoComision::where('id',$id)->update(['estaActivo'=>false,'idUsuarioModifiacion'=>Auth::user()->id]);
             RefTipoComision::where('id', $id)->delete();
             return response()->json([
                 'succeeded' => true,

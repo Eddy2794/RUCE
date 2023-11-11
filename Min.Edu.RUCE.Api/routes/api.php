@@ -26,8 +26,6 @@ use App\Http\Controllers\UsuarioRUCEController;
 use App\Http\Controllers\AuditController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Informe_gralController;
-use App\Http\Controllers\RoleController;
-use App\Models\Informe_gral;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,7 +41,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::middleware('role:super_admin|admin|writer|user')->get('/audit/Filter', [AuditController::class, 'index'])->name('audit.getAudits');
-    // Route::get('/audit/Filter', [AuditController::class, 'getAudits'])->name('audit.getAudits');
 });
 
 Route::middleware('auth:sanctum')->group(function () {
@@ -266,40 +263,22 @@ Route::group(['prefix' => '/auth'], function () {
 Route::middleware('auth:sanctum')->group(function () {
     Route::group(['prefix' => '/panel'], function () {
         Route::middleware('role:super_admin|admin|writer|user')->get('/Filter', [DashboardController::class, 'index'])->name('panel.index');
-        // Route::middleware('role:super_admin')->post('/', [UsuarioRUCEController::class, 'store'])->name('usuario.store');
-        // Route::middleware('role:super_admin|admin|writer|user')->get('/{id}', [UsuarioRUCEController::class, 'show'])->name('usuario.show');
-        // Route::middleware('role:super_admin')->delete('/{id}', [UsuarioRUCEController::class, 'destroy'])->name('usuario.destroy');
-        // Route::middleware('role:super_admin')->put('/{id}', [UsuarioRUCEController::class, 'update'])->name('usuario.update');
+        // Route::middleware('role:super_admin|admin|writer|user')->get('',[Controller::class,''])->name('');
     });
 });
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::group(['prefix' => '/role'], function () {
-        Route::middleware('role:super_admin')->get('/Filter', [RoleController::class, 'index'])->name('roles.index');
-        // Route::middleware('role:super_admin')->post('/', [RoleController::class, 'store'])->name('roles.store');
-        // Route::middleware('role:super_admin')->delete('/{id}', [RoleController::class, 'destroy'])->name('roles.destroy');
-        // Route::middleware('role:super_admin')->get('/{id}', [RoleController::class, 'show'])->name('roles.show');
-        // Route::middleware('role:super_admin')->put('/{id}', [RoleController::class, 'update'])->name('roles.update');
+    Route::group(['prefix' => '/informe_gral'], function () {
+        Route::middleware('role:super_admin|admin|writer')->get('/Filter', [Informe_gralController::class, 'index'])->name('reportes');
+        Route::middleware('role:super_admin|admin')->get('/export', [Informe_gralController::class, 'index'])->name('exportar_excel');
+        Route::middleware('role:super_admin|admin')->get('/{id}', [Informe_gralController::class, 'storeConstancia'])->name('generar_constancias');
+        Route::middleware('role:super_admin|admin|writer|user')->get('/comprobante/{id}', [Informe_gralController::class, 'show'])->name('ver_constancia');
     });
 });
 
-Route::group(['prefix' => '/informe_gral'], function () {
-    Route::get('/Filter', [Informe_gralController::class, 'index'])->name('reportes');
-    Route::get('/export', [Informe_gralController::class, 'index'])->name('exportar_excel');
-    Route::get('/{id}', [Informe_gralController::class, 'storeConstancia'])->name('generar_constancias');
-    Route::get('/comprobante/{id}', [Informe_gralController::class, 'show'])->name('generar_constancias');
-    Route::get('/{cooperadora}/{constancia}', [Informe_gralController::class, 'show'])->name('constancias');
-    // Route::middleware('role:super_admin')->post('/', [UsuarioRUCEController::class, 'store'])->name('usuario.store');
-    // Route::middleware('role:super_admin|admin|writer|user')->get('/{id}', [UsuarioRUCEController::class, 'show'])->name('usuario.show');
-    // Route::middleware('role:super_admin')->delete('/{id}', [UsuarioRUCEController::class, 'destroy'])->name('usuario.destroy');
-    // Route::middleware('role:super_admin')->put('/{id}', [UsuarioRUCEController::class, 'update'])->name('usuario.update');
-});
-
-Route::group(['prefix' => '/exports'], function () {
-    Route::get('/Filter', [ExportController::class, 'index'])->name('exportaciones');
-    Route::get('/{id}', [ExportController::class, 'show'])->name('obtener_excel');
-    // Route::middleware('role:super_admin')->post('/', [UsuarioRUCEController::class, 'store'])->name('usuario.store');
-    // Route::middleware('role:super_admin|admin|writer|user')->get('/{id}', [UsuarioRUCEController::class, 'show'])->name('usuario.show');
-    // Route::middleware('role:super_admin')->delete('/{id}', [UsuarioRUCEController::class, 'destroy'])->name('usuario.destroy');
-    // Route::middleware('role:super_admin')->put('/{id}', [UsuarioRUCEController::class, 'update'])->name('usuario.update');
+Route::middleware('auth:sanctum')->group(function () {
+    Route::group(['prefix' => '/exports'], function () {
+        Route::middleware('role:super_admin|admin')->get('/Filter', [ExportController::class, 'index'])->name('obtener_exportaciones');
+        Route::middleware('role:super_admin|admin')->get('/{id}', [ExportController::class, 'show'])->name('obtener_excel');
+    });
 });

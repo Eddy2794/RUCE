@@ -9,6 +9,9 @@ use App\Models\OrganizacionRUCE;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
+
+use function PHPUnit\Framework\throwException;
 
 class Informe_gralController extends Controller
 {
@@ -16,10 +19,8 @@ class Informe_gralController extends Controller
     {
         try {
             $filtros = $request['filtros'];
-            // dd($filtros);
             $filtersArray = [];
             if (!empty($filtros)) {
-                // dd(json_decode($request['filtros']));
                 $jsonData = json_decode($filtros, true);
                 if ($jsonData !== null) {
                     // A continuación, verifica que sea un array.
@@ -75,7 +76,6 @@ class Informe_gralController extends Controller
                 )
                 ->orderBy('organizacionDesc', 'asc')
                 ->get();
-                // dd($datos->toArray());
             } else {
                 $datos = OrganizacionRUCE::with([
                     'AutoridadOrganizacionRUCE.PersonaRUCE.RefTipoDocumentoRUCE',
@@ -92,11 +92,10 @@ class Informe_gralController extends Controller
                     'Cooperadora.Fondo.RefTipoFondo', 
                     'Cooperadora.Kiosco.PersonaRuce'
                 ])->orderBy('OrganizacionRUCE.organizacionDesc', 'asc')->get();
-            // dd($datos->toArray());
             }
 
             $url = explode('/', url()->current());
-            // dd(end($url));
+
             if (end($url)=='export'){
                 $exportController = new ExportController();
                 return $exportController->export($datos);
@@ -134,22 +133,28 @@ class Informe_gralController extends Controller
                 'Comision.AutoridadComision.RefCargo',
                 'Informe_gral'
             ])->where("id", $id)->get()->toArray()[0];
-            // dd($datos);
+
             if($datos['informe_gral']){
                 $this->destroy($datos['informe_gral']['id']);
+                unset($datos['informe_gral']);
             }
+
+            if($datos['comision']==[])
+                throw new \Exception("No existe Comision Directiva");
+
             if($datos['comision'][0]['ref_tipo_comision'][0]['tipoComisionDesc']=='DIRECTIVA' && $datos['comision'][0]['estadoResolucion']=='VIGENTE'){
                 $comprobante = new Informe_gral();
                 $comprobante['fkCooperadora'] = $id;
-                $comprobante['datos']=$datos[0];
+                $comprobante['datos']=$datos;
                 $comprobante['esReporte']=false; // eliminar
-                // dd($comprobante->toArray());
+                $comprobante['idUsuarioAlta']= Auth::user()->id;
+                $comprobante['idUsuarioModificacion']=Auth::user()->id;
                 $comprobante->save();
-
+                $datos['informe_gral'] = $comprobante->toArray();
                 return response()->json([
                     'succeeded' => true,
                     'message' => 'Comprobante creado correctamente',
-                    'id' => $comprobante->toArray()['id']
+                    'datos' => $comprobante->toArray()
                 ]);
             } else {
                 return response()->json([
@@ -182,7 +187,9 @@ class Informe_gralController extends Controller
     {
         try {
             Informe_gral::create([
-                "datos" => $datos
+                "datos" => $datos,
+                'idUsuarioAlta'=>Auth::user()->id,
+                'idUsuarioModificacion' => Auth::user()->id
             ]);
             return response()->json([
                 'message' => 'Reporte registrado con Exito',
@@ -196,10 +203,11 @@ class Informe_gralController extends Controller
         }
     }
 
-    public function destroy(Informe_gral $informe_gral): JsonResponse
+    public function destroy(int $id): JsonResponse
     {
         try {
-            $informe_gral->delete();
+            Informe_gral::where('id', $id)->update(['estaActivo' => false,'idUsuarioModificacion' => Auth::user()->id]);
+            Informe_gral::where('id', $id)->delete();
             return response()->json([
                 'succeeded' => true,
                 'message' => 'Comprobante eliminado con exito'

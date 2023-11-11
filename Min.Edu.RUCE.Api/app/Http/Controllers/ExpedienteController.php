@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class ExpedienteController extends Controller
 {
@@ -41,7 +42,8 @@ class ExpedienteController extends Controller
                 'observacionesDesc' => $request->observacionesDesc,
                 'observacionesRespondidas' => $request->observacionesRespondidas,
                 'fecha' => $request->fecha,
-                'idUsuarioAlta' => $request->idUsuarioAlta,
+                'idUsuarioAlta'=>Auth::user()->id,
+                'idUsuarioModificacion' => Auth::user()->id
             ]);
             return response()->json([
                 'message' => 'Expediente registrada con Exito',
@@ -81,7 +83,6 @@ class ExpedienteController extends Controller
     {
         try {
             $expediente = Expediente::where('id', $expediente)->first();
-            //$request = new UpdateExpedienteRequest($request->toArray());
             $expediente->fkCooperadora = $request->fkCooperadora ?: $expediente->fkCooperadora;
             $expediente->fkRefInstanciaInstrumento = $request->fkRefInstanciaInstrumento ?: $expediente->fkRefInstanciaInstrumento;
             $expediente->nroExpediente = $request->nroExpediente ?: $expediente->nroExpediente;
@@ -89,15 +90,14 @@ class ExpedienteController extends Controller
             $expediente->observacionesDesc = $request->observacionesDesc ?: $expediente->observacionesDesc;
             $expediente->observacionesRespondidas = $request->observacionesRespondidas !== null ? $request->observacionesRespondidas : $expediente->observacionesRespondidas;
             $expediente->fecha = $request->fecha ?: $expediente->fecha;
-            $expediente->idUsuarioModificacion = $request->idUsuarioModificacion ?: $expediente->idUsuarioModificacion;
-
+            
             if ($expediente->isClean()) {
                 return response()->json([
                     'message' => 'No se modifico ningun valor',
                     'succeeded' => false
                 ], 422);
             }
-            $expediente->updated_at= Carbon::now();
+            $expediente->idUsuarioModificacion = Auth::user()->id;
             $expediente->save();
 
             return response()->json([
@@ -115,7 +115,7 @@ class ExpedienteController extends Controller
     public function destroy(int $id): JsonResponse
     {
         try {
-            Expediente::where('id', $id)->update(['estaActivo'=>false,]);
+            Expediente::where('id', $id)->update(['estaActivo'=>false,'idUsuarioModificacion'=>Auth::user()->id]);
             Expediente::where('id', $id)->delete();
             return response()->json([
                 'succeeded' => true,
