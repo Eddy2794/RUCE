@@ -15,9 +15,9 @@
         </div>
       </div>
       
-      <!-- <div style="text-align: right;">
-        <img class="h-10" src="/assets/img/logo-ruce/logo-bienestar.jpeg">
-      </div> -->
+      <div *ngIf="idConstancia==undefined" style="text-align: right; top:0;">
+        <qrcode [qrdata]="urlConstancia" [width]="160" [errorCorrectionLevel]="'M'" [allowEmptyString]="true"></qrcode>
+      </div>
     </div>
 
     <table class="table w-full rounded">

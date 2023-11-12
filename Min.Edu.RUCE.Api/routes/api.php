@@ -272,7 +272,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::middleware('role:super_admin|admin|writer')->get('/Filter', [Informe_gralController::class, 'index'])->name('reportes');
         Route::middleware('role:super_admin|admin')->get('/export', [Informe_gralController::class, 'index'])->name('exportar_excel');
         Route::middleware('role:super_admin|admin')->get('/{id}', [Informe_gralController::class, 'storeConstancia'])->name('generar_constancias');
-        Route::middleware('role:super_admin|admin|writer|user')->get('/comprobante/{id}', [Informe_gralController::class, 'show'])->name('ver_constancia');
+        Route::middleware('role:super_admin|admin|writer|user')->get('/coop_constancia/{id}', [Informe_gralController::class, 'show'])->name('generar_constancia');
+        Route::middleware('role:super_admin|admin|writer|user')->get('/constancia/{id}', [Informe_gralController::class, 'show'])->name('ver_constancia');
     });
 });
 

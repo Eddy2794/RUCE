@@ -8,7 +8,11 @@ import { VexRoutes } from '../../../../@vex/interfaces/vex-route.interface';
 const routes: VexRoutes = [
   {
     path: '',
-    component: InvoiceComponent,
+    children: [
+      { path: 'view', component: InvoiceComponent },
+      { path: 'view/:id', component: InvoiceComponent },
+      { path: '**', redirectTo: '/pages/inicio' }
+    ],
     data: {
       toolbarShadowEnabled: true,
       containerEnabled: true

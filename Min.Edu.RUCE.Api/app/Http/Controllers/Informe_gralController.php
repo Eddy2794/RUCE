@@ -170,11 +170,40 @@ class Informe_gralController extends Controller
         }
     }
 
-    public function show(int $idInforme_gral): JsonResponse
+    public function show(int $id)
+    {
+        try {
+            $url = explode('/', url()->current());
+            if ($url[sizeof($url)-2]=='coop_constancia')
+                return $this->showByIdCooperadora($id);
+            else if ($url[sizeof($url)-2]=="constancia")
+                return $this->showByIdConstancia($id);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
+    }
+
+    public function showByIdConstancia(int $idInforme_gral): JsonResponse
     {
         try {
             $constancia = Informe_gral::where('id',$idInforme_gral)->get('datos')->toArray();
-            return response()->json(['datos'=>$constancia]);
+            return response()->json(['datos'=>$constancia[0]['datos']]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'succeeded' => false,
+                'message' => $th->getMessage()
+            ], Response::HTTP_NOT_FOUND);
+        }
+    }
+
+    public function showByIdCooperadora(int $idCooperadora): JsonResponse
+    {
+        try {
+            $constancia = Informe_gral::where('fkCooperadora',$idCooperadora)->get(['id','fkCooperadora','datos'])->toArray();
+            return response()->json(['comprobante'=>$constancia[0]]);
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,
