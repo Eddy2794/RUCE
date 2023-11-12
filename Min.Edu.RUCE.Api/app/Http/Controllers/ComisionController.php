@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class ComisionController extends Controller
 {
@@ -42,7 +43,8 @@ class ComisionController extends Controller
                 'periodoFin' => $request->periodoFin,
                 'nroSocios' => $request->nroSocios,
                 'estadoResolucion' => $request->estadoResolucion,
-                'idUsuarioAlta' => $request->idUsuarioAlta,
+                'idUsuarioAlta'=>Auth::user()->id,
+                'idUsuarioModificacion' => Auth::user()->id
             ]);
             return response()->json([
                 'message' => 'Comision registrada con Exito',
@@ -88,22 +90,21 @@ class ComisionController extends Controller
     {
         try {
             $comision = Comision::where('id', $comision)->first();
-            //$request = new UpdateComisionRequest($request->toArray());
             $comision->fkCooperadora = $request->fkCooperadora ?: $comision->fkCooperadora;
             $comision->fkRefTipoComision = $request->fkRefTipoComision ?: $comision->fkRefTipoComision;
             $comision->periodoInicio = $request->periodoInicio ?: $comision->periodoInicio;
             $comision->periodoFin = $request->periodoFin ?: $comision->periodoFin;
             $comision->nroSocios = $request->nroSocios ?: $comision->nroSocios;
             $comision->estadoResolucion = $request->estadoResolucion ?: $comision->estadoResolucion;
-            $comision->idUsuarioModificacion = $request->idUsuarioModificacion ?: $comision->idUsuarioModificacion;
-
+            
             if ($comision->isClean()) {
                 return response()->json([
                     'message' => 'No se modifico ningun valor',
                     'succeeded' => false
                 ], 422);
             }
-            $comision->updated_at= Carbon::now();
+            
+            $comision->idUsuarioModificacion = Auth::user()->id;
             $comision->save();
 
             return response()->json([
@@ -127,7 +128,7 @@ class ComisionController extends Controller
     public function destroy(int $id)
     {
         try {
-            Comision::where('id', $id)->update(['estaActivo'=>false,]);
+            Comision::where('id', $id)->update(['estaActivo'=>false,'idUsuarioModificacion'=>Auth::user()->id]);
             Comision::where('id', $id)->delete();
             return response()->json([
                 'succeeded' => true,
@@ -139,32 +140,5 @@ class ComisionController extends Controller
                 'message' => $th->getMessage()
             ], Response::HTTP_NOT_FOUND);
         }
-    }
-
-    public function search(Request $request, Comision $comision)
-    {
-        /*
-        Seguramente se puede refactorizar y optimizar
-        por ahora es la forma que da resultados esperados
-        */
-
-        $query = $comision->newQuery();
-
-        if ($request->id) {
-            $query->where('id', $request->id)
-                ->where(function ($q) use ($request) {
-                    if ($request->q) {
-                        $q->where('fkCooperadora', 'like', '%' . $request->q . '%')
-                            ->orWhere('denominacion', 'like', '%' . $request->q . '%');
-                    }
-                });
-        } else {
-            if ($request->q) {
-                $query->where('fkCooperadora', 'like', '%' . $request->q . '%')
-                    ->orWhere('denominacion', 'like', '%' . $request->q . '%');
-            }
-        }
-
-        // return new RequestCollection($query->orderBy('organizacionDesc')->paginate()->appends(['q' => $request->q, 'id' => $request->id]));
     }
 }

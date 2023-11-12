@@ -12,6 +12,7 @@ use App\Models\AtencionSeguimiento;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class AtencionSeguimientoController extends Controller
 {
@@ -47,7 +48,8 @@ class AtencionSeguimientoController extends Controller
                 'atencionTerritorial' => $request->atencionTerritorial,
                 'observacion' => $request->observacion,
                 'fecha' => $request->fecha,
-                'idUsuarioAlta' => $request->idUsuarioAlta,
+                'idUsuarioAlta' => Auth::user()->id,
+                'idUsuarioModificacion' => Auth::user()->id
             ]);
             return response()->json([
                 'message' => 'Organizacion registrada con Exito',
@@ -90,7 +92,6 @@ class AtencionSeguimientoController extends Controller
     {
         try {
             $atencionSeguimiento = AtencionSeguimiento::where('id', $atencionSeguimiento)->first();
-            //$request = new UpdateAtencionSeguimientoRequest($request->toArray());
             $atencionSeguimiento->fkCooperadora = $request->fkCooperadora ?: $atencionSeguimiento->fkCooperadora;
             // $atencionSeguimiento->fkPersonaRUCE = $request->fkPersonaRUCE ?: $atencionSeguimiento->fkPersonaRUCE;
             $atencionSeguimiento->llamadas = $request->llamadas == null || $request->llamadas !== null ? $request->llamadas : $atencionSeguimiento->llamadas;
@@ -109,7 +110,7 @@ class AtencionSeguimientoController extends Controller
                     'succeeded' => false
                 ], 422);
             }
-            //$organizacionRUCE->updated_at= Carbon::now();
+            $atencionSeguimiento->idUsuarioModificacion = Auth::user()->id;
             $atencionSeguimiento->save();
 
             return response()->json([
@@ -133,7 +134,7 @@ class AtencionSeguimientoController extends Controller
     public function destroy(int $id)
     {
         try {
-            AtencionSeguimiento::where('id', $id)->update(['estaActivo'=>false,]);
+            AtencionSeguimiento::where('id', $id)->update(['estaActivo'=>false,'idUsuarioModificacion'=>Auth::user()->id]);
             AtencionSeguimiento::where('id', $id)->delete();
             return response()->json([
                 'succeeded' => true,

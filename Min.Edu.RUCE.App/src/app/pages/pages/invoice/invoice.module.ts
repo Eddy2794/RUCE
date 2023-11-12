@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { WidgetTableModule } from 'src/@vex/components/widgets/widget-table/widget-table.module';
 import { FormListAutoridadComponent } from './form-list-autoridad/form-list-autoridad.component';
 import { MatTableModule } from '@angular/material/table';
+import { QRCodeModule } from 'angularx-qrcode';
 
 
 @NgModule({
@@ -16,8 +17,10 @@ import { MatTableModule } from '@angular/material/table';
     InvoiceRoutingModule,
 
     MatIconModule,
-    MatTableModule
-  ]
+    MatTableModule,
+    QRCodeModule
+  ],
+  exports: [InvoiceComponent, FormListAutoridadComponent],
 })
 export class InvoiceModule {
 }

@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class KioscoController extends Controller
 {
@@ -46,8 +47,8 @@ class KioscoController extends Controller
                     'documentacionPresentada' => $request->documentacionPresentada,
                     'periodoInicio' => date_create($request->periodoInicio),
                     'periodoFin' => date_create($request->periodoFin),
-                    'idUsuarioAlta' => $request->idUsuarioAlta,
-                    'idUsuarioModificacion' => $request->idUsuarioModificacion
+                    'idUsuarioAlta' => Auth::user()->id,
+                    'idUsuarioModificacion' => Auth::user()->id
                 ]);
                 return response()->json([
                     'message' => 'Kiosco registrado con Exito',
@@ -94,21 +95,20 @@ class KioscoController extends Controller
         if($personaUpdated->original->getStatusCode() != Response::HTTP_NOT_FOUND)
             try {
                 $kiosco = Kiosco::where('id', $kiosco)->first();
-                //$request = new UpdateKioscoRequest($request->toArray());
                 $kiosco->fkCooperadora = $request->fkCooperadora ?: $kiosco->fkCooperadora;
                 $kiosco->fkPersonaRUCE = $request->fkPersonaRUCE ?: $kiosco->fkPersonaRUCE;
                 $kiosco->accesoLicitacion = $request->accesoLicitacion!==null ? $request->accesoLicitacion : $kiosco->accesoLicitacion;
                 $kiosco->documentacionPresentada = $request->documentacionPresentada!==null ? $request->documentacionPresentada : $kiosco->documentacionPresentada;
                 $kiosco->periodoInicio = $request->periodoInicio ?: $kiosco->periodoInicio;
                 $kiosco->periodoFin = $request->periodoFin ?: $kiosco->periodoFin;
-                $kiosco->idUsuarioModificacion = $request->idUsuarioModificacion ?: $kiosco->idUsuarioModificacion;
-
+                
                 if ($kiosco->isClean() && $personaUpdated->original->getStatusCode()== Response::HTTP_UNPROCESSABLE_ENTITY) {
                     return response()->json([
                         'message' => 'No se modifico ningun valor',
                         'succeeded' => false
                     ], 422);
                 }
+                $kiosco->idUsuarioModificacion = Auth::user()->id;
                 $kiosco->save();
 
                 return response()->json([
@@ -130,7 +130,7 @@ class KioscoController extends Controller
     public function destroy(int $id): JsonResponse
     {
         try {
-            Kiosco::where('id', $id)->update(['estaActivo'=>false,]);
+            Kiosco::where('id', $id)->update(['estaActivo'=>false,'idUsuarioModificacion'=>Auth::user()->id]);
             Kiosco::where('id', $id)->delete();
             return response()->json([
                 'succeeded' => true,

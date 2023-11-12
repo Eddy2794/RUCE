@@ -75,7 +75,6 @@ export class ReportesListComponent implements OnInit {
   ngOnInit(): void {
     this.setColumns();
     this.setSearchData();
-    // this.setSearchOptions();
   }
 
   private setColumns() {
@@ -145,7 +144,6 @@ export class ReportesListComponent implements OnInit {
   }
 
   private setSearchOptions() {
-      console.log(this.tipos)
     this.searchOptions = [
       new SearchOptionsGeneric({
         typeControl: TypeControl.INPUT,
@@ -224,60 +222,5 @@ export class ReportesListComponent implements OnInit {
       console.error('Error al obtener datos:', error);
     });
   }
-
-  // private setSearchOptions() {
-  //   console.log(this.tipos)
-  //   this.searchOptions = [
-  //     // OrganizacionRUCE
-  //     new SearchOptionsGeneric({
-  //       typeControl: TypeControl.INPUT,
-  //       typeData: TypeData.TEXT,
-  //       name: "region",
-  //       label: "REGION",
-  //       readonly: false,
-  //     }),
-  //     new SearchOptionsGeneric({
-  //       typeControl: TypeControl.INPUT,
-  //       typeData: TypeData.TEXT,
-  //       name: "nivel",
-  //       label: "NIVEL",
-  //       readonly: false,
-  //     }),
-  //     new SearchOptionsGeneric({
-  //       typeControl: TypeControl.INPUT,
-  //       typeData: TypeData.TEXT,
-  //       name: "matricula",
-  //       label: "MATRICULA",
-  //       readonly: false,
-  //     }),
-  //     new SearchOptionsGeneric({
-  //       typeControl: TypeControl.SELECT,
-  //       typeData: TypeData.OBJECT,
-  //       name: "tipoAsociacion",
-  //       label: "TIPO ASOCIACION",
-  //       options: this.tipos["asociaciones"],
-  //       // value: this.tipos["asociaciones"],
-  //       readonly: false,
-  //     }),
-  //     new SearchOptionsGeneric({
-  //       typeControl: TypeControl.SELECT,
-  //       typeData: TypeData.OBJECT,
-  //       name: "tipoComision",
-  //       label: "TIPO COMISION",
-  //       // options: this.tipos["comisiones"],
-  //       value: this.tipos["comisiones"],
-  //       readonly: false,
-  //     }),
-  //     new SearchOptionsGeneric({
-  //       typeControl: TypeControl.SELECT,
-  //       typeData: TypeData.OBJECT,
-  //       name: "tipoFondo",
-  //       label: "TIPO FONDO",
-  //       // options: this.tipos["fondos"],
-  //       value: this.tipos["fondos"],
-  //       readonly: false,
-  //     }),
-  //   ];
-  // }
 
 }

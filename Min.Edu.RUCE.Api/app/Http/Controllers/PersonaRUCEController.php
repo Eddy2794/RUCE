@@ -10,6 +10,7 @@ use App\Models\PersonaRUCE;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class PersonaRUCEController extends Controller
 {
@@ -43,8 +44,8 @@ class PersonaRUCEController extends Controller
                 'apellido' => $request->apellido,
                 'telefono' => $request->telefono,
                 'email' => $request->email,
-                'idUsuarioAlta' => $request->idUsuarioAlta,
-                'idUsuarioModificacion' => $request->idUsuarioModificacion,
+                'idUsuarioAlta' => Auth::user()->id,
+                'idUsuarioModificacion' => Auth::user()->id,
             ]);
             
             return response()->json([
@@ -90,7 +91,6 @@ class PersonaRUCEController extends Controller
     {
         try {
             $personaRUCE = PersonaRUCE::where('id', $personaRUCE)->first();
-            //$request = new UpdatePersonaRUCERequest($request->toArray());
             $personaRUCE->fkRefTipoDocumentoRUCE = $request->fkRefTipoDocumentoRUCE ?: $personaRUCE->fkRefTipoDocumentoRUCE;
             $personaRUCE->documento = $request->documento ?: $personaRUCE->documento;
             $personaRUCE->cuil = $request->cuil ?: $personaRUCE->cuil;
@@ -98,14 +98,14 @@ class PersonaRUCEController extends Controller
             $personaRUCE->apellido = $request->apellido ?: $personaRUCE->apellido;
             $personaRUCE->telefono = $request->telefono ?: $personaRUCE->telefono;
             $personaRUCE->email = $request->email == null ? $request->email : $personaRUCE->email;
-            // $personaRUCE->idUsuarioModificacion = $request->idUsuarioModificacion ?: $personaRUCE->idUsuarioModificacion;
-
+            
             if ($personaRUCE->isClean()) {
                 return response()->json([
                     'message' => 'No se modifico ningun valor',
                     'succeeded' => false
                 ], 422);
             }
+            $personaRUCE->idUsuarioModificacion = Auth::user()->id;
             $personaRUCE->save();
 
             return response()->json([
@@ -138,7 +138,7 @@ class PersonaRUCEController extends Controller
     public function destroy(int $id): JsonResponse
     {
         try {
-            PersonaRUCE::where('id', $id)->update(['estaActivo'=>false,]);
+            PersonaRUCE::where('id', $id)->update(['estaActivo'=>false,'idUsuarioModificacion'=>Auth::user()->id]);
             PersonaRUCE::where('id', $id)->delete();
             return response()->json([
                 'succeeded' => true,
@@ -150,32 +150,5 @@ class PersonaRUCEController extends Controller
                 'message' => $th->getMessage()
             ], Response::HTTP_NOT_FOUND);
         }
-    }
-
-    public function search(Request $request, PersonaRUCE $personaRUCE)
-    {
-        /*
-        Seguramente se puede refactorizar y optimizar
-        por ahora es la forma que da resultados esperados
-        */
-
-        $query = $personaRUCE->newQuery();
-
-        if ($request->id) {
-            $query->where('id', $request->id)
-                ->where(function ($q) use ($request) {
-                    if ($request->q) {
-                        $q->where('documento', 'like', '%' . $request->q . '%')
-                            ->orWhere('fkRefTipoDocumentoRUCE', 'like', '%' . $request->q . '%');
-                    }
-                });
-        } else {
-            if ($request->q) {
-                $query->where('documento', 'like', '%' . $request->q . '%')
-                    ->orWhere('fkRefTipoDocumentoRUCE', 'like', '%' . $request->q . '%');
-            }
-        }
-
-        // return new RequestCollection($query->orderBy('fkRefTipoDocumentoRUCE')->paginate()->appends(['q' => $request->q, 'id' => $request->id]));
     }
 }

@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class MovimientoExpedienteController extends Controller
 {
@@ -44,7 +45,7 @@ class MovimientoExpedienteController extends Controller
     public function destroy(int $id): JsonResponse
     {
         try {
-            MovimientoExpediente::where('id', $id)->update(['estaActivo' => false,]);
+            MovimientoExpediente::where('id', $id)->update(['estaActivo' => false,'idUsuarioModificaion' => Auth::user()->id]);
             MovimientoExpediente::where('id', $id)->delete();
             return response()->json([
                 'succeeded' => true,

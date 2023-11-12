@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class RefTipoFondoController extends Controller
 {
@@ -37,6 +38,8 @@ class RefTipoFondoController extends Controller
         try {
             RefTipoFondo::create([
                 'tipoFondoDesc' => $request->tipoFondoDesc,
+                'idUsuarioAlta'=>Auth::user()->id,
+                'idUsuarioModificacion' => Auth::user()->id
             ]);
             return response()->json([
                 'message' => 'Tipo de Fondo registrada con Exito',
@@ -73,7 +76,6 @@ class RefTipoFondoController extends Controller
     {
         try {
             $refTipoFondo = RefTipoFondo::where('id', $refTipoFondo)->first();
-            //$request = new UpdateRefTipoFondoRequest($request->toArray());
             $refTipoFondo->tipoFondoDesc = $request->tipoFondoDesc ?: $refTipoFondo->tipoFondoDesc;
 
             if ($refTipoFondo->isClean()) {
@@ -82,7 +84,7 @@ class RefTipoFondoController extends Controller
                     'succeeded' => false
                 ], 422);
             }
-            $refTipoFondo->updated_at= Carbon::now();
+            $refTipoFondo->idUsuarioModifiacion = Auth::user()->id;
             $refTipoFondo->save();
 
             return response()->json([
@@ -100,6 +102,7 @@ class RefTipoFondoController extends Controller
     public function destroy(int $id): JsonResponse
     {
         try {
+            RefTipoFondo::where('id',$id)->update(['estaActivo'=>false,'idUsuarioModificacion'=>Auth::user()->id]);
             RefTipoFondo::where('id', $id)->delete();
             return response()->json([
                 'succeeded' => true,

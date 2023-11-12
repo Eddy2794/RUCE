@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class MatriculaController extends Controller
 {
@@ -40,7 +41,8 @@ class MatriculaController extends Controller
                 'periodoLectivo' => $request->periodoLectivo,
                 'matricula' => $request->matricula,
                 'fecha' => $request->fecha,
-                'idUsuarioAlta' => $request->idUsuarioAlta,
+                'idUsuarioAlta'=>Auth::user()->id,
+                'idUsuarioModificacion' => Auth::user()->id
             ]);
             return response()->json([
                 'message' => 'Matricula registrada con Exito',
@@ -71,20 +73,18 @@ class MatriculaController extends Controller
     {
         try {
             $matricula = Matricula::where('id', $matricula)->first();
-            //$request = new UpdateMatriculaRequest($request->toArray());
             $matricula->fkOrganizacionRUCE = $request->fkOrganizacionRUCE ?: $matricula->fkOrganizacionRUCE;
             $matricula->periodoLectivo = $request->periodoLectivo ?: $matricula->periodoLectivo;
             $matricula->matricula = $request->matricula ?: $matricula->matricula;
             $matricula->fecha = $request->fecha !==null || $request->fecha ==null ? $request->fecha: $matricula->fecha;
-            $matricula->idUsuarioModificacion = $request->idUsuarioModificacion ?: $matricula->idUsuarioModificacion;
-
+            
             if ($matricula->isClean()) {
                 return response()->json([
                     'message' => 'No se modifico ningun valor',
                     'succeeded' => false
                 ], 422);
             }
-            $matricula->updated_at= Carbon::now();
+            $matricula->idUsuarioModificacion = Auth::user()->id;
             $matricula->save();
 
             return response()->json([
@@ -102,7 +102,7 @@ class MatriculaController extends Controller
     public function destroy(int $id): JsonResponse
     {
         try {
-            Matricula::where('id', $id)->update(['estaActivo'=>false,]);
+            Matricula::where('id', $id)->update(['estaActivo'=>false,'idUsuarioModificacion'=>Auth::user()->id]);
             Matricula::where('id', $id)->delete();
             return response()->json([
                 'succeeded' => true,

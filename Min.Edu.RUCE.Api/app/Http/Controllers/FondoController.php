@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class FondoController extends Controller
 {
@@ -44,7 +45,8 @@ class FondoController extends Controller
                 'fechaRecibido' => $request->fechaRecibido,
                 'fechaRendicion' => $request->fechaRendicion,
                 'anioOtorgado' => $request->anioOtorgado,
-                'idUsuarioAlta' => $request->idUsuarioAlta,
+                'idUsuarioAlta'=>Auth::user()->id,
+                'idUsuarioModificacion' => Auth::user()->id
             ]);
             return response()->json([
                 'message' => 'Fondo registrada con Exito',
@@ -82,7 +84,6 @@ class FondoController extends Controller
     {
         try {
             $fondo = Fondo::where('id', $fondo)->first();
-            //$request = new UpdateFondoRequest($request->toArray());
             $fondo->fkRefTipoFondo = $request->fkRefTipoFondo ?: $fondo->fkRefTipoFondo;
             $fondo->fkCooperadora = $request->fkCooperadora ?: $fondo->fkCooperadora;
             $fondo->inscripta = $request->inscripta !== null ? $request->inscripta : $fondo->inscripta;
@@ -93,15 +94,14 @@ class FondoController extends Controller
             $fondo->fechaRecibido = $request->fechaRecibido ?: $fondo->fechaRecibido;
             $fondo->fechaRendicion = $request->fechaRendicion ?: $fondo->fechaRendicion;
             $fondo->anioOtorgado = $request->anioOtorgado ?: $fondo->anioOtorgado;
-            $fondo->idUsuarioModificacion = $request->idUsuarioModificacion ?: $fondo->idUsuarioModificacion;
-
+            
             if ($fondo->isClean()) {
                 return response()->json([
                     'message' => 'No se modifico ningun valor',
                     'succeeded' => false
                 ], 422);
             }
-            $fondo->updated_at= Carbon::now();
+            $fondo->idUsuarioModificacion = Auth::user()->id;
             $fondo->save();
 
             return response()->json([
@@ -119,7 +119,7 @@ class FondoController extends Controller
     public function destroy(int $id): JsonResponse
     {
         try {
-            Fondo::where('id', $id)->update(['estaActivo'=>false,]);
+            Fondo::where('id', $id)->update(['estaActivo'=>false,'idUsuarioModificacion'=>Auth::user()->id]);
             Fondo::where('id', $id)->delete();
             return response()->json([
                 'succeeded' => true,
