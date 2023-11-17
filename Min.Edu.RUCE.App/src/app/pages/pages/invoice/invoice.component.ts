@@ -43,6 +43,7 @@ export class InvoiceComponent implements OnInit, OnDestroy {
   idConstancia?: number;
   urlConstancia?: string='';
   constancia?: ConstanciaModel;
+  datos?: any;
 
   constructor(
     private cooperadoraService: CooperadoraService,
@@ -101,12 +102,14 @@ export class InvoiceComponent implements OnInit, OnDestroy {
     this.coopConstanciaService.findOne(this.idCooperadora).subscribe((resp:any)=>{
       this.urlConstancia = document.location.origin+this.location.prepareExternalUrl(this.location.path())+'/'+resp.comprobante?.id;
       this.cargarAutoridadesComision(resp.comprobante.datos.comision[0].autoridad_comision);
+      this.datos = resp.comprobante.datos;
     });
   }
 
   private async cargarConstancia(){
     this.constanciaService.findOne(this.idConstancia).subscribe((resp:any)=>{
       this.cargarAutoridadesComision(resp.datos.comision[0].autoridad_comision);
+      this.datos = resp.datos;
     });
   }
 

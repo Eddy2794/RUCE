@@ -202,8 +202,14 @@ class Informe_gralController extends Controller
     public function showByIdCooperadora(int $idCooperadora): JsonResponse
     {
         try {
+            // dd($idCooperadora);
             $constancia = Informe_gral::where('fkCooperadora',$idCooperadora)->get(['id','fkCooperadora','datos'])->toArray();
-            return response()->json(['comprobante'=>$constancia[0]]);
+            if (empty($constancia)) {
+                dd(response()->json(['comprobante'=>$this->storeConstancia($idCooperadora)[0]]));
+                return response()->json(['comprobante'=>$this->storeConstancia($idCooperadora)[0]]);
+            } else {
+                return response()->json(['comprobante'=>$constancia[0]]);
+            }
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,

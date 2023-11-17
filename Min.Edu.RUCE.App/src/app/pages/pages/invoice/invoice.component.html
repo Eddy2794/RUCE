@@ -25,7 +25,7 @@
         <tr>
           <td class="py-2 border-b">
             <div class="fuenteRegular text-center body-1 title">
-              ASOCIACIÓN COOPERADORA {{cooperadora?.denominacion}}
+              ASOCIACIÓN COOPERADORA {{datos?.denominacion}}
             </div>
           </td>
         </tr>
@@ -36,13 +36,13 @@
             <div class="flex items-center w-75">    
               <div class="p-3 bordes">
                 <p class="fuenteRegular body-1">Establecimiento Educativo: </p>
-                <p class="fuenteRegular body-1 title ml-16">{{ cooperadora?.organizacion_r_u_c_e?.organizacionDesc }}</p>
+                <p class="fuenteRegular body-1 title ml-16">{{ datos?.organizacion_r_u_c_e?.organizacionDesc }}</p>
               </div>
             </div>
             <div class="flex items-center w-25">    
               <div class="p-3 bordes">
                 <p class="fuenteRegular body-1">Tipo de Asociación: </p>
-                <p class="fuenteRegular body-1 title ml-36">{{ cooperadora?.ref_tipo_asociacion[0]?.tipoAsociacionDesc }}</p>
+                <p class="fuenteRegular body-1 title ml-36">{{ datos?.ref_tipo_asociacion[0]?.tipoAsociacionDesc }}</p>
               </div>
             </div>
           </div>
@@ -76,19 +76,19 @@
             <div class="flex items-center">    
               <div class="bordes">
                 <p class="fuenteRegular body-1">REGION: </p>
-                <p class="fuenteRegular body-1 title ml-16">{{ cooperadora?.organizacion_r_u_c_e?.region }}</p>
+                <p class="fuenteRegular body-1 title ml-16">{{ datos?.organizacion_r_u_c_e?.region }}</p>
               </div>
             </div>
             <div class="flex items-center">    
               <div class="bordes">
                 <p class="fuenteRegular body-1">CUE ANEXO: </p>
-                <p class="fuenteRegular body-1 title ml-16">{{ cooperadora?.organizacion_r_u_c_e?.cueAnexo }}</p>
+                <p class="fuenteRegular body-1 title ml-16">{{ datos?.organizacion_r_u_c_e?.cueAnexo }}</p>
               </div>
             </div>
             <div class="flex items-center">    
               <div class="bordes">
                 <p class="fuenteRegular body-1">NIVEL: </p>
-                <p class="fuenteRegular body-1 title ml-16">{{ cooperadora?.organizacion_r_u_c_e?.nivel }}</p>
+                <p class="fuenteRegular body-1 title ml-16">{{ datos?.organizacion_r_u_c_e?.nivel }}</p>
               </div>
             </div>
           </div>
@@ -101,13 +101,13 @@
             <div class="flex items-center">    
               <div class="p-3 bordes">
                 <p class="fuenteRegular body-1">DOMICILIO: </p>
-                <p class="fuenteRegular body-1 title ml-16">{{ cooperadora?.organizacion_r_u_c_e?.calle }} Nº {{ cooperadora?.organizacion_r_u_c_e?.numero }}, Barrio {{ cooperadora?.organizacion_r_u_c_e?.barrio }}</p>
+                <p class="fuenteRegular body-1 title ml-16">{{ datos?.organizacion_r_u_c_e?.calle }} Nº {{ cooperadora?.organizacion_r_u_c_e?.numero }}, Barrio {{ cooperadora?.organizacion_r_u_c_e?.barrio }}</p>
               </div>
             </div>
             <div class="flex items-center">    
               <div class="p-3 bordes">
                 <p class="fuenteRegular body-1">LOCALIDAD: </p>
-                <p class="fuenteRegular body-1 title ml-16">{{ cooperadora?.organizacion_r_u_c_e?.localidad }}</p>
+                <p class="fuenteRegular body-1 title ml-16">{{ datos?.organizacion_r_u_c_e?.localidad }}</p>
               </div>
             </div>
           </div>
@@ -132,25 +132,25 @@
             <div class="flex items-center">    
               <div class="ml-10 p-3 bordes">
                 <p class="fuenteRegular body-1">FECHA DE CREACIÓN DE LA ASOCIACIÓN: </p>
-                <p class="fuenteRegular body-1 title ml-16">{{ cooperadora?.organizacion_r_u_c_e?.region }}</p>
+                <p class="fuenteRegular body-1 title ml-16">{{ datos?.organizacion_r_u_c_e?.region }}</p>
               </div>
             </div>
             <div class="flex items-center">    
               <div class="mr-10 p-3 bordes">
                 <p class="fuenteRegular body-1">EXPEDIENTE: </p>
-                <p class="fuenteRegular body-1 title ml-16">{{ cooperadora?.expediente?.nroExpediente }}</p>
+                <p class="fuenteRegular body-1 title ml-16">{{ datos?.expediente?.nroExpediente }}</p>
               </div>
             </div>
-            <div class="flex items-center">    
+            <div *ngIf="datos?.legajo" class="flex items-center">    
               <div class="ml-10 p-3 bordes">
                 <p class="fuenteRegular body-1">LEGAJO: </p>
-                <p class="fuenteRegular body-1 title ml-16">{{ cooperadora?.legajo }}</p>
+                <p class="fuenteRegular body-1 title ml-16">{{ datos?.legajo }}</p>
               </div>
             </div>
-            <div class="flex items-center">    
+            <div *ngIf="datos?.decreto" class="flex items-center">    
               <div class="mr-10 p-3 bordes">
                 <p class="fuenteRegular body-1">DECRETO: </p>
-                <p class="fuenteRegular body-1 title ml-16">{{ cooperadora?.personeria?.decreto }}</p>
+                <p class="fuenteRegular body-1 title ml-16">{{ datos?.personeria?.decreto }}</p>
               </div>
             </div>
           </div>
@@ -158,7 +158,7 @@
       </tr>
 
       <div class="fuenteRegular py-2 body-1 text-center">
-        Comisión vigente desde {{cooperadora?.comision[0]?.periodoInicio | date : 'dd/MM/yyyy'}} hasta {{cooperadora?.comision[0]?.periodoFin | date : 'dd/MM/yyyy'}}
+        Comisión vigente desde {{datos?.comision[0]?.periodoInicio | date : 'dd/MM/yyyy'}} hasta {{datos?.comision[0]?.periodoFin | date : 'dd/MM/yyyy'}}
       </div>
       <mat-table [dataSource]="tableData" class="container">
         <!-- Columnas de la tabla -->
