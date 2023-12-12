@@ -14,8 +14,8 @@ export class AuthenticationService {
     public user!: User;
     constructor(private http: HttpClient, public router: Router) {
         let dataUserCurrent = localStorage.getItem('currentUser')
-        // this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(dataUserCurrent));
-        // this.currentUser = this.currentUserSubject.asObservable();
+        this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(dataUserCurrent));
+        this.currentUser = this.currentUserSubject.asObservable();
     }
 
     public get currentUserValue(): User | undefined {

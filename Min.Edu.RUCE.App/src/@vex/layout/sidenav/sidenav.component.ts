@@ -29,6 +29,8 @@ export class SidenavComponent implements OnInit {
 
   items = this.navigationService.items;
 
+  usuario? = JSON.parse(localStorage.getItem('currentUser'));
+
   constructor(private navigationService: NavigationService,
               private layoutService: LayoutService,
               private configService: ConfigService,

@@ -83,6 +83,10 @@ class UpdateCooperadoraRequest extends FormRequest
                 'nullable',
                 'string'
             ],
+            'fechaCreacion' => [
+                'nullable',
+                'date'
+            ],
             'estaActivo' => [
                 'required',
                 'boolean'

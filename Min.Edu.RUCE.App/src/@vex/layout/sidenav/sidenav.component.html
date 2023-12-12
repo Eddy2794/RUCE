@@ -55,10 +55,10 @@
          class="vex-sidenav-user flex items-center"
          matRipple
          matRippleColor="var(--sidenav-item-ripple-color)">
-      <img alt="User Avatar" class="vex-sidenav-user__image flex-none" src="assets/img/avatars/1.jpg"/>
+      <img alt="User Avatar" class="vex-sidenav-user__image flex-none" src="assets/img/avatars/2.png"/>
       <div class="vex-sidenav-user__content flex-auto">
-        <div class="vex-sidenav-user__title">Administrador</div>
-        <div class="vex-sidenav-user__subtitle">Adminstrador</div>
+        <div class="vex-sidenav-user__title">{{usuario?.username}}</div>
+        <div class="vex-sidenav-user__subtitle">{{usuario?.rol}}</div>
       </div>
       <mat-icon class="vex-sidenav-user__dropdown-icon flex-none" svgIcon="mat:arrow_drop_down"></mat-icon>
     </div>

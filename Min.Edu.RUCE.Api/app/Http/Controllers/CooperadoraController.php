@@ -46,6 +46,7 @@ class CooperadoraController extends Controller
                 'estadoRentas' => $request->estadoRentas,
                 'inscripcionRenacopes' => $request->inscripcionRenacopes,
                 'modalidad' => $request->modalidad,
+                'fechaCreacion' => $request->fechaCreacion,
                 'idUsuarioAlta'=>Auth::user()->id,
                 'idUsuarioModificacion' => Auth::user()->id
             ]);
@@ -88,6 +89,7 @@ class CooperadoraController extends Controller
             $cooperadora->estadoRentas = $request->estadoRentas !== null ? $request->estadoRentas : $cooperadora->estadoRentas;
             $cooperadora->inscripcionRenacopes = $request->inscripcionRenacopes !== null ? $request->inscripcionRenacopes : $cooperadora->inscripcionRenacopes;
             $cooperadora->modalidad = $request->modalidad ?: $cooperadora->modalidad;
+            $cooperadora->fechaCreacion = $request->fechaCreacion !== null || $request->fechaCreacion == null ? $request->fechaCreacion : $cooperadora->fechaCreacion;
             
             if ($cooperadora->isClean()) {
                 return response()->json([

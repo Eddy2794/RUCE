@@ -29,6 +29,7 @@ class Cooperadora extends Model  implements Auditable
         'estadoRentas',
         'inscripcionRenacopes',
         'modalidad',
+        'fechaCreacion',
         'estaActivo',
         'idUsuarioAlta',
         'idUsuarioModificacion'

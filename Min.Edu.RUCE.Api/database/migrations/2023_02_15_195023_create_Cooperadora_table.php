@@ -36,6 +36,8 @@ return new class extends Migration
 
             $table->string('modalidad')->nullable();
 
+            $table->date('fechaCreacion')->nullable();
+
             $table->boolean('estaActivo')->default(true)->nullable(false);
             $table->integer('idUsuarioAlta')->nullable(true);
             $table->integer('idUsuarioModificacion')->nullable(true);

@@ -78,6 +78,18 @@
               <p class="m-0 caption text-hint">{{cooperadora?.modalidad}}</p>
             </div>
           </div>
+
+          <div class="py-3 flex items-center">
+            <div @scaleIn
+                 class="w-10 h-10 rounded-full bg-primary/10 text-primary ltr:mr-3 rtl:ml-3 flex items-center justify-center">
+              <mat-icon class="icon-sm" svgIcon="mat:event_note"></mat-icon>
+            </div>
+  
+            <div @fadeInRight>
+              <p class="m-0 body-1">FECHA DE CREACIÓN: </p>
+              <p class="m-0 caption text-hint">{{cooperadora?.fechaCreacion}}</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

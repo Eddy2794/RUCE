@@ -22,6 +22,7 @@ export class CooperadoraModel extends BaseModel {
     public estadoRentas?: boolean,
     public inscripcionRenacopes?: boolean,
     public modalidad?: string,
+    public fechaCreacion?: Date,
     public estaActivo?: boolean,
 
     public organizacion_r_u_c_e?: OrganizacionRUCEModel,

@@ -221,6 +221,7 @@ class Informe_gralController extends Controller
     public function store(array $datos): JsonResponse
     {
         try {
+            dd($datos);
             Informe_gral::create([
                 "datos" => $datos,
                 'idUsuarioAlta'=>Auth::user()->id,

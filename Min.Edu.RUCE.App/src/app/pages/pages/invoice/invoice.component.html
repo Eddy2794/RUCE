@@ -132,7 +132,7 @@
             <div class="flex items-center">    
               <div class="ml-10 p-3 bordes">
                 <p class="fuenteRegular body-1">FECHA DE CREACIÓN DE LA ASOCIACIÓN: </p>
-                <p class="fuenteRegular body-1 title ml-16">{{ datos?.organizacion_r_u_c_e?.region }}</p>
+                <p class="fuenteRegular body-1 title ml-16">{{ datos?.fechaCreacion }}</p>
               </div>
             </div>
             <div class="flex items-center">    
@@ -141,16 +141,22 @@
                 <p class="fuenteRegular body-1 title ml-16">{{ datos?.expediente?.nroExpediente }}</p>
               </div>
             </div>
-            <div *ngIf="datos?.legajo" class="flex items-center">    
+            <div class="flex items-center">    
               <div class="ml-10 p-3 bordes">
                 <p class="fuenteRegular body-1">LEGAJO: </p>
                 <p class="fuenteRegular body-1 title ml-16">{{ datos?.legajo }}</p>
               </div>
             </div>
-            <div *ngIf="datos?.decreto" class="flex items-center">    
+            <div *ngIf="datos?.personeria?.decreto" class="flex items-center">    
               <div class="mr-10 p-3 bordes">
                 <p class="fuenteRegular body-1">DECRETO: </p>
                 <p class="fuenteRegular body-1 title ml-16">{{ datos?.personeria?.decreto }}</p>
+              </div>
+            </div>
+            <div *ngIf="datos?.personeria.nroResolucion" class="flex items-center">    
+              <div class="mr-10 p-3 bordes">
+                <p class="fuenteRegular body-1">NRO. RESOLUCIÓN: </p>
+                <p class="fuenteRegular body-1 title ml-16">{{ datos?.personeria?.nroResolucion }}</p>
               </div>
             </div>
           </div>

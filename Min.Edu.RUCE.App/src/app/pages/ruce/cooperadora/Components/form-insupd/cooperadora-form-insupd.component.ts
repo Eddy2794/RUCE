@@ -109,6 +109,7 @@ export class CooperadoraFormInsupdComponent implements OnInit {
       inscripcionRenacopes: false,
       organizacionDesc: "",
       modalidad: [null, { validators: [ Validators.required, ] }],
+      fechaCreacion:[null, { validators: [ Validators.required ] }],
       estaActivo: true,
     },
       {

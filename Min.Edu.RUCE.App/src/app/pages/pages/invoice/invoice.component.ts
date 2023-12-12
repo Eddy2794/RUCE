@@ -103,6 +103,7 @@ export class InvoiceComponent implements OnInit, OnDestroy {
       this.urlConstancia = document.location.origin+this.location.prepareExternalUrl(this.location.path())+'/'+resp.comprobante?.id;
       this.cargarAutoridadesComision(resp.comprobante.datos.comision[0].autoridad_comision);
       this.datos = resp.comprobante.datos;
+      console.log(this.datos)
     });
   }
 
