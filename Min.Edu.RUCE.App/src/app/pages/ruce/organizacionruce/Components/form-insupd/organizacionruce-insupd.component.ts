@@ -104,7 +104,7 @@ export class OrganizacionRUCEInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Institución Creada", false)
         this.router.navigate(['/pages/establecimientos']);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.message, false)
+        this.mostrarDialogMsj("Atención", err.message, false)
       }
       );
     } else {
@@ -112,7 +112,7 @@ export class OrganizacionRUCEInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Institución Modificada", false)
         this.router.navigate(['/pages/establecimientos']);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.message, false)
+        this.mostrarDialogMsj("Atención", err.message, false)
       }
       );
     }
@@ -133,7 +133,7 @@ export class OrganizacionRUCEInsupdComponent implements OnInit {
           this.mostrarDialogMsj("Mensaje", "Institución Eliminado", false)
           this.router.navigate(['/pages/establecimientos']);
         }, err => {
-          this.mostrarDialogMsj("Atención", err.error.message, false)
+          this.mostrarDialogMsj("Atención", err.message, false)
         }
         );
       }

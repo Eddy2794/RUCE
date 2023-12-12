@@ -22,6 +22,9 @@ export class ObserverCooperadoraService {
   private valueIdPersoneria$ = new BehaviorSubject<number>(0);
   castIdPersoneria = this.valueIdPersoneria$.asObservable();
 
+  private valueIdConstancia$ = new BehaviorSubject<number>(0);
+  castIdConstancia = this.valueIdConstancia$.asObservable();
+
 
   enviarIdCooperadora(nuevoValor) {
     this.valueIdCooperadora$.next(nuevoValor);
@@ -41,5 +44,9 @@ export class ObserverCooperadoraService {
 
   enviarIdPersoneria(nuevoValor){
     this.valueIdPersoneria$.next(nuevoValor);
+  }
+
+  enviarIdConstancia(nuevoValor){
+    this.valueIdConstancia$.next(nuevoValor);
   }
 }

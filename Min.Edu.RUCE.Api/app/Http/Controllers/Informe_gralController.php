@@ -154,7 +154,7 @@ class Informe_gralController extends Controller
                 return response()->json([
                     'succeeded' => true,
                     'message' => 'Comprobante creado correctamente',
-                    'datos' => $comprobante->toArray()
+                    'comprobante' => $comprobante->toArray()
                 ]);
             } else {
                 return response()->json([
@@ -190,7 +190,10 @@ class Informe_gralController extends Controller
     {
         try {
             $constancia = Informe_gral::where('id',$idInforme_gral)->get('datos')->toArray();
-            return response()->json(['datos'=>$constancia[0]['datos']]);
+            if (!empty($constancia))
+                return response()->json(['datos'=>$constancia[0]['datos']]);
+            throw new \Exception("No existe la Constancia");
+            
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,
@@ -204,12 +207,10 @@ class Informe_gralController extends Controller
         try {
             // dd($idCooperadora);
             $constancia = Informe_gral::where('fkCooperadora',$idCooperadora)->get(['id','fkCooperadora','datos'])->toArray();
-            if (empty($constancia)) {
-                dd(response()->json(['comprobante'=>$this->storeConstancia($idCooperadora)[0]]));
-                return response()->json(['comprobante'=>$this->storeConstancia($idCooperadora)[0]]);
-            } else {
+            if (!empty($constancia))
                 return response()->json(['comprobante'=>$constancia[0]]);
-            }
+            else
+                return $this->storeConstancia($idCooperadora);
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,

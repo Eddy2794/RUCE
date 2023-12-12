@@ -15,6 +15,7 @@ import { Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { CoopConstanciaService } from './Service/coop-constancia.service';
+import { error } from 'console';
 
 @Component({
   selector: 'vex-invoice',
@@ -103,7 +104,6 @@ export class InvoiceComponent implements OnInit, OnDestroy {
       this.urlConstancia = document.location.origin+this.location.prepareExternalUrl(this.location.path())+'/'+resp.comprobante?.id;
       this.cargarAutoridadesComision(resp.comprobante.datos.comision[0].autoridad_comision);
       this.datos = resp.comprobante.datos;
-      console.log(this.datos)
     });
   }
 

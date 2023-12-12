@@ -108,7 +108,7 @@ export class MatriculaInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Matricula Creada", false)
         this.router.navigate(['/pages/establecimientos/view/'+this.idOrganizacion]);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.message, false)
+        this.mostrarDialogMsj("Atención", err.message, false)
       }
       );
     } else {
@@ -118,7 +118,7 @@ export class MatriculaInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Matricula Modificada", false)
         this.router.navigate(['/pages/establecimientos/view/'+this.idOrganizacion]);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.message, false)
+        this.mostrarDialogMsj("Atención", err.message, false)
       }
       );
     }
@@ -140,7 +140,7 @@ export class MatriculaInsupdComponent implements OnInit {
           this.mostrarDialogMsj("Mensaje", "Matricula Eliminada", false)
           this.router.navigate(['/pages/establecimientos/view/'+this.idOrganizacion]);
         }, err => {
-          this.mostrarDialogMsj("Atención", err.error.message, false)
+          this.mostrarDialogMsj("Atención", err.message, false)
         }
         );
       }

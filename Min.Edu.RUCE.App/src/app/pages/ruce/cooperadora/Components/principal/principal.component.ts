@@ -49,6 +49,7 @@ export class PrincipalComponent implements OnInit {
       this.observerCooperadora.enviarTipoAsociacion(this.cooperadora.fkRefTipoAsociacion);
       this.observerCooperadora.enviarIdExpediente(this.cooperadora?.expediente?.id);
       this.observerCooperadora.enviarIdPersoneria(this.cooperadora?.personeria?.id);
+      this.observerCooperadora.enviarIdConstancia(this.cooperadora?.informe_gral?.id);
       this.observerCooperadora.enviarTipoAsociacionDesc(this.cooperadora?.ref_tipo_asociacion[0]?.tipoAsociacionDesc);
       this.nombreCooperadora = this.cooperadora.denominacion;
       if(this.cooperadora?.expediente?.id!==null)this.idExpediente = this.cooperadora?.expediente?.id;
@@ -57,7 +58,7 @@ export class PrincipalComponent implements OnInit {
 
   cargarInformacion(event: MatTabChangeEvent) {
     const pestaña = event.index;
-    console.log(pestaña);
+    // console.log(pestaña);
     switch(pestaña){
       case 0:
         this.cargarInfo0 = true;

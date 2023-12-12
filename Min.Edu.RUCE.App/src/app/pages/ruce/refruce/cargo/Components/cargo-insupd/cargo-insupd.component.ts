@@ -96,7 +96,7 @@ export class CargoInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Cargo Creado", false)
         this.router.navigate(['/pages/cargos/listar/']);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.message, false)
+        this.mostrarDialogMsj("Atención", err.message, false)
       }
       );
     } else {
@@ -106,7 +106,7 @@ export class CargoInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Cargo Modificado", false)
         this.router.navigate(['/pages/cargos/listar/']);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.message, false)
+        this.mostrarDialogMsj("Atención", err.message, false)
       }
       );
     }
@@ -127,7 +127,7 @@ export class CargoInsupdComponent implements OnInit {
           this.mostrarDialogMsj("Mensaje", "Fondo Eliminado", false)
           this.router.navigate(['/pages/cargos/listar/']);
         }, err => {
-          this.mostrarDialogMsj("Atención", err.error.message, false)
+          this.mostrarDialogMsj("Atención", err.message, false)
         }
         );
       }

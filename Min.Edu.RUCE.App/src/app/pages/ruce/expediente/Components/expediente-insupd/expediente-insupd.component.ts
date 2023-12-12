@@ -127,7 +127,7 @@ export class ExpedienteInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Expediente Creado", false)
         this.router.navigate(['/pages/cooperadoras/view/'+this.idCooperadora]);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.message, false)
+        this.mostrarDialogMsj("Atención", err.message, false)
       }
       );
     } else {
@@ -140,7 +140,7 @@ export class ExpedienteInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Expediente Modificado", false)
         this.router.navigate(['/pages/cooperadoras/view/'+this.idCooperadora]);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.message, false)
+        this.mostrarDialogMsj("Atención", err.message, false)
       }
       );
     }
@@ -161,7 +161,7 @@ export class ExpedienteInsupdComponent implements OnInit {
           this.mostrarDialogMsj("Mensaje", "Expediente Eliminado", false)
           this.router.navigate(['/pages/cooperadoras/view/'+this.idCooperadora]);
         }, err => {
-          this.mostrarDialogMsj("Atención", err.error.message, false)
+          this.mostrarDialogMsj("Atención", err.message, false)
         }
         );
       }

@@ -7,6 +7,7 @@ import { AtencionSeguimientoModel } from '../../atencionseguimiento/Model/atenci
 import { BalanceModel } from '../../balances/Model/balance-model';
 import { OrganizacionRUCEModel } from '../../organizacionruce/Models/organizacionruce-model';
 import { PersoneriaModel } from '../../personeria/Models/personeria-model';
+import { InformeGralModel } from '../../reportes/Models/InformeGral-model';
 
 export class CooperadoraModel extends BaseModel {
   static className: string = "cooperadora";
@@ -33,6 +34,7 @@ export class CooperadoraModel extends BaseModel {
     public expediente?: ExpedienteModel,
     public fondo?: FondoModel,
     public personeria?: PersoneriaModel,
+    public informe_gral?: InformeGralModel,
 
     public idUsuarioAlta?: number,
     public idUsuarioModificacion?: number

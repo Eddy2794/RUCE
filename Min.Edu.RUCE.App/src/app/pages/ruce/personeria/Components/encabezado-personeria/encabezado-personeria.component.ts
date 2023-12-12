@@ -30,6 +30,7 @@ export class EncabezadoPersoneriaComponent implements OnInit, OnDestroy {
   tipoAsociacionDesc?: string;
   descPersoneria?: string;
   suscriptionIdPersoneria?: Subscription;
+  suscriptionIdConstancia?: Subscription;
   suscriptionTipoAsociacionDesc?: Subscription;
 
   filtro: FilterOptions = { estaActivo: true, filtros: "" };
@@ -38,6 +39,8 @@ export class EncabezadoPersoneriaComponent implements OnInit, OnDestroy {
 
   datosShow: boolean = false;
   datosPersoneria: boolean = false;
+
+  idConstancia!: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -48,6 +51,11 @@ export class EncabezadoPersoneriaComponent implements OnInit, OnDestroy {
     this.suscriptionIdPersoneria =
       this.observerCooperadora.castIdPersoneria.subscribe((value) => {
         if (value) this.idPersoneria = value;
+      });
+    
+    this.suscriptionIdConstancia =
+      this.observerCooperadora.castIdConstancia.subscribe((value) => {
+        if (value) this.idConstancia = value;
       });
     
     this.suscriptionTipoAsociacionDesc = 
