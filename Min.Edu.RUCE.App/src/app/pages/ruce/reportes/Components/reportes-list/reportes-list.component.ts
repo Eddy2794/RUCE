@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FilterOptions } from '@app/shared/utils/filter-options';
 import { SearchOptionsGeneric, TypeControl, TypeData } from '@app/shared/utils/search-options-generic';
 import { TableColumn } from 'src/@vex/interfaces/table-column.interface';
-import { InformeGral } from '../../Models/InformeGral';
+import { InformeGralModel } from '../../Models/InformeGral-model';
 import { InformeGralService } from '../../Services/reporte.service';
 import { RefTipoAsociacionService } from '@app/pages/ruce/refruce/Services/reftipoasociacion.service';
 import { ReftipocomisionService } from '@app/pages/ruce/refruce/Services/reftipocomision.service';
@@ -34,7 +34,7 @@ export class ReportesListComponent implements OnInit {
   searchOptions!: SearchOptionsGeneric[];
   // filtros!: {};
   filtro: FilterOptions = { estaActivo: true};
-  columnasVex: TableColumn<InformeGral>[];
+  columnasVex: TableColumn<InformeGralModel>[];
   tipos = {
     "asociaciones": [],
     "comisiones": [],

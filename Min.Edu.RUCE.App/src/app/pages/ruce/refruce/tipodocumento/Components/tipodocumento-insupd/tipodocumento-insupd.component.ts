@@ -96,7 +96,7 @@ export class TipodocumentoInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Tipo de Documento Creado", false)
         this.router.navigate(['/pages/tipo-documento/listar/']);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.message, false)
+        this.mostrarDialogMsj("Atención", err.message, false)
       }
       );
     } else {
@@ -106,7 +106,7 @@ export class TipodocumentoInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Tipo Documento Modificado", false)
         this.router.navigate(['/pages/tipo-documento/listar/']);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.message, false)
+        this.mostrarDialogMsj("Atención", err.message, false)
       }
       );
     }
@@ -127,7 +127,7 @@ export class TipodocumentoInsupdComponent implements OnInit {
           this.mostrarDialogMsj("Mensaje", "Tipo de Documento Eliminado", false)
           this.router.navigate(['/pages/tipo-documento/listar/']);
         }, err => {
-          this.mostrarDialogMsj("Atención", err.error.message, false)
+          this.mostrarDialogMsj("Atención", err.message, false)
         }
         );
       }

@@ -152,7 +152,7 @@ export class UsuarioInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Usuario Creado", false)
         this.router.navigate(['/pages/usuarios/listar/']);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.message, false)
+        this.mostrarDialogMsj("Atención", err.message, false)
       }
       );
     } else {
@@ -161,7 +161,7 @@ export class UsuarioInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Usuario Modificado", false)
         this.router.navigate(['/pages/usuarios/listar/']);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.message, false)
+        this.mostrarDialogMsj("Atención", err.message, false)
       }
       );
     }
@@ -182,7 +182,7 @@ export class UsuarioInsupdComponent implements OnInit {
           this.mostrarDialogMsj("Mensaje", "Usuario Eliminado", false)
           this.router.navigate(['/pages/usuarios/listar/']);
         }, err => {
-          this.mostrarDialogMsj("Atención", err.error.message, false)
+          this.mostrarDialogMsj("Atención", err.message, false)
         }
         );
       }

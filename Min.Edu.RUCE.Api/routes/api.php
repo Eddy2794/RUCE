@@ -22,6 +22,7 @@ use App\Http\Controllers\RefTipoAsociacionController;
 use App\Http\Controllers\RefTipoComisionController;
 use App\Http\Controllers\RefTipoDocumentoRUCEController;
 use App\Http\Controllers\RefTipoFondoController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UsuarioRUCEController;
 use App\Http\Controllers\AuditController;
 use App\Http\Controllers\AuthController;
@@ -281,5 +282,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::group(['prefix' => '/exports'], function () {
         Route::middleware('role:super_admin|admin')->get('/Filter', [ExportController::class, 'index'])->name('obtener_exportaciones');
         Route::middleware('role:super_admin|admin')->get('/{id}', [ExportController::class, 'show'])->name('obtener_excel');
+    });
+});
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::group(['prefix' => '/role'], function () {
+        Route::middleware('role:super_admin')->get('/Filter', [RoleController::class, 'index'])->name('roles');
     });
 });

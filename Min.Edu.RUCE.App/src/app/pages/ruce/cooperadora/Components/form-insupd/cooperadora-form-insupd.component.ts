@@ -131,7 +131,7 @@ export class CooperadoraFormInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Cooperadora Creada", false)
         this.router.navigate(['/pages/cooperadoras']);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.message, false)
+        this.mostrarDialogMsj("Atención", err.message, false)
       }
       );
     } else {
@@ -139,7 +139,7 @@ export class CooperadoraFormInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Cooperadora Modificada", false)
         this.router.navigate(['/pages/cooperadoras']);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.message, false)
+        this.mostrarDialogMsj("Atención", err.message, false)
       }
       );
     }
@@ -160,7 +160,7 @@ export class CooperadoraFormInsupdComponent implements OnInit {
           this.mostrarDialogMsj("Mensaje", "Cooperadora Eliminado", false)
           this.router.navigate(['/pages/cooperadoras']);
         }, err => {
-          this.mostrarDialogMsj("Atención", err.error.message, false)
+          this.mostrarDialogMsj("Atención", err.message, false)
         }
         );
       }

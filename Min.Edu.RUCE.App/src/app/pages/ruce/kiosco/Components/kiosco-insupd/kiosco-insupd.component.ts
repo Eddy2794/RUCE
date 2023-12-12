@@ -138,7 +138,7 @@ export class KioscoInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Kiosco Creado", false)
         this.router.navigate(['/pages/cooperadoras/view/'+this.idCooperadora]);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.message, false)
+        this.mostrarDialogMsj("Atención", err.message, false)
       }
       );
     } else {
@@ -148,7 +148,7 @@ export class KioscoInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Kiosco Modificado", false)
         this.router.navigate(['/pages/cooperadoras/view/'+this.idCooperadora]);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.message, false)
+        this.mostrarDialogMsj("Atención", err.message, false)
       }
       );
     }
@@ -169,7 +169,7 @@ export class KioscoInsupdComponent implements OnInit {
           this.mostrarDialogMsj("Mensaje", "Fondo Eliminado", false)
           this.router.navigate(['/pages/cooperadoras/view/'+this.idCooperadora]);
         }, err => {
-          this.mostrarDialogMsj("Atención", err.error.message, false)
+          this.mostrarDialogMsj("Atención", err.message, false)
         }
         );
       }

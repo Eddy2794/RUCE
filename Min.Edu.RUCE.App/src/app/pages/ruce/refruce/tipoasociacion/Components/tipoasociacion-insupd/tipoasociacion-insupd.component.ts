@@ -95,7 +95,7 @@ export class TipoasociacionInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Tipo de Asocacion Creado", false)
         this.router.navigate(['/pages/tipo-asociacion/']);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.message, false)
+        this.mostrarDialogMsj("Atención", err.message, false)
       }
       );
     } else {
@@ -105,7 +105,7 @@ export class TipoasociacionInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Tipo de Asociacion Modificado", false)
         this.router.navigate(['/pages/tipo-asociacion/listar/']);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.message, false)
+        this.mostrarDialogMsj("Atención", err.message, false)
       }
       );
     }
@@ -126,7 +126,7 @@ export class TipoasociacionInsupdComponent implements OnInit {
           this.mostrarDialogMsj("Mensaje", "Tipo de Asociacion Eliminado", false)
           this.router.navigate(['/pages/tipo-asociacion/listar/']);
         }, err => {
-          this.mostrarDialogMsj("Atención", err.error.message, false)
+          this.mostrarDialogMsj("Atención", err.message, false)
         }
         );
       }
