@@ -17,6 +17,7 @@ import { fadeInRight400ms } from 'src/@vex/animations/fade-in-right.animation';
 import { fadeInUp400ms } from 'src/@vex/animations/fade-in-up.animation';
 import { scaleIn400ms } from 'src/@vex/animations/scale-in.animation';
 import { stagger40ms } from 'src/@vex/animations/stagger.animation';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'vex-reportes-list',
@@ -46,7 +47,7 @@ export class ReportesListComponent implements OnInit {
       {id:"IV", region:"IV"},
       {id:"V", region:"V"},
       {id:"VI", region:"VI"},
-      {id:"VIi", region:"VIi"},
+      {id:"VII", region:"VII"},
     ],
     "niveles": [
       {id: "INICIAL", nivel:"INICIAL"}, 
@@ -221,6 +222,21 @@ export class ReportesListComponent implements OnInit {
     }, (error) => {
       console.error('Error al obtener datos:', error);
     });
+  }
+
+  exportToExcel(): void {
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.columnasVex.map(col => {
+      return {
+        label: col.label,
+        property: col.property,
+        type: col.type,
+        visible: col.visible
+      };
+    }));
+
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Reportes');
+    XLSX.writeFile(wb, 'reportes.xlsx');
   }
 
 }
