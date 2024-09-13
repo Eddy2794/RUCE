@@ -24,7 +24,7 @@ services:
         depends_on:
             - sqlsrv
     sqlsrv:
-        image: 'mcr.microsoft.com/mssql/server:2019-CU3-ubuntu-18.04'
+        image: 'mcr.microsoft.com/mssql/server:2019-latest'
         ports:
             - '${DB_PORT:-1433}:1433'
         environment:
