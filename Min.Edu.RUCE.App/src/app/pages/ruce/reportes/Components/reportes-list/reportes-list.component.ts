@@ -53,7 +53,7 @@ export class ReportesListComponent implements OnInit {
       {id: "INICIAL", nivel:"INICIAL"}, 
       {id: "PRIMARIO", nivel:"PRIMARIO"}, 
       {id: "SECUNDARIO", nivel:"SECUNDARIO"},
-      {id: "SUPEROPR", nivel:"SUPEROPR"},
+      {id: "SUPERIOR", nivel:"SUPERIOR"},
       {id: "EDUCACION ESPECIAL", nivel:"EDUCACION ESPECIAL"}, 
       {id: "TECNICO PROFESIONAL", nivel:"TECNICO PROFESIONAL"}
     ],
