@@ -14,6 +14,8 @@ import { RefTipoDocumentoService } from '@app/pages/ruce/refruce/Services/reftip
 import { RefcargoService } from '@app/pages/ruce/refruce/Services/refcargo-service';
 import { ObserverComisionService } from '@app/pages/ruce/comision/Services/observer-comision.service';
 import { ObserverCooperadoraService } from '@app/pages/ruce/cooperadora/Services/observer-cooperadora.service';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'vex-autoridad-insupd',
@@ -46,7 +48,8 @@ export class AutoridadComisionInsupdComponent implements OnInit, OnDestroy {
     private router: Router,
     private matDialog: MatDialog,
     private observerIdComision: ObserverComisionService,
-    private observerIdCooperadora: ObserverCooperadoraService
+    private observerIdCooperadora: ObserverCooperadoraService,
+    private http: HttpClient
 
   ) {
     this.activatedRoute.url.subscribe((parameter: any) => {
@@ -192,6 +195,51 @@ export class AutoridadComisionInsupdComponent implements OnInit, OnDestroy {
       }
     })
   }
+
+  async getUser(dni: number){
+    try{
+      const data: any = await this.http.get(`${environment.apiRuceUrl}/persona_ruce/persona/${dni}`).toPromise();
+      if(data.entities.length !== 0){
+          const titulo="Persona Existente", msj="Desea cargar los datos de la persona existente?" , cancelVisible=true;
+          const datos: DialogData = {titulo,msj,cancelVisible};
+          const dialog = this.matDialog.open(DialogComponent, {
+            width: '400px',
+            data: datos
+          });
+          const result = await dialog.afterClosed().toPromise();
+          if(result == "Aceptar"){
+            this.formularioAutoridad.patchValue({
+              fkPersonaRUCE: data.entities.id,
+              documento: data.entities.documento,
+              email: data.entities.email,
+              cuil: data.entities.cuil,
+              nombre: data.entities.nombre,
+              apellido: data.entities.apellido,
+              telefono: data.entities.telefono,
+              fkRefTipoDocumentoRUCE:data.entities.ref_tipo_documento_r_u_c_e[0].id
+            });
+            // this.formularioAutoridad.controls.fkPersonaRUCE.patchValue(data.entities.id);
+            // this.formularioAutoridad.controls.email.patchValue(data.entities.email);
+            // this.formularioAutoridad.controls.documento.patchValue(data.entities.documento);
+            // this.formularioAutoridad.controls.cuil.patchValue(data.entities.cuil);
+            // this.formularioAutoridad.controls.nombre.patchValue(data.entities.nombre);
+            // this.formularioAutoridad.controls.apellido.patchValue(data.entities.apellido);
+            // this.formularioAutoridad.controls.telefono.patchValue(data.entities.telefono);
+            // this.formularioAutoridad.controls.fkRefTipoDocumentoRUCE.patchValue(data.entities.ref_tipo_documento_r_u_c_e[0].id);
+            this.formularioAutoridad.controls.fkRefTipoDocumentoRUCE.disable();
+            this.formularioAutoridad.controls.documento.disable();
+            this.formularioAutoridad.controls.cuil.disable();
+            this.formularioAutoridad.controls.nombre.disable();
+            this.formularioAutoridad.controls.apellido.disable();
+            this.formularioAutoridad.controls.telefono.disable();
+            this.formularioAutoridad.controls.email.disable();
+          }
+        }
+
+    } catch{}{
+      //console.log('Error al buscar el usuario');
+    }
+    }
 
   mostrarDialogMsj(titulo: string, msj: string, cancelVisible: boolean) {
     let datos: DialogData = { titulo, msj, cancelVisible }

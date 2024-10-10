@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent, DialogData } from '@app/components/dialog/dialog.component';
 import { Subscription } from 'rxjs';
 import { ObserverCooperadoraService } from '@app/pages/ruce/cooperadora/Services/observer-cooperadora.service';
+import moment from 'moment';
 
 @Component({
   selector: 'vex-atencion-seguimiento-insupd',
@@ -24,6 +25,8 @@ export class AtencionSeguimientoInsupdComponent implements OnInit, OnDestroy {
   public accion: string = '';
 
   suscriptionIdCooperadora: Subscription;
+  maxDate = moment().format('YYYY-MM-DD');
+  minDate = moment(new Date("1900-01-01")).format('YYYY-MM-DD');
 
   constructor(
     private fb: FormBuilder,
@@ -63,6 +66,7 @@ export class AtencionSeguimientoInsupdComponent implements OnInit, OnDestroy {
           this.accion = 'edit'
         }
         this.atencionSeguimientoService.findOne(this.id).subscribe((resp: any) => {
+          console.log(resp.entities);
           this.formularioAtencionSeguimiento.patchValue(resp.entities);
         });
       }
@@ -85,11 +89,12 @@ export class AtencionSeguimientoInsupdComponent implements OnInit, OnDestroy {
       atencionOficina: null,
       atencionTerritorial: null,
       observacion: null,
-      fecha: [null, {validators: [ Validators.required,]}],
+      fecha: [null, {validators: [ Validators.required, this.validadorServicio.validarFechaMenorAFechaActual() ]}],
       estaActivo: true,
     },
     {
-      //validators: [ this.validadorServicio.validarFechasInicioFin('inicioCargo','finCargo')]
+      validators: this.validadorServicio.validarDosCamposCompletos()
+      //validators: [ this.validadorServicio.validarFechasInicioFin('minDate','maxDate')]
     })
     if (this.accion === 'delete'|| this.accion === 'view') {
       this.formularioAtencionSeguimiento.disable();
@@ -97,6 +102,7 @@ export class AtencionSeguimientoInsupdComponent implements OnInit, OnDestroy {
   }
 
   save() {
+    console.log(this.formularioAtencionSeguimiento);
     if (this.formularioAtencionSeguimiento.invalid) {
       this.formularioAtencionSeguimiento.markAllAsTouched();
       return;
@@ -138,7 +144,7 @@ export class AtencionSeguimientoInsupdComponent implements OnInit, OnDestroy {
 
     dialog.afterClosed().subscribe(result => {
       if (result === "Aceptar") {
-        this.atencionSeguimientoService.delete(this.formularioAtencionSeguimiento.value.id).subscribe((resp: any) => {
+        this.atencionSeguimientoService.delete(this.id).subscribe((resp: any) => {
           this.mostrarDialogMsj("Mensaje", "Atención Eliminado", false)
           this.router.navigate(['/pages/cooperadoras/view/'+this.idCooperadora]);
         }, err => {

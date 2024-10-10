@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { AbstractControl, ValidationErrors } from "@angular/forms";
+import { AbstractControl, FormGroup, ValidationErrors, ValidatorFn } from "@angular/forms";
 import { getDate } from "date-fns";
 
 @Injectable({
@@ -22,17 +22,15 @@ export class ValidatorService {
     };
   }
 
-  validarFechaMenorAFechaActual() {
-    return (control: AbstractControl) => {
-      const f = <Date>control.value;
+  validarFechaMenorAFechaActual(): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} | null => {
+      const f = new Date(control.value);
       const CurrentDate = new Date();
       if (f > CurrentDate) {
         return {
-          errorFechaMenorAFechaActual:
-            "No puede ser mayor que la fecha actual.",
+          'errorFechaMenorAFechaActual': {value: control.value}
         };
       }
-
       return null;
     };
   }
@@ -116,6 +114,19 @@ export class ValidatorService {
         };
       }
       return null;
+    };
+  }
+
+  validarDosCamposCompletos(): ValidatorFn {
+    return (group: FormGroup): ValidationErrors | null => {
+      let contador = 0;
+      Object.keys(group.controls).forEach(key => {
+        const control = group.get(key);
+        if (control.value !== null && control.value !== '') {
+          contador++;
+        }
+      });
+      return contador >= 4 ? null : { 'menosDeDos': true };
     };
   }
 }

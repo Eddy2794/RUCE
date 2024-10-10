@@ -207,8 +207,7 @@ export class AutoridadOrganizacionInsupdComponent implements OnInit, OnDestroy {
   async getUser(dni: number){
     try{
       const data: any = await this.http.get(`${environment.apiRuceUrl}/persona_ruce/persona/${dni}`).toPromise();
-      console.log(data);
-      if(data.entities){
+      if(data.entities.length !== 0){
           const titulo="Persona Existente", msj="Desea cargar los datos de la persona existente?" , cancelVisible=true;
           const datos: DialogData = {titulo,msj,cancelVisible};
           const dialog = this.matDialog.open(DialogComponent, {
