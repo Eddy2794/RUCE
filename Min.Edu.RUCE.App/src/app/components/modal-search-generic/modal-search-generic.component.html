@@ -6,7 +6,7 @@
                 <div *ngSwitchCase="'input'">
                     <mat-form-field class="contenedorCampos" appearance="fill">
                         <mat-label>{{ searchOptions[i].label }}</mat-label>
-                        <input matInput type="searchOptions[i].typeData" [id]="searchOptions[i].name" (keyup)="deshabilitar()"
+                        <input matInput mayus type="searchOptions[i].typeData" [id]="searchOptions[i].name" (keyup)="deshabilitar()"
                             [formControlName]="searchOptions[i].name" >
                     </mat-form-field>
                 </div>

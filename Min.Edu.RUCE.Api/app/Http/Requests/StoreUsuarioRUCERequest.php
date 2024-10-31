@@ -41,7 +41,7 @@ class StoreUsuarioRUCERequest extends FormRequest
             //     'boolean'
             // ],
             'estaActivo' => [
-                'required',
+                // 'required',
                 'boolean'
             ],/*
             'idUsuarioAlta' => [

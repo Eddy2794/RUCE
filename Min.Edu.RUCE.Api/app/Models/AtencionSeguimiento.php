@@ -20,7 +20,7 @@ class AtencionSeguimiento extends Model implements Auditable
     protected $dates = ['deleted_at'];
     protected $fillable = [
         'fkCooperadora',
-        'fkPersonaRUCE',
+        // 'fkPersonaRUCE',
         'llamadas',
         'mensajes',
         'emailEnviados',

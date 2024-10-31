@@ -34,12 +34,12 @@ class UpdatePersoneriaRequest extends FormRequest
                 'exists:Cooperadora,id'
             ],
             'decreto' => [
-                'required',
-                'string',
+                //'required',
+                //'string',
             ],
             'nroResolucion' => [
-                'required',
-                'string',
+                //'required',
+                //'string',
             ],
             'fecha' => [
                 'required',

@@ -15,17 +15,19 @@ return new class extends Migration
     {
         Schema::create('OrganizacionRUCE', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('organizacionDesc')->default('');
-            $table->string('cue');
-            $table->unique('cue');
-            $table->integer('anexo')->nullable();
+            $table->string('organizacionDesc');
+            $table->string('cueAnexo',9)->unique();
             $table->string('region',3);
-            $table->string('nivel',20);
+            $table->string('nivel',30);
             $table->string('localidad',100);
             $table->string('departamento',100);
-            $table->string('domicilio',100);
-            $table->string('telefono');
-            $table->string('email',100);
+            // $table->string('domicilio',100)->nullable();
+            $table->string('calle',100);
+            $table->string('numero',10)->nullable(true);
+            $table->string('barrio',100);
+            $table->string('cp',100)->nullable(true);
+            $table->string('telefono')->nullable(true);
+            $table->string('email')->nullable(true);
             $table->boolean('estaActivo')->default(true)->nullable(false);
             $table->integer('idUsuarioAlta')->default(null)->nullable(true);
             $table->integer('idUsuarioModificacion')->default(null)->nullable(true);

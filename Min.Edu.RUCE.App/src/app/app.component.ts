@@ -78,7 +78,7 @@ export class AppComponent {
     this.configService.updateConfig({
       sidenav: {
         title: 'RUCE',
-        imageUrl: 'assets/img/logo-ruce/logo_energia_viva.png',
+        imageUrl: 'assets/img/logo-ruce/logo_energia_viva1.png',
         showCollapsePin: true,
         search: {
           visible: false
@@ -198,6 +198,21 @@ export class AppComponent {
         ]
       }, */
       {
+        type: 'subheading',
+        label: 'Panel',
+        children: [
+          {
+            type: 'link',
+            label: 'Panel de Inicio',
+            route: '/pages/inicio',
+            icon: 'mat:insights',
+            routerLinkActiveOptions: { exact: true }
+          },
+        ]
+      },
+
+
+      {
         type: "subheading",
         label: 'Principal',
         children: [
@@ -206,14 +221,14 @@ export class AppComponent {
             label: 'Instituciones',
             route: '/pages/establecimientos',
             icon: 'mat:school',
-            routerLinkActiveOptions: { exact: true }
+            //routerLinkActiveOptions: { exact: true }
           },
           {
             type: 'link',
             label: 'Cooperadoras',
             route: '/pages/cooperadoras',
             icon: 'mat:diversity_2',
-            routerLinkActiveOptions: { exact: true }
+            //routerLinkActiveOptions: { exact: true }
           }
           // {
           //   type: 'link',
@@ -243,6 +258,12 @@ export class AppComponent {
         type: 'subheading',
         label: 'Gestión de Cooperadora',
         children: [
+          {
+            type: 'link',
+            label: 'Reportes',
+            route: '/pages/reportes',
+            icon: 'mat:find_in_page',
+          },
           {
             type: 'link',
             label: 'Cargos',

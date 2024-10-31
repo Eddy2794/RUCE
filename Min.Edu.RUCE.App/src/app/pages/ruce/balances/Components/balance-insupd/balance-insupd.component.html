@@ -21,18 +21,38 @@
     <form autocomplete="off" [formGroup]="formularioBalance">
         <div class="formuario">
             <div class="flex flex-col md:flex-row gap-3">                
-                <mat-form-field style="width: 50%">
+                <mat-form-field style="width: 100%">
                     <mat-label>Año de Rendición</mat-label>
-                    <input matInput formControlName="anio" type="text" solonum espacios>
+                    <input matInput formControlName="anio" type="text" solonum espacios maxlength="4">
                     <mat-error>
                         <app-ver-error [control]="this.formularioBalance.controls['anio']">
                         </app-ver-error>
                     </mat-error>
                 </mat-form-field>
-                <div class="slide-group">
+                <div class="slide-group" style="width: 100%">
                     <mat-slide-toggle color="accent" formControlName="estadoBalance" [checked]="false" class="p-4"></mat-slide-toggle>
                     <mat-label>Balance Rendido</mat-label>
                 </div>
+                <mat-form-field style="width: 100%">
+                    <mat-label>Fecha de rendición</mat-label>
+                    <input matInput formControlName="fecha" type="date">
+                    <mat-error>
+                        <app-ver-error [control]="this.formularioBalance.controls['fecha']"></app-ver-error>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="flex flex-col md:flex-row gap-3">
+                <div (click)="textarea.focus()" style="width: 75%" class="border-2 bg-foreground rounded-t flex">
+                    <textarea #textarea
+                              cdkTextareaAutosize
+                              formControlName="observaciones"
+                              class="outline-none bg-foreground p-6 rounded-t flex-auto"
+                              placeholder="Descripción de observaciones..." mayus espacios></textarea>
+                    
+                </div>
+                <mat-error>
+                    <app-ver-error [control]="this.formularioBalance.controls['observaciones']"></app-ver-error>
+                </mat-error>
             </div>
         </div>
         <br>       

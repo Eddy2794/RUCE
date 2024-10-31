@@ -97,7 +97,7 @@ export class TipofondoInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Tipo de Fondo Creado", false)
         this.router.navigate(['/pages/tipo-fondo/listar/']);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.message, false)
+        this.mostrarDialogMsj("Atención", err.message, false)
       }
       );
     } else {
@@ -107,7 +107,7 @@ export class TipofondoInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Tipo Fondo Modificado", false)
         this.router.navigate(['/pages/tipo-fondo/listar/']);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.message, false)
+        this.mostrarDialogMsj("Atención", err.message, false)
       }
       );
     }
@@ -128,7 +128,7 @@ export class TipofondoInsupdComponent implements OnInit {
           this.mostrarDialogMsj("Mensaje", "Tipo de Fondo Eliminado", false)
           this.router.navigate(['/pages/tipo-fondo/listar/']);
         }, err => {
-          this.mostrarDialogMsj("Atención", err.error.message, false)
+          this.mostrarDialogMsj("Atención", err.message, false)
         }
         );
       }

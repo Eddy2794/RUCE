@@ -2,7 +2,7 @@
 export class FilterOptions {
     modelo?: string;
     event?: string;
-    desc?: string;
+    sinCoop?: boolean;
     descContains?: string;
     includeIds?: number[];
     excludeIds?: number[];
@@ -35,7 +35,7 @@ export class FilterOptions {
     idRefEjercicio?: number;
 
     constructor() {
-        this.desc = '';
+        this.sinCoop = false;
         this.modelo = '';
         this.event = '';
         this.descContains = '';
@@ -55,7 +55,7 @@ export interface IFilterOptions {
     fkComision?: number;
     filtros?: JSON;
     descContains?: string;
-    desc?: string;
+    sinCoop?: boolean;
     modelo?: string;
     event?: string;
     includeIds?: number[];

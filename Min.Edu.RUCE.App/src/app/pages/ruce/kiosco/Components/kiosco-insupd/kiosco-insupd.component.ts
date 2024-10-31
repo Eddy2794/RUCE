@@ -69,7 +69,6 @@ export class KioscoInsupdComponent implements OnInit {
           this.accion = 'edit'
         }
         this.kioscoService.findOne(this.id).subscribe((resp: any) => {
-          console.log(resp.entities);
           this.formularioKiosco.patchValue(resp.entities);
           this.formularioKiosco.controls.documento.patchValue(resp.entities.persona_r_u_c_e.documento);
           this.formularioKiosco.controls.cuil.patchValue(resp.entities.persona_r_u_c_e.cuil);
@@ -92,7 +91,6 @@ export class KioscoInsupdComponent implements OnInit {
 
   loadRefs() {
     this.refTipoDocumentoService.filter(this.filtro).subscribe((data: DataPage<RefTipoDocumentoModel>) => {
-      console.log(data.entities);
       this.tiposDocumentos = Object.assign([],data.entities,this.tiposDocumentos);
     });
   }
@@ -102,13 +100,13 @@ export class KioscoInsupdComponent implements OnInit {
       id: null,
       fkCooperadora: this.idCooperadora,
       fkPersonaRUCE: null,
-      fkRefTipoDocumentoRUCE: [null, {validators: [ Validators.required, ]}],
-      documento: [null, {validators: [ Validators.required, Validators.minLength(7), Validators.maxLength(8), this.validadorServicio.validarEspaciosInicioFin() ]}],
-      cuil: [null, {validators: [ Validators.required, Validators.minLength(11), Validators.maxLength(12), this.validadorServicio.validarEspaciosInicioFin() ]}],
-      nombre: [null, {validators: [ Validators.required, this.validadorServicio.validarSoloLetras(), this.validadorServicio.validarEspaciosInicioFin() ]}],
-      apellido: [null, {validators: [ Validators.required,  this.validadorServicio.validarSoloLetras(), this.validadorServicio.validarEspaciosInicioFin() ]}],
-      telefono: [null, {validators: [ Validators.required, this.validadorServicio.validarEspaciosInicioFin() ]}],
-      email: [null, {validators: [ Validators.required, Validators.email, this.validadorServicio.validarEspaciosInicioFin() ]}],
+      fkRefTipoDocumentoRUCE: [1, {validators: [ Validators.required, ]}],
+      documento: [null, {validators: [ Validators.required, Validators.minLength(7), Validators.maxLength(8) ]}],
+      cuil: [null, {validators: [ Validators.required, Validators.minLength(11), Validators.maxLength(12) ]}],
+      nombre: [null, {validators: [ Validators.required, this.validadorServicio.validarSoloLetras() ]}],
+      apellido: [null, {validators: [ Validators.required,  this.validadorServicio.validarSoloLetras() ]}],
+      telefono: [null, {validators: [ Validators.required ]}],
+      email: [null, {validators: [ Validators.email ]}],
       accesoLicitacion: [false, {validators: [ Validators.required, ]}],
       documentacionPresentada: [false, {validators: [ Validators.required,  ]}],
       periodoInicio: [null, {validators: [ Validators.required, ]}],
@@ -121,7 +119,6 @@ export class KioscoInsupdComponent implements OnInit {
     if (this.accion === 'delete'|| this.accion === 'view') {
       this.formularioKiosco.disable();
     }
-    console.log(this.formularioKiosco);
   }
 
   save() {
@@ -141,7 +138,7 @@ export class KioscoInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Kiosco Creado", false)
         this.router.navigate(['/pages/cooperadoras/view/'+this.idCooperadora]);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.message, false)
+        this.mostrarDialogMsj("Atención", err.message, false)
       }
       );
     } else {
@@ -151,7 +148,7 @@ export class KioscoInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Kiosco Modificado", false)
         this.router.navigate(['/pages/cooperadoras/view/'+this.idCooperadora]);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.message, false)
+        this.mostrarDialogMsj("Atención", err.message, false)
       }
       );
     }
@@ -172,7 +169,7 @@ export class KioscoInsupdComponent implements OnInit {
           this.mostrarDialogMsj("Mensaje", "Fondo Eliminado", false)
           this.router.navigate(['/pages/cooperadoras/view/'+this.idCooperadora]);
         }, err => {
-          this.mostrarDialogMsj("Atención", err.error.message, false)
+          this.mostrarDialogMsj("Atención", err.message, false)
         }
         );
       }

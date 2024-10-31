@@ -20,9 +20,10 @@ return new class extends Migration
             $table->foreign('fkCooperadora')->references('id')->on('Cooperadora')->onDelete('cascade');
 
             $table->boolean('estadoBalance')->default(false);
-            $table->integer('anio')->default(null);
+            $table->integer('anio');
+            $table->date('fecha')->nullable();
+            $table->text('observaciones')->default('Sin Observaciones');
             $table->boolean('estaActivo')->default(true);
-            $table->dateTime('fechaEliminacion')->nullable(true);
             $table->integer('idUsuarioAlta')->nullable(true);
             $table->integer('idUsuarioModificacion')->nullable(true);
             $table->timestamps();

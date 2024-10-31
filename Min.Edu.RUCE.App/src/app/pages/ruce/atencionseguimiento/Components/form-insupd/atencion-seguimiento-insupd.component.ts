@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent, DialogData } from '@app/components/dialog/dialog.component';
 import { Subscription } from 'rxjs';
 import { ObserverCooperadoraService } from '@app/pages/ruce/cooperadora/Services/observer-cooperadora.service';
+import moment from 'moment';
 
 @Component({
   selector: 'vex-atencion-seguimiento-insupd',
@@ -24,6 +25,8 @@ export class AtencionSeguimientoInsupdComponent implements OnInit, OnDestroy {
   public accion: string = '';
 
   suscriptionIdCooperadora: Subscription;
+  maxDate = moment().format('YYYY-MM-DD');
+  minDate = moment(new Date("1900-01-01")).format('YYYY-MM-DD');
 
   constructor(
     private fb: FormBuilder,
@@ -63,6 +66,8 @@ export class AtencionSeguimientoInsupdComponent implements OnInit, OnDestroy {
           this.accion = 'edit'
         }
         this.atencionSeguimientoService.findOne(this.id).subscribe((resp: any) => {
+          console.log(resp.entities);
+          this.formularioAtencionSeguimiento.patchValue(resp.entities);
         });
       }
     });
@@ -75,29 +80,29 @@ export class AtencionSeguimientoInsupdComponent implements OnInit, OnDestroy {
   }
 
   createForm() {
+    console.log(this.idCooperadora);
     this.formularioAtencionSeguimiento = this.fb.group({
-      id: null,
       fkCooperadora: this.idCooperadora,
-      fkPersonaRUCE: null,
       llamadas: null,
-      mesajes: null,
+      mensajes: null,
       emailEnviados: null,
       atencionOficina: null,
       atencionTerritorial: null,
       observacion: null,
-      fecha: [null, {validators: [ Validators.required,]}],
+      fecha: [null, {validators: [ Validators.required, this.validadorServicio.validarFechaMenorAFechaActual() ]}],
       estaActivo: true,
     },
     {
-      //validators: [ this.validadorServicio.validarFechasInicioFin('inicioCargo','finCargo')]
+      validators: this.validadorServicio.validarDosCamposCompletos()
+      //validators: [ this.validadorServicio.validarFechasInicioFin('minDate','maxDate')]
     })
     if (this.accion === 'delete'|| this.accion === 'view') {
       this.formularioAtencionSeguimiento.disable();
     }
-    console.log(this.formularioAtencionSeguimiento);
   }
 
   save() {
+    console.log(this.formularioAtencionSeguimiento);
     if (this.formularioAtencionSeguimiento.invalid) {
       this.formularioAtencionSeguimiento.markAllAsTouched();
       return;
@@ -113,17 +118,16 @@ export class AtencionSeguimientoInsupdComponent implements OnInit, OnDestroy {
         this.mostrarDialogMsj("Mensaje", "Atención Creada", false)
         this.router.navigate(['/pages/cooperadoras/view/'+this.idCooperadora]);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.message, false)
+        this.mostrarDialogMsj("Atención", err.message, false)
       }
       );
     } else {
-      this.formularioAtencionSeguimiento.value.fkPersonaRUCE = this.formularioAtencionSeguimiento.value.fkPersonaRUCE?.id;
-      
-      this.atencionSeguimientoService.update(this.formularioAtencionSeguimiento.value.id, this.formularioAtencionSeguimiento.value).subscribe((resp: any) => {
+      //this.formularioAtencionSeguimiento.value.fkPersonaRUCE = this.formularioAtencionSeguimiento.value.fkPersonaRUCE?.id;
+      this.atencionSeguimientoService.update(this.id, this.formularioAtencionSeguimiento.value).subscribe((resp: any) => {
         this.mostrarDialogMsj("Mensaje", "Atención Modificado", false)
         this.router.navigate(['/pages/cooperadoras/view/'+this.idCooperadora]);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.message, false)
+        this.mostrarDialogMsj("Atención", err.message, false)
       }
       );
     }
@@ -140,11 +144,11 @@ export class AtencionSeguimientoInsupdComponent implements OnInit, OnDestroy {
 
     dialog.afterClosed().subscribe(result => {
       if (result === "Aceptar") {
-        this.atencionSeguimientoService.delete(this.formularioAtencionSeguimiento.value.id).subscribe((resp: any) => {
+        this.atencionSeguimientoService.delete(this.id).subscribe((resp: any) => {
           this.mostrarDialogMsj("Mensaje", "Atención Eliminado", false)
           this.router.navigate(['/pages/cooperadoras/view/'+this.idCooperadora]);
         }, err => {
-          this.mostrarDialogMsj("Atención", err.error.message, false)
+          this.mostrarDialogMsj("Atención", err.message, false)
         }
         );
       }

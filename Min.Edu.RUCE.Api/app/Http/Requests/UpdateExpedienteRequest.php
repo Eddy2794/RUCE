@@ -36,32 +36,39 @@ class UpdateExpedienteRequest extends FormRequest
             'nroExpediente' => [
                 'required',
                 'string',
-                // Rule::unique('Expediente','nroExpediente')->where('id',$this->id)->withoutTrashed()
+                Rule::unique('Expediente', 'nroExpediente')->where(function ($query) {
+                    // Excluye el registro actual por su ID
+                    return $query->where('id', '<>', $this->id);
+                })->withoutTrashed()
             ],
             'cantObservaciones' => [
-                'required',
-                'integer',
+                'nullable',
+                'integer'
             ],
             'observacionesDesc' => [
-                'required',
-                'string',
+                'nullable',
+                'string'
             ],
             'observacionesRespondidas' => [
                 'required',
                 'boolean',
             ],
+            'fecha' => [
+                'required',
+                'date',
+            ],
             'estaActivo' => [
                 'required',
                 'boolean'
-            ],/*
+            ],
             'idUsuarioAlta' => [
-                'required',
+                'nullable',
                 'integer',
             ],
             'idUsuarioModificacion' => [
-                'required',
+                'nullable',
                 'integer',
-            ],*/
+            ],
         ];
     }
 

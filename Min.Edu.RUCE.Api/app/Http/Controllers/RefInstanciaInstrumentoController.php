@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class RefInstanciaInstrumentoController extends Controller
 {
@@ -37,6 +38,8 @@ class RefInstanciaInstrumentoController extends Controller
         try {
             RefInstanciaInstrumento::create([
                 'instrumentoDesc' => $request->instrumentoDesc,
+                'idUsuarioAlta'=>Auth::user()->id,
+                'idUsuarioModificacion' => Auth::user()->id
             ]);
             return response()->json([
                 'message' => 'Instancia de Instrumento registrada con Exito',
@@ -66,7 +69,6 @@ class RefInstanciaInstrumentoController extends Controller
     {
         try {
             $refInstanciaInstrumento = RefInstanciaInstrumento::where('id', $refInstanciaInstrumento)->first();
-            //$request = new UpdateRefInstanciaInstrumentoRequest($request->toArray());
             $refInstanciaInstrumento->instrumentoDesc = $request->instrumentoDesc ?: $refInstanciaInstrumento->instrumentoDesc;
 
             if ($refInstanciaInstrumento->isClean()) {
@@ -75,7 +77,7 @@ class RefInstanciaInstrumentoController extends Controller
                     'succeeded' => false
                 ], 422);
             }
-            $refInstanciaInstrumento->updated_at= Carbon::now();
+            $refInstanciaInstrumento->idUsuarioModificacion = Auth::user()->id;
             $refInstanciaInstrumento->save();
 
             return response()->json([
@@ -93,6 +95,7 @@ class RefInstanciaInstrumentoController extends Controller
     public function destroy(int $id): JsonResponse
     {
         try {
+            RefInstanciaInstrumento::where('id',$id)->update(['estaActivo'=>false,'idUsuarioModificacion'=>Auth::user()->id]);
             RefInstanciaInstrumento::where('id', $id)->delete();
             return response()->json([
                 'succeeded' => true,
@@ -104,32 +107,5 @@ class RefInstanciaInstrumentoController extends Controller
                 'message' => $th->getMessage()
             ], Response::HTTP_NOT_FOUND);
         }
-    }
-
-    public function search(Request $request, RefInstanciaInstrumento $refInstanciaInstrumento)
-    {
-        /*
-        Seguramente se puede refactorizar y optimizar
-        por ahora es la forma que da resultados esperados
-        */
-
-        $query = $refInstanciaInstrumento->newQuery();
-
-        if ($request->id) {
-            $query->where('id', $request->id)
-                ->where(function ($q) use ($request) {
-                    if ($request->q) {
-                        $q->where('cue', 'like', '%' . $request->q . '%')
-                            ->orWhere('instrumentoDesc', 'like', '%' . $request->q . '%');
-                    }
-                });
-        } else {
-            if ($request->q) {
-                $query->where('cue', 'like', '%' . $request->q . '%')
-                    ->orWhere('instrumentoDesc', 'like', '%' . $request->q . '%');
-            }
-        }
-
-        // return new RequestCollection($query->orderBy('instrumentoDesc')->paginate()->appends(['q' => $request->q, 'id' => $request->id]));
     }
 }

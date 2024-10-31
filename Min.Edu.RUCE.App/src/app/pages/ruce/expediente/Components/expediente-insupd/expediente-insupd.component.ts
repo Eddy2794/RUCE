@@ -62,9 +62,6 @@ export class ExpedienteInsupdComponent implements OnInit {
     this.suscriptionIdCooperadora = this.observerIdCooperadora.castIdCooperadora.subscribe((value)=>{
       this.idCooperadora = value;
     });
-    this.suscriptionIdCooperadora = this.observerIdCooperadora.castIdCooperadora.subscribe((value)=>{
-      this.idCooperadora = value;
-    });
     this.createForm();
     this.activatedRoute.params.subscribe((param: any) => {
       this.id = parseInt(param.id);
@@ -104,6 +101,7 @@ export class ExpedienteInsupdComponent implements OnInit {
       cantObservaciones: 0,
       observacionesDesc: ["-", {validators: [ this.validadorServicio.validarCaracteresDescripcion ]}],
       observacionesRespondidas: false,
+      fecha: [null, {validators: [ Validators.required ]}],
       estaActivo: true,
     },
     {
@@ -129,7 +127,7 @@ export class ExpedienteInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Expediente Creado", false)
         this.router.navigate(['/pages/cooperadoras/view/'+this.idCooperadora]);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.message, false)
+        this.mostrarDialogMsj("Atención", err.message, false)
       }
       );
     } else {
@@ -142,7 +140,7 @@ export class ExpedienteInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Expediente Modificado", false)
         this.router.navigate(['/pages/cooperadoras/view/'+this.idCooperadora]);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.message, false)
+        this.mostrarDialogMsj("Atención", err.message, false)
       }
       );
     }
@@ -163,7 +161,7 @@ export class ExpedienteInsupdComponent implements OnInit {
           this.mostrarDialogMsj("Mensaje", "Expediente Eliminado", false)
           this.router.navigate(['/pages/cooperadoras/view/'+this.idCooperadora]);
         }, err => {
-          this.mostrarDialogMsj("Atención", err.error.message, false)
+          this.mostrarDialogMsj("Atención", err.message, false)
         }
         );
       }

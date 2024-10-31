@@ -54,7 +54,8 @@ export class BalanceListComponent implements OnInit {
     this.columnasVex = [
       { label: 'ACCIONES', property: 'actions', type: 'button', visible: true },
       { label: 'AÑO DE RENDICIÓN', property: 'anio', type: 'text', visible: true },
-      { label: 'BALANCE RENDIDO', property: 'estadoBalance', type: 'boolean', visible: true },
+      { label: 'BALANCE APROBADO', property: 'estadoBalance', type: 'boolean', visible: true },
+      { label: 'FECHA DE RENDICIÓN', property: 'fecha', type: 'date', visible: true }
     ]
   }
 

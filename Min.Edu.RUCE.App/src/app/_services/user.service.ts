@@ -7,6 +7,6 @@ import { environment } from '@environments/environment';
 @Injectable({ providedIn: 'root' })
 export class UserService extends BaseService<User> {
     constructor(httpClient: HttpClient) {
-        super(httpClient, environment.apiPofUrl ,User.className);
+        super(httpClient, environment.apiRuceUrl ,User.className);
     }
 }

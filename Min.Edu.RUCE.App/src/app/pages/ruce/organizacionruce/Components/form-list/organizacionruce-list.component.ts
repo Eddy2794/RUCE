@@ -41,12 +41,10 @@ export class OrganizacionRUCEListComponent implements OnInit {
     this.columnasVex = [
       { label: "ACCIONES", property: "actions", type: "button", visible: true },
       // { label: "CÓDIGO", property: "id", type: "text", visible: true, },
-      { label: "NOMBRE", property: "organizacionDesc", type: "text", visible: true, },
-      { label: "CUE", property: "cue", type: "text", visible: true },
-      { label: "ANEXO", property: "anexo", type: "text", visible: true },
-      { label: "NIVEL", property: "nivel", type: "text", visible: true },
-      { label: "REGION", property: "region", type: "text", visible: true },
-      { label: "DEPARTAMENTO", property: "departamento",
+      { label: "CUE", property: "cueAnexo", type: "text", visible: true },
+      {
+        label: "NOMBRE DE LA INSTITUCION",
+        property: "organizacionDesc",
         type: "text",
         visible: true,
       },
@@ -57,14 +55,33 @@ export class OrganizacionRUCEListComponent implements OnInit {
         visible: true,
       },
       {
-        label: "DOMICILIO",
-        property: "domicilio",
+        label: "DEPARTAMENTO",
+        property: "departamento",
+        type: "text",
+        visible: true,
+      },
+      { label: "NIVEL", property: "nivel", type: "text", visible: true },
+      { label: "REGION", property: "region", type: "text", visible: true },
+      {
+        label: "CALLE",
+        property: "calle",
+        type: "text",
+        visible: true,
+      },
+      {
+        label: "Nº",
+        property: "numero",
+        type: "text",
+        visible: true,
+      },
+      {
+        label: "BARRIO",
+        property: "barrio",
         type: "text",
         visible: true,
       },
       { label: "EMAIL", property: "email", type: "text", visible: true },
       { label: "TELEFONO", property: "telefono", type: "text", visible: true },
-
     ];
   }
 

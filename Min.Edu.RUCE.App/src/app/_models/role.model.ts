@@ -4,8 +4,8 @@ export class  Role extends BaseModel {
     static className: string =  'Role';
 
     constructor(
+        public id?: number,
         public  name?: string,
-        public  description?: string,
     ) {
         super();
     }

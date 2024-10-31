@@ -7,6 +7,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { SharedModule } from '@app/shared/shared.module';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatTooltipModule,
     MatButtonModule,
     MatIconModule,
+    SharedModule
   ],
   exports: [WidgetTableComponent]
 })

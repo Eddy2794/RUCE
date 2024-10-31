@@ -1,4 +1,82 @@
+@font-face {
+  font-family: 'ArchiaRegular';
+  src: url('../../../../assets/fonts/font-ruce/Archia-Regular.otf') format('opentype');
+}
+@font-face {
+  font-family: 'ArchiaBold';
+  src: url('../../../../assets/fonts/font-ruce/Archia-Bold.otf') format('opentype');
+}
+@font-face {
+  font-family: 'ArchiaThin';
+  src: url('../../../../assets/fonts/font-ruce/Archia-Thin.otf') format('opentype');
+}
+
+.fuenteRegular {
+  font-family: 'ArchiaRegular', sans-serif;
+  font-size: 15px;
+}
+
+.fuenteBold {
+  font-family: 'ArchiaBold', sans-serif;
+  font-size: 16px;
+}
+
+.table {
+  //border-collapse: collapse; /* Combina los bordes adyacentes en una sola línea */
+  border-radius: 3px; /* Redondea los bordes de la tabla */
+  border: 3px solid #000; /* Establece el ancho y el color del borde */
+  font-family: 'ArchiaRegular', sans-serif;
+  font-size: 15px;
+  tr, td {
+  //border: 5px solid #000; /* Establece el ancho y el color del borde para las celdas */
+  padding: 15px; /* Agrega espacio interno a las celdas para que el texto no toque los bordes */
+  padding-left: var(--padding);
+  padding-right: var(--padding);
+  font-family: 'ArchiaRegular', sans-serif;
+  font-size: 15px;
+  }
+}
+
+.bordes{
+  border-collapse: collapse; /* Combina los bordes adyacentes en una sola línea */
+  border-radius: 5px !important; /* Redondea los bordes de la tabla */
+  border: 2px solid #000; /* Establece el ancho y el color del borde */
+  padding: 10px;
+  width: 100%;
+}
+
+.grid-p {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr; /* Columnas laterales más pequeñas que la central */
+  gap: 10px; /* Espacio entre las columnas */
+}
+.grid-p img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
 @media print {
+  /* Estilos para la impresión */
+  
+  @page {
+    size: A4; /* Establece el tamaño de página deseado, como 'A4' */
+  }
+
+  body {
+    margin: 0; /* Elimina los márgenes por defecto de la página */
+    padding: 0;
+  }
+  
+  .grid-p {
+    grid-template-columns: 1fr 4fr 1fr; /* Mantén la misma estructura de columnas en la impresión */
+    gap: 5px; /* Espacio entre las columnas en la impresión */
+  }
+  
+  .grid-p > div {
+    padding: 5px; /* Añade un pequeño espacio de relleno en cada columna para evitar cortes en la impresión */
+  }
+
   .p-gutter {
     padding: 0 !important;
   }
@@ -8,10 +86,15 @@
   }
 }
 
+.mat-header-cell{
+  border: 1px solid #000;
+}
 
-.table {
-  td {
-    padding-left: var(--padding);
-    padding-right: var(--padding);
-  }
+.mat-cell {
+  border: 1px solid #ccc; /* Agrega un borde de 1px y color gris claro a las celdas */
+}
+
+/* Estilo para todas las filas del mat-table */
+.mat-row {
+  border: 1px solid #ccc; /* Agrega un borde de 1px y color gris claro a las filas */
 }

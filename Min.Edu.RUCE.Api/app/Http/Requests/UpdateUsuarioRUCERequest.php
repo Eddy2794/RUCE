@@ -41,7 +41,7 @@ class UpdateUsuarioRUCERequest extends FormRequest
             //     'boolean'
             // ],
             'estaActivo' => [
-                'required',
+                // 'required',
                 'boolean'
             ],/*
             'idUsuarioAlta' => [

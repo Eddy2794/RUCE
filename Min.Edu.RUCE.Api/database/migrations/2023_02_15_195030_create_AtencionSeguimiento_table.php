@@ -19,15 +19,15 @@ return new class extends Migration
             $table->unsignedInteger('fkCooperadora');
             $table->foreign('fkCooperadora')->references('id')->on('Cooperadora')->onDelete('cascade');
 
-            $table->unsignedInteger('fkPersonaRUCE');
-            $table->foreign('fkPersonaRUCE')->references('id')->on('PersonaRUCE')->onDelete('cascade');
+            // $table->unsignedInteger('fkPersonaRUCE');
+            // $table->foreign('fkPersonaRUCE')->references('id')->on('PersonaRUCE')->onDelete('cascade');
 
-            $table->integer('llamadas');
-            $table->integer('mensajes');
-            $table->integer('emailEnviados');
-            $table->integer('atencionOficina');
-            $table->integer('atencionTerritorial');
-            $table->text('observacion');
+            $table->integer('llamadas')->nullable();
+            $table->integer('mensajes')->nullable();
+            $table->integer('emailEnviados')->nullable();
+            $table->integer('atencionOficina')->nullable();
+            $table->integer('atencionTerritorial')->nullable();
+            $table->text('observacion')->nullable();
             $table->date('fecha');
             
             $table->boolean('estaActivo')->default(true)->nullable(false);

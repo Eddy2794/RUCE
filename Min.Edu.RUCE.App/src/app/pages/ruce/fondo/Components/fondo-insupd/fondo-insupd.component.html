@@ -41,45 +41,62 @@
                 </mat-form-field>
                 <mat-form-field style="width: 100%">
                     <mat-label>Año Otorgado</mat-label>
-                    <input matInput formControlName="anioOtorgado" type="text" solonum espacios >
+                    <input matInput formControlName="anioOtorgado" type="text" solonum espacios maxlength="4">
                     <mat-error>
                         <app-ver-error [control]="this.formularioFondo.controls['anioOtorgado']">
                         </app-ver-error>
                     </mat-error>
                 </mat-form-field>
+                <div class=" p-4 "><h4 class="body-1">RENACOPES</h4></div>
                 <div class="slide-group" style="width: 100%">
                     <mat-slide-toggle color="accent" formControlName="inscripta" class="p-4"></mat-slide-toggle>
                     <mat-label>Inscripta</mat-label>
                 </div>
                 <div class="slide-group" style="width: 100%">
                     <mat-slide-toggle color="accent" formControlName="verificada" class="p-4"></mat-slide-toggle>
-                    <mat-label>Verificada</mat-label>
+                    <mat-label>Validada</mat-label>
                 </div>
             </div>
             
-            <!-- <div class="flex flex-col md:flex-row gap-3">
-                <div class="slide-group">
+            <div class="flex flex-col md:flex-row gap-3">
+                <div class="slide-group" style="width: 100%">
                     <mat-slide-toggle color="accent" formControlName="fondoRecibido" [checked]="false" class="p-4"></mat-slide-toggle>
                     <mat-label>Fondo Recibido</mat-label>
                 </div>
-                <div class="slide-group">
+                <mat-form-field style="width: 100%" *ngIf="formularioFondo.controls['fondoRecibido'].value">
+                    <mat-label>Fecha Recibido</mat-label>
+                    <input matInput formControlName="fechaRecibido" type="date">
+                    <mat-error>
+                        <app-ver-error [control]="this.formularioFondo.controls['fechaRecibido']">
+                        </app-ver-error>
+                    </mat-error>
+                </mat-form-field>
+                <div class="slide-group" style="width: 100%">
                     <mat-slide-toggle color="accent" formControlName="fondoRendido" [checked]="false" class="p-4"></mat-slide-toggle>
                     <mat-label>Fondo Rendido</mat-label>
                 </div>
-            </div> -->
+                <mat-form-field style="width: 100%" *ngIf="formularioFondo.controls['fondoRendido'].value">
+                    <mat-label>Fecha Rendicion</mat-label>
+                    <input matInput formControlName="fechaRendicion" type="date">
+                    <mat-error>
+                        <app-ver-error [control]="this.formularioFondo.controls['fechaRendicion']">
+                        </app-ver-error>
+                    </mat-error>
+                </mat-form-field>
+            </div>
 
-            <div class="flex flex-col md:flex-row gap-3">
-                    <mat-form-field style="width: 100%">
+            <!-- <div class="flex flex-col md:flex-row gap-3">
+                    <mat-form-field style="width: 100%" *ngIf="formularioFondo.controls['fondoRecibido'].value">
                         <mat-label>Fecha Recibido</mat-label>
-                        <input matInput formControlName="fechaRecibido" type="date" espacios mayus>
+                        <input matInput formControlName="fechaRecibido" type="date">
                         <mat-error>
                             <app-ver-error [control]="this.formularioFondo.controls['fechaRecibido']">
                             </app-ver-error>
                         </mat-error>
                     </mat-form-field>
-                    <mat-form-field style="width: 100%">
+                    <mat-form-field style="width: 100%" *ngIf="formularioFondo.controls['fondoRendido'].value">
                         <mat-label>Fecha Rendicion</mat-label>
-                        <input matInput formControlName="fechaRendicion" type="date" espacios mayus>
+                        <input matInput formControlName="fechaRendicion" type="date">
                         <mat-error>
                             <app-ver-error [control]="this.formularioFondo.controls['fechaRendicion']">
                             </app-ver-error>
@@ -93,7 +110,7 @@
                         <mat-slide-toggle color="accent" formControlName="fondoRendido" class="p-4"></mat-slide-toggle>
                         <mat-label>Fondo Rendido</mat-label>
                     </div>
-            </div>
+            </div> -->
 
             <!-- <div class="flex flex-col md:flex-row gap-3">
                     <mat-form-field style="width: 100%">

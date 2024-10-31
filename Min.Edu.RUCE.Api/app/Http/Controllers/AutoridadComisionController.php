@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePersonaRUCERequest;
+use App\Http\Requests\UpdatePersonaRUCERequest;
 use App\Http\Resources\RequestCollection;
 
 use App\Http\Requests\StoreAutoridadComisionRequest;
@@ -15,6 +16,7 @@ use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class AutoridadComisionController extends Controller
 {
@@ -22,10 +24,10 @@ class AutoridadComisionController extends Controller
     {
         try {
             if ($request->has('PageNumber')&&$request->has('PageSize')) {
-                return new RequestCollection(AutoridadComision::all(),$request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
+                return new RequestCollection(AutoridadComision::with(["PersonaRUCE.RefTipoDocumentoRUCE","RefCargo"])->orderBy('fkRefCargo')->get(),$request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
             }
 
-            return new RequestCollection(AutoridadComision::all(),10, 1);
+            return new RequestCollection(AutoridadComision::with(["PersonaRUCE.RefTipoDocumentoRUCE","RefCargo"])->orderBy('fkRefCargo')->get(),10, 1);
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,
@@ -38,7 +40,7 @@ class AutoridadComisionController extends Controller
     public function store(StoreAutoridadComisionRequest $request): JsonResponse
     {
         $persona = new PersonaRUCEController();
-        $requestPersona = new StorePersonaRUCERequest($request->toArray());
+        $requestPersona = app(StorePersonaRUCERequest::class);
         $created = json_decode($persona->store($requestPersona)->getContent());
         $idPersona = PersonaRUCE::max('id');
         if($created->succeeded){
@@ -49,8 +51,8 @@ class AutoridadComisionController extends Controller
                     'fkComision' => $request->fkComision,
                     'inicioCargo' => date_create($request->inicioCargo),
                     'finCargo' => date_create($request->finCargo),
-                    'idUsuarioAlta'=>$request->idUsuarioAlta,
-                    'idUsuarioModificacion' => $request->idUsuarioModificacion
+                    'idUsuarioAlta'=>Auth::user()->id,
+                    'idUsuarioModificacion' => Auth::user()->id
                 ]);
                 return response()->json([
                     'message' => 'Autoridad de Comision registrada con Exito',
@@ -97,26 +99,25 @@ class AutoridadComisionController extends Controller
     public function update(UpdateAutoridadComisionRequest $request, int $autoridadComision)
     {
         $persona = new PersonaRUCEController();
-        $requestPersona = new \App\Http\Requests\UpdatePersonaRUCERequest($request->toArray());
+        $requestPersona = app(UpdatePersonaRUCERequest::class);
         $personaUpdated = response()->json($persona->update($requestPersona,$request->fkPersonaRUCE));
         if($personaUpdated->original->getStatusCode() != Response::HTTP_NOT_FOUND)
             try {
                 $autoridadComision = AutoridadComision::where('id', $autoridadComision)->first();
-                //$request = new UpdateAutoridadComisionRequest($request->toArray());
                 $autoridadComision->fkPersonaRUCE = $request->fkPersonaRUCE ?: $autoridadComision->fkRefCargo;
                 $autoridadComision->fkRefCargo = $request->fkRefCargo ?: $autoridadComision->fkRefCargo;
                 $autoridadComision->fkComision = $request->fkComision ?: $autoridadComision->fkComision;
-                $autoridadComision->inicioCargo = $request->inicioCargo ?: $autoridadComision->inicioCargo;
-                $autoridadComision->finCargo = $request->finCargo ?: $autoridadComision->finCargo;
+                $autoridadComision->inicioCargo = $request->inicioCargo !== null || $request->inicioCargo == null ? $request->inicioCargo : $autoridadComision->inicioCargo;
+                $autoridadComision->finCargo = $request->finCargo !== null || $request->finCargo == null ? $request->finCargo : $autoridadComision->finCargo;
                 $autoridadComision->estaActivo = $request->estaActivo ?: $autoridadComision->estaActivo;
-                $autoridadComision->idUsuarioModificacion = $request->idUsuarioModificacion ?: $autoridadComision->idUsuarioModificacion;
-
+                
                 if ($autoridadComision->isClean() && $personaUpdated->original->getStatusCode()== Response::HTTP_UNPROCESSABLE_ENTITY) {
                     return response()->json([
                         'message' => 'No se modifico ningun valor',
                         'succeeded' => false
                     ], 422);
                 }
+                $autoridadComision->idUsuarioModificacion = Auth::user()->id;
                 $autoridadComision->save();
 
                 return response()->json([
@@ -145,7 +146,7 @@ class AutoridadComisionController extends Controller
     {
         try {
 
-            AutoridadComision::where('id', $id)->update(['estaActivo'=>false,]);
+            AutoridadComision::where('id', $id)->update(['estaActivo'=>false,'idUsuarioModificacion'=>Auth::user()->id]);
             AutoridadComision::where('id', $id)->delete();
 
             return response()->json([

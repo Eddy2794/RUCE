@@ -10,6 +10,7 @@ export class ExpedienteModel extends BaseModel {
         public cantObservaciones?: number,
         public observacionesDesc?: string,
         public observacionesRespondidas?: boolean,
+        public fecha?: Date,
         public estaActivo?: boolean,
         public idUsuarioAlta?: number,
         public idUsuarioModificacion?: number,

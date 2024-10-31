@@ -48,7 +48,7 @@ class AutoridadComision extends Model  implements Auditable
         return $this->hasMany(RefCargo::class, 'id', 'fkRefCargo');
     }
 
-    public function PersonaRuce()
+    public function PersonaRUCE()
     {
         return $this->hasMany(PersonaRUCE::class, 'id', 'fkPersonaRUCE');
     }

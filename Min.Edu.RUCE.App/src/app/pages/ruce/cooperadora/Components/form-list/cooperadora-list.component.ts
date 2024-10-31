@@ -35,15 +35,15 @@ export class CooperadoraListComponent implements OnInit {
     this.columnasVex = [
       { label: "ACCIONES", property: "actions", type: "button", visible: true },
       //{ label: "CÓDIGO", property: "id", type: "text", visible: false },
-      { label: "CUE INSTITUCIÓN", property: "organizacion_r_u_c_e.cue", type: "object", visible: true, },
+      { label: "CUEANEXO INSTITUCIÓN", property: "organizacion_r_u_c_e.cueAnexo", type: "object", visible: true, },
       { label: "DENOMINACION", property: "denominacion", type: "text", visible: true, },
       { label: "ESTADO", property: "estado", type: "text", visible: true },
       { label: "LEGAJO", property: "legajo", type: "text", visible: true },
-      { label: "CONVENIO SC ECONOMICAS", property: "convenioCsEconomicas", type: "boolean", visible: true },
+      { label: "MODALIDAD", property: "modalidad", type: "text", visible: true },
+      { label: "CONVENIO CS ECONOMICAS", property: "convenioCsEconomicas", type: "boolean", visible: true },
       { label: "INSCRIPCION AFIP", property: "estadoAfip", type: "boolean", visible: true },
       { label: "INSCRIPCION RENTAS", property: "estadoRentas", type: "boolean", visible: true },
       { label: "INSCRIPCION RENACOPES", property: "inscripcionRenacopes", type: "boolean", visible: true },
-      { label: "KIOSCO", property: "fkKiosco", type: "object", visible: false },
     ];
   }
 

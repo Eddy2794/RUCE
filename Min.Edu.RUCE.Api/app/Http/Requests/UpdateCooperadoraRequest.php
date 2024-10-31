@@ -33,22 +33,31 @@ class UpdateCooperadoraRequest extends FormRequest
                 'required',
                 'integer',
                 'exists:OrganizacionRUCE,id',
-                Rule::unique('Cooperadora','fkOrganizacionRUCE')->where('id',$this->id)->withoutTrashed()
+                // Rule::unique('Cooperadora','fkOrganizacionRUCE')->where('id',$this->id)->withoutTrashed()
             ],
             'cuit' => [
-                'required',
+                'nullable',
                 'string',
-                Rule::unique('Cooperadora','cuit')->where('id',$this->id)->withoutTrashed()
+                Rule::unique('Cooperadora', 'cuit')->where(function ($query) {
+                    // Excluye el registro actual por su ID
+                    return $query->where('id', '<>', $this->id);
+                })->withoutTrashed()
             ],
             'legajo' => [
-                'required',
+                'nullable',
                 'string',
-                Rule::unique('Cooperadora','legajo')->where('id',$this->id)->withoutTrashed()
+                Rule::unique('Cooperadora', 'legajo')->where(function ($query) {
+                    // Excluye el registro actual por su ID
+                    return $query->where('id', '<>', $this->id);
+                })->withoutTrashed()
             ],
             'denominacion' => [
                 'required',
                 'string',
-                Rule::unique('Cooperadora','denominacion')->where('id',$this->id)->withoutTrashed()
+                Rule::unique('Cooperadora', 'denominacion')->where(function ($query) {
+                    // Excluye el registro actual por su ID
+                    return $query->where('id', '<>', $this->id);
+                })->withoutTrashed()
             ],
             'estado' => [
                 'required',
@@ -70,18 +79,26 @@ class UpdateCooperadoraRequest extends FormRequest
                 'required',
                 'boolean'
             ],
+            'modalidad' => [
+                'nullable',
+                'string'
+            ],
+            'fechaCreacion' => [
+                'nullable',
+                'date'
+            ],
             'estaActivo' => [
                 'required',
                 'boolean'
-            ],/*
+            ],
             'idUsuarioAlta' => [
-                'required',
+                'nullable',
                 'integer',
             ],
             'idUsuarioModificacion' => [
-                'required',
+                'nullable',
                 'integer',
-            ],*/
+            ],
         ];
     }
 
@@ -91,7 +108,7 @@ class UpdateCooperadoraRequest extends FormRequest
             'fkRefTipoAsociacion.exist' => 'Id de Tipo Asociacion no existe en la tabla RefTipoAsociacion.',
             'fkOrganizacionRUCE.exist' => 'Id de Organizacion no existe en la tabla OrganizacionRUCE.',
             'cuit.unique' => 'El CUIT de la Cooperadora ya fue registrado.',
-            'legajo.unique' => 'El Legajo de la Cooperadora ya fue registrado.',
+            // 'legajo.unique' => 'El Legajo de la Cooperadora ya fue registrado.',
             'denominacion.unique' => 'La Denominacion de la Cooperadora ya fue registrado.',
             'fkOrganizacionRUCE.unique' => 'La Institución ya tiene registrado una Cooperadora.'
         ];

@@ -1,0 +1,8 @@
+cd Min.Edu.RUCE.Api
+alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
+sudo ./vendor/bin/sail up -d
+sail up
+composer install
+php artisan key:generate
+
+sail php artisan serve

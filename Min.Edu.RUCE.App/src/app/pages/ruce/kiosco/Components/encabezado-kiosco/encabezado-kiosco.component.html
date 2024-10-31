@@ -1,44 +1,191 @@
-<div class="card border-b">
-  <div *ngIf="datosShow" class="px-gutter py-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
-    <div class="py-1 flex items-center">
-      <div class="w-10 h-10 rounded-full bg-primary/10 text-primary ltr:mr-3 rtl:ml-3 flex items-center justify-center">
-        <mat-icon class="icon-sm" svgIcon="mat:date_range"></mat-icon>
-      </div>
-      <div>
-        <p class="m-0 caption text-hint">PERIODO: {{ kiosco.periodoInicio }} / {{ kiosco.periodoFin }}</p>
-      </div>
-    </div>
-    <div class="py-1 flex items-center">
-      <div class="w-10 h-10 rounded-full bg-primary/10 text-primary ltr:mr-3 rtl:ml-3 flex items-center justify-center">
-        <mat-icon class="icon-sm" svgIcon="mat:date_range"></mat-icon>
-      </div>
-      <div>
-        <p class="m-0 caption text-hint">ACCESI LICITACION: {{ kiosco.accesoLicitacion }}</p>
-      </div>
-    </div>
-    <div class="py-1 flex items-center">
-      <div class="w-10 h-10 rounded-full bg-primary/10 text-primary ltr:mr-3 rtl:ml-3 flex items-center justify-center">
-        <mat-icon class="icon-sm" svgIcon="mat:event_note"></mat-icon>
+<div *ngIf="datosShow" class="mt-6 flex flex-col md:flex-row md:items-start">
+  <div class="flex-auto">
+    <div class="card">
+      <div class="px-gutter py-4 border-b">
+        <h2 class="title m-0">DETALLES DE KIOSCO</h2>
       </div>
 
-      <div>
-        <p class="m-0 body-1">
-          <label><b></b></label>
-        </p>
-        <p class="m-0 caption text-hint">DOCUMENTACION PRESENTADA: {{ kiosco.documentacionPresentada }}</p>
+      <div class="px-gutter py-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="py-3 flex items-center">
+          <div @scaleIn
+               class="w-10 h-10 rounded-full bg-primary/10 text-primary ltr:mr-3 rtl:ml-3 flex items-center justify-center">
+            <mat-icon class="icon-sm" svgIcon="mat:done"></mat-icon>
+          </div>
+
+          <div @fadeInRight>
+            <p class="m-0 body-1">ACCESO CON LICITACION: </p>
+            <p class="m-0 caption text-hint">{{kiosco.accesoLicitacion ? 'SI':'NO'}}</p>
+          </div>
+        </div>
+
+        <div class="py-3 flex items-center">
+          <div @scaleIn
+               class="w-10 h-10 rounded-full bg-primary/10 text-primary ltr:mr-3 rtl:ml-3 flex items-center justify-center">
+            <mat-icon class="icon-sm" svgIcon="mat:done"></mat-icon>
+          </div>
+
+          <div @fadeInRight>
+            <p class="m-0 body-1">DOCUMENTACION PRESENTADA: </p>
+            <p class="m-0 caption text-hint">{{kiosco.documentacionPresentada ? 'SI': 'NO'}}</p>
+          </div>
+        </div>
+
+        <div class="py-3 flex items-center">
+          <div @scaleIn
+               class="w-10 h-10 rounded-full bg-primary/10 text-primary ltr:mr-3 rtl:ml-3 flex items-center justify-center">
+            <mat-icon class="icon-sm" svgIcon="mat:date_range"></mat-icon>
+          </div>
+
+          <div @fadeInRight>
+            <p class="m-0 body-1">INICIO DE PERIODO: </p>
+            <p class="m-0 caption text-hint">{{kiosco.periodoInicio}}</p>
+          </div>
+        </div>
+
+        <div class="py-3 flex items-center">
+          <div @scaleIn
+               class="w-10 h-10 rounded-full bg-primary/10 text-primary ltr:mr-3 rtl:ml-3 flex items-center justify-center">
+            <mat-icon class="icon-sm" svgIcon="mat:date_range"></mat-icon>
+          </div>
+
+          <div @fadeInRight>
+            <p class="m-0 body-1">FIN DE PERIODO: </p>
+            <p class="m-0 caption text-hint">{{kiosco.periodoFin}}</p>
+          </div>
+        </div>
+
       </div>
+
+      <div class="m-5 flex justify-center">
+  
+        <div class="relative flex items-center cursor-pointer select-none rounded-full px-4 py-2 hover:bg-green-light trans-ease-out"
+             matRipple
+             [routerLink]="'/pages/kiosco/add-edit/'+idCooperadora">
+          <div @scaleIn class="p-2 bg-green-light text-green rounded-full ltr:mr-4 rtl:ml-4">
+            <mat-icon class="block" svgIcon="mat:edit"></mat-icon>
+          </div>
+          <p @fadeInRight class="font-medium text-green">Actualizar</p>
+        </div>
+  
+        <div class="relative flex items-center cursor-pointer select-none rounded-full px-4 py-2 hover:bg-red-light trans-ease-out"
+             matRipple
+             [routerLink]="'/pages/kiosco/delete/'+idCooperadora">
+          <div class="p-2 bg-red-light text-red rounded-full ltr:mr-4 rtl:ml-4">
+            <mat-icon class="block" svgIcon="mat:delete_outline"></mat-icon>
+          </div>
+          <p @fadeInRight class="font-medium text-red">Eliminar</p>
+        </div>
+      </div>
+
     </div>
   </div>
 
-  <div *ngIf="datosShow" class="mt-5 vex-button-group flex items-center justify-center">
-    <button [routerLink]="'/pages/kiosco/add-edit/' + idCooperadora" mat-raised-button class="vex-button m-4 vex-lg" color="primary"> Actualizar </button>
-    <button [routerLink]="'/pages/kiosco/delete/' + idCooperadora" mat-raised-button class="vex-button m-4 vex-lg" color="warn"> Eliminar </button>
-  </div>
+  <div class="card max-w-unset md:max-w-xs w-full flex-none md:ltr:ml-6 md:rtl:mr-6 mt-6 md:mt-0">
+    <div class="px-6 py-4 border-b">
+      <h2 class="title m-0">CONTACTO</h2>
+    </div>
+    <div class="px-gutter py-4 grid grid-cols-1 sm:grid-cols-1 gap-4">
+      <div class="py-3 flex items-center">
+          <div @scaleIn
+              class="w-10 h-10 rounded-full bg-primary/10 text-primary ltr:mr-3 rtl:ml-3 flex items-center justify-center">
+          <mat-icon class="icon-sm" svgIcon="mat:access_time"></mat-icon>
+          </div>
 
-  <br />
-  <div *ngIf="!datosShow" _ngcontent-jju-c290="" style="text-align: center" class="ng-tns-c290-217 ng-star-inserted">
-    <h2 _ngcontent-jju-c290="" class="title mt-0 mb-1 ng-tns-c290-217"> Sin información de Kiosco </h2>
-    <br />
-    <app-button-nuevo bordecentro [routerLink]="'kiosco'" [addRowText]="'Agregar Kiosco'" ></app-button-nuevo>
+          <div @fadeInRight>
+          <p class="m-0 body-1">E-MAIL: </p>
+          <p class="m-0 caption text-hint">{{kiosco.persona_r_u_c_e.email}}</p>
+          </div>
+      </div>
+
+      <div class="py-3 flex items-center">
+          <div @scaleIn
+              class="w-10 h-10 rounded-full bg-primary/10 text-primary ltr:mr-3 rtl:ml-3 flex items-center justify-center">
+          <mat-icon class="icon-sm" svgIcon="mat:access_time"></mat-icon>
+          </div>
+
+          <div @fadeInRight>
+          <p class="m-0 body-1">TELEFONO: </p>
+          <p class="m-0 caption text-hint">{{kiosco.persona_r_u_c_e.telefono}}</p>
+          </div>
+      </div>
+  </div>
+  </div>
+</div>
+
+<br>
+<div *ngIf="!datosShow" _ngcontent-jju-c290="" style="text-align: center;" class="ng-tns-c290-217 ng-star-inserted">
+  <h2 _ngcontent-jju-c290="" class="title mt-0 mb-1 ng-tns-c290-217">Sin información de kiosco</h2>
+  <br>
+  <div class="flex justify-center">
+    <div class="relative flex items-center cursor-pointer select-none rounded-full px-4 py-1 hover:bg-primary/10 trans-ease-out"
+          matRipple
+          [routerLink]="'/pages/kiosco/add-edit/0'">
+      <div @scaleIn class="p-2 bg-primary/10 text-primary rounded-full ltr:mr-4 rtl:ml-4">
+      <mat-icon class="block" svgIcon="mat:add"></mat-icon>
+      </div>
+      <p @fadeInRight class="font-medium text-primary">Agregar kiosco</p>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="datosShow" class="mt-6 flex flex-col md:flex-row md:items-start">
+  <div class="flex-auto">
+    <div class="card">
+      <div class="px-gutter py-4 border-b">
+        <h2 class="title m-0">PERSONA RESPONSABLE</h2>
+      </div>
+
+      <div class="px-gutter py-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="py-3 flex items-center">
+          <div @scaleIn
+               class="w-10 h-10 rounded-full bg-primary/10 text-primary ltr:mr-3 rtl:ml-3 flex items-center justify-center">
+            <mat-icon class="icon-sm" svgIcon="mat:perm_identity"></mat-icon>
+          </div>
+
+          <div @fadeInRight>
+            <p class="m-0 body-1">NOMBRE: </p>
+            <p class="m-0 caption text-hint">{{kiosco.persona_r_u_c_e.nombre}}</p>
+          </div>
+        </div>
+
+        <div class="py-3 flex items-center">
+          <div @scaleIn
+               class="w-10 h-10 rounded-full bg-primary/10 text-primary ltr:mr-3 rtl:ml-3 flex items-center justify-center">
+            <mat-icon class="icon-sm" svgIcon="mat:perm_identity"></mat-icon>
+          </div>
+
+          <div @fadeInRight>
+            <p class="m-0 body-1">APELLIDO: </p>
+            <p class="m-0 caption text-hint">{{kiosco.persona_r_u_c_e.apellido}}</p>
+          </div>
+        </div>
+
+        <div class="py-3 flex items-center">
+          <div @scaleIn
+               class="w-10 h-10 rounded-full bg-primary/10 text-primary ltr:mr-3 rtl:ml-3 flex items-center justify-center">
+            <mat-icon class="icon-sm" svgIcon="mat:perm_identity"></mat-icon>
+          </div>
+
+          <div @fadeInRight>
+            <p class="m-0 body-1">DOCUMENTO: </p>
+            <p class="m-0 caption text-hint">{{kiosco.persona_r_u_c_e.documento}}</p>
+          </div>
+        </div>
+
+        <div class="py-3 flex items-center">
+          <div @scaleIn
+               class="w-10 h-10 rounded-full bg-primary/10 text-primary ltr:mr-3 rtl:ml-3 flex items-center justify-center">
+            <mat-icon class="icon-sm" svgIcon="mat:perm_identity"></mat-icon>
+          </div>
+
+          <div @fadeInRight>
+            <p class="m-0 body-1">CUIL: </p>
+            <p class="m-0 caption text-hint">{{kiosco.persona_r_u_c_e.cuil}}</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
   </div>
 </div>

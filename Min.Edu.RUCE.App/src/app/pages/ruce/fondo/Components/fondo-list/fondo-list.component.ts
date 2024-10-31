@@ -53,13 +53,13 @@ export class FondoListComponent implements OnInit {
     this.columnasVex = [
       { label: 'ACCIONES', property: 'actions', type: 'button', visible: true },
       { label: 'FONDO', property: 'ref_tipo_fondo.0.tipoFondoDesc', type: 'object', visible: true },
+      { label: 'MONTO', property: 'monto', type: 'pesos', visible: true },
       { label: 'INSCRIPTA', property: 'inscripta', type: 'boolean', visible: true },
       { label: 'VERIFICADA', property: 'verificada', type: 'boolean', visible: true },
       { label: 'FONDO RECIBIDO', property: 'fondoRecibido', type: 'boolean', visible: true },
       { label: 'FONDO RENDIDO', property: 'fondoRendido', type: 'boolean', visible: true },
-      { label: 'MONTO', property: 'monto', type: 'text', visible: true },
-      { label: 'RECIBIDO', property: 'fechaRecibido', type: 'date', visible: true },
-      { label: 'RENDIDO', property: 'fechaRendicion', type: 'date', visible: true },
+      { label: 'FECHA RECIBIDO', property: 'fechaRecibido', type: 'date', visible: true },
+      { label: 'FECHA RENDIDO', property: 'fechaRendicion', type: 'date', visible: true },
       { label: 'AÑO OTORGADO', property: 'anioOtorgado', type: 'text', visible: true },
     ]
   }

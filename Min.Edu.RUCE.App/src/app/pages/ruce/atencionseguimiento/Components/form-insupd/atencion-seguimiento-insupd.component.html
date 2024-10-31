@@ -30,16 +30,13 @@
                     </mat-error>
                 </mat-form-field>
                     <mat-form-field style="width: 100%">
-                        <mat-label>Mesajes Enviados</mat-label>
-                        <input matInput formControlName="mesajes" type="text" solonum espacios>
+                        <mat-label>Mensajes Enviados</mat-label>
+                        <input matInput formControlName="mensajes" type="text" solonum espacios>
                         <mat-error>
-                            <app-ver-error [control]="this.formularioAtencionSeguimiento.controls['mesajes']">
+                            <app-ver-error [control]="this.formularioAtencionSeguimiento.controls['mensajes']">
                             </app-ver-error>
                         </mat-error>
                     </mat-form-field>
-            </div>
-            
-            <div class="flex flex-col md:flex-row gap-3">
                     <mat-form-field style="width: 100%">
                         <mat-label>Email Enviados</mat-label>
                         <input matInput formControlName="emailEnviados" type="text" solonum espacios>
@@ -57,6 +54,10 @@
                         </mat-error>
                     </mat-form-field>
             </div>
+            
+            <div class="flex flex-col md:flex-row gap-3">
+
+            </div>
 
             <div class="flex flex-col md:flex-row gap-3">
                     <mat-form-field style="width: 100%">
@@ -68,28 +69,37 @@
                         </mat-error>
                     </mat-form-field>
                     <mat-form-field style="width: 100%">
+                        <mat-label>Fecha</mat-label>
+                        <input matInput formControlName="fecha" type="date" [min]="minDate" [max]="maxDate" espacios >
+                        <mat-error *ngIf="formularioAtencionSeguimiento.controls['fecha'].errors?.errorFechaMenorAFechaActual">
+                            No puede ser mayor que la fecha actual.
+                        </mat-error>
+                    </mat-form-field>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-3">
+                <div (click)="textarea.focus()" style="width: 75%" class="border-2 bg-foreground rounded-t flex">
+                    <textarea #textarea
+                              cdkTextareaAutosize
+                              formControlName="observacion"
+                              class="outline-none bg-foreground p-6 rounded-t flex-auto"
+                              placeholder="Observaciones..."></textarea>
+                </div>
+                    <!-- <mat-form-field style="width: 100%">
                         <mat-label>Observaciones</mat-label>
                         <input matInput formControlName="observacion" type="text" espacios mayus>
                         <mat-error>
                             <app-ver-error [control]="this.formularioAtencionSeguimiento.controls['observacion']">
                             </app-ver-error>
                         </mat-error>
-                    </mat-form-field>
+                    </mat-form-field> -->
             </div>
-
-            <div class="flex flex-col md:flex-row gap-3">
-                    <mat-form-field style="width: 100%">
-                        <mat-label>Fecha</mat-label>
-                        <input matInput formControlName="fecha" type="date" espacios >
-                        <mat-error>
-                            <app-ver-error [control]="this.formularioAtencionSeguimiento.controls['fecha']">
-                            </app-ver-error>
-                        </mat-error>
-                    </mat-form-field>
-            </div>
+            <mat-error *ngIf="formularioAtencionSeguimiento.errors?.menosDeDos">
+                ** Debes completar por lo menos un campo más aparte de la fecha.
+            </mat-error>
         </div>
-        <br>       
-            <app-button-group type="button" (cancel)="cancel()" (delete)="eliminar()" (submit)="save()" [accion]="accion"></app-button-group>
+        <br>
+            <app-button-group style="width: 100%;" type="button" (cancel)="cancel()" (delete)="eliminar()" (submit)="save()" [accion]="accion"></app-button-group>
 
         </form>
         </div>

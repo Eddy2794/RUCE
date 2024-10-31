@@ -28,6 +28,9 @@ export class CooperadoraFormInsupdComponent implements OnInit {
 
   organizaciones: Array<OrganizacionRUCEModel>;
 
+  modalidadSelect: string[]= ['COMUN','RURAL','CONTEXTO DE ENCIERRO','NOCTURNA'];
+  estados: string[] = ['SIN CONFORMACION', 'EN CONFORMACION', 'CON PERSONERIA'];
+
   constructor(
     private fb: FormBuilder,
     private cooperadoraService: CooperadoraService,
@@ -96,15 +99,17 @@ export class CooperadoraFormInsupdComponent implements OnInit {
       id: null,
       fkRefTipoAsociacion:[null, {validators: [Validators.required]}],
       fkOrganizacionRUCE: null,
-      cuit: [null, {validators: [Validators.required, Validators.minLength(9), Validators.maxLength(11), this.validadorServicio.validarEspaciosInicioFin() ]}],
-      legajo: [null, { validators: [Validators.required, Validators.minLength(3), this.validadorServicio.validarEspaciosInicioFin(), Validators.maxLength(100),] }],
-      denominacion: [null, {validators: [Validators.required, Validators.minLength(3), this.validadorServicio.validarCaracteresDescripcion(), this.validadorServicio.validarEspaciosInicioFin(), Validators.max(255), ]}],
+      cuit: [null, {validators: [ Validators.minLength(11), Validators.maxLength(11) ]}],
+      legajo: [null, { validators: [ Validators.minLength(3), Validators.maxLength(100),] }],
+      denominacion: [null, {validators: [Validators.required, Validators.minLength(3) ]}],
       estado: [null, { validators: [ Validators.required, ]}],
       convenioCsEconomicas: false,
       estadoAfip: false,
       estadoRentas: false,
       inscripcionRenacopes: false,
       organizacionDesc: "",
+      modalidad: [null, { validators: [ Validators.required, ] }],
+      fechaCreacion:[null, { validators: [ Validators.required ] }],
       estaActivo: true,
     },
       {
@@ -116,7 +121,6 @@ export class CooperadoraFormInsupdComponent implements OnInit {
   }
 
   save() {
-    console.log(this.formularioCooperadora);
     if (this.formularioCooperadora.invalid) {
       this.formularioCooperadora.markAllAsTouched();
       return;
@@ -127,7 +131,7 @@ export class CooperadoraFormInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Cooperadora Creada", false)
         this.router.navigate(['/pages/cooperadoras']);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.message, false)
+        this.mostrarDialogMsj("Atención", err.message, false)
       }
       );
     } else {
@@ -135,7 +139,7 @@ export class CooperadoraFormInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Cooperadora Modificada", false)
         this.router.navigate(['/pages/cooperadoras']);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.message, false)
+        this.mostrarDialogMsj("Atención", err.message, false)
       }
       );
     }
@@ -156,7 +160,7 @@ export class CooperadoraFormInsupdComponent implements OnInit {
           this.mostrarDialogMsj("Mensaje", "Cooperadora Eliminado", false)
           this.router.navigate(['/pages/cooperadoras']);
         }, err => {
-          this.mostrarDialogMsj("Atención", err.error.message, false)
+          this.mostrarDialogMsj("Atención", err.message, false)
         }
         );
       }
@@ -174,7 +178,7 @@ export class CooperadoraFormInsupdComponent implements OnInit {
   openDialogSingle(dataSource: IBaseService<any>, nombreColumnaDesc: string, nombreEntidad: string, label: string) {
     let resp!: any;
     const dialogConfig = new MatDialogConfig();
-    const filter: FilterOptions = { estaActivo: true };
+    const filter: FilterOptions = { estaActivo: true, sinCoop: true };
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = '75em';

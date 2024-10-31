@@ -11,16 +11,17 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class CooperadoraController extends Controller
 {
     public function index(Request $request)
     {
         try {
-            if ($request->has('PageNumber')&&$request->has('PageSize')) {
-                return new RequestCollection(Cooperadora::all(),$request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
+            if ($request->has('PageNumber') && $request->has('PageSize')) {
+                return new RequestCollection(Cooperadora::with('OrganizacionRUCE')->orderBy('denominacion', 'desc')->get(), $request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
             }
-            return new RequestCollection(Cooperadora::all(),10, 1);
+            return new RequestCollection(Cooperadora::orderBy('created_at','desc')->get(), 10, 1);
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,
@@ -44,7 +45,10 @@ class CooperadoraController extends Controller
                 'estadoAfip' => $request->estadoAfip,
                 'estadoRentas' => $request->estadoRentas,
                 'inscripcionRenacopes' => $request->inscripcionRenacopes,
-                'idUsuarioAlta' => $request->idUsuarioAlta,
+                'modalidad' => $request->modalidad,
+                'fechaCreacion' => $request->fechaCreacion,
+                'idUsuarioAlta'=>Auth::user()->id,
+                'idUsuarioModificacion' => Auth::user()->id
             ]);
             return response()->json([
                 'message' => 'Cooperadora registrada con Exito',
@@ -61,7 +65,7 @@ class CooperadoraController extends Controller
     public function show(int $cooperadora): JsonResponse
     {
         try {
-            return response()->json(new ModelResourse($cooperadora,'Cooperadora'));
+            return response()->json(new ModelResourse($cooperadora, 'Cooperadora'));
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,
@@ -74,7 +78,6 @@ class CooperadoraController extends Controller
     {
         try {
             $cooperadora = Cooperadora::where('id', $cooperadora)->first();
-            //$request = new UpdateCooperadoraRequest($request->toArray());
             $cooperadora->fkRefTipoAsociacion = $request->fkRefTipoAsociacion ?: $cooperadora->fkRefTipoAsociacion;
             $cooperadora->fkOrganizacionRUCE = $request->fkOrganizacionRUCE ?: $cooperadora->fkOrganizacionRUCE;
             $cooperadora->cuit = $request->cuit ?: $cooperadora->cuit;
@@ -85,15 +88,17 @@ class CooperadoraController extends Controller
             $cooperadora->estadoAfip = $request->estadoAfip !== null ? $request->estadoAfip : $cooperadora->estadoAfip;
             $cooperadora->estadoRentas = $request->estadoRentas !== null ? $request->estadoRentas : $cooperadora->estadoRentas;
             $cooperadora->inscripcionRenacopes = $request->inscripcionRenacopes !== null ? $request->inscripcionRenacopes : $cooperadora->inscripcionRenacopes;
-            // $cooperdora->idUsuarioModificacion = $request->idUsuarioModificacion ?: $cooperadora->idUsuarioModificacion;
-
+            $cooperadora->modalidad = $request->modalidad ?: $cooperadora->modalidad;
+            $cooperadora->fechaCreacion = $request->fechaCreacion !== null || $request->fechaCreacion == null ? $request->fechaCreacion : $cooperadora->fechaCreacion;
+            
             if ($cooperadora->isClean()) {
                 return response()->json([
                     'message' => 'No se modifico ningun valor',
                     'succeeded' => false
                 ], 422);
             }
-            $cooperadora->updated_at= Carbon::now();
+            
+            $cooperadora->idUsuarioModificacion = Auth::user()->id;
             $cooperadora->save();
 
             return response()->json([
@@ -111,7 +116,7 @@ class CooperadoraController extends Controller
     public function destroy(int $id): JsonResponse
     {
         try {
-            Cooperadora::where('id', $id)->update(['estaActivo'=>false,]);
+            Cooperadora::where('id', $id)->update(['estaActivo' => false,'idUsuarioModificacion' => Auth::user()->id]);
             Cooperadora::where('id', $id)->delete();
             return response()->json([
                 'succeeded' => true,
@@ -124,14 +129,4 @@ class CooperadoraController extends Controller
             ], Response::HTTP_NOT_FOUND);
         }
     }
-
-    // public function search(Request $request, $model){
-    //     $query = $model::query();
-    //     if($request->has('descContains')){
-    //         $query->where('denominacion', 'LIKE', '%'.$request->descContains.'%')
-    //         ->orWhere('cuit', 'LIKE', '%'.$request->descContains.'%');
-    //     }
-    //     return $query->paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']);
-    // }
-    
 }

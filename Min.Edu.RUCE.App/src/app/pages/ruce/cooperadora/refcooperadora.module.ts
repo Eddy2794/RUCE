@@ -51,6 +51,7 @@ import { KioscoModule } from "../kiosco/kiosco.module";
         BalancesModule,
         FondoModule,
         KioscoModule
-    ]
+    ],
+    exports: [EncabezadoCooperadoraComponent]
 })
 export class RefCooperadoraModule {}

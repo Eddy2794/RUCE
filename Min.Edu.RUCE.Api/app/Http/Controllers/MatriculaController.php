@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class MatriculaController extends Controller
 {
@@ -19,9 +20,9 @@ class MatriculaController extends Controller
     {
         try {
             if ($request->has('PageNumber')&&$request->has('PageSize')) {
-                return new RequestCollection(Matricula::all(),$request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
+                return new RequestCollection(Matricula::orderBy('periodoLectivo','desc')->get(),$request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
             }
-            return new RequestCollection(Matricula::all(),10, 1);
+            return new RequestCollection(Matricula::orderBy('periodoLectivo','desc')->get(),10, 1);
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,
@@ -39,7 +40,9 @@ class MatriculaController extends Controller
                 'fkOrganizacionRUCE' => $request->fkOrganizacionRUCE,
                 'periodoLectivo' => $request->periodoLectivo,
                 'matricula' => $request->matricula,
-                'idUsuarioAlta' => $request->idUsuarioAlta,
+                'fecha' => $request->fecha,
+                'idUsuarioAlta'=>Auth::user()->id,
+                'idUsuarioModificacion' => Auth::user()->id
             ]);
             return response()->json([
                 'message' => 'Matricula registrada con Exito',
@@ -70,19 +73,18 @@ class MatriculaController extends Controller
     {
         try {
             $matricula = Matricula::where('id', $matricula)->first();
-            //$request = new UpdateMatriculaRequest($request->toArray());
             $matricula->fkOrganizacionRUCE = $request->fkOrganizacionRUCE ?: $matricula->fkOrganizacionRUCE;
             $matricula->periodoLectivo = $request->periodoLectivo ?: $matricula->periodoLectivo;
             $matricula->matricula = $request->matricula ?: $matricula->matricula;
-            // $matricula->idUsuarioModificacion = $request->idUsuarioModificacion ?: $matricula->idUsuarioModificacion;
-
+            $matricula->fecha = $request->fecha !==null || $request->fecha ==null ? $request->fecha: $matricula->fecha;
+            
             if ($matricula->isClean()) {
                 return response()->json([
                     'message' => 'No se modifico ningun valor',
                     'succeeded' => false
                 ], 422);
             }
-            $matricula->updated_at= Carbon::now();
+            $matricula->idUsuarioModificacion = Auth::user()->id;
             $matricula->save();
 
             return response()->json([
@@ -100,7 +102,7 @@ class MatriculaController extends Controller
     public function destroy(int $id): JsonResponse
     {
         try {
-            Matricula::where('id', $id)->update(['estaActivo'=>false,]);
+            Matricula::where('id', $id)->update(['estaActivo'=>false,'idUsuarioModificacion'=>Auth::user()->id]);
             Matricula::where('id', $id)->delete();
             return response()->json([
                 'succeeded' => true,
@@ -112,32 +114,5 @@ class MatriculaController extends Controller
                 'message' => $th->getMessage()
             ], Response::HTTP_NOT_FOUND);
         }
-    }
-
-    public function search(Request $request, Matricula $matricula)
-    {
-        /*
-        Seguramente se puede refactorizar y optimizar
-        por ahora es la forma que da resultados esperados
-        */
-
-        $query = $matricula->newQuery();
-
-        if ($request->id) {
-            $query->where('id', $request->id)
-                ->where(function ($q) use ($request) {
-                    if ($request->q) {
-                        $q->where('cue', 'like', '%' . $request->q . '%')
-                            ->orWhere('organizacionDesc', 'like', '%' . $request->q . '%');
-                    }
-                });
-        } else {
-            if ($request->q) {
-                $query->where('cue', 'like', '%' . $request->q . '%')
-                    ->orWhere('organizacionDesc', 'like', '%' . $request->q . '%');
-            }
-        }
-
-        // return new RequestCollection($query->orderBy('organizacionDesc')->paginate()->appends(['q' => $request->q, 'id' => $request->id]));
     }
 }

@@ -16,6 +16,7 @@ import { MatriculaInsupdComponent } from "../matriculas/Components/form-insupd/m
 import { AutoridadOrganizacionListComponent } from "../autoridadesorganizacion/Components/autoridad-list/autoridad-list.component";
 import { AutoridadesorganizacionModule } from "../autoridadesorganizacion/autoridadesorganizacion.module";
 import { MatriculasModule } from "../matriculas/matriculas.module";
+import { RefCooperadoraModule } from "../cooperadora/refcooperadora.module";
 
 // import { VexAioTableModule } from 'vex-aio-table';
 
@@ -35,6 +36,7 @@ import { MatriculasModule } from "../matriculas/matriculas.module";
     RefOrganizacionRUCERoutingModule,
     AutoridadesorganizacionModule,
     MatriculasModule,
+    RefCooperadoraModule
   ],
   providers: [
     //OrganizacionRUCEService,

@@ -3,6 +3,7 @@
 use Carbon\Carbon;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -17,10 +18,10 @@ return new class extends Migration
         Schema::create('Personeria', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->unsignedInteger('fkExpediente')->unique();
+            $table->unsignedInteger('fkExpediente')->nullable();
             $table->foreign('fkExpediente')->references('id')->on('Expediente')->onDelete('cascade'); 
 
-            $table->unsignedInteger('fkCooperadora')->unique();
+            $table->unsignedInteger('fkCooperadora');
             $table->foreign('fkCooperadora')->references('id')->on('Cooperadora');
 
             $table->string('decreto')->nullable();
@@ -33,6 +34,7 @@ return new class extends Migration
             $table->integer('idUsuarioModificacion')->nullable(true);
             $table->timestamps();
         });
+        DB::statement('CREATE UNIQUE INDEX personeria_fkExpediente_unique ON Personeria (fkExpediente) WHERE fkExpediente IS NOT NULL;');
         
         Schema::table('Personeria', function (Blueprint $table) {
             $table->softDeletes();

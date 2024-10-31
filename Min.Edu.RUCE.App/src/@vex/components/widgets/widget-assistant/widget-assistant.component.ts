@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WidgetAssistantComponent implements OnInit {
 
+  usuario? = JSON.parse(localStorage.getItem('currentUser'));
+
   constructor() { }
 
   ngOnInit() {

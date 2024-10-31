@@ -92,11 +92,16 @@
       <ng-container *ngFor="let column of columns; trackBy: trackByProperty">
         <ng-container *ngIf="column.type === 'text'" [matColumnDef]="column.property">
           <th *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header> {{ column.label }}</th>
-          <td *matCellDef="let row" [ngClass]="column.cssClasses" mat-cell>{{ row[column.property] }}</td>
+          <td *matCellDef="let row" [ngClass]="column.cssClasses" mat-cell>{{ (row | mapingObject:column.property) === null || (row | mapingObject:column.property).length === 0 ? "Sin Información" :
+            row | mapingObject:column.property }}</td>
         </ng-container>
         <ng-container *ngIf="column.type === 'object'" [matColumnDef]="column.property">
           <th *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header> {{ column.label }}</th>
-          <td *matCellDef="let row" [ngClass]="column.cssClasses" mat-cell>{{ row | mapingObject:column.property }}</td>
+          <td *matCellDef="let row" [ngClass]="column.cssClasses" mat-cell>{{ 
+            (row | mapingObject:column.property) === true? 
+              "SI" : (row | mapingObject:column.property) === false ? 
+                "NO" : (row | mapingObject:column.property) === null || (row | mapingObject:column.property).length === 0 ? "Sin Información" :
+                row | mapingObject:column.property }}</td>
         </ng-container>
         <ng-container *ngIf="column.type === 'boolean'" [matColumnDef]="column.property">
           <th *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header> {{ column.label }}</th>
@@ -108,7 +113,53 @@
           <td *matCellDef="let row" [ngClass]="column.cssClasses" mat-cell>{{ row[column.property] | date : 'dd/MM/yyyy'
             }}</td>
         </ng-container>
+
+        <ng-container *ngIf="column.type === 'pesos'" [matColumnDef]="column.property">
+          <th *matHeaderCellDef mat-header-cell mat-sort-header> {{ column.label }}</th>
+          <td *matCellDef="let row" [ngClass]="column.cssClasses" mat-cell>$ {{ row[column.property] }}</td>
+        </ng-container>
+
+        <ng-container *ngIf="column.type === 'array'" [matColumnDef]="column.property">
+          <th *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header>{{ column.label }}</th>
+          <td *matCellDef="let row" [ngClass]="column.cssClasses" mat-cell>
+            <mat-form-field>
+              <mat-label>{{ column.label }}</mat-label>
+              <mat-select>
+                <ng-container [ngSwitch]="column.label">
+                  <ng-container *ngSwitchCase="'AUTORIDADES INSTITUCION'">
+                    <ng-container *ngIf="row['autoridad_organizacion_r_u_c_e']">
+                      <mat-option *ngFor="let option of row['autoridad_organizacion_r_u_c_e']" [value]="option" [disabled]="true">
+                        {{ option?.ref_cargo[0]?.cargoDesc + " - " + option?.persona_r_u_c_e[0]?.cuil + " - " + option?.persona_r_u_c_e[0]?.apellido + ", " + option?.persona_r_u_c_e[0]?.nombre }}
+                      </mat-option>
+                    </ng-container>
+                    <ng-container *ngIf="!row['autoridad_organizacion_r_u_c_e']">
+                      <mat-option [disabled]="true">Sin Información</mat-option>
+                    </ng-container>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'AUTORIDADES COMISION'">
+                    <ng-container *ngIf="row['cooperadora'] && row['cooperadora']['comision']">
+                      <ng-container *ngIf="row['cooperadora']['comision'][0] && row['cooperadora']['comision'][0]['autoridad_comision'] && row['cooperadora']['comision'][0]['autoridad_comision'].length > 0">
+                        <mat-option *ngFor="let option of row['cooperadora']['comision'][0]['autoridad_comision']" [value]="option" [disabled]="true">
+                          {{ option?.ref_cargo[0]?.cargoDesc + " - " + option?.persona_r_u_c_e[0]?.cuil + " - " + option?.persona_r_u_c_e[0]?.apellido + ", " + option?.persona_r_u_c_e[0]?.nombre }}
+                        </mat-option>
+                      </ng-container>
+                    </ng-container>
+                    <ng-container *ngIf="!row['cooperadora'] || !row['cooperadora']['comision'] || !row['cooperadora']['comision'][0] || !row['cooperadora']['comision'][0]['autoridad_comision'] || row['cooperadora']['comision'][0]['autoridad_comision'].length === 0">
+                      <mat-option [disabled]="true">Sin Información</mat-option>
+                    </ng-container>
+                  </ng-container>
+                  <ng-container *ngSwitchDefault>
+                    <mat-option value="default">Otra opción</mat-option>
+                  </ng-container>
+                </ng-container>
+              </mat-select>
+            </mat-form-field>
+          </td>
+        </ng-container>
+        
+
       </ng-container>
+
 
       <!-- Contact Column -->
       <ng-container matColumnDef="contact">

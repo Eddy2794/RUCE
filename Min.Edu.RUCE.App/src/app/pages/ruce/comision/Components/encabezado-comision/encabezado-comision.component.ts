@@ -8,17 +8,28 @@ import { ActivatedRoute } from '@angular/router';
 import { ComisionService } from '../../Services/comision.service';
 import { AutoridadComisionService } from '@app/pages/ruce/autoridadescomision/Service/autoridad-comision.service';
 import { ObserverComisionService } from '../../Services/observer-comision.service';
+import { fadeInUp400ms } from 'src/@vex/animations/fade-in-up.animation';
+import { fadeInRight400ms } from 'src/@vex/animations/fade-in-right.animation';
+import { scaleIn400ms } from 'src/@vex/animations/scale-in.animation';
+import { stagger40ms } from 'src/@vex/animations/stagger.animation';
 
 @Component({
   selector: 'vex-encabezado-comision',
   templateUrl: './encabezado-comision.component.html',
-  styleUrls: ['./encabezado-comision.component.scss']
+  styleUrls: ['./encabezado-comision.component.scss'],
+  animations: [
+    fadeInUp400ms,
+    fadeInRight400ms,
+    scaleIn400ms,
+    stagger40ms
+  ]
 })
 export class EncabezadoComisionComponent implements OnInit {
 
   comision?: ComisionModel;
+  autoridad?: AutoridadComisionModel;
   idCooperadora?: number = 0;
-  idComision?: number=1;
+  idComision?: number=0;
 
   filtro: FilterOptions = {estaActivo: true, filtros:""};
   columnasVex: TableColumn<AutoridadComisionModel>[];
@@ -49,6 +60,13 @@ export class EncabezadoComisionComponent implements OnInit {
         this.idComision = this.comision.id;
         this.observerIdComision.enviarIdComision(this.idComision);
         this.datosShow = true;
+
+        this.autoridadService.findOne(this.idComision).subscribe(
+          (res:any) => {
+            if (res.entities.ref_cargo[0].cargoDesc === "PRESIDENTE")
+              this.autoridad = Object.assign({}, this.autoridad, res.entities);
+          }
+        )
       },
     );
   }

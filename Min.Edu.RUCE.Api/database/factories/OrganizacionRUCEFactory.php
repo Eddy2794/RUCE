@@ -20,8 +20,7 @@ class OrganizacionRUCEFactory extends Factory
     {
         return [
             'organizacionDesc' => $this->faker->paragraph(1,true),
-            'cue' => intval("380".$this->faker->unique()->numerify("######")),
-            'anexo' => null,
+            'cueAnexo' => intval("380".$this->faker->unique()->numerify("######")),
             'region' => $this->faker->randomElement(['I','II','III','IV','V','VI','VII']),
             'nivel' => $this->faker->randomElement(["INICIAL","PRIMARIO","SECUNDARIO","SUPERIOR"]),
             'localidad' => strtoupper($this->faker->streetName()),

@@ -12,7 +12,7 @@ return new class extends Migration
         Schema::create('Comision', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->unsignedInteger('fkCooperadora')->unique();
+            $table->unsignedInteger('fkCooperadora');
             $table->foreign('fkCooperadora')->references('id')->on('Cooperadora')->onDelete('cascade');
 
             $table->unsignedInteger('fkRefTipoComision');
@@ -20,7 +20,7 @@ return new class extends Migration
 
             $table->date('periodoInicio')->nullable(false);
             $table->date('periodoFin')->nullable(false);
-            $table->integer('nroSocios')->default(1);
+            $table->integer('nroSocios')->nullable();
             $table->string('estadoResolucion');
             
             $table->boolean('estaActivo')->default(true)->nullable(false);

@@ -21,15 +21,18 @@ class OrganizacionRUCE extends Model  implements Auditable
     protected $dates = ['deleted_at'];
     protected $fillable = [
         'organizacionDesc',
-        'cue',
-        'anexo',
+        'cueAnexo',
         'region',
         'nivel',
         'localidad',
         'departamento',
         'telefono',
         'email',
-        'domicilio',
+        // 'domicilio',
+        'calle', 
+        'numero', 
+        'barrio', 
+        'cp',
         'estaActivo',
         'idUsuarioAlta',
         'idUsuarioModificacion'
@@ -51,17 +54,17 @@ class OrganizacionRUCE extends Model  implements Auditable
 
     public function AutoridadOrganizacionRUCE(): HasMany
     {
-        return $this->hasMany(AutoridadOrganizacionRUCE::class);
+        return $this->hasMany(AutoridadOrganizacionRUCE::class, 'fkOrganizacionRUCE');
     }
 
     public function Matricula(): HasMany
     {
-        return $this->hasMany(Matricula::class);
+        return $this->hasMany(Matricula::class, 'fkOrganizacionRUCE');
     }
 
     public function Cooperadora()
     {
-        return $this->hasOne(Cooperadora::class);
+        return $this->hasOne(Cooperadora::class, 'fkOrganizacionRUCE');
     }
 
     /*

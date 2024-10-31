@@ -14,6 +14,7 @@ use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PersonaRUCEController;
 use App\Http\Requests\StorePersonaRUCERequest;
 use App\Http\Requests\UpdatePersonaRUCERequest;
@@ -25,9 +26,9 @@ class AutoridadOrganizacionRUCEController extends Controller
         // return typeOf($request->page);
         try {
             if ($request->has('PageNumber')&&$request->has('PageSize')) {
-                return new RequestCollection(AutoridadOrganizacionRUCE::all(),$request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
+                return new RequestCollection(AutoridadOrganizacionRUCE::with(["PersonaRUCE.RefTipoDocumentoRUCE","RefCargo"])->orderBy('fkRefCargo')->get(),$request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
             }
-            return new RequestCollection(AutoridadOrganizacionRUCE::all(),10, 1);
+            return new RequestCollection(AutoridadOrganizacionRUCE::with(["PersonaRUCE.RefTipoDocumentoRUCE","RefCargo"])->orderBy('fkRefCargo')->get(),10, 1);
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,
@@ -68,27 +69,32 @@ class AutoridadOrganizacionRUCEController extends Controller
 
     public function store(StoreAutoridadOrganizacionRUCERequest $request): JsonResponse
     {
-        $persona = new PersonaRUCEController();
-        $requestPersona = new StorePersonaRUCERequest($request->toArray());
-        $created = json_decode($persona->store($requestPersona)->getContent());
-        $idPersona = PersonaRUCE::max('id');
-        if($created->succeeded){
+        $idPersona = $request->fkPersonaRUCE;
+        $created = (object)['succeeded' => false];
+        if($idPersona==null){
+            $persona = new PersonaRUCEController();
+            $requestPersona = app(StorePersonaRUCERequest::class);
+            $created = json_decode($persona->store($requestPersona)->getContent());
+            $idPersona = $created->succeeded ? PersonaRUCE::max('id') : null;
+        }
+        if($idPersona!=null){
             try {
                 AutoridadOrganizacionRUCE::create([
                     'fkRefCargo' => $request->fkRefCargo,
                     'fkPersonaRUCE' => $idPersona,
                     'fkOrganizacionRUCE' => $request->fkOrganizacionRUCE,
-                    'inicioCargo' => date_create($request->inicioCargo),
-                    'finCargo' => date_create($request->finCargo),
-                    'idUsuarioAlta'=>$request->idUsuarioAlta,
-                    'idUsuarioModificacion' => $request->idUsuarioModificacion
+                    'inicioCargo' => ($request->inicioCargo),
+                    'finCargo' => ($request->finCargo),
+                    'idUsuarioAlta'=>Auth::user()->id,
+                    'idUsuarioModificacion' => Auth::user()->id
                 ]);
                 return response()->json([
                     'message' => 'Autoridad Organización registrado con Exito',
                     'succeeded' => true
                 ], Response::HTTP_OK);
             } catch (\Throwable $th) {
-                $persona->delete($idPersona);
+                if($created->succeeded)
+                    $persona->delete($idPersona);
                 return response()->json([
                     'succeeded' => false,
                     'message' => $th->getMessage()
@@ -129,19 +135,17 @@ class AutoridadOrganizacionRUCEController extends Controller
     public function update( int $id, UpdateAutoridadOrganizacionRUCERequest $request): JsonResponse
     {
         $persona = new PersonaRUCEController();
-        $requestPersona = new UpdatePersonaRUCERequest($request->toArray());
+        $requestPersona = app(UpdatePersonaRUCERequest::class);
         $personaUpdated = response()->json($persona->update($requestPersona,$request->fkPersonaRUCE));
         if($personaUpdated->original->getStatusCode() != Response::HTTP_NOT_FOUND)
             {
             try {
                 $autoridadOrganizacionRUCE = AutoridadOrganizacionRUCE::find($id);
-                //$request = new UpdateAutoridadOrganizacionRUCERequest($request->toArray());
                 $autoridadOrganizacionRUCE->fkRefCargo = $request->fkRefCargo ?: $autoridadOrganizacionRUCE->fkRefCargo;
                 $autoridadOrganizacionRUCE->fkPersonaRUCE = $request->fkPersonaRUCE ?: $autoridadOrganizacionRUCE->fkPersonaRUCE;
                 $autoridadOrganizacionRUCE->fkOrganizacionRUCE = $request->fkOrganizacionRUCE ?: $autoridadOrganizacionRUCE->fkOrganizacionRUCE;
                 $autoridadOrganizacionRUCE->inicioCargo = $request->inicioCargo ?: $autoridadOrganizacionRUCE->inicioCargo;
-                $autoridadOrganizacionRUCE->finCargo = $request->finCargo ?: $autoridadOrganizacionRUCE->finCargo;
-                $autoridadOrganizacionRUCE->idUsuarioModificacion = $request->idUsuarioModificacion ?: $autoridadOrganizacionRUCE->idUsuarioModificacion;
+                $autoridadOrganizacionRUCE->finCargo = $request->finCargo == null || $request->finCargo !== null ? $request->finCargo : $autoridadOrganizacionRUCE->finCargo;
 
                 if ($autoridadOrganizacionRUCE->isClean() && $personaUpdated->original->getStatusCode()== Response::HTTP_UNPROCESSABLE_ENTITY) {
                     return response()->json([
@@ -149,6 +153,7 @@ class AutoridadOrganizacionRUCEController extends Controller
                         'succeeded' => false
                     ], Response::HTTP_UNPROCESSABLE_ENTITY);
                 }
+                $autoridadOrganizacionRUCE->idUsuarioModificacion = Auth::user()->id;
                 $autoridadOrganizacionRUCE->save();
 
                 return response()->json([
@@ -172,7 +177,7 @@ class AutoridadOrganizacionRUCEController extends Controller
     {
         try {
 
-            AutoridadOrganizacionRUCE::where('id', $id)->update(['estaActivo'=>false,]);
+            AutoridadOrganizacionRUCE::where('id', $id)->update(['estaActivo'=>false,'idUsuarioModificacion'=>Auth::user()->id]);
             AutoridadOrganizacionRUCE::where('id', $id)->delete();
 
             return response()->json([
@@ -186,32 +191,4 @@ class AutoridadOrganizacionRUCEController extends Controller
             ], Response::HTTP_NOT_FOUND);
         }
     }
-
-        public function search(Request $request, AutoridadOrganizacionRUCE $organizacionRUCE)
-    {
-        /*
-        Seguramente se puede refactorizar y optimizar
-        por ahora es la forma que da resultados esperados
-        */
-
-        $query = $organizacionRUCE->newQuery();
-
-        if ($request->id) {
-            $query->where('id', $request->id)
-                ->where(function ($q) use ($request) {
-                    if ($request->q) {
-                        $q->where('fkOrganizacionRUCE', 'like', '%' . $request->q . '%')
-                            ->orWhere('organizacionDesc', 'like', '%' . $request->q . '%');
-                    }
-                });
-        } else {
-            if ($request->q) {
-                $query->where('fkOrganizacionRUCE', 'like', '%' . $request->q . '%')
-                    ->orWhere('organizacionDesc', 'like', '%' . $request->q . '%');
-            }
-        }
-
-        // return new RequestCollection($query->orderBy('organizacionDesc')->paginate()->appends(['q' => $request->q, 'id' => $request->id]));
-    }
-
 }

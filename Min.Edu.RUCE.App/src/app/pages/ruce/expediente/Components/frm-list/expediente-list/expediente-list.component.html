@@ -1,14 +1,35 @@
 <vex-page-layout>
-  <div class="card flex-auto">
+  <div class="flex-auto">
 
-    <div *ngIf="idExpediente !== 0" class="mt-5 vex-button-group flex items-center justify-center">
+    <div *ngIf="idExpediente !== 0" class="flex justify-center">
+  
+      <div class="relative flex items-center cursor-pointer select-none rounded-full px-4 py-2 hover:bg-green-light trans-ease-out"
+           matRipple
+           [routerLink]="'/pages/expediente/add-edit/'+idCooperadora">
+        <div @scaleIn class="p-2 bg-green-light text-green rounded-full ltr:mr-4 rtl:ml-4">
+          <mat-icon class="block" svgIcon="mat:edit"></mat-icon>
+        </div>
+        <p @fadeInRight class="font-medium text-green">Actualizar</p>
+      </div>
+
+      <div class="relative flex items-center cursor-pointer select-none rounded-full px-4 py-2 hover:bg-red-light trans-ease-out"
+           matRipple
+           [routerLink]="'/pages/expediente/delete/'+idCooperadora">
+        <div class="p-2 bg-red-light text-red rounded-full ltr:mr-4 rtl:ml-4">
+          <mat-icon class="block" svgIcon="mat:delete_outline"></mat-icon>
+        </div>
+        <p @fadeInRight class="font-medium text-red">Eliminar</p>
+      </div>
+    </div>
+
+    <!-- <div *ngIf="idExpediente !== 0" class="mt-5 vex-button-group flex items-center justify-center">
       <button
       [routerLink]="'/pages/expediente/add-edit/'+idCooperadora"
       mat-raised-button 
       class="vex-button m-4 vex-lg" color="primary">   Actualizar   </button>
       <button [routerLink]="'/pages/expediente/delete/'+idCooperadora"
       mat-raised-button class="vex-button m-4 vex-lg"  color="warn">Eliminar</button>
-    </div>
+    </div> -->
 
     <!-- <button
       *ngIf="idExpediente !== 0"

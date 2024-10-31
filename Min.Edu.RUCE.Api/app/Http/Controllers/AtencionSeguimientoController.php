@@ -12,6 +12,7 @@ use App\Models\AtencionSeguimiento;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class AtencionSeguimientoController extends Controller
 {
@@ -20,10 +21,10 @@ class AtencionSeguimientoController extends Controller
         // return typeOf($request->page);
         try {
             if ($request->has('PageNumber')&&$request->has('PageSize')) {
-                return new RequestCollection(AtencionSeguimiento::all(),$request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
+                return new RequestCollection(AtencionSeguimiento::orderBy('fecha', 'desc')->get(),$request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
             }
 
-            return new RequestCollection(AtencionSeguimiento::all(),10, 1);
+            return new RequestCollection(AtencionSeguimiento::orderBy('fecha', 'desc')->get(),10, 1);
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,
@@ -39,7 +40,7 @@ class AtencionSeguimientoController extends Controller
                 try {
             AtencionSeguimiento::create([
                 'fkCooperadora' => $request->fkCooperadora,
-                'fkPersonaRUCE' => $request->fkPersonaRUCE,
+                // 'fkPersonaRUCE' => $request->fkPersonaRUCE,
                 'llamadas' => $request->llamadas,
                 'mesajes' => $request->mesajes,
                 'emailEnviados' => $request->emailEnviados,
@@ -47,7 +48,8 @@ class AtencionSeguimientoController extends Controller
                 'atencionTerritorial' => $request->atencionTerritorial,
                 'observacion' => $request->observacion,
                 'fecha' => $request->fecha,
-                'idUsuarioAlta' => $request->idUsuarioAlta,
+                'idUsuarioAlta' => Auth::user()->id,
+                'idUsuarioModificacion' => Auth::user()->id
             ]);
             return response()->json([
                 'message' => 'Organizacion registrada con Exito',
@@ -89,16 +91,15 @@ class AtencionSeguimientoController extends Controller
     public function update(UpdateAtencionSeguimientoRequest $request, int $atencionSeguimiento)
     {
         try {
-            $organizacionRUCE = AtencionSeguimiento::where('id', $atencionSeguimiento)->first();
-            //$request = new UpdateAtencionSeguimientoRequest($request->toArray());
+            $atencionSeguimiento = AtencionSeguimiento::where('id', $atencionSeguimiento)->first();
             $atencionSeguimiento->fkCooperadora = $request->fkCooperadora ?: $atencionSeguimiento->fkCooperadora;
-            $atencionSeguimiento->fkPersonaRUCE = $request->fkPersonaRUCE ?: $atencionSeguimiento->fkPersonaRUCE;
-            $atencionSeguimiento->llamadas = $request->llamadas ?: $atencionSeguimiento->llamadas;
-            $atencionSeguimiento->mesajes = $request->mesajes ?: $atencionSeguimiento->mesajes;
-            $atencionSeguimiento->emailEnviados = $request->emailEnviados ?: $atencionSeguimiento->emailEnviados;
-            $atencionSeguimiento->atencionOficina = $request->atencionOficina ?: $atencionSeguimiento->atencionOficina;
-            $atencionSeguimiento->atencionTerritorial = $request->atencionTerritorial ?: $atencionSeguimiento->atencionTerritorial;
-            $atencionSeguimiento->observacion = $request->observacion ?: $atencionSeguimiento->observacion;
+            // $atencionSeguimiento->fkPersonaRUCE = $request->fkPersonaRUCE ?: $atencionSeguimiento->fkPersonaRUCE;
+            $atencionSeguimiento->llamadas = $request->llamadas == null || $request->llamadas !== null ? $request->llamadas : $atencionSeguimiento->llamadas;
+            $atencionSeguimiento->mensajes = $request->mensajes == null || $request->mensajes !== null ? $request->mensajes : $atencionSeguimiento->mensajes;
+            $atencionSeguimiento->emailEnviados = $request->emailEnviados == null || $request->emailEnviados !== null ? $request->emailEnviados : $atencionSeguimiento->emailEnviados;
+            $atencionSeguimiento->atencionOficina = $request->atencionOficina == null || $request->atencionOficina !== null ? $request->atencionOficina : $atencionSeguimiento->atencionOficina;
+            $atencionSeguimiento->atencionTerritorial = $request->atencionTerritorial == null || $request->atencionTerritorial !== null ? $request->atencionTerritorial : $atencionSeguimiento->atencionTerritorial;
+            $atencionSeguimiento->observacion = $request->observacion == null || $request->observacion !== null ? $request->observacion : $atencionSeguimiento->observacion;
             $atencionSeguimiento->fecha = $request->fecha ?: $atencionSeguimiento->fecha;
             $atencionSeguimiento->estaActivo = $request->estaActivo ?: $atencionSeguimiento->estaActivo;
             $atencionSeguimiento->idUsuarioModificacion = $request->idUsuarioModificacion ?: $atencionSeguimiento->idUsuarioModificacion;
@@ -109,7 +110,7 @@ class AtencionSeguimientoController extends Controller
                     'succeeded' => false
                 ], 422);
             }
-            $organizacionRUCE->updated_at= Carbon::now();
+            $atencionSeguimiento->idUsuarioModificacion = Auth::user()->id;
             $atencionSeguimiento->save();
 
             return response()->json([
@@ -133,7 +134,7 @@ class AtencionSeguimientoController extends Controller
     public function destroy(int $id)
     {
         try {
-            AtencionSeguimiento::where('id', $id)->update(['estaActivo'=>false,]);
+            AtencionSeguimiento::where('id', $id)->update(['estaActivo'=>false,'idUsuarioModificacion'=>Auth::user()->id]);
             AtencionSeguimiento::where('id', $id)->delete();
             return response()->json([
                 'succeeded' => true,
@@ -145,32 +146,5 @@ class AtencionSeguimientoController extends Controller
                 'message' => $th->getMessage()
             ], Response::HTTP_NOT_FOUND);
         }
-    }
-
-    public function search(Request $request, AtencionSeguimiento $atencionSeguimiento)
-    {
-        /*
-        Seguramente se puede refactorizar y optimizar
-        por ahora es la forma que da resultados esperados
-        */
-
-        $query = $atencionSeguimiento->newQuery();
-
-        if ($request->fkCooperadora) {
-            $query->where('fkCooperadora', $request->fkCooperadora)
-                ->where(function ($q) use ($request) {
-                    if ($request->q) {
-                        $q->where('fkCooperadora', 'like', '%' . $request->q . '%')
-                            ->orWhere('denominacion', 'like', '%' . $request->q . '%');
-                    }
-                });
-        } else {
-            if ($request->q) {
-                $query->where('fkCooperadora', 'like', '%' . $request->q . '%')
-                    ->orWhere('denominacion', 'like', '%' . $request->q . '%');
-            }
-        }
-
-        return new RequestCollection($query->orderBy('denominacion')->paginate()->appends(['q' => $request->q, 'fkCooperadora' => $request->fkCooperadora]));
     }
 }

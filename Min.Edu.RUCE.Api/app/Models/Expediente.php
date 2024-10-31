@@ -13,7 +13,6 @@ use OwenIt\Auditing\Contracts\Auditable;
 class Expediente extends Model  implements Auditable
 {
     use \OwenIt\Auditing\Auditable;
-    use \OwenIt\Auditing\Auditable;
     use HasFactory;
     use SoftDeletes;
     protected $table = 'Expediente';
@@ -26,6 +25,7 @@ class Expediente extends Model  implements Auditable
         'cantObservaciones',
         'observacionesDesc',
         'observacionesRespondidas',
+        'fecha',
         'estaActivo',
         'idUsuarioAlta',
         'idUsuarioModificacion'

@@ -14,7 +14,7 @@ class UpdatePersonaRUCERequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,6 +24,7 @@ class UpdatePersonaRUCERequest extends FormRequest
      */
     public function rules()
     {
+        //dd(request());
         return [
             'id' => [
                 'required',
@@ -35,13 +36,19 @@ class UpdatePersonaRUCERequest extends FormRequest
             ],
             'documento' => [
                 'required',
-                'string',
-                Rule::unique('PersonaRUCE','documento')->where('documento', $this->documento)->withoutTrashed()
+                'integer',
+                Rule::unique('PersonaRUCE', 'documento')->where(function ($query) {
+                    // Excluye el registro actual por su ID
+                    return $query->where('id', '<>', $this->fkPersonaRUCE);
+                })->withoutTrashed()
             ],
             'cuil' => [
                 'required',
                 'string',
-                Rule::unique('PersonaRUCE','cuil')->where('cuil', $this->cuil)->withoutTrashed()
+                Rule::unique('PersonaRUCE', 'cuil')->where(function ($query) {
+                    // Excluye el registro actual por su ID
+                    return $query->where('id', '<>', $this->fkPersonaRUCE);
+                })->withoutTrashed()
             ],
             'nombre' => [
                 'required',
@@ -53,25 +60,32 @@ class UpdatePersonaRUCERequest extends FormRequest
             ],
             'telefono' => [
                 'required',
-                'string'
+                'string',
+                Rule::unique('PersonaRUCE', 'telefono')->where(function ($query) {
+                    // Excluye el registro actual por su ID
+                    return $query->where('id', '<>', $this->fkPersonaRUCE);
+                })->withoutTrashed()
             ],
             'email' => [
-                'required',
+                'nullable',
                 'string',
-                Rule::unique('PersonaRUCE','email')->where('email', $this->email)->withoutTrashed()
+                Rule::unique('PersonaRUCE', 'email')->where(function ($query) {
+                    // Excluye el registro actual por su ID
+                    return $query->where('id', '<>', $this->fkPersonaRUCE);
+                })->withoutTrashed()
             ],
             'estaActivo' => [
                 'required',
                 'boolean'
-            ],/*
+            ],
             'idUsuarioAlta' => [
-                'required',
+                'nullable',
                 'integer',
             ],
             'idUsuarioModificacion' => [
-                'required',
+                'nullable',
                 'integer',
-            ],*/
+            ],
         ];
     }
 
@@ -82,7 +96,8 @@ class UpdatePersonaRUCERequest extends FormRequest
             'fkRefTipoDocumentoRUCE.exist' => 'El tipo de Documento no existe en la tabla RefTipoDocumentoRUCE.',
             'documento.unique' => 'El documento de la Persona ya fue registrado.',
             'cuil.unique' => 'El cuil de la Persona ya fue registrado.',
-            'email.unique' => 'El email de la Oganizacion ya fue registrado.',
+            'email.unique' => 'El email de la persona ya fue registrado.',
+            'telefono.unique' => 'El telefono de la persona ya fue registrado.',
         ];
     }
 }

@@ -4,6 +4,7 @@ import { UserMenuComponent } from './user-menu.component';
 import { MatRippleModule } from '@angular/material/core';
 import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -15,7 +16,9 @@ import { MatIconModule } from '@angular/material/icon';
 
     MatRippleModule,
     RouterModule,
-    MatIconModule
+    MatIconModule,
+    
+    MatSnackBarModule
   ]
 })
 export class UserMenuModule {

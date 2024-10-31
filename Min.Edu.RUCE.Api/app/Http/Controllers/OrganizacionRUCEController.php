@@ -11,16 +11,25 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class OrganizacionRUCEController extends Controller
 {
     public function index(Request $request)
     {
         try {
-            if ($request->has('PageNumber')&&$request->has('PageSize')) {
-                    return new RequestCollection(OrganizacionRUCE::all(),$request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
+            if ($request->has('PageNumber') && $request->has('PageSize')) {
+                if ($request->has('sinCoop') && $request['sinCoop'] == true) {
+                    return new RequestCollection(
+                        OrganizacionRUCE::whereDoesntHave('Cooperadora')->orderBy('organizacionDesc', 'asc')->get(),
+                        $request['PageSize'],
+                        $request['PageNumber'],
+                        $request['descContains']
+                    );
+                } else
+                    return new RequestCollection(OrganizacionRUCE::orderBy('organizacionDesc', 'asc')->get(), $request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
             }
-            return new RequestCollection(OrganizacionRUCE::all(),10, 1);
+            return new RequestCollection(OrganizacionRUCE::orderBy('organizacionDesc', 'asc')->get(), 10, 1);
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,
@@ -32,21 +41,24 @@ class OrganizacionRUCEController extends Controller
 
     public function store(StoreOrganizacionRUCERequest $request): JsonResponse
     {
-        
+
         $request = new StoreOrganizacionRUCERequest($request->toArray());
         try {
             OrganizacionRUCE::create([
                 'organizacionDesc' => $request->organizacionDesc,
-                'cue' => $request->cue,
-                'anexo' => $request->anexo,
+                'cueAnexo' => $request->cueAnexo,
                 'region' => $request->region,
                 'nivel' => $request->nivel,
                 'localidad' => $request->localidad,
                 'departamento' => $request->departamento,
                 'telefono' => $request->telefono,
                 'email' => $request->email,
-                'domicilio' => $request->domicilio,
-                'idUsuarioAlta' => $request->idUsuarioAlta,
+                'calle' => $request->calle,
+                'barrio' => $request->barrio,
+                'numero' => $request->numero,
+                'cp' => $request->cp,
+                'idUsuarioAlta'=>Auth::user()->id,
+                'idUsuarioModificacion' => Auth::user()->id
             ]);
             return response()->json([
                 'message' => 'Organizacion registrada con Exito',
@@ -63,7 +75,7 @@ class OrganizacionRUCEController extends Controller
     public function show(int $organizacionRUCE): JsonResponse
     {
         try {
-            return response()->json(new ModelResourse($organizacionRUCE,'OrganizacionRUCE'));
+            return response()->json(new ModelResourse($organizacionRUCE, 'OrganizacionRUCE'));
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,
@@ -76,26 +88,27 @@ class OrganizacionRUCEController extends Controller
     {
         try {
             $organizacionRUCE = OrganizacionRUCE::where('id', $organizacionRUCE)->first();
-            //$request = new UpdateOrganizacionRUCERequest($request->toArray());
             $organizacionRUCE->organizacionDesc = $request->organizacionDesc ?: $organizacionRUCE->organizacionDesc;
-            $organizacionRUCE->cue = $request->cue ?: $organizacionRUCE->cue;
-            $organizacionRUCE->anexo = $request->anexo ?: $organizacionRUCE->anexo;
+            $organizacionRUCE->cueAnexo = $request->cueAnexo ?: $organizacionRUCE->cueAnexo;
             $organizacionRUCE->region = $request->region ?: $organizacionRUCE->region;
             $organizacionRUCE->nivel = $request->nivel ?: $organizacionRUCE->nivel;
             $organizacionRUCE->localidad = $request->localidad ?: $organizacionRUCE->localidad;
             $organizacionRUCE->departamento = $request->departamento ?: $organizacionRUCE->departamento;
-            $organizacionRUCE->telefono = $request->telefono ?: $organizacionRUCE->telefono;
-            $organizacionRUCE->email = $request->email ?: $organizacionRUCE->email;
-            $organizacionRUCE->domicilio = $request->domicilio ?: $organizacionRUCE->domicilio;
-            // $organizacionRUCE->idUsuarioModificacion = $request->idUsuarioModificacion ?: $organizacionRUCE->idUsuarioModificacion;
-
+            $organizacionRUCE->telefono = $request->telefono !== null || $request->telefono == null ? $request->telefono : $organizacionRUCE->telefono;
+            $organizacionRUCE->email = $request->email !== null || $request->email == null ? $request->email : $organizacionRUCE->email;
+            $organizacionRUCE->calle = $request->calle ?: $organizacionRUCE->calle;
+            $organizacionRUCE->numero = $request->numero !== null || $request->numero == null ? $request->numero : $organizacionRUCE->numero;
+            $organizacionRUCE->barrio = $request->barrio ?: $organizacionRUCE->barrio;
+            $organizacionRUCE->cp = $request->cp !== null || $request->cp == null ? $request->cp : $organizacionRUCE->cp;
+            
             if ($organizacionRUCE->isClean()) {
                 return response()->json([
                     'message' => 'No se modifico ningun valor',
                     'succeeded' => false
                 ], 422);
             }
-            $organizacionRUCE->updated_at= Carbon::now();
+            $organizacionRUCE->idUsuarioModificacion = Auth::user()->id;
+            // $organizacionRUCE->updated_at = Carbon::now();
             $organizacionRUCE->save();
 
             return response()->json([
@@ -113,7 +126,7 @@ class OrganizacionRUCEController extends Controller
     public function destroy(int $id): JsonResponse
     {
         try {
-            OrganizacionRUCE::where('id', $id)->update(['estaActivo'=>false,]);
+            OrganizacionRUCE::where('id', $id)->update(['estaActivo' => false, 'idUsuarioModificacion' => Auth::user()->id]);
             OrganizacionRUCE::where('id', $id)->delete();
             return response()->json([
                 'succeeded' => true,
@@ -126,48 +139,4 @@ class OrganizacionRUCEController extends Controller
             ], Response::HTTP_NOT_FOUND);
         }
     }
-
-    /*public function search(Request $request, $model){
-        $query = $model::query();
-        if($request->has('descContains')){
-            $query->where('organizacionDesc', 'LIKE', '%'.$request->descContains.'%')
-            ->orWhere('cue', 'LIKE', '%'.$request->descContains.'%');
-        }
-        return $query->paginate($request['PageSize'], ['*'], 'page', $request['PageNumber']);
-    }*/
-
-    // public function competencias($id)
-    // {
-    //     $especialidad = Especialidad::findOrFail($id);
-
-    //     $competencia = new Competencia();
-
-    //     $competencias = $competencia->where('especialidad_id', $id)->paginate();
-
-    //     if ($competencias->isEmpty()) {
-    //         return response()->json([
-    //             'succeeded' => false,
-    //             'message' => "No existen Competencias para la especialidad seleccionado",
-    //         ]);
-    //     }
-
-    //     return new CompetenciaCollection($competencias);
-    // }
 }
-
-/* public function storeUser(UserStoreRequest $request)
-{
-    // Llama al método storePersona del controlador de personas para almacenar los datos de persona
-    $person = $personController->storePersona($request);
-
-    // Crea un nuevo usuario relacionado con la persona
-    $user = User::create([
-        'name' => $request->input('name'),
-        'email' => $request->input('email'),
-        'password' => bcrypt($request->input('password')),
-        'person_id' => $person->id,
-    ]);
-
-    // Redirecciona a alguna ruta después de guardar el usuario y persona
-    return redirect()->route('users.index')->with('success', 'Usuario y persona creados exitosamente.');
-} */

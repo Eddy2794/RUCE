@@ -1,54 +1,112 @@
-<div class="card border-b">
-    <div *ngIf="datosShow" class="px-gutter py-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
-      
-      <div class="py-1 flex items-center">
-        <div
-          class="w-10 h-10 rounded-full bg-primary/10 text-primary ltr:mr-3 rtl:ml-3 flex items-center justify-center"
-        >
-          <mat-icon class="icon-sm" svgIcon="mat:date_range"></mat-icon>
+<div *ngIf="datosShow" class="mt-6 flex flex-col md:flex-row md:items-start">
+  <div class="flex-auto">
+    <div class="card">
+      <div class="px-gutter py-4 border-b">
+        <h2 class="title m-0">PERSONERIA {{ descPersoneria }}</h2>
+      </div>
+
+      <div class="px-gutter py-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div *ngIf="!datosPersoneria" class="py-3 flex items-center">
+          <div @scaleIn
+               class="w-10 h-10 rounded-full bg-primary/10 text-primary ltr:mr-3 rtl:ml-3 flex items-center justify-center">
+            <mat-icon class="icon-sm" svgIcon="mat:done"></mat-icon>
+          </div>
+
+          <div @fadeInRight>
+            <p class="m-0 body-1">DECRETO: </p>
+            <p class="m-0 caption text-hint">{{ personeria.decreto }}</p>
+          </div>
         </div>
-        <div>
-          <p class="m-0 caption text-hint">
-            DECRETO: {{ personeria.decreto }}
-          </p>
+
+        <div *ngIf="datosPersoneria" class="py-3 flex items-center">
+          <div @scaleIn
+               class="w-10 h-10 rounded-full bg-primary/10 text-primary ltr:mr-3 rtl:ml-3 flex items-center justify-center">
+            <mat-icon class="icon-sm" svgIcon="mat:perm_identity"></mat-icon>
+          </div>
+
+          <div @fadeInRight>
+            <p class="m-0 body-1">NRO RESOLUCION: </p>
+            <p class="m-0 caption text-hint">{{ personeria.nroResolucion }}</p>
+          </div>
+        </div>
+
+        <div class="py-3 flex items-center">
+          <div @scaleIn
+               class="w-10 h-10 rounded-full bg-primary/10 text-primary ltr:mr-3 rtl:ml-3 flex items-center justify-center">
+            <mat-icon class="icon-sm" svgIcon="mat:date_range"></mat-icon>
+          </div>
+
+          <div @fadeInRight>
+            <p class="m-0 body-1">FECHA DE OBTENCION: </p>
+            <p class="m-0 caption text-hint">{{personeria.fecha}}</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="m-5 flex justify-center">
+  
+        <div class="relative flex items-center cursor-pointer select-none rounded-full px-4 py-2 hover:bg-green-light trans-ease-out"
+             matRipple
+             [routerLink]="'/pages/personeria/add-edit/'+idPersoneria">
+          <div @scaleIn class="p-2 bg-green-light text-green rounded-full ltr:mr-4 rtl:ml-4">
+            <mat-icon class="block" svgIcon="mat:edit"></mat-icon>
+          </div>
+          <p @fadeInRight class="font-medium text-green">Actualizar</p>
+        </div>
+  
+        <div class="relative flex items-center cursor-pointer select-none rounded-full px-4 py-2 hover:bg-red-light trans-ease-out"
+             matRipple
+             [routerLink]="'/pages/personeria/delete/'+idPersoneria">
+          <div class="p-2 bg-red-light text-red rounded-full ltr:mr-4 rtl:ml-4">
+            <mat-icon class="block" svgIcon="mat:delete_outline"></mat-icon>
+          </div>
+          <p @fadeInRight class="font-medium text-red">Eliminar</p>
         </div>
       </div>
-      <div class="py-1 flex items-center">
-        <div
-          class="w-10 h-10 rounded-full bg-primary/10 text-primary ltr:mr-3 rtl:ml-3 flex items-center justify-center"
-        >
-          <mat-icon class="icon-sm" svgIcon="mat:event_note"></mat-icon>
-        </div>
-  
-        <div>
-          <p class="m-0 body-1">
-            <label><b></b></label>
-          </p>
-          <p class="m-0 caption text-hint">
-            NRO RESOLUCION: {{ personeria.nroResolucion }}
-          </p>
-        </div>
-      </div>
-    </div>
-  
-    <div *ngIf="datosShow" class="mt-5 vex-button-group flex items-center justify-center">
-      <button
-      [routerLink]="'/pages/personeria/add-edit/'+idPersoneria"
-      mat-raised-button 
-      class="vex-button m-4 vex-lg" color="primary">   Actualizar   </button>
-      <button [routerLink]="'/pages/personeria/delete/'+idPersoneria"
-      mat-raised-button class="vex-button m-4 vex-lg"  color="warn">Eliminar</button>
-    </div>
-  
-    <br>
-    <div *ngIf="!datosShow" _ngcontent-jju-c290="" style="text-align: center;" class="ng-tns-c290-217 ng-star-inserted">
-      <h2 _ngcontent-jju-c290="" class="title mt-0 mb-1 ng-tns-c290-217">Sin información de Personeria</h2>
-      <br>
-      <br>
-      <app-button-nuevo
-          bordecentro
-          [routerLink]="'personeria'"
-          [addRowText]="'Agregar Personeria'"
-        ></app-button-nuevo>
+
     </div>
   </div>
+
+  <div class="card max-w-unset md:max-w-xs w-full flex-none md:ltr:ml-6 md:rtl:mr-6 mt-6 md:mt-0">
+    <div class="px-6 py-4 border-b">
+      <h2 class="title m-0">CONSTANCIA RUCE</h2>
+    </div>
+    <div class="px-gutter py-4 grid grid-cols-1 sm:grid-cols-1 gap-4">
+      <div class="flex justify-center">
+        <div *ngIf="!idConstancia" class="relative flex items-center cursor-pointer select-none rounded-full px-4 py-1 hover:bg-primary/10 trans-ease-out"
+              matRipple
+              [routerLink]="'/pages/constancia/view/'">
+          <div @scaleIn class="p-2 bg-primary/10 text-primary rounded-full ltr:mr-4 rtl:ml-4">
+          <mat-icon class="block" svgIcon="mat:photo_filter"></mat-icon>
+          </div>
+          <p @fadeInRight class="font-medium text-primary">Generar constancia</p>
+        </div>
+        <div *ngIf="idConstancia" class="relative flex items-center cursor-pointer select-none rounded-full px-4 py-1 hover:bg-green/10 trans-ease-out"
+              matRipple
+              [routerLink]="'/pages/constancia/view/'">
+          <div @scaleIn class="p-2 bg-green/10 text-green rounded-full ltr:mr-4 rtl:ml-4">
+          <mat-icon class="block" svgIcon="mat:task"></mat-icon>
+          </div>
+          <p @fadeInRight class="font-medium text-green">Ver constancia</p>
+        </div>
+      </div>
+  </div>
+  </div>
+</div>
+
+<br>
+<div *ngIf="!datosShow" _ngcontent-jju-c290="" style="text-align: center;" class="ng-tns-c290-217 ng-star-inserted">
+  <h2 _ngcontent-jju-c290="" class="title mt-0 mb-1 ng-tns-c290-217">Sin información de personería</h2>
+  <br>
+  <div class="flex justify-center">
+    <div class="relative flex items-center cursor-pointer select-none rounded-full px-4 py-1 hover:bg-primary/10 trans-ease-out"
+          matRipple
+          [routerLink]="'/pages/personeria/add-edit/0'">
+      <div @scaleIn class="p-2 bg-primary/10 text-primary rounded-full ltr:mr-4 rtl:ml-4">
+      <mat-icon class="block" svgIcon="mat:add"></mat-icon>
+      </div>
+      <p @fadeInRight class="font-medium text-primary">Agregar personería</p>
+    </div>
+  </div>
+</div>

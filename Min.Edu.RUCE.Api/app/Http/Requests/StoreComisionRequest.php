@@ -41,7 +41,7 @@ class StoreComisionRequest extends FormRequest
                 'date'
             ],
             'nroSocios' => [
-                'required',
+                'nullable',
                 'integer'
             ],
             'estadoResolucion' => [
@@ -51,15 +51,15 @@ class StoreComisionRequest extends FormRequest
             'estaActivo' => [
                 'required',
                 'boolean'
-            ],/*
+            ],
             'idUsuarioAlta' => [
-                'required',
+                'nullable',
                 'integer',
             ],
             'idUsuarioModificacion' => [
-                'required',
+                'nullable',
                 'integer',
-            ],*/
+            ],
         ];
     }
 

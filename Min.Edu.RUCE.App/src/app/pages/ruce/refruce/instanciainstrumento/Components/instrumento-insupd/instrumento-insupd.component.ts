@@ -96,7 +96,7 @@ export class InstrumentoInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Instancia Instrumento Creado", false)
         this.router.navigate(['/pages/instancia-instrumento/listar/']);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.message, false)
+        this.mostrarDialogMsj("Atención", err.message, false)
       }
       );
     } else {
@@ -106,7 +106,7 @@ export class InstrumentoInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Instancia Instrumento Modificado", false)
         this.router.navigate(['/pages/instancia-instrumento/listar/']);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.message, false)
+        this.mostrarDialogMsj("Atención", err.message, false)
       }
       );
     }
@@ -127,7 +127,7 @@ export class InstrumentoInsupdComponent implements OnInit {
           this.mostrarDialogMsj("Mensaje", "Instancia Instrumento Eliminado", false)
           this.router.navigate(['/pages/instancia-instrumento/listar/']);
         }, err => {
-          this.mostrarDialogMsj("Atención", err.error.message, false)
+          this.mostrarDialogMsj("Atención", err.message, false)
         }
         );
       }

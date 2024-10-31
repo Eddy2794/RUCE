@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class BalanceController extends Controller
 {
@@ -19,9 +20,9 @@ class BalanceController extends Controller
     {
         try {
             if ($request->has('PageNumber')&&$request->has('PageSize')) {
-                return new RequestCollection(Balance::all(),$request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
+                return new RequestCollection(Balance::orderBy('anio','desc')->get(),$request['PageSize'], $request['PageNumber'], json_decode($request['filtros']), $request['descContains']);
             }
-            return new RequestCollection(Balance::all(),10, 1);
+            return new RequestCollection(Balance::orderBy('anio')->get(),10, 1);
         } catch (\Throwable $th) {
             return response()->json([
                 'succeeded' => false,
@@ -40,7 +41,10 @@ class BalanceController extends Controller
                 'fkCooperadora' => $request->fkCooperadora,
                 'estadoBalance' => $request->estadoBalance,
                 'anio' => $request->anio,
-                'idUsuarioAlta' => $request->idUsuarioAlta
+                'fecha' => $request->fecha,
+                'observaciones' => $request->observaciones,
+                'idUsuarioAlta'=>Auth::user()->id,
+                'idUsuarioModificacion' => Auth::user()->id
             ]);
             return response()->json([
                 'message' => 'Balance registrada con Exito',
@@ -83,17 +87,18 @@ class BalanceController extends Controller
     {
         try {
             $balance = Balance::where('id', $balance)->first();
-            //$request = new UpdateBalanceRequest($request->toArray());
             $balance->fkCooperadora = $request->fkCooperadora ?: $balance->fkCooperadora;
             $balance->estadoBalance = $request->estadoBalance !== null ? $request->estadoBalance : $balance->estadoBalance;
             $balance->anio = $request->anio ?: $balance->anio;
-
+            $balance->fecha = $request->fecha !== null || $request->fecha == null ? $request->fecha : $balance->fecha;
+            $balance->observaciones = $request->observaciones !== null || $request->observaciones == null ? $request->observaciones : $balance->observaciones;
             if ($balance->isClean()) {
                 return response()->json([
                     'message' => 'No se modifico ningun valor',
                     'succeeded' => false
                 ], 422);
             }
+            $balance->idUsuarioModificacion = Auth::user()->id;
             $balance->save();
 
             return response()->json([
@@ -117,7 +122,7 @@ class BalanceController extends Controller
     public function destroy(int $id): JsonResponse
     {
         try {
-            Balance::where('id', $id)->update(['estaActivo'=>false,]);
+            Balance::where('id', $id)->update(['estaActivo'=>false,'idUsuarioModificacion'=>Auth::user()->id]);
             Balance::where('id', $id)->delete();
             return response()->json([
                 'succeeded' => true,
@@ -129,32 +134,5 @@ class BalanceController extends Controller
                 'message' => $th->getMessage()
             ], Response::HTTP_NOT_FOUND);
         }
-    }
-
-    public function search(Request $request, Balance $balance)
-    {
-        /*
-        Seguramente se puede refactorizar y optimizar
-        por ahora es la forma que da resultados esperados
-        */
-
-        $query = $balance->newQuery();
-
-        if ($request->id) {
-            $query->where('id', $request->id)
-                ->where(function ($q) use ($request) {
-                    if ($request->q) {
-                        $q->where('fkCooperadora', 'like', '%' . $request->q . '%')
-                            ->orWhere('denominacion', 'like', '%' . $request->q . '%');
-                    }
-                });
-        } else {
-            if ($request->q) {
-                $query->where('fkCooperadora', 'like', '%' . $request->q . '%')
-                    ->orWhere('denominacion', 'like', '%' . $request->q . '%');
-            }
-        }
-
-        // return new RequestCollection($query->orderBy('organizacionDesc')->paginate()->appends(['q' => $request->q, 'id' => $request->id]));
     }
 }

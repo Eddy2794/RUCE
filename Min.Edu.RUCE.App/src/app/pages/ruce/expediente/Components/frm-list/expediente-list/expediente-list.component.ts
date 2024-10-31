@@ -8,11 +8,21 @@ import { TableColumn } from "src/@vex/interfaces/table-column.interface";
 
 import { Subscription } from "rxjs";
 import { AuditService } from "@app/pages/ruce/refruce/audit/Service/audit.service";
+import { fadeInUp400ms } from "src/@vex/animations/fade-in-up.animation";
+import { fadeInRight400ms } from "src/@vex/animations/fade-in-right.animation";
+import { scaleIn400ms } from "src/@vex/animations/scale-in.animation";
+import { stagger40ms } from "src/@vex/animations/stagger.animation";
 
 @Component({
   selector: "vex-expediente-list",
   templateUrl: "./expediente-list.component.html",
   styleUrls: ["./expediente-list.component.scss"],
+  animations: [
+    fadeInUp400ms,
+    fadeInRight400ms,
+    scaleIn400ms,
+    stagger40ms
+  ]
 })
 export class ExpedienteListComponent implements OnInit, OnDestroy {
   idCooperadora!: number;
@@ -82,21 +92,27 @@ export class ExpedienteListComponent implements OnInit, OnDestroy {
         visible: true,
       },
       {
-        label: "OBSERVACIUONES",
+        label: "OBSERVACIONES",
         property: "expediente.observacionesDesc",
         type: "object",
         visible: true,
       },
       {
-        label: "OBSERVACIUONES RESPODNDIDAS",
+        label: "OBSERVACIONES RESPODNDIDAS",
         property: "expediente.observacionesRespondidas",
-        type: "boolean",
+        type: "object",
         visible: true,
       },
       {
         label: "INSTANCIA INSTRUMENTO",
         property: "expediente.fkRefInstanciaInstrumento",
         type: "object",
+        visible: true,
+      },
+      {
+        label: "FECHA DE ACTUALIZACION",
+        property: "fecha",
+        type: "date",
         visible: true,
       },
     ];

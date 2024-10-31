@@ -34,7 +34,7 @@
                     </mat-form-field>
                     <mat-form-field style="width: 100%">
                         <mat-label>Documento</mat-label>
-                        <input matInput formControlName="documento" type="text" espacios solonum>
+                        <input matInput formControlName="documento" type="text" maxlength="8" (blur)="getUser(this.formularioUsuario.value['documento'] )" espacios solonum>
                         <mat-error>
                             <app-ver-error [control]="this.formularioUsuario.controls['documento']">
                             </app-ver-error>
@@ -42,7 +42,7 @@
                     </mat-form-field>
                     <mat-form-field style="width: 100%">
                         <mat-label>Cuil</mat-label>
-                        <input matInput formControlName="cuil" type="text" espacios solonum>
+                        <input matInput formControlName="cuil" vexFormatoCuil="documento" type="text" maxlength="11" espacios solonum>
                         <mat-error>
                             <app-ver-error [control]="this.formularioUsuario.controls['cuil']">
                             </app-ver-error>
@@ -69,7 +69,7 @@
                     </mat-form-field>
                     <mat-form-field style="width: 100%">
                         <mat-label>Telefono</mat-label>
-                        <input matInput formControlName="telefono" type="tel" solonum pattern="[0-9]{10}" placeholder="Ingrese numero sin 0 ni 15 ej: 3881234567">
+                        <input matInput formControlName="telefono" type="tel" solonum pattern="[0-9]{10}" placeholder="Ingrese numero sin 0 ni 15 ej: 3881234567" maxlength="10">
                         <mat-error>
                             <app-ver-error [control]="this.formularioUsuario.controls['telefono']">
                             </app-ver-error>
@@ -102,7 +102,7 @@
                       <mat-icon *ngIf="visible" svgIcon="mat:visibility"></mat-icon>
                       <mat-icon *ngIf="!visible" svgIcon="mat:visibility_off"></mat-icon>
                     </button>
-                    <mat-hint>Haga click en el icono de ojo para ver/ocultar la contraseña.</mat-hint>
+                    <!-- <mat-hint>Haga click en el icono de ojo para ver/ocultar la contraseña.</mat-hint> -->
                     <mat-error>
                         <app-ver-error [control]="this.formularioUsuario.controls['password']">
                         </app-ver-error>
@@ -116,11 +116,20 @@
                       <mat-icon *ngIf="visible" svgIcon="mat:visibility"></mat-icon>
                       <mat-icon *ngIf="!visible" svgIcon="mat:visibility_off"></mat-icon>
                     </button>
-                    <mat-hint>Haga click en el icono de ojo para ver/ocultar la contraseña.</mat-hint>
+                    <!-- <mat-hint>Haga click en el icono de ojo para ver/ocultar la contraseña.</mat-hint> -->
                     <mat-error>
                         <app-ver-error [control]="this.formularioUsuario.controls['c_password']">
                         </app-ver-error>
                     </mat-error>
+                  </mat-form-field>
+
+
+                  <mat-form-field style="width: 100%">
+                    <mat-label>Rol</mat-label>
+                    <mat-select formControlName="role">
+                        <mat-option>Seleccione</mat-option>
+                        <mat-option *ngFor="let item of roles" [value]="item?.id">{{item?.name}}</mat-option>
+                    </mat-select>
                   </mat-form-field>
             </div>
         </div>

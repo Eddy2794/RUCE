@@ -15,6 +15,7 @@ export class AutoridadComisionModel extends BaseModel {
         public estaActivo?: boolean,
         public idUsuarioAlta?: number,
         public idUsuarioModificacion?: number,
+        public persona_r_u_c_e?: PersonaRUCEModel,
 
     ) {
         super();

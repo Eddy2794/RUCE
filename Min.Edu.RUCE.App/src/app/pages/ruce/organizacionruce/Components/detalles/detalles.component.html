@@ -1,4 +1,4 @@
-<div class="p-gutter">
+<div class="container p-gutter">
     <div class="flex flex-col gap-4">
         <div class="card flex-auto">
                 <div>
@@ -13,43 +13,11 @@
                         <mat-tab label="MATRICULA">
                             <vex-matricula-list [idOrganizacion]="id"></vex-matricula-list>
                         </mat-tab>
-                        <mat-tab label="COOPERADORA" routerLink="cooperadoras/detalle">
+                        <mat-tab label="COOPERADORA">
+                            <vex-encabezado-cooperadora></vex-encabezado-cooperadora>
                         </mat-tab>
                     </mat-tab-group>
                 </div>
             </div>
     </div>
 </div>
-
-<!-- <vex-secondary-toolbar current="Tabs">
-    <vex-breadcrumbs [crumbs]="['Tabs']" class="flex-auto"></vex-breadcrumbs>
-  
-  </vex-secondary-toolbar>
-
-<vex-page-layout>
-    <vex-page-layout-header class="h-6"></vex-page-layout-header>
-    <vex-page-layout-content class="container">
-        <mat-card>
-            <mat-card-header>
-                <mat-card-title>{{data.organizacionDesc}} - {{data.cue}}</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-
-            </mat-card-content>
-            <mat-card-footer>
-                <mat-card-subtitle>{{data.telefono}}</mat-card-subtitle>
-            </mat-card-footer>
-        </mat-card>
-        <mat-dialog-content>
-            <p>{{data.id}}</p>
-        </mat-dialog-content>
-            <mat-tab-group *ngFor="let object of data">
-            <mat-tab label="{{object.tab}}">
-                <h1>{{object.entity}}</h1>
-                <p>
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatum suscipit, totam dicta blanditiis, repellat quibusdam, culpa quis sapiente nobis eum optio consectetur pariatur magnam sit excepturi expedita aliquid mollitia iure?
-                </p>
-            </mat-tab>
-        </mat-tab-group>
-    </vex-page-layout-content>
-</vex-page-layout> -->

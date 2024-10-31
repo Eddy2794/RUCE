@@ -24,7 +24,7 @@ export class OrganizacionRUCEInsupdComponent implements OnInit {
   public accion: string = '';
 
   regiones: string[]= ['I','II','III','IV',"V",'VI','VII'];
-  niveles: string[]= ['INICIAL','PRIMARIO','SECUNDARIO','SUPERIOR'];
+  niveles: string[]= ['INICIAL','PRIMARIO','SECUNDARIO','SUPERIOR','EDUCACION ESPECIAL','TECNICO PROFESIONAL'];
 
   constructor(
     private fb: FormBuilder,
@@ -71,16 +71,18 @@ export class OrganizacionRUCEInsupdComponent implements OnInit {
   createForm() {
     this.formularioOrganizacionRUCE = this.fb.group({
       id: null,
-      cue: [null, { validators: [ Validators.required, Validators.minLength(3), Validators.maxLength(250), this.validadorServicio.validarEspaciosInicioFin() ]}],
-      organizacionDesc: [null, {validators: [ Validators.required, Validators.minLength(3), Validators.maxLength(250), this.validadorServicio.validarEspaciosInicioFin(), this.validadorServicio.validarCaracteresDescripcion() ]}],
-      anexo: [null, {validators: [ Validators.required, this.validadorServicio.validarEspaciosInicioFin() ]}],
+      cueAnexo: [null, { validators: [ Validators.required, Validators.minLength(9), Validators.maxLength(9) ]}],
+      organizacionDesc: [null, {validators: [ Validators.required, Validators.minLength(3), Validators.maxLength(250) ]}],
       nivel: [null, {validators: [ Validators.required, ]}],
       region: [null, {validators: [ Validators.required, ]}],
-      departamento: [null, {validators: [ Validators.required, Validators.minLength(3), Validators.maxLength(250),this.validadorServicio.validarEspaciosInicioFin(), this.validadorServicio.validarCaracteresDescripcion() ]}],
-      domicilio: [null, {validators: [ Validators.required, Validators.minLength(3), Validators.maxLength(250),this.validadorServicio.validarEspaciosInicioFin(), this.validadorServicio.validarCaracteresDescripcion()]}],
-      localidad: [null, {validators: [ Validators.required, Validators.minLength(3), Validators.maxLength(250),this.validadorServicio.validarEspaciosInicioFin(), this.validadorServicio.validarCaracteresDescripcion()]}],
-      email: [null, {validators: [ Validators.required, Validators.email , this.validadorServicio.validarEspaciosInicioFin()]}],
-      telefono: [null, {validators: [ Validators.required, Validators.minLength(3), Validators.maxLength(12), this.validadorServicio.validarEspaciosInicioFin() ]}],
+      departamento: [null, {validators: [ Validators.required, Validators.minLength(3), Validators.maxLength(250) ]}],
+      calle: [null, {validators: [ Validators.required, Validators.minLength(3) ]}],
+      numero: [null, {validators: [ Validators.maxLength(5) ]}],
+      barrio: [null, {validators: [ Validators.required, Validators.minLength(3), Validators.maxLength(250)]}],
+      cp: [null, {validators: [ Validators.minLength(4), Validators.maxLength(8) ]}],
+      localidad: [null, {validators: [ Validators.required, Validators.minLength(3), Validators.maxLength(250)]}],
+      email: [null, {validators: [ Validators.email, Validators.minLength(5) ]}],
+      telefono: null,
       estaActivo: true,
     },
       {
@@ -99,18 +101,18 @@ export class OrganizacionRUCEInsupdComponent implements OnInit {
     if (this.id == 0) {
       this.formularioOrganizacionRUCE.removeControl('id');
       this.organizacionRUCEService.create(this.formularioOrganizacionRUCE.value).subscribe((resp: any) => {
-        this.mostrarDialogMsj("Mensaje", "OrganizacionRUCE Creado", false)
+        this.mostrarDialogMsj("Mensaje", "Institución Creada", false)
         this.router.navigate(['/pages/establecimientos']);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.message, false)
+        this.mostrarDialogMsj("Atención", err.message, false)
       }
       );
     } else {
       this.organizacionRUCEService.update(this.formularioOrganizacionRUCE.value.id, this.formularioOrganizacionRUCE.value).subscribe((resp: any) => {
-        this.mostrarDialogMsj("Mensaje", "OrganizacionRUCE Modificado", false)
+        this.mostrarDialogMsj("Mensaje", "Institución Modificada", false)
         this.router.navigate(['/pages/establecimientos']);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.message, false)
+        this.mostrarDialogMsj("Atención", err.message, false)
       }
       );
     }
@@ -128,10 +130,10 @@ export class OrganizacionRUCEInsupdComponent implements OnInit {
     dialog.afterClosed().subscribe(result => {
       if (result === "Aceptar") {
         this.organizacionRUCEService.delete(this.formularioOrganizacionRUCE.value.id).subscribe((resp: any) => {
-          this.mostrarDialogMsj("Mensaje", "OrganizacionRUCE Eliminado", false)
+          this.mostrarDialogMsj("Mensaje", "Institución Eliminado", false)
           this.router.navigate(['/pages/establecimientos']);
         }, err => {
-          this.mostrarDialogMsj("Atención", err.error.message, false)
+          this.mostrarDialogMsj("Atención", err.message, false)
         }
         );
       }

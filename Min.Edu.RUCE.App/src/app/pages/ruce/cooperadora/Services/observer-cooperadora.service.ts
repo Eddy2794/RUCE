@@ -13,11 +13,17 @@ export class ObserverCooperadoraService {
   private valueTipoAsociacion$ = new BehaviorSubject<number>(0);
   castTipoAsociacion = this.valueTipoAsociacion$.asObservable();
 
+  private valueTipoAsociacionDesc$ = new BehaviorSubject<string>("");
+  castTipoAsociacionDesc = this.valueTipoAsociacionDesc$.asObservable();
+
   private valueIdExpediente$ = new BehaviorSubject<number>(0);
   castIdExpediente = this.valueIdExpediente$.asObservable();
 
   private valueIdPersoneria$ = new BehaviorSubject<number>(0);
   castIdPersoneria = this.valueIdPersoneria$.asObservable();
+
+  private valueIdConstancia$ = new BehaviorSubject<number>(0);
+  castIdConstancia = this.valueIdConstancia$.asObservable();
 
 
   enviarIdCooperadora(nuevoValor) {
@@ -28,11 +34,19 @@ export class ObserverCooperadoraService {
     this.valueTipoAsociacion$.next(nuevoValor);
   }
 
+  enviarTipoAsociacionDesc(nuevoValor) {
+    this.valueTipoAsociacionDesc$.next(nuevoValor);
+  }
+
   enviarIdExpediente(nuevoValor){
     this.valueIdExpediente$.next(nuevoValor);
   }
 
   enviarIdPersoneria(nuevoValor){
     this.valueIdPersoneria$.next(nuevoValor);
+  }
+
+  enviarIdConstancia(nuevoValor){
+    this.valueIdConstancia$.next(nuevoValor);
   }
 }

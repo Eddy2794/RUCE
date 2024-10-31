@@ -28,37 +28,24 @@ class UpdateOrganizacionRUCERequest extends FormRequest
             'organizacionDesc' => [
                 'required',
                 'string',
-                Rule::unique('OrganizacionRUCE','organizacionDesc')->ignore($this->id)
-                      ->where(fn($query)=>$query->where('organizacionDesc',$this->organizacionDesc))
-                      ->withoutTrashed()
+                Rule::unique('OrganizacionRUCE', 'organizacionDesc')->where(function ($query) {
+                    // Excluye el registro actual por su ID
+                    return $query->where('id', '<>', $this->id);
+                })->withoutTrashed()
             ],
-            'cue' => [
+            'cueAnexo' => [
                 'required',
                 'string',
-                Rule::unique('OrganizacionRUCE','cue')
-                      ->where('cue',$this->cue)
-                      ->withoutTrashed()
-            ],
-            'anexo' => [
-                'required',
-                'integer',
-            ],
-            'telefono' => [
-                'required',
-                'string',
-                Rule::unique('OrganizacionRUCE','telefono')->where('telefono', $this->telefono)->withoutTrashed()
-            ],
-            'email' => [
-                'required',
-                'string',
-                Rule::unique('OrganizacionRUCE','email')->where('email', $this->email)->withoutTrashed()
-            ],
-            'domicilio' => [
-                'required',
-                'string',
-                Rule::unique('OrganizacionRUCE','domicilio')->where('domicilio', $this->domicilio)->withoutTrashed()
+                Rule::unique('OrganizacionRUCE', 'cueAnexo')->where(function ($query) {
+                    // Excluye el registro actual por su ID
+                    return $query->where('id', '<>', $this->id);
+                })->withoutTrashed()
             ],
             'region' => [
+                'required',
+                'string'
+            ],
+            'nivel' => [
                 'required',
                 'string'
             ],
@@ -70,22 +57,46 @@ class UpdateOrganizacionRUCERequest extends FormRequest
                 'required',
                 'string'
             ],
-            'nivel' => [
+            'telefono' => [
+                'nullable',
+                'string'
+            ],
+            'email' => [
+                'nullable',
+                'string',
+                Rule::unique('OrganizacionRUCE', 'email')->where(function ($query) {
+                    // Excluye el registro actual por su ID
+                    return $query->where('id', '<>', $this->id);
+                })->withoutTrashed()
+            ],
+            'calle' => [
                 'required',
+                'string'
+            ],
+            'numero' => [
+                'nullable',
+                'string'
+            ],
+            'barrio' => [
+                'required',
+                'string'
+            ],
+            'cp' => [
+                'nullable',
                 'string'
             ],
             'estaActivo' => [
                 'required',
                 'boolean'
-            ],/*
+            ],
             'idUsuarioAlta' => [
-                'required',
+                'nullable',
                 'integer',
             ],
             'idUsuarioModificacion' => [
-                'required',
+                'nullable',
                 'integer',
-            ],*/
+            ],
         ];
     }
 
@@ -94,10 +105,9 @@ class UpdateOrganizacionRUCERequest extends FormRequest
         return [
             'id.exist' => 'Id de OrganizacionRUCE no existe en la tabla OrganizacionRUCE.',
             'organizacionDesc.unique' => 'El nombre de la Oganizacion ya fue registrado.',
-            'cue.unique' => 'El CUE de la Ognaizacion ya fue registrado.',
+            'cueAnexo.unique' => 'El CUE de la Ognaizacion ya fue registrado.',
             'telefono.unique' => 'El telefono de la Organizacion ya fue registrado.',
             'email.unique' => 'El email de la Oganizacion ya fue registrado.',
-            'domicilio.unique' => 'El domicilio de la Organizacion ya fue registrado.'
         ];
     }
 }

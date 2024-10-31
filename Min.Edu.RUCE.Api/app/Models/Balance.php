@@ -21,6 +21,8 @@ class Balance extends Model  implements Auditable
         'fkCooperadora',
         'anio',
         'estadoBalance',
+        'fecha',
+        'observaciones',
         'estaActivo',
         'idUsuarioAlta',
         'idUsuarioModificacion'

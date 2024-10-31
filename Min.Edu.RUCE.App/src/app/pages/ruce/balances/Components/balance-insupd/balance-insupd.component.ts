@@ -83,6 +83,8 @@ export class BalanceInsupdComponent implements OnInit {
       fkCooperadora: this.idCooperadora,
       estadoBalance: false,
       anio: [null, {validators: [ Validators.required, Validators.minLength(4), Validators.maxLength(4) ]}],
+      fecha: null,
+      observaciones: ["-", {validators: [Validators.required]}],
       estaActivo: true,
     },
     {
@@ -108,18 +110,17 @@ export class BalanceInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Balance Creada", false)
         this.router.navigate(['/pages/cooperadoras/view/'+this.idCooperadora]);
       }, err => {
-        this.mostrarDialogMsj("Balance", err.error.message, false)
+        this.mostrarDialogMsj("Balance", err.message, false)
       }
       );
     } else {
-      console.log(this.formularioBalance);
       //this.formularioBalance.value.anio = this.formularioBalance.value.anio;
       //this.formularioBalance.value.estadoBalance = this.formularioBalance.value.estadoBalance;
       this.balanceService.update(this.formularioBalance.value.id, this.formularioBalance.value).subscribe((resp: any) => {
         this.mostrarDialogMsj("Mensaje", "Balance Modificado", false)
         this.router.navigate(['/pages/cooperadoras/view/'+this.idCooperadora]);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.message, false)
+        this.mostrarDialogMsj("Atención", err.message, false)
       }
       );
     }
@@ -140,7 +141,7 @@ export class BalanceInsupdComponent implements OnInit {
           this.mostrarDialogMsj("Mensaje", "Balance Eliminado", false)
           this.router.navigate(['/pages/cooperadoras/view/'+this.idCooperadora]);
         }, err => {
-          this.mostrarDialogMsj("Atención", err.error.message, false)
+          this.mostrarDialogMsj("Atención", err.message, false)
         }
         );
       }

@@ -36,18 +36,22 @@ class StoreMatriculaRequest extends FormRequest
                 'required',
                 'integer',
             ],
+            'fecha' => [
+                'nullable',
+                'date',
+            ],
             'estaActivo' => [
                 'required',
                 'boolean'
-            ],/*
+            ],
             'idUsuarioAlta' => [
-                'required',
+                'nullable',
                 'integer',
             ],
             'idUsuarioModificacion' => [
-                'required',
+                'nullable',
                 'integer',
-            ],*/
+            ],
         ];
     }
 

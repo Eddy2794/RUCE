@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class PersoneriaController extends Controller
 {
@@ -40,7 +41,8 @@ class PersoneriaController extends Controller
                 'decreto' => $request->decreto,
                 'nroResolucion' => $request->nroResolucion,
                 'fecha' => $request->fecha,
-                'idUsuarioAlta' => $request->idUsuarioAlta,
+                'idUsuarioAlta'=>Auth::user()->id,
+                'idUsuarioModificacion' => Auth::user()->id
             ]);
             return response()->json([
                 'message' => 'Personeria registrada con Exito',
@@ -79,21 +81,19 @@ class PersoneriaController extends Controller
     {
         try {
             $personeria = Personeria::where('id', $personeria)->first();
-            //$request = new UpdatePersoneriaRequest($request->toArray());
             $personeria->fkExpediente = $request->fkExpediente ?: $personeria->fkExpediente;
             $personeria->fkCooperadora = $request->fkCooperadora ?: $personeria->fkCooperadora;
             $personeria->decreto = $request->decreto ?: $personeria->decreto;
             $personeria->nroResolucion = $request->nroResolucion ?: $personeria->nroResolucion;
             $personeria->fecha = $request->fecha ?: $personeria->fecha;
-            // $personeria->idUsuarioModificacion = $request->idUsuarioModificacion ?: $personeria->idUsuarioModificacion;
-
+            
             if ($personeria->isClean()) {
                 return response()->json([
                     'message' => 'No se modifico ningun valor',
                     'succeeded' => false
                 ], 422);
             }
-            $personeria->updated_at= Carbon::now();
+            $personeria->idUsuarioModificacion = Auth::user()->id;
             $personeria->save();
 
             return response()->json([
@@ -111,7 +111,7 @@ class PersoneriaController extends Controller
     public function destroy(int $id): JsonResponse
     {
         try {
-            Personeria::where('id', $id)->update(['estaActivo'=>false,]);
+            Personeria::where('id', $id)->update(['estaActivo'=>false,'idUsuarioModificacion'=>Auth::user()->id]);
             Personeria::where('id', $id)->delete();
             return response()->json([
                 'succeeded' => true,

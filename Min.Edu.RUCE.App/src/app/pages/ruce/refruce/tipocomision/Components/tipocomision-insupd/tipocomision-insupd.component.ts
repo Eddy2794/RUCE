@@ -95,7 +95,7 @@ export class TipocomisionInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Tipo Comision Creado", false)
         this.router.navigate(['/pages/tipo-comision/listar/']);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.message, false)
+        this.mostrarDialogMsj("Atención", err.message, false)
       }
       );
     } else {
@@ -105,7 +105,7 @@ export class TipocomisionInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Tipo Comision Modificado", false)
         this.router.navigate(['/pages/tipo-comision/listar/']);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.message, false)
+        this.mostrarDialogMsj("Atención", err.message, false)
       }
       );
     }
@@ -126,7 +126,7 @@ export class TipocomisionInsupdComponent implements OnInit {
           this.mostrarDialogMsj("Mensaje", "Tipo Comision Eliminado", false)
           this.router.navigate(['/pages/tipo-comision/listar/']);
         }, err => {
-          this.mostrarDialogMsj("Atención", err.error.message, false)
+          this.mostrarDialogMsj("Atención", err.message, false)
         }
         );
       }

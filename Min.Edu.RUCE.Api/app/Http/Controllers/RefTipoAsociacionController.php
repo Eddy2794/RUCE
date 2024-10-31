@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class RefTipoAsociacionController extends Controller
 {
@@ -36,6 +37,8 @@ class RefTipoAsociacionController extends Controller
         try {
             RefTipoAsociacion::create([
                 'tipoAsociacionDesc' => $request->tipoAsociacionDesc,
+                'idUsuarioAlta'=>Auth::user()->id,
+                'idUsuarioModificacion' => Auth::user()->id
             ]);
             return response()->json([
                 'message' => 'Tipo de Asociacion registrada con Exito',
@@ -65,7 +68,6 @@ class RefTipoAsociacionController extends Controller
     {
         try {
             $refTipoFondo = RefTipoAsociacion::where('id', $refTipoFondo)->first();
-            //$request = new UpdateRefTipoAsociacionRequest($request->toArray());
             $refTipoFondo->tipoAsociacionDesc = $request->tipoAsociacionDesc ?: $refTipoFondo->tipoAsociacionDesc;
 
             if ($refTipoFondo->isClean()) {
@@ -74,7 +76,7 @@ class RefTipoAsociacionController extends Controller
                     'succeeded' => false
                 ], 422);
             }
-            $refTipoFondo->updated_at= Carbon::now();
+            $refTipoFondo->idUsuarioModificacion = Auth::user()->id;
             $refTipoFondo->save();
 
             return response()->json([
@@ -92,6 +94,7 @@ class RefTipoAsociacionController extends Controller
     public function destroy(int $id): JsonResponse
     {
         try {
+            RefTipoAsociacion::where('id',$id)->update(['estaActivo'=>false,'idUsuarioModificacion'=>Auth::user()->id]);
             RefTipoAsociacion::where('id', $id)->delete();
             return response()->json([
                 'succeeded' => true,
@@ -103,32 +106,5 @@ class RefTipoAsociacionController extends Controller
                 'message' => $th->getMessage()
             ], Response::HTTP_NOT_FOUND);
         }
-    }
-
-    public function search(Request $request, RefTipoAsociacion $refTipoFondo)
-    {
-        /*
-        Seguramente se puede refactorizar y optimizar
-        por ahora es la forma que da resultados esperados
-        */
-
-        $query = $refTipoFondo->newQuery();
-
-        if ($request->id) {
-            $query->where('id', $request->id)
-                ->where(function ($q) use ($request) {
-                    if ($request->q) {
-                        $q->where('cue', 'like', '%' . $request->q . '%')
-                            ->orWhere('tipoAsociacionDesc', 'like', '%' . $request->q . '%');
-                    }
-                });
-        } else {
-            if ($request->q) {
-                $query->where('cue', 'like', '%' . $request->q . '%')
-                    ->orWhere('tipoAsociacionDesc', 'like', '%' . $request->q . '%');
-            }
-        }
-
-        // return new RequestCollection($query->orderBy('tipoAsociacionDesc')->paginate()->appends(['q' => $request->q, 'id' => $request->id]));
     }
 }

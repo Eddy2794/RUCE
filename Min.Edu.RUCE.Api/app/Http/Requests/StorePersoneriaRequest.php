@@ -25,7 +25,7 @@ class StorePersoneriaRequest extends FormRequest
     {
         return [
             'fkExpediente' => [
-                'required',
+                'nullable',
                 'exists:Expediente,id'
             ],
             'fkCooperadora' => [
@@ -33,11 +33,11 @@ class StorePersoneriaRequest extends FormRequest
                 'exists:Cooperadora,id'
             ],
             'decreto' => [
-                'required',
+                'nullable',
                 'string',
             ],
             'nroResolucion' => [
-                'required',
+                'nullable',
                 'string',
             ],
             'fecha' => [
@@ -47,15 +47,15 @@ class StorePersoneriaRequest extends FormRequest
             'estaActivo' => [
                 'required',
                 'boolean'
-            ],/*
+            ],
             'idUsuarioAlta' => [
-                'required',
+                'nullable',
                 'integer',
             ],
             'idUsuarioModificacion' => [
-                'required',
+                'nullable',
                 'integer',
-            ],*/
+            ],
         ];
     }
 
@@ -64,6 +64,7 @@ class StorePersoneriaRequest extends FormRequest
         return [
             'fkExpediente.exist' => 'Id de Expediente no existe en la tabla Expediente.',
             'fkCooperadora.exist' => 'Id de Cooperadora no existe en la tabla Cooperadora.',
+            'fkExpediente.required' => 'No existe un Expediente cargado',
         ];
     }
 }

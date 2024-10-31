@@ -28,6 +28,8 @@ class Cooperadora extends Model  implements Auditable
         'estadoAfip',
         'estadoRentas',
         'inscripcionRenacopes',
+        'modalidad',
+        'fechaCreacion',
         'estaActivo',
         'idUsuarioAlta',
         'idUsuarioModificacion'
@@ -59,7 +61,12 @@ class Cooperadora extends Model  implements Auditable
     {
         return $this->belongsTo(OrganizacionRUCE::class, 'id');
     }
-    
+
+    public function Informe_gral()
+    {
+        return $this->hasOne(Informe_gral::class, 'fkCooperadora');
+    }
+
     public function RefTipoAsociacion()
     {
         return $this->hasMany(RefTipoAsociacion::class, 'id', 'fkRefTipoAsociacion');
@@ -93,6 +100,11 @@ class Cooperadora extends Model  implements Auditable
     public function Fondo()
     {
         return $this->hasMany(Fondo::class, 'fkCooperadora');
+    }
+
+    public function Kiosco()
+    {
+        return $this->hasMany(Kiosco::class, 'fkCooperadora');
     }
 
     /*

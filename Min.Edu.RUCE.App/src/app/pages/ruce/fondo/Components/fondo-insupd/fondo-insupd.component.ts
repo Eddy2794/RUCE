@@ -68,7 +68,7 @@ export class FondoInsupdComponent implements OnInit {
         if (this.accion !== 'delete'){
           this.accion = 'edit'
         }
-        this.fondoService.findOne(this.id).subscribe((resp: any) => {
+        this.fondoService.findOne(this.idCooperadora).subscribe((resp: any) => {
           this.formularioFondo.patchValue(resp.entities);
           this.formularioFondo.controls.fkRefTipoFondo.patchValue(resp.entities.ref_tipo_fondo[0].id)
         });
@@ -123,7 +123,7 @@ export class FondoInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Fondo Creado", false)
         this.router.navigate(['/pages/cooperadoras/view/'+this.idCooperadora]);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.message, false)
+        this.mostrarDialogMsj("Atención", err.message, false)
       }
       );
     } else {
@@ -133,7 +133,7 @@ export class FondoInsupdComponent implements OnInit {
         this.mostrarDialogMsj("Mensaje", "Fondo Modificado", false)
         this.router.navigate(['/pages/cooperadoras/view/'+this.idCooperadora]);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.message, false)
+        this.mostrarDialogMsj("Atención", err.message, false)
       }
       );
     }
@@ -154,7 +154,7 @@ export class FondoInsupdComponent implements OnInit {
           this.mostrarDialogMsj("Mensaje", "Fondo Eliminado", false)
           this.router.navigate(['/pages/cooperadoras/view/'+this.idCooperadora]);
         }, err => {
-          this.mostrarDialogMsj("Atención", err.error.message, false)
+          this.mostrarDialogMsj("Atención", err.message, false)
         }
         );
       }

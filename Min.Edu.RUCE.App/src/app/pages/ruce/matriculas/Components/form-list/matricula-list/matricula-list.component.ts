@@ -48,6 +48,7 @@ export class MatriculaListComponent implements OnInit {
       { label: 'ACCIONES', property: 'actions', type: 'button', visible: true },
       { label: 'PERIODO LECTIVO', property: 'periodoLectivo', type: 'text', visible: true },
       { label: 'MATRICULA', property: 'matricula', type: 'text', visible: true },
+      { label: 'FECHA DE MATRICULAS', property: 'fecha', type: 'date', visible: true },
       
     ]
   }

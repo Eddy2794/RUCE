@@ -1,48 +1,52 @@
-<div class="w-full h-full bg-pattern flex flex-col items-center justify-center">
-  <div class="card overflow-hidden w-full max-w-xs">
+<div class="w-full h-full bg-pattern flex flex-col items-center justify-center backimg">
+  <div class="content">
+  <div class="card overflow-hidden w-full max-w-xs overlay-content">
     <div class="p-6 pb-0 flex flex-col items-center justify-center">
       <div class="fill-current text-center">
-        <img class="w-16" src="assets/img/demo/logo.svg">
+        <img class="w-50" src="assets/img/logo-ruce/logo_educacion1.png">
       </div>
     </div>
 
     <div class="text-center mt-4">
-      <h2 class="title m-0">Welcome back</h2>
-      <h4 class="body-2 text-secondary m-0">Sign in with your credentials below.</h4>
+      <h4 class="body-2 text-secondary m-0">Secretaría de Equidad Educativa</h4>
+      <h4 class="body-2 text-secondary m-0">Dirección de Bienestar Estudiantil y Docente</h4>
+      <h4 class="body-2 text-secondary m-0">Programa Cooperadoras Escolares</h4>
+      <h2 class="title mt-2">REGISTRO ÚNICO DE COOPERADORAS ESCOLARES (RUCE)</h2>
     </div>
 
     <div [formGroup]="form" class="p-6 flex flex-col gap-4">
       <div class="flex flex-col">
         <mat-form-field class="flex-1">
-          <mat-label>E-Mail</mat-label>
-          <input formControlName="email" matInput required>
-          <mat-error *ngIf="form.get('email').hasError('required')">We need an email address to log you in</mat-error>
+          <mat-label>Nombre de usuario</mat-label>
+          <input formControlName="username" matInput required #usernameInput>
+          <mat-error *ngIf="form.get('username').hasError('required')">Se necesita un nombre de usuario para iniciar sesión</mat-error>
         </mat-form-field>
         <mat-form-field class="flex-1">
-          <mat-label>Password</mat-label>
-          <input [type]="inputType" formControlName="password" matInput required>
-          <button (click)="toggleVisibility()" mat-icon-button matSuffix matTooltip="Toggle Visibility" type="button">
+          <mat-label>Contraseña</mat-label>
+          <input [type]="inputType" formControlName="password" matInput required #passwordInput>
+          <button (click)="toggleVisibility()" mat-icon-button matSuffix matTooltip="Ver/Ocultar contraseña" type="button">
             <mat-icon *ngIf="visible" svgIcon="mat:visibility"></mat-icon>
             <mat-icon *ngIf="!visible" svgIcon="mat:visibility_off"></mat-icon>
           </button>
-          <mat-hint>Click the eye to toggle visibility</mat-hint>
-          <mat-error *ngIf="form.get('password').hasError('required')">We need a password to log you in</mat-error>
+          <!-- <mat-hint>Haga clic en el ojo para alternar la visibilidad</mat-hint> -->
+          <mat-error *ngIf="form.get('password').hasError('required')">Se necesita una contraseña para iniciar sesión</mat-error>
         </mat-form-field>
       </div>
 
-      <div class="flex items-center justify-between">
-        <mat-checkbox class="caption" color="primary">Remember Me</mat-checkbox>
-        <a [routerLink]="['/forgot-password']" class="caption">Forgot Password?</a>
-      </div>
+      <!-- <div class="flex items-center justify-between">
+        <mat-checkbox class="caption" color="primary" formControlName="remember_me">Guardar datos de sesion</mat-checkbox>
+        <a [routerLink]="['/login']" class="caption">¿Olvidaste tu contraseña?</a>
+      </div> -->
 
       <button (click)="send()" color="primary" mat-raised-button type="button">
-        SIGN IN
+        INICIAR SESION
       </button>
 
-      <p class="text-secondary text-center">
-        Don't have an account?<br/>
-        <a [routerLink]="['/register']">Click here to create one</a>
-      </p>
+      <!-- <p class="text-secondary text-center">
+        ¿No tienes datos de ingreso?<br/>
+        <a [routerLink]="['/login']">Comunicate con el administrador</a>
+      </p> -->
     </div>
   </div>
+</div>
 </div>

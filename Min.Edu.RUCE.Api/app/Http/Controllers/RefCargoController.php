@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class RefCargoController extends Controller
 {
@@ -37,6 +38,8 @@ class RefCargoController extends Controller
         try {
             RefCargo::create([
                 'cargoDesc' => $request->cargoDesc,
+                'idUsuarioAlta'=>Auth::user()->id,
+                'idUsuarioModificacion' => Auth::user()->id
             ]);
             return response()->json([
                 'message' => 'Cargo registrada con Exito',
@@ -66,7 +69,6 @@ class RefCargoController extends Controller
     {
         try {
             $refCargo = RefCargo::where('id', $refCargo)->first();
-            //$request = new UpdateRefCargoRequest($request->toArray());
             $refCargo->cargoDesc = $request->cargoDesc ?: $refCargo->cargoDesc;
             if ($refCargo->isClean()) {
                 return response()->json([
@@ -74,7 +76,7 @@ class RefCargoController extends Controller
                     'succeeded' => false
                 ], 422);
             }
-            $refCargo->updated_at= Carbon::now();
+            $refCargo->idUsuarioModificacion = Auth::user()->id;
             $refCargo->save();
 
             return response()->json([
@@ -92,6 +94,7 @@ class RefCargoController extends Controller
     public function destroy(int $id): JsonResponse
     {
         try {
+            RefCargo::where('id',$id)->update(['estaActivo'=>false,'idUsuarioModificacion'=>Auth::user()->id]);
             RefCargo::where('id', $id)->delete();
             return response()->json([
                 'succeeded' => true,
@@ -103,32 +106,5 @@ class RefCargoController extends Controller
                 'message' => $th->getMessage()
             ], Response::HTTP_NOT_FOUND);
         }
-    }
-
-    public function search(Request $request, RefCargo $refCargo)
-    {
-        /*
-        Seguramente se puede refactorizar y optimizar
-        por ahora es la forma que da resultados esperados
-        */
-
-        $query = $refCargo->newQuery();
-
-        if ($request->id) {
-            $query->where('id', $request->id)
-                ->where(function ($q) use ($request) {
-                    if ($request->q) {
-                        $q->where('cue', 'like', '%' . $request->q . '%')
-                            ->orWhere('cargoDesc', 'like', '%' . $request->q . '%');
-                    }
-                });
-        } else {
-            if ($request->q) {
-                $query->where('cue', 'like', '%' . $request->q . '%')
-                    ->orWhere('cargoDesc', 'like', '%' . $request->q . '%');
-            }
-        }
-
-        // return new RequestCollection($query->orderBy('cargoDesc')->paginate()->appends(['q' => $request->q, 'id' => $request->id]));
     }
 }

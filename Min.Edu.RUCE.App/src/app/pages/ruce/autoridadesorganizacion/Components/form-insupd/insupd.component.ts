@@ -1,3 +1,4 @@
+import { environment } from '@environments/environment';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -15,6 +16,8 @@ import { AutoridadOrganizacionRUCEService } from '../../Services/autoridad-organ
 import { RefTipoDocumentoService } from '@app/pages/ruce/refruce/Services/reftipodocumento.service';
 import { RefcargoService } from '@app/pages/ruce/refruce/Services/refcargo-service';
 import { ObserverOrganizacionService } from '@app/pages/ruce/organizacionruce/Services/observer-organizacion.service';
+import { SearchOptionsGeneric } from '@app/shared/utils/search-options-generic';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-autoridades-form',
   templateUrl: './insupd.component.html',
@@ -29,7 +32,7 @@ export class AutoridadOrganizacionInsupdComponent implements OnInit, OnDestroy {
   formularioAutoridad!: FormGroup;
   id: number = 0;
   idOrganizacion: number = 0;
-  filtro: FilterOptions = { estaActivo: true, PageSize: 10 };
+  filtro: FilterOptions = { estaActivo: true};
   tiposDocumentos = new Array<RefTipoDocumentoModel>;
   cargos = new Array<RefCargoModel>;
 
@@ -37,6 +40,8 @@ export class AutoridadOrganizacionInsupdComponent implements OnInit, OnDestroy {
   public accion: string = '';
 
   suscriptionIdOrganizacion: Subscription;
+  searchOptions: SearchOptionsGeneric[];
+  httpClient: HttpClient;
 
 /*   regiones: string[]= ['I','II','III','IV',"V",'VI','VII'];
   niveles: string[]= ['INICIAL','PRIMARIO','SECUNDARIO','SUPERIOR']; */
@@ -53,6 +58,7 @@ export class AutoridadOrganizacionInsupdComponent implements OnInit, OnDestroy {
     private route:ActivatedRoute,
     private matDialog: MatDialog,
     private observerIdOrganizacion: ObserverOrganizacionService,
+    private http: HttpClient
     )
     {
       this.suscriptionIdOrganizacion = this.observerIdOrganizacion.castIdIdOrganizacion.subscribe((value)=>{
@@ -119,21 +125,21 @@ export class AutoridadOrganizacionInsupdComponent implements OnInit, OnDestroy {
       fkOrganizacionRUCE: this.idOrganizacion,
       fkRefCargo: [null, {validators: [ Validators.required, ]}],
       fkPersonaRUCE: null,
-      fkRefTipoDocumentoRUCE: [null, {validators: [ Validators.required, ]}],
+      fkRefTipoDocumentoRUCE: [1, {validators: [ Validators.required, ]}],
       documento: [null, {validators: [ Validators.required, Validators.minLength(7), Validators.maxLength(8), this.validadorServicio.validarEspaciosInicioFin() ]}],
-      cuil: [null, {validators: [ Validators.required, Validators.minLength(11), Validators.maxLength(12), this.validadorServicio.validarEspaciosInicioFin() ]}],
+      cuil: [null, {validators: [ Validators.required, Validators.minLength(10), Validators.maxLength(11), this.validadorServicio.validarEspaciosInicioFin() ]}],
       nombre: [null, {validators: [ Validators.required, this.validadorServicio.validarSoloLetras(), this.validadorServicio.validarEspaciosInicioFin() ]}],
       apellido: [null, {validators: [ Validators.required,  this.validadorServicio.validarSoloLetras(), this.validadorServicio.validarEspaciosInicioFin() ]}],
       telefono: [null, {validators: [ Validators.required, this.validadorServicio.validarEspaciosInicioFin() ]}],
-      email: [null, {validators: [ Validators.required, Validators.email, this.validadorServicio.validarEspaciosInicioFin() ]}],
+      email: [null, {validators: [ Validators.email ]}],
       inicioCargo: [null, {validators: [ Validators.required]}],
-      finCargo: [null, {validators: [ Validators.required]} ],
+      finCargo: null,
       idUsuarioAlta: null,
       idUsuarioModificacion: null,
       estaActivo: true,
     },
     {
-      validators: [ this.validadorServicio.validarFechasInicioFin('inicioCargo','finCargo')]
+      //validators: [ this.validadorServicio.validarFechasInicioFin('inicioCargo','finCargo')]
     })
     if (this.accion === 'delete'|| this.accion === 'view') {
       this.formularioAutoridad.disable();
@@ -157,7 +163,7 @@ export class AutoridadOrganizacionInsupdComponent implements OnInit, OnDestroy {
         this.mostrarDialogMsj("Mensaje", "Autoridad Creada", false)
         this.router.navigate(['/pages/establecimientos/view/'+this.idOrganizacion]);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.message, false)
+        this.mostrarDialogMsj("Atención", err.message, false)
       }
       );
     } else {
@@ -170,7 +176,7 @@ export class AutoridadOrganizacionInsupdComponent implements OnInit, OnDestroy {
         this.mostrarDialogMsj("Mensaje", "Autoridad Modificado", false)
         this.router.navigate(['/pages/establecimientos/view/'+this.idOrganizacion]);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.message, false)
+        this.mostrarDialogMsj("Atención", err.message, false)
       }
       );
     }
@@ -191,12 +197,57 @@ export class AutoridadOrganizacionInsupdComponent implements OnInit, OnDestroy {
           this.mostrarDialogMsj("Mensaje", "Autoridad Eliminado", false)
           this.router.navigate(['/pages/establecimientos/view/'+this.idOrganizacion]);
         }, err => {
-          this.mostrarDialogMsj("Atención", err.error.message, false)
+          this.mostrarDialogMsj("Atención", err.message, false)
         }
         );
       }
     })
   }
+
+  async getUser(dni: number){
+    try{
+      const data: any = await this.http.get(`${environment.apiRuceUrl}/persona_ruce/persona/${dni}`).toPromise();
+      if(data.entities.length !== 0){
+          const titulo="Persona Existente", msj="Desea cargar los datos de la persona existente?" , cancelVisible=true;
+          const datos: DialogData = {titulo,msj,cancelVisible};
+          const dialog = this.matDialog.open(DialogComponent, {
+            width: '400px',
+            data: datos
+          });
+          const result = await dialog.afterClosed().toPromise();
+          if(result == "Aceptar"){
+            this.formularioAutoridad.patchValue({
+              fkPersonaRUCE: data.entities.id,
+              documento: data.entities.documento,
+              email: data.entities.email,
+              cuil: data.entities.cuil,
+              nombre: data.entities.nombre,
+              apellido: data.entities.apellido,
+              telefono: data.entities.telefono,
+              fkRefTipoDocumentoRUCE:data.entities.ref_tipo_documento_r_u_c_e[0].id
+            });
+            // this.formularioAutoridad.controls.fkPersonaRUCE.patchValue(data.entities.id);
+            // this.formularioAutoridad.controls.email.patchValue(data.entities.email);
+            // this.formularioAutoridad.controls.documento.patchValue(data.entities.documento);
+            // this.formularioAutoridad.controls.cuil.patchValue(data.entities.cuil);
+            // this.formularioAutoridad.controls.nombre.patchValue(data.entities.nombre);
+            // this.formularioAutoridad.controls.apellido.patchValue(data.entities.apellido);
+            // this.formularioAutoridad.controls.telefono.patchValue(data.entities.telefono);
+            // this.formularioAutoridad.controls.fkRefTipoDocumentoRUCE.patchValue(data.entities.ref_tipo_documento_r_u_c_e[0].id);
+            this.formularioAutoridad.controls.fkRefTipoDocumentoRUCE.disable();
+            this.formularioAutoridad.controls.documento.disable();
+            this.formularioAutoridad.controls.cuil.disable();
+            this.formularioAutoridad.controls.nombre.disable();
+            this.formularioAutoridad.controls.apellido.disable();
+            this.formularioAutoridad.controls.telefono.disable();
+            this.formularioAutoridad.controls.email.disable();
+          }
+        }
+
+    } catch{}{
+      //console.log('Error al buscar el usuario');
+    }
+    }
 
   mostrarDialogMsj(titulo: string, msj: string, cancelVisible: boolean) {
     let datos: DialogData = { titulo, msj, cancelVisible }

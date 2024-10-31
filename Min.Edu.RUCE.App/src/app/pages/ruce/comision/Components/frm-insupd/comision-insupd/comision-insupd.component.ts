@@ -119,7 +119,7 @@ export class ComisionInsupdComponent implements OnInit, OnDestroy {
         this.mostrarDialogMsj("Mensaje", "Comision Creada", false)
         this.router.navigate(['/pages/cooperadoras/view/'+this.idCooperadora]);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.message, false)
+        this.mostrarDialogMsj("Atención", err.message, false)
       }
       );
     } else {
@@ -127,7 +127,7 @@ export class ComisionInsupdComponent implements OnInit, OnDestroy {
         this.mostrarDialogMsj("Mensaje", "Comision Modificada", false)
         this.router.navigate(['/pages/cooperadoras/view/'+this.idCooperadora]);
       }, err => {
-        this.mostrarDialogMsj("Atención", err.error.message, false)
+        this.mostrarDialogMsj("Atención", err.message, false)
       }
       );
     }
@@ -148,7 +148,7 @@ export class ComisionInsupdComponent implements OnInit, OnDestroy {
           this.mostrarDialogMsj("Mensaje", "Comision Eliminado", false)
           this.router.navigate(['/pages/cooperadoras/view/'+this.idCooperadora]);
         }, err => {
-          this.mostrarDialogMsj("Atención", err.error.message, false)
+          this.mostrarDialogMsj("Atención", err.message, false)
         }
         );
       }

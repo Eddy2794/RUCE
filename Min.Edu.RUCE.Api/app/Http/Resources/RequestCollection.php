@@ -61,7 +61,7 @@ class RequestCollection extends ResourceCollection
         return $data;
     }
 
-    private function busqueda($datos, $campos, $desc)
+    private function busqueda($datos, $campos, $desc, $foraneos = [])
     {
         $query = get_class($datos->first())::query();
 
@@ -87,7 +87,8 @@ class RequestCollection extends ResourceCollection
             $datos = $this->busqueda($datos,$this->campos,$this->desc);
 
         //agrega informacion de las claves foraneas
-        $datos = $this->adjustForeignKeys($datos);
+        // $datos = $this->adjustForeignKeys($datos);
+        // dd($datos->values()->toArray());
         return $datos->values()->toArray();
     }
 

@@ -8,6 +8,8 @@ export class BalanceModel extends BaseModel {
         public fkCooperadora?: CooperadoraModel,
         public estadoBalance?: boolean,
         public anio?: number,
+        public fecha?: Date,
+        public observaciones?: string,
         public estaActivo?: boolean,
         public idUsuarioAlta?: number,
         public idUsuarioModificacion?: number,
